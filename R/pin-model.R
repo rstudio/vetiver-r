@@ -16,7 +16,8 @@
 #' @inheritParams pins::pin_write
 #'
 #' @details This function creates a pin on the specified `board` containing
-#' two elements, the model object itself and the model's input data prototype.
+#' the model object itself and other elements needed for prediction, such as the
+#' model's input data prototype or which packages are needed at prediction time.
 #'
 #' @export
 pin_model <- function(board,

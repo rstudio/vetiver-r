@@ -15,8 +15,9 @@ pr_model(pr, board, model_id, type = NULL, path = "/predict", ...)
 
 \item{type}{A single character or \code{NULL} describing the type of prediction.
 The specific pinned model must support the \code{type} requested. Some examples
-for \code{type} include "class", "prob", and "numeric". When \code{NULL}, a default
-prediction type will be chosen based on the model characteristics.}
+of \code{type} for \code{\link[workflows:workflow]{workflows::workflow()}} include "class", "prob", and "numeric".
+When \code{NULL}, a default prediction type will be chosen based on the model
+characteristics.}
 
 \item{path}{The endpoint path}
 
@@ -26,9 +27,4 @@ prediction type will be chosen based on the model characteristics.}
 Models that have been pinned to a board with \code{\link{pin_model}} can be added to a
 Plumber router as a POST handler. The argument \code{type} specifies what kind of
 predictions the handler will return.
-}
-\details{
-The model's input data prototype is added to the handler to ensure
-predictions can be made correctly, and packages needed for prediction are
-loaded.
 }

@@ -41,5 +41,6 @@ input prototype for new data and other model metadata.
 }
 \details{
 This function creates a pin on the specified \code{board} containing
-two elements, the model object itself and the model's input data prototype.
+the model object itself and other elements needed for prediction, such as the
+model's input data prototype or which packages are needed at prediction time.
 }

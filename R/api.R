@@ -8,15 +8,12 @@
 #' @param board A board containing models pinned via [`pin_model`].
 #' @param type A single character or `NULL` describing the type of prediction.
 #' The specific pinned model must support the `type` requested. Some examples
-#' for `type` include "class", "prob", and "numeric". When `NULL`, a default
-#' prediction type will be chosen based on the model characteristics.
+#' of `type` for [workflows::workflow()] include "class", "prob", and "numeric".
+#' When `NULL`, a default prediction type will be chosen based on the model
+#' characteristics.
 #' @param ... Other arguments passed to [`plumber::pr_post()`].
 #' @inheritParams pin_model
 #' @inheritParams plumber::pr_post
-#'
-#' @details The model's input data prototype is added to the handler to ensure
-#' predictions can be made correctly, and packages needed for prediction are
-#' loaded.
 #'
 #' @export
 pr_model <- function(pr,
