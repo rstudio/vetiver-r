@@ -34,7 +34,43 @@ devtools::install_github("rstudio/modelops")
 
 ## Example
 
-What examples to put in this package with generics?
+You can **version** and **share** your model by
+[pinning](https://pins.rstudio.com/dev/) it, to a local folder, RStudio
+Connect, Amazon S3, and more.
+
+``` r
+library(modelops)
+library(pins)
+model_board <- board_temp()
+
+cars_lm <- lm(mpg ~ ., data = mtcars)
+
+model_board %>% pin_model(cars_lm, "cars")
+#> Creating new version '20210709T181603Z-adfa2'
+model_board
+#> Pin board <pins_board_folder>
+#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp7lugSK/pins-1a014aa6508a'
+#> Cache size: 0
+#> Pins [1]: 'cars'
+```
+
+You can **deploy** your pinned model via a [Plumber
+API](https://www.rplumber.io/), which can be [hosted in a variety of
+ways](https://www.rplumber.io/articles/hosting.html).
+
+``` r
+library(plumber)
+pr() %>%
+    pr_model(model_board, "cars") %>%
+    pr_run(port = 8088)
+```
+
+Make predictions with your deployed model at its endpoint and new data.
+
+``` r
+endpoint <- model_endpoint("http://127.0.0.1:8088/predict")
+predict(endpoint, mtcars[4:7, -1])
+```
 
 ## Contributing
 
