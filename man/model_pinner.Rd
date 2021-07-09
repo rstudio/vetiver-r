@@ -3,11 +3,14 @@
 \name{model_pinner}
 \alias{model_pinner}
 \alias{model_pinner.default}
+\alias{model_pinner.lm}
 \title{Wrapper function for pinning a model to a board of models}
 \usage{
 model_pinner(x, ...)
 
 \method{model_pinner}{default}(x, ...)
+
+\method{model_pinner}{lm}(x, ...)
 }
 \arguments{
 \item{x}{A trained model}

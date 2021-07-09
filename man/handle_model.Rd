@@ -3,11 +3,14 @@
 \name{handle_model}
 \alias{handle_model}
 \alias{handle_model.default}
+\alias{handle_model.lm}
 \title{Wrapper function for creating model handler function}
 \usage{
 handle_model(x, ...)
 
 \method{handle_model}{default}(x, ...)
+
+\method{handle_model}{lm}(x, ...)
 }
 \arguments{
 \item{x}{A trained model}

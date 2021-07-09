@@ -12,6 +12,8 @@
 #' @param desc A text description of the model; most important for shared
 #' boards so that others can understand what the model is. If omitted,
 #' the package will generate a brief description of the contents.
+#' @param ptype Should an input data prototype be stored with the model?
+#' Defaults to `TRUE`.
 #' @param versioned Should the model object be versioned? Defaults to `TRUE`.
 #' @inheritParams pins::pin_write
 #'
@@ -19,6 +21,17 @@
 #' the model object itself and other elements needed for prediction, such as the
 #' model's input data prototype or which packages are needed at prediction time.
 #'
+#'
+#' @examples
+#' library(pins)
+#' model_board <- board_temp()
+#'
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#'
+#' model_board %>% pin_model(cars_lm, "cars")
+#' model_board
+#'
+#' @importFrom glue glue
 #' @export
 pin_model <- function(board,
                       model,
@@ -26,8 +39,8 @@ pin_model <- function(board,
                       type = "rds",
                       desc = NULL,
                       metadata = NULL,
+                      ptype = TRUE,
                       versioned = TRUE) {
-
     model_pinner(
         x = model,
         board = board,
@@ -35,21 +48,55 @@ pin_model <- function(board,
         type = type,
         desc = desc,
         metadata = metadata,
+        ptype = ptype,
         versioned = versioned
     )
-
 }
 
 #' Wrapper function for pinning a model to a board of models
 #'
 #' @param x A trained model
-#' @param ... Other arguments passed from [`pin_model()`]
+#' @param ... Other arguments passed from [pin_model()]
 #'
 #' @export
-model_pinner <- function(x, ...)
+model_pinner <- function(x, ...) {
     UseMethod("model_pinner")
+}
 
 #' @rdname model_pinner
 #' @export
-model_pinner.default <- function(x, ...)
+model_pinner.default <- function(x, ...) {
     rlang::abort("There is no method available to pin `x`.")
+}
+
+#' @rdname model_pinner
+#' @export
+model_pinner.lm <- function(x, ...) {
+    ellipsis::check_dots_used()
+    args <- list(...)
+
+    if (args$ptype) {
+        pred_names <- attr(x$terms, "term.labels")
+        ptype <- vctrs::vec_slice(x$model[pred_names], 0)
+        ptype <- tibble::as_tibble(ptype)
+    } else {
+        ptype <- NULL
+    }
+
+    if (rlang::is_null(args$desc)) {
+        args$desc <- glue("An OLS linear regression model")
+    }
+
+    x <- butcher::butcher(x)
+
+    pins::pin_write(
+        board = args$board,
+        x = list(model = x, ptype = ptype),
+        name = args$model_id,
+        type = args$type,
+        desc = args$desc,
+        metadata = args$metadata,
+        versioned = args$versioned
+    )
+}
+

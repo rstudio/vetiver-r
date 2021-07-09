@@ -4,17 +4,30 @@
 #' Plumber router as a POST handler. The argument `type` specifies what kind of
 #' predictions the handler will return.
 #'
-#' @param pr A Plumber router, such as from [`plumber::pr()`].
-#' @param board A board containing models pinned via [`pin_model`].
+#' @param pr A Plumber router, such as from [plumber::pr()].
+#' @param board A board containing models pinned via [pin_model].
 #' @param type A single character or `NULL` describing the type of prediction.
 #' The specific pinned model must support the `type` requested. Some examples
 #' of `type` for [workflows::workflow()] include "class", "prob", and "numeric".
 #' When `NULL`, a default prediction type will be chosen based on the model
 #' characteristics.
-#' @param ... Other arguments passed to [`plumber::pr_post()`].
+#' @param ... Other arguments passed to [plumber::pr_post()].
 #' @inheritParams pin_model
 #' @inheritParams plumber::pr_post
 #'
+#' @examples
+#' library(pins)
+#' model_board <- board_temp()
+#'
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#'
+#' model_board %>% pin_model(cars_lm, "cars")
+#'
+#' library(plumber)
+#' pr() %>% pr_model(model_board, "cars")
+#' ## next, pipe to `pr_run()`
+#'
+#' @importFrom glue glue
 #' @export
 pr_model <- function(pr,
                      board,
@@ -43,7 +56,7 @@ pr_model <- function(pr,
 #' Wrapper function for creating model handler function
 #'
 #' @param x A trained model
-#' @param ... Other arguments passed from [`pr_model()`]
+#' @param ... Other arguments passed from [pr_model()]
 #'
 #' @export
 handle_model <- function(x, ...)
@@ -53,6 +66,24 @@ handle_model <- function(x, ...)
 #' @export
 handle_model.default <- function(x, ...)
     rlang::abort("There is no method available to build a model handler for `x`.")
+
+
+#' @rdname handle_model
+#' @export
+handle_model.lm <- function(x, ...) {
+    ellipsis::check_dots_used()
+    args <- list(...)
+    ## make rest of args to pass to pr_post
+
+    predict_handler <- function(req) {
+        hardhat::scream(req$body, args$other_pinned$ptype)
+        ret <- predict(x, newdata = req$body, type = args$type)
+        list(.pred = ret)
+    }
+
+    plumber::pr_post(pr = args$pr, path = args$path, handler = predict_handler)
+
+}
 
 
 

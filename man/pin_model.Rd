@@ -11,6 +11,7 @@ pin_model(
   type = "rds",
   desc = NULL,
   metadata = NULL,
+  ptype = TRUE,
   versioned = TRUE
 )
 }
@@ -33,6 +34,9 @@ the package will generate a brief description of the contents.}
 When retrieving the pin, this will be stored in the \code{user} key, to
 avoid potential clashes with the metadata that pins itself uses.}
 
+\item{ptype}{Should an input data prototype be stored with the model?
+Defaults to \code{TRUE}.}
+
 \item{versioned}{Should the model object be versioned? Defaults to \code{TRUE}.}
 }
 \description{
@@ -43,4 +47,14 @@ input prototype for new data and other model metadata.
 This function creates a pin on the specified \code{board} containing
 the model object itself and other elements needed for prediction, such as the
 model's input data prototype or which packages are needed at prediction time.
+}
+\examples{
+library(pins)
+model_board <- board_temp()
+
+cars_lm <- lm(mpg ~ ., data = mtcars)
+
+model_board \%>\% pin_model(cars_lm, "cars")
+model_board
+
 }

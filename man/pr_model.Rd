@@ -9,7 +9,7 @@ pr_model(pr, board, model_id, type = NULL, path = "/predict", ...)
 \arguments{
 \item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
 
-\item{board}{A board containing models pinned via \code{\link{pin_model}}.}
+\item{board}{A board containing models pinned via \link{pin_model}.}
 
 \item{model_id}{Model ID or name.}
 
@@ -27,4 +27,17 @@ characteristics.}
 Models that have been pinned to a board with \code{\link{pin_model}} can be added to a
 Plumber router as a POST handler. The argument \code{type} specifies what kind of
 predictions the handler will return.
+}
+\examples{
+library(pins)
+model_board <- board_temp()
+
+cars_lm <- lm(mpg ~ ., data = mtcars)
+
+model_board \%>\% pin_model(cars_lm, "cars")
+
+library(plumber)
+pr() \%>\% pr_model(model_board, "cars")
+## next, pipe to `pr_run()`
+
 }

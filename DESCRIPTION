@@ -16,14 +16,18 @@ Description: A trained model can be shared and versioned via 'pins',
     prediction.
 License: MIT + file LICENSE
 Imports: 
+    butcher,
+    ellipsis,
     glue,
+    hardhat,
     httr,
     jsonlite,
     pins (>= 0.99.9000),
     plumber,
     purrr,
     rlang,
-    tibble
+    tibble,
+    vctrs
 Suggests: 
     knitr,
     rmarkdown,
@@ -34,6 +38,6 @@ Remotes:
     rstudio/pins
 Config/testthat/edition: 3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
