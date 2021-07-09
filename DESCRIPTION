@@ -1,0 +1,39 @@
+Package: modelops
+Title: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Julia",
+             family = "Silge",
+             role = c("cre", "aut"),
+             email = "julia.silge@rstudio.com",
+             comment = c(ORCID = "0000-0002-3671-836X")),
+      person(given = "RStudio",
+             role = "cph"))
+Description: A trained model can be shared and versioned via 'pins',
+    deployed as an API via 'plumber', and monitored via a dashboard
+    created with 'rmarkdown'. Functions handle both recording and checking
+    the model's input data prototype, and loading the packages needed for
+    prediction.
+License: MIT + file LICENSE
+Imports: 
+    glue,
+    httr,
+    jsonlite,
+    pins (>= 0.99.9000),
+    plumber,
+    purrr,
+    rlang,
+    tibble
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Remotes: 
+    rstudio/pins
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
