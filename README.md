@@ -46,10 +46,10 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 
 model_board %>% pin_model(cars_lm, "cars")
-#> Creating new version '20210709T181603Z-adfa2'
+#> Creating new version '20210710T002009Z-adfa2'
 model_board
 #> Pin board <pins_board_folder>
-#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp7lugSK/pins-1a014aa6508a'
+#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp1H6ssX/pins-3fbd74edc606'
 #> Cache size: 0
 #> Pins [1]: 'cars'
 ```
@@ -70,6 +70,13 @@ Make predictions with your deployed model at its endpoint and new data.
 ``` r
 endpoint <- model_endpoint("http://127.0.0.1:8088/predict")
 predict(endpoint, mtcars[4:7, -1])
+#> # A tibble: 4 x 1
+#>   .pred
+#>   <dbl>
+#> 1  21.2
+#> 2  17.7
+#> 3  20.4
+#> 4  14.4
 ```
 
 ## Contributing
