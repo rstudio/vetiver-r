@@ -11,13 +11,16 @@ Authors@R:
              role = "cph"))
 Description: A trained model can be shared and versioned via 'pins',
     deployed as an API via 'plumber', and monitored via a dashboard
-    created with 'rmarkdown'. Functions handle both recording and checking
-    the model's input data prototype, and loading the packages needed for
-    prediction.
+    created with 'rmarkdown'. Functions handle recording and checking the
+    model's input data prototype, predicting from a remote API endpoint,
+    and monitoring model performance.
 License: MIT + file LICENSE
+URL: https://github.com/rstudio/modelops, https://rstudio.github.io/modelops/
+BugReports: https://github.com/rstudio/modelops/issues
 Imports: 
     butcher,
     ellipsis,
+    flexdashboard,
     glue,
     hardhat,
     httr,

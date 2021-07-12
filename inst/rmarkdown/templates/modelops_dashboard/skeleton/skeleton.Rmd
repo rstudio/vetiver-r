@@ -1,0 +1,47 @@
+---
+title: "Untitled"
+output: 
+  modelops::modelops_dashboard:
+    storyboard: true
+    display_pins: true
+    display_api: true
+---
+
+```{r setup, include=FALSE}
+library(modelops)
+```
+
+
+
+### Model metrics
+
+```{r}
+
+```
+
+
+***
+
+Plot model metrics over time to *monitor* your model.
+
+### Explore validation data
+
+```{r}
+
+```
+
+
+***
+
+Make visualizations or tables with the new validation data.
+
+### New predictions
+
+```{r}
+
+```
+
+
+***
+
+Combine the new validation data with the new predictions for more exploration, for example to display the most mispredicted observations.
