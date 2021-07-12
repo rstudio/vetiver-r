@@ -8,13 +8,16 @@
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/tidymodelsdeploy)](https://CRAN.R-project.org/package=tidymodelsdeploy)
+status](https://www.r-pkg.org/badges/version/modelops)](https://CRAN.R-project.org/package=modelops)
 <!-- badges: end -->
 
 The goal of modelops is to provide fluent tooling to version, share,
 deploy, and monitor a trained model. Functions handle both recording and
-checking the model’s input data prototype, and loading the packages
-needed for prediction.
+checking the model’s input data prototype, and predicting from a remote
+API endpoint. The modelops package is extensible, with generics that can
+be supported by many kinds of models. For an example of how to use and
+extend the modelops package, see
+[deploytidymodels](https://github.com/tidymodels/deploytidymodels).
 
 ## Installation
 
@@ -46,10 +49,10 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 
 model_board %>% pin_model(cars_lm, "cars")
-#> Creating new version '20210710T002009Z-adfa2'
+#> Creating new version '20210712T231612Z-adfa2'
 model_board
 #> Pin board <pins_board_folder>
-#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp1H6ssX/pins-3fbd74edc606'
+#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/RtmptsJbku/pins-bc1d4b6c31ca'
 #> Cache size: 0
 #> Pins [1]: 'cars'
 ```
