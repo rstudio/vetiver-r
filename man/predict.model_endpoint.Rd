@@ -23,7 +23,7 @@ Post new data to a deployed model API endpoint and return predictions
 
 \dontrun{
 endpoint <- model_endpoint("http://127.0.0.1:8088/predict")
-predict(endpoint, mtcars[4, -1])
+predict(endpoint, mtcars[4:7, -1])
 }
 
 
