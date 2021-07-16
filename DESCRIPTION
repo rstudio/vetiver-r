@@ -20,6 +20,7 @@ BugReports: https://github.com/rstudio/modelops/issues
 Imports: 
     butcher,
     ellipsis,
+    flexdashboard,
     glue,
     hardhat,
     httr,
