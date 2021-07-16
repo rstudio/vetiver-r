@@ -15,6 +15,17 @@ test_that("can pin a model", {
     )
 })
 
+test_that("can pin a model with no ptype", {
+    pin_model(b, cars_lm, "cars1", ptype = FALSE)
+    expect_equal(
+        pin_read(b, "cars1"),
+        list(
+            model = butcher::butcher(cars_lm),
+            ptype = NULL
+        )
+    )
+})
+
 test_that("default metadata for model", {
     pin_model(b, cars_lm, "cars2")
     meta <- pin_meta(b, "cars2")

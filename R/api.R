@@ -74,10 +74,14 @@ handle_model.lm <- function(x, ...) {
     ellipsis::check_dots_used()
     args <- list(...)
     ## make rest of args to pass to pr_post
+    ptype <- args$other_pinned$ptype
 
     predict_handler <- function(req) {
-        hardhat::scream(req$body, args$other_pinned$ptype)
-        ret <- predict(x, newdata = req$body, type = args$type)
+        newdata <- req$body
+        if (!rlang::is_null(ptype)) {
+            newdata <- hardhat::scream(newdata, ptype)
+        }
+        ret <- predict(x, newdata = newdata, type = args$type)
         list(.pred = ret)
     }
 
