@@ -11,6 +11,9 @@ model_endpoint(url, ...)
 
 \item{...}{Other arguments, not currently used.}
 }
+\value{
+A new \code{model_endpoint} object
+}
 \description{
 Create a model API endpoint object for prediction
 }

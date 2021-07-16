@@ -35,6 +35,7 @@ predict.model_endpoint <- function(object, new_data, ...) {
 #'
 #' @param url A trained model
 #' @param ... Other arguments, not currently used.
+#' @return A new `model_endpoint` object
 #'
 #' @examples
 #'
@@ -44,10 +45,15 @@ predict.model_endpoint <- function(object, new_data, ...) {
 #'
 #' @export
 model_endpoint <- function(url, ...) {
-    ret <- list(url = url)
-    class(ret) <- "model_endpoint"
-    ret
+    url <- as.character(url)
+    new_model_endpoint(url, ...)
 }
+
+new_model_endpoint <- function(url = character(), ...) {
+    stopifnot(is.character(url))
+    structure(list(url = url), class = "model_endpoint")
+}
+
 
 #' @export
 print.model_endpoint <- function(x, ...) {
