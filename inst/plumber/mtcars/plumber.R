@@ -1,12 +1,11 @@
 library(modelops)
 library(pins)
 library(plumber)
-model_board <- board_temp()
 
-cars_lm <- lm(mpg ~ ., data = mtcars)
+model_board <- board_rsconnect(server = "https://colorado.rstudio.com/rsc/")
 
-model_board %>% pin_model(cars_lm, "mtcars_linear_reg")
-
-pr() %>%
-    pr_model(model_board, "mtcars_linear_reg") %>%
-    pr_run(port = 8088)
+#* @plumber
+function(pr) {
+    pr %>%
+        pr_model(model_board, "julia.silge/mtcars_linear_reg")
+}
