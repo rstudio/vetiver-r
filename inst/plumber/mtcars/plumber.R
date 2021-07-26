@@ -2,7 +2,7 @@ library(modelops)
 library(pins)
 library(plumber)
 
-model_board <- board_rsconnect()
+model_board <- board_rsconnect(server = "https://colorado.rstudio.com/rsc/")
 
 #* @plumber
 function(pr) {
