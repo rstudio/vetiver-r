@@ -20,8 +20,12 @@ map_request_body <- function(ptype) {
     list(content = list(
         `application/json` = list(
             schema = list(
-                type = "object",
-                properties = ptype_prop
+                type = "array",
+                minItems = 1,
+                items = list(
+                    type = "object",
+                    properties = ptype_prop
+                )
             )
         )
     ))
@@ -41,5 +45,3 @@ map_ptype <- function(ptype) {
     )
     purrr::map(ret, ~ list(type = .))
 }
-
-
