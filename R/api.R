@@ -14,6 +14,7 @@
 #' @param ... Other arguments passed to [plumber::pr_post()].
 #' @inheritParams pin_model
 #' @inheritParams plumber::pr_post
+#' @inheritParams plumber::pr_set_debug
 #'
 #' @examples
 #' library(pins)
@@ -34,6 +35,7 @@ pr_model <- function(pr,
                      model_id,
                      type = NULL,
                      path = "/predict",
+                     debug = interactive(),
                      ...) {
 
     board_pins <- pins::pin_list(board)
@@ -50,6 +52,7 @@ pr_model <- function(pr,
         pr = pr,
         type = type,
         path = path,
+        debug = debug,
         ...
     )
 }
@@ -86,6 +89,7 @@ handle_model.lm <- function(x, ...) {
     ptype <- args$other_pinned$ptype
     meta <- args$meta
     path <- args$path
+    debug <- args$debug
 
     api_spec <- function(spec) {
         spec$info$title <- glue::glue("{args$other_pinned$model} model API")
@@ -110,6 +114,7 @@ handle_model.lm <- function(x, ...) {
     }
 
     pr <- args$pr
+    pr <- plumber::pr_set_debug(pr, debug = debug)
     ## pass `dots` here after purrr bug fixed?
     pr <- plumber::pr_post(pr, path = path, handler = predict_handler)
     pr <- plumber::pr_set_api_spec(pr, api = api_spec)

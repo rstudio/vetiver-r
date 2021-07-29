@@ -4,7 +4,15 @@
 \alias{pr_model}
 \title{Add a POST endpoint to a Plumber router using a pinned model workflow object}
 \usage{
-pr_model(pr, board, model_id, type = NULL, path = "/predict", ...)
+pr_model(
+  pr,
+  board,
+  model_id,
+  type = NULL,
+  path = "/predict",
+  debug = interactive(),
+  ...
+)
 }
 \arguments{
 \item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
@@ -20,6 +28,8 @@ When \code{NULL}, a default prediction type will be chosen based on the model
 characteristics.}
 
 \item{path}{The endpoint path}
+
+\item{debug}{\code{TRUE} provides more insight into your API errors.}
 
 \item{...}{Other arguments passed to \code{\link[plumber:pr_handle]{plumber::pr_post()}}.}
 }

@@ -22,9 +22,9 @@ predict.model_endpoint <- function(object, new_data, ...) {
     data_json <- jsonlite::toJSON(new_data)
     ret <- httr::POST(object$url, ..., body = data_json)
 
-    # TODO: make error messages better -- getting NULL for message?
-    msg <- glue("predict: {httr::content(ret)[['message']]}")
-    httr::stop_for_status(ret, task = msg)
+    msg <- httr::content(ret)[['message']]
+    glue_msg <- ifelse(rlang::is_null(msg), "predict", glue("predict: {msg}"))
+    httr::stop_for_status(ret, task = glue_msg)
 
     ret <- httr::content(ret, simplify = TRUE)
     tibble::as_tibble(ret)
