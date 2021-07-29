@@ -77,32 +77,10 @@ handle_model.default <- function(x, ...)
 handle_model.lm <- function(x, ...) {
     ellipsis::check_dots_used()
     args <- list(...)
-    ## make rest of args to pass to pr_post but bug in purrr::list_modify
-    ## https://github.com/tidyverse/purrr/issues/826
-    local_args <- list(other_pinned = rlang::zap(),
-                       meta = rlang::zap(),
-                       pr = rlang::zap(),
-                       type = rlang::zap(),
-                       path = rlang::zap())
-    dots <- purrr::list_modify(args, local_args)
-
     ptype <- args$other_pinned$ptype
     meta <- args$meta
     path <- args$path
     debug <- args$debug
-
-    api_spec <- function(spec) {
-        spec$info$title <- glue::glue("{args$other_pinned$model} model API")
-        spec$info$description <- meta$description
-        request_body <- map_request_body(ptype)
-        orig_post <- spec[["paths"]][[path]][["post"]]
-        spec$paths[[path]]$post <- list(
-            summary = glue::glue("Return predictions from model using {dim(ptype)[[2]]} features"),
-            requestBody = request_body,
-            responses = orig_post$responses
-        )
-        spec
-    }
 
     predict_handler <- function(req) {
         newdata <- req$body
@@ -113,11 +91,16 @@ handle_model.lm <- function(x, ...) {
         list(.pred = ret)
     }
 
+    modify_spec <- function(spec) {
+        api_spec(spec, args)
+    }
+
     pr <- args$pr
     pr <- plumber::pr_set_debug(pr, debug = debug)
-    ## pass `dots` here after purrr bug fixed?
+    ## pass more ... from args here after purrr::list_modify bug fixed?
+    ## https://github.com/tidyverse/purrr/issues/826
     pr <- plumber::pr_post(pr, path = path, handler = predict_handler)
-    pr <- plumber::pr_set_api_spec(pr, api = api_spec)
+    pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
     pr
 
 }

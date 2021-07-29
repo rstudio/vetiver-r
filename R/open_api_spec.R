@@ -45,3 +45,27 @@ map_ptype <- function(ptype) {
     )
     purrr::map(ret, ~ list(type = .))
 }
+
+#' Update the OpenAPI specification from model metadata
+#'
+#' @param spec An OpenAPI Specification formatted list object
+#' @param args A list of model metadata including `other_pinned`, `meta`,
+#' `ptype`, and `path`
+#'
+#' @return The new OpenAPI Specification object updated
+#' @export
+#'
+api_spec <- function(spec, args) {
+    ptype <- args$other_pinned$ptype
+    spec$info$title <- glue::glue("{args$other_pinned$model} model API")
+    spec$info$description <- args$meta$description
+    request_body <- map_request_body(ptype)
+    orig_post <- spec[["paths"]][[args$path]][["post"]]
+    spec$paths[[args$path]]$post <- list(
+        summary = glue::glue("Return predictions from model using {dim(ptype)[[2]]} features"),
+        requestBody = request_body,
+        responses = orig_post$responses
+    )
+    spec
+}
+
