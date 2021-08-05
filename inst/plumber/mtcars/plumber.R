@@ -2,10 +2,10 @@ library(modelops)
 library(pins)
 library(plumber)
 
-model_board <- board_rsconnect(server = "https://colorado.rstudio.com/rsc/")
+## modelops object with `board_rsconnect()`
+m <- readr::read_rds("modelops_cars_linear.rds")
 
 #* @plumber
 function(pr) {
-    pr %>%
-        pr_model(model_board, "julia.silge/mtcars_linear_reg")
+    pr %>% modelops_pin_router(m)
 }

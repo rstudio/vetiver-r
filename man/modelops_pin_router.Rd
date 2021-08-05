@@ -4,9 +4,17 @@
 \alias{modelops_pin_router}
 \title{Create a Plumber API to predict with a deployable \code{modelops()} object}
 \usage{
-modelops_pin_router(modelops, path = "/predict", debug = interactive(), ...)
+modelops_pin_router(
+  pr,
+  modelops,
+  path = "/predict",
+  debug = interactive(),
+  ...
+)
 }
 \arguments{
+\item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
+
 \item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
 
 \item{path}{The endpoint path}
@@ -31,7 +39,8 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 m <- modelops(cars_lm, "cars_linear", model_board)
 
-modelops_pin_router(m)
-## next, pipe to `plumber::pr_run()`
+library(plumber)
+pr() \%>\% modelops_pin_router(m)
+## next, pipe to `pr_run()`
 
 }

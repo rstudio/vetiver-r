@@ -4,6 +4,7 @@
 #' board of models **and** set up a Plumber router with a POST endpoint for
 #' predictions from the trained model.
 #'
+#' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param modelops A deployable model object created with [modelops()]
 #' @param ... Other arguments passed to `predict()`, such as prediction `type`
 #' @inheritParams plumber::pr_post
@@ -19,16 +20,16 @@
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' m <- modelops(cars_lm, "cars_linear", model_board)
 #'
-#' modelops_pin_router(m)
-#' ## next, pipe to `plumber::pr_run()`
+#' library(plumber)
+#' pr() %>% modelops_pin_router(m)
+#' ## next, pipe to `pr_run()`
 #'
-#' @importFrom rlang is_null
-#' @importFrom rlang is_function
 #' @export
-modelops_pin_router <- function(modelops,
-                            path = "/predict",
-                            debug = interactive(),
-                            ...) {
+modelops_pin_router <- function(pr,
+                                modelops,
+                                path = "/predict",
+                                debug = interactive(),
+                                ...) {
 
     modelops_pin_write(modelops)  ## only do this once per deploy
 
@@ -39,7 +40,6 @@ modelops_pin_router <- function(modelops,
         api_spec(spec, modelops, path)
     }
 
-    pr <- plumber::pr()
     pr <- plumber::pr_set_debug(pr, debug = debug)
     pr <- plumber::pr_post(pr, path = path,
                            handler = handler_predict(x, modelops, ...))

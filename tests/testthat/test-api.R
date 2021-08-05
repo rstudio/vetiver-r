@@ -7,14 +7,14 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 m <- modelops(cars_lm, "cars1", b)
 
 test_that("default endpoint", {
-    p <- modelops_pin_router(m)
+    p <- pr() %>% modelops_pin_router(m)
     ep <- p$endpoints[[1]][[1]]
     expect_equal(ep$verbs, c("POST"))
     expect_equal(ep$path, "/predict")
 })
 
 test_that("OpenAPI spec", {
-    p <- modelops_pin_router(m)
+    p <- pr() %>% modelops_pin_router(m)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
