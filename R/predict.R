@@ -5,6 +5,7 @@
 #' @param ... Extra arguments passed to [httr::POST()]
 #'
 #' @return A tibble of model predictions with as many rows as in `new_data`.
+#' @importFrom glue glue
 #' @importFrom stats predict
 #' @method predict modelops_endpoint
 #' @export predict.modelops_endpoint

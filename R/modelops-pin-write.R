@@ -3,16 +3,17 @@
 #' Use `modelops_pin_write()` to pin a [modelops()] trained model object (plus
 #' its input data prototype and other metadata) to a board of models.
 #'
-#' @inheritParams modelops_pr_deploy
+#' @inheritParams modelops_pin_router
 #'
-#' @details This function is used by [modelops_deploy()] to create a pin on the
-#' object's `board` containing the model object itself and other elements
+#' @details This function is used by [modelops_pin_router()] to create a pin
+#' on the object's `board` containing the model object itself and other elements
 #' needed for prediction, such as the model's input data prototype or which
 #' packages are needed at prediction time. This function may also be used alone,
-#' if you would like to *store* and *version* a model but not *deploy* to an
-#' API endpoint.
+#' if you would like to *store* and *version* a model but not set up an API
+#' endpoint.
 #'
-#' Use [pins::pin_read()] to retrieve a stored, versioned model from the board.
+#' Use [pins::pin_read()] to retrieve the stored, versioned model by name from
+#' the board.
 #'
 #' @examples
 #' library(pins)

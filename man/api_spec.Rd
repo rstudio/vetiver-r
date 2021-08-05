@@ -9,7 +9,7 @@ api_spec(spec, modelops, path)
 \arguments{
 \item{spec}{An OpenAPI Specification formatted list object}
 
-\item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}.}
+\item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
 
 \item{path}{The endpoint path}
 }

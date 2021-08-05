@@ -61,9 +61,11 @@ A \code{modelops()} object collects the information needed to store, version,
 and deploy a trained model.
 }
 \details{
-Once your \code{modelops()} object has been created, you can deploy it
-with \code{\link[=modelops_pr_deploy]{modelops_pr_deploy()}}, or only pin it to a board (without deploying an
-endpoint) with \code{\link[=modelops_pin_write]{modelops_pin_write()}}.
+Once your \code{modelops()} object has been created, you can:
+\itemize{
+\item store/version it and create an API endpoint for it with \code{\link[=modelops_pin_router]{modelops_pin_router()}}
+\item only pin it to a board (without any API) with \code{\link[=modelops_pin_write]{modelops_pin_write()}}
+}
 }
 \examples{
 

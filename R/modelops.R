@@ -19,9 +19,9 @@
 #' @param ... Other arguments, not currently used.
 #' @inheritParams pins::pin_write
 #'
-#' @details  Once your `modelops()` object has been created, you can deploy it
-#' with [modelops_pr_deploy()], or only pin it to a board (without deploying an
-#' endpoint) with [modelops_pin_write()].
+#' @details  Once your `modelops()` object has been created, you can:
+#' - store/version it and create an API endpoint for it with [modelops_pin_router()]
+#' - only pin it to a board (without any API) with [modelops_pin_write()]
 #'
 #' @return A new `modelops` object
 #'
@@ -111,9 +111,9 @@ is_modelops <- function(x) {
 #' @export
 format.modelops <- function(x, ...) {
     first_class <- class(x$model)[[1]]
-    cli_format_method({
-        cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli_text("{x$desc} using {dim(x$ptype)[[2]]} feature{?s}")
+    cli::cli_format_method({
+        cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
+        cli::cli_text("{x$desc} using {dim(x$ptype)[[2]]} feature{?s}")
     })
 }
 
