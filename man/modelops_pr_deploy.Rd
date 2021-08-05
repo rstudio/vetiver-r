@@ -2,7 +2,7 @@
 % Please edit documentation in R/modelops-pr-deploy.R
 \name{modelops_pr_deploy}
 \alias{modelops_pr_deploy}
-\title{Add a POST endpoint to a Plumber router using a pinned model workflow object}
+\title{Add a POST endpoint to a Plumber router with a deployable \code{modelops()} object}
 \usage{
 modelops_pr_deploy(
   pr,
@@ -28,9 +28,9 @@ characteristics.}
 \item{debug}{\code{TRUE} provides more insight into your API errors.}
 }
 \description{
-Models that have been pinned to a board with \code{\link[=modelops_pin_write]{modelops_pin_write()}} can be added to a
-Plumber router as a POST handler. The argument \code{type} specifies what kind of
-predictions the handler will return.
+Deployable \code{\link[=modelops]{modelops()}} objects can be added to a Plumber router as a POST
+handler. The argument \code{type} specifies what kind of predictions the handler
+will return.
 }
 \examples{
 library(pins)

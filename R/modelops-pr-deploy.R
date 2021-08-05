@@ -1,8 +1,8 @@
-#' Add a POST endpoint to a Plumber router using a pinned model workflow object
+#' Add a POST endpoint to a Plumber router with a deployable `modelops()` object
 #'
-#' Models that have been pinned to a board with [modelops_pin_write()] can be added to a
-#' Plumber router as a POST handler. The argument `type` specifies what kind of
-#' predictions the handler will return.
+#' Deployable [modelops()] objects can be added to a Plumber router as a POST
+#' handler. The argument `type` specifies what kind of predictions the handler
+#' will return.
 #'
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param modelops A deployable model object created with [modelops()].
