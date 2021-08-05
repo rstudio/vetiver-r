@@ -55,9 +55,18 @@ new_modelops_endpoint <- function(url = character(), ...) {
     structure(list(url = url), class = "modelops_endpoint")
 }
 
+#' @export
+format.modelops_endpoint <- function(x, ...) {
+    cli::cli_format_method({
+        cli::cli_h3("A model API endpoint for prediction:")
+        cli::cli_text("{x$url}")
+    })
+}
 
 #' @export
 print.modelops_endpoint <- function(x, ...) {
-    cat("A model API endpoint for prediction:\n")
-    cat(x$url)
+    cat(format(x, ...), sep = "\n")
+    invisible(x)
 }
+
+
