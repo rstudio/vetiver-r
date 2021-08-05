@@ -112,8 +112,8 @@ is_modelops <- function(x) {
 format.modelops <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli_format_method({
-        cli_h1("{x$model_name} {cli::symbol$line} `{first_class}` model for deployment")
-        cli_text("{x$desc} using {dim(x$ptype)[[2]]} features")
+        cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
+        cli_text("{x$desc} using {dim(x$ptype)[[2]]} feature{?s}")
     })
 }
 
