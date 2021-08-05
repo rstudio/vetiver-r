@@ -5,7 +5,7 @@ b <- board_temp()
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 
 test_that("can pin a model", {
-    pin_model(b, cars_lm, "cars1")
+    modelops_pin_write(b, cars_lm, "cars1")
     expect_equal(
         pin_read(b, "cars1"),
         list(
@@ -16,7 +16,7 @@ test_that("can pin a model", {
 })
 
 test_that("can pin a model with no ptype", {
-    pin_model(b, cars_lm, "cars1", ptype = FALSE)
+    modelops_pin_write(b, cars_lm, "cars1", ptype = FALSE)
     expect_equal(
         pin_read(b, "cars1"),
         list(
@@ -34,10 +34,10 @@ test_that("default metadata for model", {
 })
 
 test_that("user can supply metadata for model", {
-    pin_model(b, cars_lm, "cars3",
-              desc = "lm model for mtacrs",
-              metadata = list(metrics = 1:10))
+    modelops_pin_write(b, cars_lm, "cars3",
+                       desc = "lm model for mtcars",
+                       metadata = list(metrics = 1:10))
     meta <- pin_meta(b, "cars3")
     expect_equal(meta$user, list(metrics = 1:10))
-    expect_equal(meta$description, "lm model for mtacrs")
+    expect_equal(meta$description, "lm model for mtcars")
 })

@@ -65,7 +65,7 @@ pr() %>%
 Make predictions with your deployed model at its endpoint and new data.
 
 ``` r
-endpoint <- model_endpoint("http://127.0.0.1:8088/predict")
+endpoint <- modelops_endpoint("http://127.0.0.1:8088/predict")
 predict(endpoint, mtcars[4:7, -1])
 #> # A tibble: 4 x 1
 #>   .pred
