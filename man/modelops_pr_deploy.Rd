@@ -39,6 +39,7 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 m <- modelops(cars_lm, "cars_linear", model_board)
 
+library(plumber)
 pr() \%>\% modelops_pr_deploy(m)
 ## next, pipe to `pr_run()`
 
