@@ -4,8 +4,9 @@ library(plumber)
 
 model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-model_board %>% pin_model(cars_lm, "mtcars_linear_reg")
+m <- modelops(cars_lm, "cars_linear", model_board)
+modelops_pin_write(m)
 
 pr() %>%
-    pr_model(model_board, "mtcars_linear_reg", debug = TRUE) %>%
+    modelops_pr_predict(m, debug = TRUE) %>%
     pr_run(port = 8088)

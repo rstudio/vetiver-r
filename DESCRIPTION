@@ -19,7 +19,7 @@ URL: https://github.com/rstudio/modelops, https://rstudio.github.io/modelops/
 BugReports: https://github.com/rstudio/modelops/issues
 Imports: 
     butcher,
-    ellipsis,
+    cli,
     glue,
     hardhat,
     httr,
@@ -42,4 +42,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001

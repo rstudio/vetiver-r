@@ -37,41 +37,49 @@ devtools::install_github("rstudio/modelops")
 
 ## Example
 
-You can **version** and **share** your model by
-[pinning](https://pins.rstudio.com/dev/) it, to a local folder, RStudio
-Connect, Amazon S3, and more.
+A `modelops()` object collects the information needed to store, version,
+and deploy a trained model.
+
+You can **version** and **share** your model by choosing a
+[pins](https://pins.rstudio.com/dev/) “board” for it, including a local
+folder, RStudio Connect, Amazon S3, and more.
 
 ``` r
 library(modelops)
 library(pins)
+
 model_board <- board_temp()
-
 cars_lm <- lm(mpg ~ ., data = mtcars)
-
-model_board %>% pin_model(cars_lm, "cars")
-#> Creating new version '20210712T231612Z-adfa2'
-model_board
-#> Pin board <pins_board_folder>
-#> Path: '/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/RtmptsJbku/pins-bc1d4b6c31ca'
-#> Cache size: 0
-#> Pins [1]: 'cars'
+m <- modelops(cars_lm, "cars_linear", model_board)
+m
+#> 
+#> ── cars_linear ─ <butchered_lm> model for deployment 
+#> An OLS linear regression model using 10 features
 ```
 
-You can **deploy** your pinned model via a [Plumber
+When you use `modelops_pin_write()`, you store and version your
+deployable, trained model object.
+
+``` r
+modelops_pin_write(m)
+#> Creating new version '20210807T031925Z-adfa2'
+```
+
+You can **deploy** your pinned `modelops()` object via a [Plumber
 API](https://www.rplumber.io/), which can be [hosted in a variety of
 ways](https://www.rplumber.io/articles/hosting.html).
 
 ``` r
 library(plumber)
 pr() %>%
-    pr_model(model_board, "cars") %>%
-    pr_run(port = 8088)
+  modelops_pr_predict(m) %>%
+  pr_run(port = 8088)
 ```
 
 Make predictions with your deployed model at its endpoint and new data.
 
 ``` r
-endpoint <- model_endpoint("http://127.0.0.1:8088/predict")
+endpoint <- modelops_endpoint("http://127.0.0.1:8088/predict")
 predict(endpoint, mtcars[4:7, -1])
 #> # A tibble: 4 x 1
 #>   .pred
