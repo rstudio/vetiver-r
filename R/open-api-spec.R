@@ -49,7 +49,7 @@ map_ptype <- function(ptype) {
 #' Update the OpenAPI specification from model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
-#' @inheritParams modelops_pin_router
+#' @inheritParams modelops_pr_predict
 #'
 #' @return The new OpenAPI Specification object updated
 #' @export

@@ -57,17 +57,23 @@ m
 #> An OLS linear regression model using 10 features
 ```
 
-You can **deploy** your `modelops()` object via a [Plumber
+When you use `modelops_pin_write()`, you store and version your
+deployable, trained model object.
+
+``` r
+modelops_pin_write(m)
+#> Creating new version '20210807T031925Z-adfa2'
+```
+
+You can **deploy** your pinned `modelops()` object via a [Plumber
 API](https://www.rplumber.io/), which can be [hosted in a variety of
 ways](https://www.rplumber.io/articles/hosting.html).
 
-The `modelops_pin_router()` function stores/versions the model on its
-board and creates a Plumber router with a POST endpoint for prediction.
-
 ``` r
 library(plumber)
-modelops_pin_router(m) %>%
-    pr_run(port = 8088)
+pr() %>%
+  modelops_pr_predict(m) %>%
+  pr_run(port = 8088)
 ```
 
 Make predictions with your deployed model at its endpoint and new data.

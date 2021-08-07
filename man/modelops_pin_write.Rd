@@ -10,19 +10,15 @@ modelops_pin_write(modelops)
 \item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
 }
 \description{
-Use \code{modelops_pin_write()} to pin a \code{\link[=modelops]{modelops()}} trained model object (plus
-its input data prototype and other metadata) to a board of models.
+Use \code{modelops_pin_write()} to pin a trained model to a board of models,
+along with an input prototype for new data and other model metadata.
 }
 \details{
-This function is used by \code{\link[=modelops_pin_router]{modelops_pin_router()}} to create a pin
-on the object's \code{board} containing the model object itself and other elements
-needed for prediction, such as the model's input data prototype or which
-packages are needed at prediction time. This function may also be used alone,
-if you would like to \emph{store} and \emph{version} a model but not set up an API
-endpoint.
-
-Use \code{\link[pins:pin_read]{pins::pin_read()}} to retrieve the stored, versioned model by name from
-the board.
+This function creates a pin on the specified \code{board} containing
+the model object itself and other elements needed for prediction, such as
+the model's input data prototype or which packages are needed at prediction
+time. Use \code{\link[pins:pin_read]{pins::pin_read()}} to retrieve the stored, versioned model by
+name from the board.
 }
 \examples{
 library(pins)

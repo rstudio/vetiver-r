@@ -53,14 +53,20 @@ m <- modelops(cars_lm, "cars_linear", model_board)
 m
 ```
 
-You can **deploy** your `modelops()` object via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
+When you use `modelops_pin_write()`, you store and version your deployable, trained model object.
 
-The `modelops_pin_router()` function stores/versions the model on its board and creates a Plumber router with a POST endpoint for prediction.
+```{r}
+modelops_pin_write(m)
+```
+
+You can **deploy** your pinned `modelops()` object via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
+
 
 ```{r, eval=FALSE}
 library(plumber)
-modelops_pin_router(m) %>%
-    pr_run(port = 8088)
+pr() %>%
+  modelops_pr_predict(m) %>%
+  pr_run(port = 8088)
 ```
 
 Make predictions with your deployed model at its endpoint and new data.

@@ -20,8 +20,9 @@
 #' @inheritParams pins::pin_write
 #'
 #' @details  Once your `modelops()` object has been created, you can:
-#' - store/version it and create an API endpoint for it with [modelops_pin_router()]
-#' - only pin it to a board (without any API) with [modelops_pin_write()]
+#' - store and version it as a pin with [modelops_pin_write()]
+#' - create an API endpoint for it with [modelops_pr_predict()]
+#'
 #'
 #' @return A new `modelops` object
 #'
@@ -57,7 +58,7 @@ modelops.lm <- function(model,
                         ptype = TRUE,
                         versioned = TRUE) {
 
-    if (ptype) {
+    if (isTRUE(ptype)) {
         pred_names <- attr(model$terms, "term.labels")
         ptype <- vctrs::vec_slice(model$model[pred_names], 0)
         ptype <- tibble::as_tibble(ptype)

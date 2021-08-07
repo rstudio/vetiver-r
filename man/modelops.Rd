@@ -63,8 +63,8 @@ and deploy a trained model.
 \details{
 Once your \code{modelops()} object has been created, you can:
 \itemize{
-\item store/version it and create an API endpoint for it with \code{\link[=modelops_pin_router]{modelops_pin_router()}}
-\item only pin it to a board (without any API) with \code{\link[=modelops_pin_write]{modelops_pin_write()}}
+\item store and version it as a pin with \code{\link[=modelops_pin_write]{modelops_pin_write()}}
+\item create an API endpoint for it with \code{\link[=modelops_pr_predict]{modelops_pr_predict()}}
 }
 }
 \examples{
