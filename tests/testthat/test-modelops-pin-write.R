@@ -17,10 +17,10 @@ test_that("can pin a model", {
 })
 
 test_that("can pin a model with no ptype", {
-    m <- modelops(cars_lm, "cars1", b, ptype = FALSE)
+    m <- modelops(cars_lm, "cars_null", b, ptype = FALSE)
     modelops_pin_write(m)
     expect_equal(
-        pin_read(b, "cars1"),
+        pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
             ptype = NULL

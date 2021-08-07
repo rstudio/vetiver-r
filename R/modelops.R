@@ -58,7 +58,7 @@ modelops.lm <- function(model,
                         ptype = TRUE,
                         versioned = TRUE) {
 
-    if (isTRUE(ptype)) {
+    if (ptype) {
         pred_names <- attr(model$terms, "term.labels")
         ptype <- vctrs::vec_slice(model$model[pred_names], 0)
         ptype <- tibble::as_tibble(ptype)

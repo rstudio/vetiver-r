@@ -74,26 +74,27 @@ modelops_pr_predict <- function(pr,
 #'
 #' @inheritParams modelops_pr_predict
 #'
+#' @rdname handler_predict
 #' @export
 handler_startup <- function(modelops, ...)
     UseMethod("handler_startup", modelops$model)
 
-#' @rdname handler_startup
+#' @rdname handler_predict
 #' @export
 handler_startup.default <- function(modelops, ...) NULL
 
-#' @rdname handler_startup
+#' @rdname handler_predict
 #' @export
 handler_predict <- function(modelops, ...)
     UseMethod("handler_predict", modelops$model)
 
-#' @rdname handler_startup
+#' @rdname handler_predict
 #' @export
 handler_predict.default <- function(modelops, ...)
     rlang::abort("There is no method available to build a prediction handler for `x`.")
 
 
-#' @rdname handler_startup
+#' @rdname handler_predict
 #' @export
 handler_predict.lm <- function(modelops, ...) {
 
