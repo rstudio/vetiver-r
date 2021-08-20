@@ -4,6 +4,7 @@
 \alias{modelops}
 \alias{modelops.default}
 \alias{modelops.lm}
+\alias{new_modelops}
 \title{Create a modelops object for deployment of a trained model}
 \usage{
 modelops(
@@ -24,6 +25,16 @@ modelops(
   board,
   desc = NULL,
   metadata = NULL,
+  ptype = TRUE,
+  versioned = TRUE
+)
+
+new_modelops(
+  model,
+  model_name = character(),
+  board = pins::board_temp(),
+  desc = character(),
+  metadata = list(),
   ptype = TRUE,
   versioned = TRUE
 )

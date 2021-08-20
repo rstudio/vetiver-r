@@ -83,7 +83,8 @@ modelops.lm <- function(model,
     )
 }
 
-
+#' @rdname modelops
+#' @export
 new_modelops <- function(model,
                          model_name = character(),
                          board = pins::board_temp(),
