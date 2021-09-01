@@ -43,8 +43,6 @@ modelops_pr_predict <- function(pr,
         rlang::abort(glue("Model {model_name} not found"))
     }
 
-    pinned <- pins::pin_read(modelops$board, modelops$model_name)
-
     handler_startup(modelops)
 
     modify_spec <- function(spec) {

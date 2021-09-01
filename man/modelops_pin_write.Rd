@@ -2,23 +2,33 @@
 % Please edit documentation in R/modelops-pin-write.R
 \name{modelops_pin_write}
 \alias{modelops_pin_write}
-\title{Write a trained model to a board of models}
+\alias{modelops_pin_read}
+\title{Read and write a trained model to a board of models}
 \usage{
 modelops_pin_write(modelops)
+
+modelops_pin_read(board, name)
 }
 \arguments{
 \item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
+
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
+\code{\link[pins:board_url]{board_url()}} or other other \code{board_} function.}
+
+\item{name}{Pin name.}
 }
 \description{
 Use \code{modelops_pin_write()} to pin a trained model to a board of models,
-along with an input prototype for new data and other model metadata.
+along with an input prototype for new data and other model metadata. Use
+\code{modelops_pin_read()} to retried that pinned object.
 }
 \details{
-This function creates a pin on the specified \code{board} containing
-the model object itself and other elements needed for prediction, such as
-the model's input data prototype or which packages are needed at prediction
-time. Use \code{\link[pins:pin_read]{pins::pin_read()}} to retrieve the stored, versioned model by
-name from the board.
+These functions read and write a \code{\link[=modelops]{modelops()}} pin on the specified
+\code{board} containing the model object itself and other elements needed for
+prediction, such as the model's input data prototype or which packages are
+needed at prediction time. You may use \code{\link[pins:pin_read]{pins::pin_read()}} or
+\code{\link[pins:pin_meta]{pins::pin_meta()}} to handle the pin, but \code{modelops_pin_read()} returns a
+\code{\link[=modelops]{modelops()}} object ready for deployment.
 }
 \examples{
 library(pins)
@@ -28,5 +38,7 @@ cars_lm <- lm(mpg ~ ., data = mtcars)
 m <- modelops(cars_lm, "cars_linear", model_board)
 modelops_pin_write(m)
 model_board
+
+modelops_pin_read(model_board, "cars_linear")
 
 }
