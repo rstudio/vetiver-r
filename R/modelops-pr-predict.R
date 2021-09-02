@@ -97,10 +97,12 @@ handler_predict.default <- function(modelops, ...)
 handler_predict.lm <- function(modelops, ...) {
 
     ptype <- modelops$ptype
+    spec <- readr::as.col_spec(ptype)
 
     function(req) {
         newdata <- req$body
         if (!rlang::is_null(ptype)) {
+            newdata <- readr::type_convert(newdata, col_types = spec)
             newdata <- hardhat::scream(newdata, ptype)
         }
         ret <- predict(modelops$model, newdata = newdata, ...)
