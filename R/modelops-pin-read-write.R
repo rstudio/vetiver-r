@@ -25,6 +25,9 @@
 #'
 #' modelops_pin_read(model_board, "cars_linear")
 #'
+#' # can use `version` argument to read a specific version:
+#' pin_versions(model_board, "cars_linear")
+#'
 #' @export
 modelops_pin_write <- function(modelops) {
     pins::pin_write(
@@ -40,10 +43,10 @@ modelops_pin_write <- function(modelops) {
 
 #' @rdname modelops_pin_write
 #' @export
-modelops_pin_read <- function(board, name) {
+modelops_pin_read <- function(board, name, version = NULL) {
 
-    pinned <- pins::pin_read(board = board, name = name)
-    meta   <- pins::pin_meta(board = board, name = name)
+    pinned <- pins::pin_read(board = board, name = name, version = version)
+    meta   <- pins::pin_meta(board = board, name = name, version = version)
 
     new_modelops(
         model = pinned$model,
