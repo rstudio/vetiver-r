@@ -14,7 +14,9 @@
 #' boards so that others can understand what the model is. If omitted,
 #' a brief description of the contents will be generated.
 #' @param ptype Should an input data prototype be stored with the model?
-#' Defaults to `TRUE`.
+#' The options are `TRUE` (the default, which stores a zero-row slice of the
+#' training data), `FALSE` (no input data prototype for checking), or a
+#' dataframe.
 #' @param versioned Should the model object be versioned? Defaults to `TRUE`.
 #' @param ... Other arguments, not currently used.
 #' @inheritParams pins::pin_write
@@ -23,6 +25,9 @@
 #' - store and version it as a pin with [modelops_pin_write()]
 #' - create an API endpoint for it with [modelops_pr_predict()]
 #'
+#' If you provide your own data to `ptype`, consider checking that it has the
+#' same structure as your training data (perhaps with [hardhat::scream()])
+#' and/or simulating data to avoid leaking PII via your deployed model.
 #'
 #' @return A new `modelops` object
 #'
@@ -58,18 +63,11 @@ modelops.lm <- function(model,
                         ptype = TRUE,
                         versioned = TRUE) {
 
-    if (ptype) {
-        pred_names <- attr(model$terms, "term.labels")
-        ptype <- vctrs::vec_slice(model$model[pred_names], 0)
-        ptype <- tibble::as_tibble(ptype)
-    } else {
-        ptype <- NULL
-    }
-
     if (rlang::is_null(desc)) {
         desc <- "An OLS linear regression model"
     }
 
+    ptype <- modelops_create_ptype(model, ptype)
     model <- butcher::butcher(model)
 
     new_modelops(

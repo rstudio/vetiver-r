@@ -58,7 +58,9 @@ When retrieving the pin, this will be stored in the \code{user} key, to
 avoid potential clashes with the metadata that pins itself uses.}
 
 \item{ptype}{Should an input data prototype be stored with the model?
-Defaults to \code{TRUE}.}
+The options are \code{TRUE} (the default, which stores a zero-row slice of the
+training data), \code{FALSE} (no input data prototype for checking), or a
+dataframe.}
 
 \item{versioned}{Should the model object be versioned? Defaults to \code{TRUE}.}
 
@@ -77,6 +79,10 @@ Once your \code{modelops()} object has been created, you can:
 \item store and version it as a pin with \code{\link[=modelops_pin_write]{modelops_pin_write()}}
 \item create an API endpoint for it with \code{\link[=modelops_pr_predict]{modelops_pr_predict()}}
 }
+
+If you provide your own data to \code{ptype}, consider checking that it has the
+same structure as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}})
+and/or simulating data to avoid leaking PII via your deployed model.
 }
 \examples{
 

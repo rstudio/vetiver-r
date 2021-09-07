@@ -28,6 +28,18 @@ test_that("can pin a model with no ptype", {
     )
 })
 
+test_that("can pin a model with custom ptype", {
+    m <- modelops(cars_lm, "cars_custom", b, ptype = mtcars[3:10, 2:3])
+    modelops_pin_write(m)
+    expect_equal(
+        pin_read(b, "cars_custom"),
+        list(
+            model = butcher::butcher(cars_lm),
+            ptype = mtcars[3:10, 2:3]
+        )
+    )
+})
+
 test_that("default metadata for model", {
     m <- modelops(cars_lm, "cars2", b)
     modelops_pin_write(m)
