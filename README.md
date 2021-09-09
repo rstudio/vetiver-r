@@ -11,13 +11,15 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/modelops)](https://CRAN.R-project.org/package=modelops)
 <!-- badges: end -->
 
+**This pre-release is available for feedback and experimenting.**
+
 The goal of modelops is to provide fluent tooling to version, share,
 deploy, and monitor a trained model. Functions handle both recording and
 checking the model’s input data prototype, and predicting from a remote
 API endpoint. The modelops package is extensible, with generics that can
 be supported by many kinds of models. For an example of how to use and
 extend the modelops package, see
-[deploytidymodels](https://github.com/tidymodels/deploytidymodels).
+[deploytidymodels](https://github.com/juliasilge/deploytidymodels).
 
 ## Installation
 
@@ -32,7 +34,7 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("rstudio/modelops")
+devtools::install_github("juliasilge/modelops")
 ```
 
 ## Example
@@ -62,7 +64,7 @@ deployable, trained model object.
 
 ``` r
 modelops_pin_write(m)
-#> Creating new version '20210807T031925Z-adfa2'
+#> Creating new version '20210909T204244Z-f1109'
 ```
 
 You can **deploy** your pinned `modelops()` object via a [Plumber
@@ -101,7 +103,7 @@ By contributing to this project, you agree to abide by its terms.
     Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
 -   If you think you have encountered a bug, please [submit an
-    issue](https://github.com/rstudio/modelops/issues).
+    issue](https://github.com/juliasilge/modelops/issues).
 
 -   Either way, learn how to create and share a
     [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
