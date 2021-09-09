@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/modelops)](https://CRAN.R-project.org/package=modelops)
+[![R-CMD-check](https://github.com/juliasilge/modelops/workflows/R-CMD-check/badge.svg)](https://github.com/juliasilge/modelops/actions)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**

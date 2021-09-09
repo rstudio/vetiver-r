@@ -9,6 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/modelops)](https://CRAN.R-project.org/package=modelops)
+[![R-CMD-check](https://github.com/juliasilge/modelops/workflows/R-CMD-check/badge.svg)](https://github.com/juliasilge/modelops/actions)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
@@ -64,7 +65,7 @@ deployable, trained model object.
 
 ``` r
 modelops_pin_write(m)
-#> Creating new version '20210909T204244Z-f1109'
+#> Creating new version '20210909T205659Z-f1109'
 ```
 
 You can **deploy** your pinned `modelops()` object via a [Plumber
