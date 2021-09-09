@@ -11,6 +11,7 @@ modelops(
   model,
   model_name,
   board,
+  ...,
   desc = NULL,
   metadata = list(),
   ptype = TRUE,
@@ -23,6 +24,7 @@ modelops(
   model,
   model_name,
   board,
+  ...,
   desc = NULL,
   metadata = list(),
   ptype = TRUE,
@@ -33,6 +35,7 @@ new_modelops(
   model,
   model_name = character(),
   board = pins::board_temp(),
+  ...,
   desc = character(),
   metadata = list(),
   ptype = TRUE,
@@ -49,6 +52,8 @@ new_modelops(
 \code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \code{board_}
 function from the pins package.}
 
+\item{...}{Other arguments, not currently used.}
+
 \item{desc}{A text description of the model, most important for shared
 boards so that others can understand what the model is. If omitted,
 a brief description of the contents will be generated.}
@@ -63,8 +68,6 @@ training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe.}
 
 \item{versioned}{Should the model object be versioned? Defaults to \code{TRUE}.}
-
-\item{...}{Other arguments, not currently used.}
 }
 \value{
 A new \code{modelops} object

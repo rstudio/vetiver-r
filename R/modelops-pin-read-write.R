@@ -48,6 +48,8 @@ modelops_pin_read <- function(board, name, version = NULL) {
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
+    ## add subset of renv hash checking
+
     new_modelops(
         model = pinned$model,
         model_name = name,
