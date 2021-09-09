@@ -59,6 +59,8 @@ test_that("user can supply metadata for model", {
 })
 
 test_that("can read a pinned model", {
+    b <- board_temp()
+    cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
     m <- modelops(cars_lm, "cars1", b)
     modelops_pin_write(m)
     expect_equal(
