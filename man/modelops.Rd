@@ -15,7 +15,7 @@ modelops(
   desc = NULL,
   metadata = list(),
   ptype = TRUE,
-  versioned = TRUE
+  versioned = NULL
 )
 
 \method{modelops}{default}(model, ...)
@@ -28,7 +28,7 @@ modelops(
   desc = NULL,
   metadata = list(),
   ptype = TRUE,
-  versioned = TRUE
+  versioned = NULL
 )
 
 new_modelops(
@@ -39,7 +39,7 @@ new_modelops(
   desc = character(),
   metadata = list(),
   ptype = TRUE,
-  versioned = TRUE
+  versioned = NULL
 )
 }
 \arguments{
@@ -67,7 +67,8 @@ The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe.}
 
-\item{versioned}{Should the model object be versioned? Defaults to \code{TRUE}.}
+\item{versioned}{Should the model object be versioned? The default, \code{NULL},
+will use the default for \code{board}.}
 }
 \value{
 A new \code{modelops} object

@@ -17,7 +17,8 @@
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for checking), or a
 #' dataframe.
-#' @param versioned Should the model object be versioned? Defaults to `TRUE`.
+#' @param versioned Should the model object be versioned? The default, `NULL`,
+#' will use the default for `board`.
 #' @param ... Other arguments, not currently used.
 #' @inheritParams pins::pin_write
 #'
@@ -44,7 +45,7 @@ modelops <- function(model,
                      desc = NULL,
                      metadata = list(),
                      ptype = TRUE,
-                     versioned = TRUE) {
+                     versioned = NULL) {
     UseMethod("modelops")
 }
 
@@ -63,7 +64,7 @@ modelops.lm <- function(model,
                         desc = NULL,
                         metadata = list(),
                         ptype = TRUE,
-                        versioned = TRUE) {
+                        versioned = NULL) {
 
     if (rlang::is_null(desc)) {
         desc <- "An OLS linear regression model"
@@ -92,7 +93,7 @@ new_modelops <- function(model,
                          desc = character(),
                          metadata = list(),
                          ptype = TRUE,
-                         versioned = TRUE) {
+                         versioned = NULL) {
 
     data <- list(
         model = model,
