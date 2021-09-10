@@ -55,6 +55,7 @@ modelops_pin_read <- function(board, name, version = NULL) {
         model_name = name,
         board = board,
         desc = meta$description,
+        metadata = meta$user,
         ptype = pinned$ptype
     )
 }
