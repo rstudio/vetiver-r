@@ -35,15 +35,6 @@ modelops_pr_predict <- function(pr,
                                 debug = interactive(),
                                 ...) {
 
-
-    board_pins <- pins::pin_list(modelops$board)
-
-
-    if (!modelops$model_name %in% board_pins) {
-        rlang::abort(c(glue("Model `{modelops$model_name}` not found on pin board."),
-                       "Do you need to pin your model?"))
-    }
-
     ## TODO: is pin version at startup the same as at 1st deployment?
 
     handler_startup(modelops)
