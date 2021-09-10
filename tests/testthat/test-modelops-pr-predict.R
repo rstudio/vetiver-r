@@ -14,15 +14,6 @@ test_that("default endpoint", {
     expect_equal(ep$path, "/predict")
 })
 
-test_that("default endpoint", {
-    m2 <- modelops(cars_lm, "cars2", b)
-    expect_error(
-        pr() %>% modelops_pr_predict(m2),
-        "Model `cars2` not found on pin board"
-    )
-
-})
-
 test_that("OpenAPI spec", {
     p <- pr() %>% modelops_pr_predict(m)
     car_spec <- p$getApiSpec()
