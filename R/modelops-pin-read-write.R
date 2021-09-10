@@ -55,7 +55,7 @@ modelops_pin_read <- function(board, name, version = NULL) {
         model_name = name,
         board = board,
         desc = meta$description,
-        metadata = meta$user,
+        metadata = purrr::list_merge(meta$user, version = meta$local$version),
         ptype = pinned$ptype,
         versioned = board$versioned
     )

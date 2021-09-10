@@ -67,11 +67,15 @@ test_that("can read a pinned model", {
     m <- modelops(cars_lm, "cars1", b)
     modelops_pin_write(m)
     m1 <- modelops_pin_read(b, "cars1")
+    meta <- pin_meta(b, "cars1")
     expect_equal(m1$model, m$model)
     expect_equal(m1$model_name, m$model_name)
     expect_equal(m1$board, m$board)
     expect_equal(m1$desc, m$desc)
-    expect_equal(m1$metadata, m$metadata)
+    expect_equal(
+        m1$metadata,
+        purrr::list_merge(m$metadata, version = meta$local$version)
+    )
     expect_equal(m1$ptype, m$ptype)
     expect_equal(m1$versioned, FALSE)
 })
@@ -84,11 +88,15 @@ test_that("can read a versioned model with metadata", {
                   metadata = list(metrics = 1:10))
     modelops_pin_write(m)
     m4 <- modelops_pin_read(b, "cars4")
+    meta <- pin_meta(b, "cars4")
     expect_equal(m4$model, m$model)
     expect_equal(m4$model_name, m$model_name)
     expect_equal(m4$board, m$board)
     expect_equal(m4$desc, m$desc)
-    expect_equal(m4$metadata, m$metadata)
+    expect_equal(
+        m4$metadata,
+        purrr::list_merge(m$metadata, version = meta$local$version)
+    )
     expect_equal(m4$ptype, m$ptype)
     expect_equal(m4$versioned, TRUE)
 })
