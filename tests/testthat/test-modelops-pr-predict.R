@@ -5,13 +5,23 @@ b <- board_temp()
 
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 m <- modelops(cars_lm, "cars1", b)
-modelops_pin_write(m)
 
 test_that("default endpoint", {
     p <- pr() %>% modelops_pr_predict(m)
     ep <- p$endpoints[[1]][[1]]
     expect_equal(ep$verbs, c("POST"))
     expect_equal(ep$path, "/predict")
+})
+
+test_that("pin URL endpoint", {
+    m$metadata <- list(url = "potato")
+    p <- pr() %>% modelops_pr_predict(m)
+    ep_pin <- p$endpoints[[1]][[1]]
+    expect_equal(ep_pin$verbs, c("GET"))
+    expect_equal(ep_pin$path, "/pin-url")
+    ep_predict <- p$endpoints[[1]][[2]]
+    expect_equal(ep_predict$verbs, c("POST"))
+    expect_equal(ep_predict$path, "/predict")
 })
 
 test_that("OpenAPI spec", {

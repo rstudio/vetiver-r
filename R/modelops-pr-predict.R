@@ -35,8 +35,6 @@ modelops_pr_predict <- function(pr,
                                 debug = interactive(),
                                 ...) {
 
-    ## TODO: is pin version at startup the same as at 1st deployment?
-
     handler_startup(modelops)
 
     modify_spec <- function(spec) {
@@ -44,6 +42,10 @@ modelops_pr_predict <- function(pr,
     }
 
     pr <- plumber::pr_set_debug(pr, debug = debug)
+    if (!rlang::is_null(modelops$metadata$url)) {
+        pr <- plumber::pr_get(pr, path = "/pin-url",
+                              function() modelops$metadata$url)
+    }
     pr <- plumber::pr_post(pr, path = path,
                            handler = handler_predict(modelops, ...))
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)

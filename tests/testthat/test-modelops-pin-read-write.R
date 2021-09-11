@@ -74,7 +74,9 @@ test_that("can read a pinned model", {
     expect_equal(m1$desc, m$desc)
     expect_equal(
         m1$metadata,
-        purrr::list_merge(m$metadata, version = meta$local$version)
+        list(user = m$metadata$user,
+             version = meta$local$version,
+             url = meta$local$url)
     )
     expect_equal(m1$ptype, m$ptype)
     expect_equal(m1$versioned, FALSE)
@@ -95,7 +97,9 @@ test_that("can read a versioned model with metadata", {
     expect_equal(m4$desc, m$desc)
     expect_equal(
         m4$metadata,
-        purrr::list_merge(m$metadata, version = meta$local$version)
+        list(user = m4$metadata$user,
+             version = meta$local$version,
+             url = meta$local$url)
     )
     expect_equal(m4$ptype, m$ptype)
     expect_equal(m4$versioned, TRUE)
