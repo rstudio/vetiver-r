@@ -78,7 +78,7 @@ modelops.lm <- function(model,
         model_name = model_name,
         board = board,
         desc = desc,
-        metadata = metadata,
+        metadata = modelops_meta(metadata),
         ptype = ptype,
         versioned = versioned
     )
@@ -91,7 +91,7 @@ new_modelops <- function(model,
                          board = pins::board_temp(),
                          ...,
                          desc = character(),
-                         metadata = list(),
+                         metadata = modelops::modelops_meta(),
                          ptype = TRUE,
                          versioned = NULL) {
 
@@ -106,6 +106,24 @@ new_modelops <- function(model,
     )
 
     structure(data, class = "modelops")
+}
+
+
+#' Metadata constructor for modelops object
+#'
+#' The metadata stored in a [modelops()] object has three elements:
+#'
+#' - `$user`, the metadata supplied by the user
+#' - `$version`, the version of the pin (which can be `NULL` before pinning)
+#' - `$url`, the URL where the pin is located, if any
+#'
+#' @param user Metadata supplied by the user
+#' @param version Version of the pin
+#' @param url URL for the pin, if any
+#'
+#' @export
+modelops_meta <- function(user = list(), version = NULL, url = NULL) {
+    list(user = user, version = version, url = url)
 }
 
 is_modelops <- function(x) {

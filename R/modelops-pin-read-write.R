@@ -36,7 +36,7 @@ modelops_pin_write <- function(modelops) {
         name = modelops$model_name,
         type = "rds",
         desc = modelops$desc,
-        metadata = modelops$metadata,
+        metadata = modelops$metadata$user,
         versioned = modelops$versioned
     )
 }
@@ -55,7 +55,11 @@ modelops_pin_read <- function(board, name, version = NULL) {
         model_name = name,
         board = board,
         desc = meta$description,
-        metadata = purrr::list_merge(meta$user, version = meta$local$version),
+        metadata = modelops_meta(
+            user = meta$user,
+            version = meta$local$version,
+            url = meta$local$url
+        ),
         ptype = pinned$ptype,
         versioned = board$versioned
     )

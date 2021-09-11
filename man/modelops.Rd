@@ -37,7 +37,7 @@ new_modelops(
   board = pins::board_temp(),
   ...,
   desc = character(),
-  metadata = list(),
+  metadata = modelops::modelops_meta(),
   ptype = TRUE,
   versioned = NULL
 )
