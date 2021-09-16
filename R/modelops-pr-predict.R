@@ -37,13 +37,12 @@ modelops_pr_predict <- function(pr,
 
     handler_startup(modelops)
 
-    modify_spec <- function(spec) {
-        api_spec(spec, modelops, path)
-    }
+    modify_spec <- function(spec) api_spec(spec, modelops, path)
 
     pr <- plumber::pr_set_debug(pr, debug = debug)
     if (!rlang::is_null(modelops$metadata$url)) {
-        pr <- plumber::pr_get(pr, path = "/pin-url",
+        pr <- plumber::pr_get(pr,
+                              path = "/pin-url",
                               function() modelops$metadata$url)
     }
     pr <- plumber::pr_post(pr, path = path,

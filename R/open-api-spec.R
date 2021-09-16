@@ -65,6 +65,11 @@ api_spec <- function(spec, modelops, path) {
         requestBody = request_body,
         responses = orig_post$responses
     )
+
+    if ("/pin-url" %in% names(spec$paths)) {
+        spec$paths$`/pin-url`$get$summary <- "Get URL of pinned modelops object"
+    }
+
     spec
 }
 
