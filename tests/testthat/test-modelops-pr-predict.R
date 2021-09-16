@@ -25,6 +25,7 @@ test_that("pin URL endpoint", {
 })
 
 test_that("OpenAPI spec", {
+    m$metadata <- list(url = "potatoes")
     p <- pr() %>% modelops_pr_predict(m)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post
@@ -35,5 +36,9 @@ test_that("OpenAPI spec", {
                  list(type = "object",
                       properties = list(cyl = list(type = "number"),
                                         disp = list(type = "number"))))
+    get_spec <- car_spec$paths$`/pin-url`$get
+    expect_equal(as.character(get_spec$summary),
+                 "Get URL of pinned modelops object")
+
 })
 

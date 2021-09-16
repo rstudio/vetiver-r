@@ -25,7 +25,7 @@ test_that("ptype = FALSE", {
     )
 })
 
-test_that("ptype = FALSE", {
+test_that("custom ptype", {
     expect_equal(
         modelops_create_ptype(cars_lm, mtcars[3:10, 2:3]),
         mtcars[3:10, 2:3]
