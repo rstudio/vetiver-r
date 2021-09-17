@@ -26,7 +26,7 @@ map_request_body <- function(ptype) {
                 type = "object",
                 properties = ptype_prop
             ),
-            example = purrr::transpose(ptype)
+            example = purrr::pmap(ptype, list)
         )
     } else {
         schema_list <- list(
