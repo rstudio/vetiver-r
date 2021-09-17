@@ -24,7 +24,7 @@ test_that("pin URL endpoint", {
     expect_equal(ep_predict$path, "/predict")
 })
 
-test_that("OpenAPI spec", {
+test_that("default OpenAPI spec", {
     m$metadata <- list(url = "potatoes")
     p <- pr() %>% modelops_pr_predict(m)
     car_spec <- p$getApiSpec()
@@ -39,6 +39,25 @@ test_that("OpenAPI spec", {
     get_spec <- car_spec$paths$`/pin-url`$get
     expect_equal(as.character(get_spec$summary),
                  "Get URL of pinned modelops object")
+
+})
+
+test_that("OpenAPI spec with custom ptype", {
+    car_ptype <- mtcars[15:16, 2:3]
+    m <- modelops(cars_lm, "cars1", b, ptype = car_ptype)
+    p <- pr() %>% modelops_pr_predict(m)
+    car_spec <- p$getApiSpec()
+    post_spec <- car_spec$paths$`/predict`$post
+    expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
+    expect_equal(as.character(post_spec$summary),
+                 "Return predictions from model using 2 features")
+    expect_equal(post_spec$requestBody$content$`application/json`$schema$items,
+                 list(type = "object",
+                      properties = list(cyl = list(type = "number"),
+                                        disp = list(type = "number"))))
+    expect_equal(post_spec$requestBody$content$`application/json`$schema$example,
+                 purrr::transpose(car_ptype))
+
 
 })
 

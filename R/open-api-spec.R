@@ -17,18 +17,29 @@
 #'
 map_request_body <- function(ptype) {
     ptype_prop <- map_ptype(ptype)
-    list(content = list(
-        `application/json` = list(
-            schema = list(
-                type = "array",
-                minItems = 1,
-                items = list(
-                    type = "object",
-                    properties = ptype_prop
-                )
+
+    if (nrow(ptype) > 0) {
+        schema_list <- list(
+            type = "array",
+            minItems = 1,
+            items = list(
+                type = "object",
+                properties = ptype_prop
+            ),
+            example = purrr::transpose(ptype)
+        )
+    } else {
+        schema_list <- list(
+            type = "array",
+            minItems = 1,
+            items = list(
+                type = "object",
+                properties = ptype_prop
             )
         )
-    ))
+    }
+
+    list(content = list(`application/json` = list(schema = schema_list)))
 }
 
 map_ptype <- function(ptype) {
@@ -58,6 +69,7 @@ api_spec <- function(spec, modelops, path) {
     ptype <- modelops$ptype
     spec$info$title <- glue::glue("{modelops$model_name} model API")
     spec$info$description <- modelops$desc
+
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
     spec$paths[[path]]$post <- list(
