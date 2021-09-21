@@ -49,7 +49,11 @@ modelops_pr_predict <- function(pr,
                            handler = handler_predict(modelops, ...))
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
     if (rlang::is_installed("rapidoc")) {
-        pr <- plumber::pr_set_docs(pr, "rapidoc")
+        pr <- plumber::pr_set_docs(
+            pr,
+            "rapidoc",
+            heading_text = paste("modelops", utils::packageVersion("modelops"))
+        )
     }
     pr
 }
