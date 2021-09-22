@@ -10,7 +10,8 @@ test_that("can pin a model", {
         pin_read(b, "cars1"),
         list(
             model = butcher::butcher(cars_lm),
-            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0)
+            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
+            required_pkgs = NULL
         )
     )
 })
@@ -23,7 +24,8 @@ test_that("can pin a model with no ptype", {
         pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
-            ptype = NULL
+            ptype = NULL,
+            required_pkgs = NULL
         )
     )
 })
@@ -36,7 +38,8 @@ test_that("can pin a model with custom ptype", {
         pin_read(b, "cars_custom"),
         list(
             model = butcher::butcher(cars_lm),
-            ptype = mtcars[3:10, 2:3]
+            ptype = mtcars[3:10, 2:3],
+            required_pkgs = NULL
         )
     )
 })
@@ -76,7 +79,8 @@ test_that("can read a pinned model", {
         m1$metadata,
         list(user = m$metadata$user,
              version = meta$local$version,
-             url = meta$local$url)
+             url = meta$local$url,
+             required_pkgs = m$metadata$required_pkgs)
     )
     expect_equal(m1$ptype, m$ptype)
     expect_equal(m1$versioned, FALSE)
@@ -97,9 +101,10 @@ test_that("can read a versioned model with metadata", {
     expect_equal(m4$desc, m$desc)
     expect_equal(
         m4$metadata,
-        list(user = m4$metadata$user,
+        list(user = m$metadata$user,
              version = meta$local$version,
-             url = meta$local$url)
+             url = meta$local$url,
+             required_pkgs = m$metadata$required_pkgs)
     )
     expect_equal(m4$ptype, m$ptype)
     expect_equal(m4$versioned, TRUE)

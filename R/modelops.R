@@ -116,14 +116,18 @@ new_modelops <- function(model,
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
 #' - `$url`, the URL where the pin is located, if any
+#' - `$required_pkgs`, a character string of R packages required for prediction
 #'
 #' @param user Metadata supplied by the user
 #' @param version Version of the pin
 #' @param url URL for the pin, if any
+#' @param required_pkgs Character string of R packages required for prediction
 #'
 #' @export
-modelops_meta <- function(user = list(), version = NULL, url = NULL) {
-    list(user = user, version = version, url = url)
+modelops_meta <- function(user = list(), version = NULL,
+                          url = NULL, required_pkgs = NULL) {
+    list(user = user, version = version,
+         url = url, required_pkgs = required_pkgs)
 }
 
 is_modelops <- function(x) {
