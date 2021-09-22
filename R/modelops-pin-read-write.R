@@ -32,7 +32,9 @@
 modelops_pin_write <- function(modelops) {
     pins::pin_write(
         board = modelops$board,
-        x = list(model = modelops$model, ptype = modelops$ptype),
+        x = list(model = modelops$model,
+                 ptype = modelops$ptype,
+                 required_pkgs = modelops$metadata$required_pkgs),
         name = modelops$model_name,
         type = "rds",
         desc = modelops$desc,
@@ -58,7 +60,8 @@ modelops_pin_read <- function(board, name, version = NULL) {
         metadata = modelops_meta(
             user = meta$user,
             version = meta$local$version,
-            url = meta$local$url
+            url = meta$local$url,
+            required_pkgs = pinned$required_pkgs
         ),
         ptype = pinned$ptype,
         versioned = board$versioned

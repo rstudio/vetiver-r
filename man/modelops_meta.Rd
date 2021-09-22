@@ -4,7 +4,7 @@
 \alias{modelops_meta}
 \title{Metadata constructor for modelops object}
 \usage{
-modelops_meta(user = list(), version = NULL, url = NULL)
+modelops_meta(user = list(), version = NULL, url = NULL, required_pkgs = NULL)
 }
 \arguments{
 \item{user}{Metadata supplied by the user}
@@ -12,6 +12,8 @@ modelops_meta(user = list(), version = NULL, url = NULL)
 \item{version}{Version of the pin}
 
 \item{url}{URL for the pin, if any}
+
+\item{required_pkgs}{Character string of R packages required for prediction}
 }
 \description{
 The metadata stored in a \code{\link[=modelops]{modelops()}} object has three elements:
@@ -21,5 +23,6 @@ The metadata stored in a \code{\link[=modelops]{modelops()}} object has three el
 \item \verb{$user}, the metadata supplied by the user
 \item \verb{$version}, the version of the pin (which can be \code{NULL} before pinning)
 \item \verb{$url}, the URL where the pin is located, if any
+\item \verb{$required_pkgs}, a character string of R packages required for prediction
 }
 }

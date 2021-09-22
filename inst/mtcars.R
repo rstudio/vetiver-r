@@ -2,7 +2,7 @@ library(modelops)
 library(pins)
 library(plumber)
 
-model_board <- board_temp()
+model_board <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 m <- modelops(cars_lm, "cars_linear", model_board)
 modelops_pin_write(m)

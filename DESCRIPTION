@@ -34,6 +34,7 @@ Imports:
     vctrs
 Suggests: 
     knitr,
+    rapidoc,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: 
