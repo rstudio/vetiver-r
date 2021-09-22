@@ -32,7 +32,7 @@ the model API (when deployed) will be linked to that specific version. You
 can override this default behavior by choosing a specific \code{version}.
 }
 \examples{
-
+library(pins)
 tmp <- tempfile()
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)

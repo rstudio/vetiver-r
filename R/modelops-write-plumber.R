@@ -16,10 +16,12 @@
 #' @return
 #' The content of the `plumber.R` file, invisibly.
 #'
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @export
 #'
 #' @examples
-#'
+#' library(pins)
 #' tmp <- tempfile()
 #' b <- board_temp(versioned = TRUE)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
@@ -33,7 +35,7 @@ modelops_write_plumber <- function(board, name, version = NULL,
 
     if (board$versioned) {
         if (rlang::is_null(version)) {
-            version <- pin_versions(board, name)
+            version <- pins::pin_versions(board, name)
             version <- version$version
             version <- version[1]
         }
