@@ -51,8 +51,8 @@ modelops_write_plumber <- function(board, name, version = NULL,
 
     middle <- glue_required_pkgs(m$metadata$required_pkgs)
 
-    #board <- glue("b <- {board}")
-    board <- glue('b <- "TODO"')
+    board <- rlang::expr_deparse(pins::board_deparse(board))
+    board <- glue('b <- {board}')
 
     plumber <- glue("\n
          #* @plumber
