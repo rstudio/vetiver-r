@@ -53,7 +53,7 @@ modelops <- function(model,
 #' @rdname modelops
 #' @export
 modelops.default <- function(model, ...) {
-    rlang::abort("There is no modelops method available to deploy `model`.")
+    abort("There is no modelops method available to deploy `model`.")
 }
 
 #' @rdname modelops
@@ -67,7 +67,7 @@ modelops.lm <- function(model,
                         ptype = TRUE,
                         versioned = NULL) {
 
-    if (rlang::is_null(desc)) {
+    if (is_null(desc)) {
         desc <- "An OLS linear regression model"
     }
 

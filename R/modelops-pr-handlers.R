@@ -31,7 +31,7 @@ handler_predict <- function(modelops, ...)
 #' @rdname handler_predict
 #' @export
 handler_predict.default <- function(modelops, ...)
-    rlang::abort("There is no method available to build a prediction handler for `x`.")
+    abort("There is no method available to build a prediction handler for `x`.")
 
 
 #' @rdname handler_predict
@@ -43,7 +43,7 @@ handler_predict.lm <- function(modelops, ...) {
     function(req) {
         newdata <- req$body
         newdata <- modelops_type_convert(newdata, ptype)
-        if (!rlang::is_null(ptype)) {
+        if (!is_null(ptype)) {
             newdata <- hardhat::scream(newdata, ptype)
         }
         ret <- predict(modelops$model, newdata = newdata, ...)
@@ -75,7 +75,7 @@ handler_predict.lm <- function(modelops, ...) {
 #' data
 #' @export
 modelops_type_convert <- function(new_data, ptype) {
-    if (!rlang::is_null(ptype)) {
+    if (!is_null(ptype)) {
         spec <- readr::as.col_spec(ptype)
         is_character <- vapply(new_data, is.character, logical(1))
         if (any(is_character)) {

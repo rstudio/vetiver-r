@@ -45,7 +45,7 @@ map_request_body <- function(ptype) {
 map_ptype <- function(ptype) {
     ret <- as.list(ptype)
     ## use `plumber:::plumberToApiTypeMap` here instead?
-    ret <- purrr::map(
+    ret <- map(
         ret,
         ~ switch(class(.),
                  numeric = "number",
@@ -54,7 +54,7 @@ map_ptype <- function(ptype) {
                  "string"
         )
     )
-    purrr::map(ret, ~ list(type = .))
+    map(ret, ~ list(type = .))
 }
 
 #' Update the OpenAPI specification from model metadata
@@ -67,13 +67,13 @@ map_ptype <- function(ptype) {
 #'
 api_spec <- function(spec, modelops, path) {
     ptype <- modelops$ptype
-    spec$info$title <- glue::glue("{modelops$model_name} model API")
+    spec$info$title <- glue("{modelops$model_name} model API")
     spec$info$description <- modelops$desc
 
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
     spec$paths[[path]]$post <- list(
-        summary = glue::glue("Return predictions from model using {dim(ptype)[[2]]} features"),
+        summary = glue("Return predictions from model using {dim(ptype)[[2]]} features"),
         requestBody = request_body,
         responses = orig_post$responses
     )

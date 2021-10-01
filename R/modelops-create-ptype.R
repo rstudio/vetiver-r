@@ -33,7 +33,7 @@ modelops_create_ptype <- function(model, ptype, ...) {
     } else if (rlang::inherits_any(ptype, "data.frame")) {
         return(ptype)
     } else {
-        rlang::abort("The `ptype` argument must be TRUE, FALSE, or a dataframe.")
+        abort("The `ptype` argument must be TRUE, FALSE, or a dataframe.")
     }
     ptype
 }
@@ -47,7 +47,7 @@ modelops_slice_zero <- function(model, ...) {
 #' @rdname modelops_create_ptype
 #' @export
 modelops_slice_zero.default <- function(model, ...) {
-    rlang::abort("There is no method available to create a 0-row input data prototype for `model`.")
+    abort("There is no method available to create a 0-row input data prototype for `model`.")
 }
 
 #' @rdname modelops_create_ptype
