@@ -17,8 +17,8 @@ modelops_pin_read(board, name, version = NULL)
 
 \item{name}{Pin name.}
 
-\item{version}{For boards that support versions, this allows you to retrieve
-a specific version of a pin. See \verb{vignette("versioning)"} for details.}
+\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
+find out which versions are available and when they were created.}
 }
 \description{
 Use \code{modelops_pin_write()} to pin a trained model to a board of models,

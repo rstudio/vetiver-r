@@ -7,7 +7,7 @@
 \alias{modelops_slice_zero.lm}
 \title{Return a modelops input data prototype}
 \usage{
-modelops_create_ptype(model, ptype)
+modelops_create_ptype(model, ptype, ...)
 
 modelops_slice_zero(model, ...)
 
@@ -24,7 +24,8 @@ The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe.}
 
-\item{...}{Other arguments, not currently used.}
+\item{...}{Other method-specific arguments passed to \code{\link[=modelops_slice_zero]{modelops_slice_zero()}}
+to compute an input data prototype.}
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.

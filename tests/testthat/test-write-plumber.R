@@ -1,5 +1,4 @@
 library(pins)
-library(plumber)
 
 test_that("create plumber.R with packages", {
     skip_on_cran()

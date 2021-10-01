@@ -12,8 +12,8 @@ modelops_write_plumber(board, name, version = NULL, file = "plumber.R")
 
 \item{name}{Pin name.}
 
-\item{version}{For boards that support versions, this allows you to retrieve
-a specific version of a pin. See \verb{vignette("versioning)"} for details.}
+\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
+find out which versions are available and when they were created.}
 
 \item{file}{A path to write the Plumber file. Defaults to \code{plumber.R} in the
 working directory. See \code{\link[plumber:plumb]{plumber::plumb()}} for naming precedence rules.}

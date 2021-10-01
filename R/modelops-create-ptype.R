@@ -25,9 +25,9 @@
 #' modelops_create_ptype(cars_lm, FALSE)
 #'
 #' @export
-modelops_create_ptype <- function(model, ptype) {
+modelops_create_ptype <- function(model, ptype, ...) {
     if (isTRUE(ptype)) {
-        ptype <- modelops_slice_zero(model)
+        ptype <- modelops_slice_zero(model, ...)
     } else if (isFALSE(ptype)) {
         ptype <- NULL
     } else if (rlang::inherits_any(ptype, "data.frame")) {

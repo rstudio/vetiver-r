@@ -19,7 +19,8 @@
 #' dataframe.
 #' @param versioned Should the model object be versioned? The default, `NULL`,
 #' will use the default for `board`.
-#' @param ... Other arguments, not currently used.
+#' @param ... Other method-specific arguments passed to [modelops_slice_zero()]
+#' to compute an input data prototype.
 #' @inheritParams pins::pin_write
 #'
 #' @details  Once your `modelops()` object has been created, you can:
@@ -70,7 +71,7 @@ modelops.lm <- function(model,
         desc <- "An OLS linear regression model"
     }
 
-    ptype <- modelops_create_ptype(model, ptype)
+    ptype <- modelops_create_ptype(model, ptype, ...)
     model <- butcher::butcher(model)
 
     new_modelops(
