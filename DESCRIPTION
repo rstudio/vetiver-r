@@ -25,7 +25,7 @@ Imports:
     hardhat,
     httr,
     jsonlite,
-    pins (>= 0.99.9000),
+    pins (>= 1.0.0),
     plumber,
     purrr,
     readr,
@@ -39,8 +39,6 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
-Remotes: 
-    rstudio/pins
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: false
