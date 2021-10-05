@@ -73,10 +73,12 @@ infra_pkgs <- c("pins", "plumber", "modelops")
 
 glue_required_pkgs <- function(required_pkgs) {
     if (!is_null(required_pkgs)) {
+        required_pkgs <- sort(required_pkgs)
         required_pkgs <- glue_collapse(glue("    library({required_pkgs})"),
                                        sep = "\n")
         load_required_pkgs <- glue("\n
-            if (FALSE) {{ # Generated to install but not load needed packages
+            # Packages needed to generate model predictions
+            if (FALSE) {{
             {required_pkgs}
             }}
             ")

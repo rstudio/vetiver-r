@@ -9,7 +9,7 @@ test_that("create plumber.R with packages", {
     m$metadata$required_pkgs <- c("beepr", "janeaustenr")
     modelops_pin_write(m)
     modelops_write_plumber(b, "cars1", file = tmp)
-    expect_snapshot(readr::read_lines(tmp))
+    expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
 
 test_that("create plumber.R with no packages", {
@@ -20,5 +20,5 @@ test_that("create plumber.R with no packages", {
     m <- modelops(cars_lm, "cars1", b)
     modelops_pin_write(m)
     modelops_write_plumber(b, "cars1", file = tmp)
-    expect_snapshot(readr::read_lines(tmp))
+    expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
