@@ -31,7 +31,8 @@ Imports:
     readr,
     rlang,
     tibble,
-    vctrs
+    vctrs,
+    withr
 Suggests: 
     knitr,
     rapidoc,
