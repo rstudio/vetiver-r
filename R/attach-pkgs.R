@@ -7,16 +7,17 @@
 #' @details These two functions will attempt either to:
 #'
 #' - fully attach or
-#' - load the namespace
+#' - load
 #'
-#' of the `pkgs` vector of package names, preserving the current random seed.
+#' the namespace of the `pkgs` vector of package names, preserving the current
+#' random seed.
 #'
 #' To learn more about load vs. attach, read the [NAMESPACE chapter of
 #' *R Packages*](https://r-pkgs.org/namespace.html). For deploying a model, it
 #' is likely safer to fully attach needed packages but that comes with the risk
 #' of naming conflicts between packages.
 #'
-#' @param pkgs A character vector of package names to fully attach.
+#' @param pkgs A character vector of package names to load or fully attach.
 #'
 #' @return An invisible `TRUE`.
 #' @family namespace

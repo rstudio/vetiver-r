@@ -10,7 +10,7 @@ attach_pkgs(pkgs)
 load_pkgs(pkgs)
 }
 \arguments{
-\item{pkgs}{A character vector of package names to fully attach.}
+\item{pkgs}{A character vector of package names to load or fully attach.}
 }
 \value{
 An invisible \code{TRUE}.
@@ -24,10 +24,11 @@ packages is loaded.
 These two functions will attempt either to:
 \itemize{
 \item fully attach or
-\item load the namespace
+\item load
 }
 
-of the \code{pkgs} vector of package names, preserving the current random seed.
+the namespace of the \code{pkgs} vector of package names, preserving the current
+random seed.
 
 To learn more about load vs. attach, read the \href{https://r-pkgs.org/namespace.html}{NAMESPACE chapter of \emph{R Packages}}. For deploying a model, it
 is likely safer to fully attach needed packages but that comes with the risk
