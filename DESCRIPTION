@@ -1,14 +1,11 @@
 Package: modelops
 Title: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'
 Version: 0.0.0.9000
-Authors@R: 
-    c(person(given = "Julia",
-             family = "Silge",
-             role = c("cre", "aut"),
-             email = "julia.silge@rstudio.com",
-             comment = c(ORCID = "0000-0002-3671-836X")),
-      person(given = "RStudio",
-             role = "cph"))
+Authors@R: c(
+    person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-3671-836X")),
+    person("RStudio", role = "cph")
+  )
 Description: A trained model can be shared and versioned via 'pins',
     deployed as an API via 'plumber', and monitored via a dashboard
     created with 'rmarkdown'. Functions handle recording and checking the

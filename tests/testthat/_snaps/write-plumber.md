@@ -8,6 +8,7 @@
       library(pins)
       library(plumber)
       library(modelops)
+      library(rapidoc)
       
       # Packages needed to generate model predictions
       if (FALSE) {

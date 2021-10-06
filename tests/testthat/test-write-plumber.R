@@ -19,6 +19,6 @@ test_that("create plumber.R with no packages", {
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
     m <- modelops(cars_lm, "cars1", b)
     modelops_pin_write(m)
-    modelops_write_plumber(b, "cars1", file = tmp)
+    modelops_write_plumber(b, "cars1", file = tmp, docs = NULL)
     expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
