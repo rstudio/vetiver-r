@@ -14,7 +14,7 @@ modelops(
   ...,
   desc = NULL,
   metadata = list(),
-  ptype = TRUE,
+  save_ptype = TRUE,
   versioned = NULL
 )
 
@@ -27,7 +27,7 @@ modelops(
   ...,
   desc = NULL,
   metadata = list(),
-  ptype = TRUE,
+  save_ptype = TRUE,
   versioned = NULL
 )
 
@@ -38,7 +38,7 @@ new_modelops(
   ...,
   desc = character(),
   metadata = modelops::modelops_meta(),
-  ptype = TRUE,
+  ptype = NULL,
   versioned = NULL
 )
 }
@@ -63,13 +63,16 @@ a brief description of the contents will be generated.}
 When retrieving the pin, this will be stored in the \code{user} key, to
 avoid potential clashes with the metadata that pins itself uses.}
 
-\item{ptype}{Should an input data prototype be stored with the model?
+\item{save_ptype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe.}
 
 \item{versioned}{Should the model object be versioned? The default, \code{NULL},
 will use the default for \code{board}.}
+
+\item{ptype}{An input data prototype. If \code{NULL}, there is no checking of
+new data at prediction time.}
 }
 \value{
 A new \code{modelops} object

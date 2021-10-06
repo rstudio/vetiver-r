@@ -25,15 +25,15 @@
 #' modelops_create_ptype(cars_lm, FALSE)
 #'
 #' @export
-modelops_create_ptype <- function(model, ptype, ...) {
-    if (isTRUE(ptype)) {
+modelops_create_ptype <- function(model, save_ptype, ...) {
+    if (isTRUE(save_ptype)) {
         ptype <- modelops_slice_zero(model, ...)
-    } else if (isFALSE(ptype)) {
+    } else if (isFALSE(save_ptype)) {
         ptype <- NULL
-    } else if (rlang::inherits_any(ptype, "data.frame")) {
-        return(ptype)
+    } else if (rlang::inherits_any(save_ptype, "data.frame")) {
+        return(save_ptype)
     } else {
-        abort("The `ptype` argument must be TRUE, FALSE, or a dataframe.")
+        abort("The `save_ptype` argument must be TRUE, FALSE, or a dataframe.")
     }
     ptype
 }

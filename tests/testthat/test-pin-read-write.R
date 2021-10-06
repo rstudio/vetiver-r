@@ -18,7 +18,7 @@ test_that("can pin a model", {
 
 test_that("can pin a model with no ptype", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars_null", b, ptype = FALSE)
+    m <- modelops(cars_lm, "cars_null", b, save_ptype = FALSE)
     modelops_pin_write(m)
     expect_equal(
         pin_read(b, "cars_null"),
@@ -32,7 +32,7 @@ test_that("can pin a model with no ptype", {
 
 test_that("can pin a model with custom ptype", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars_custom", b, ptype = mtcars[3:10, 2:3])
+    m <- modelops(cars_lm, "cars_custom", b, save_ptype = mtcars[3:10, 2:3])
     modelops_pin_write(m)
     expect_equal(
         pin_read(b, "cars_custom"),

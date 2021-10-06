@@ -7,7 +7,7 @@
 \alias{modelops_slice_zero.lm}
 \title{Return a modelops input data prototype}
 \usage{
-modelops_create_ptype(model, ptype, ...)
+modelops_create_ptype(model, save_ptype, ...)
 
 modelops_slice_zero(model, ...)
 
@@ -19,7 +19,7 @@ modelops_slice_zero(model, ...)
 \item{model}{A trained model, such as an \code{lm()} model or a tidymodels
 \code{\link[workflows:workflow]{workflows::workflow()}}.}
 
-\item{ptype}{Should an input data prototype be stored with the model?
+\item{save_ptype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe.}

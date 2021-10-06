@@ -44,7 +44,7 @@ test_that("default OpenAPI spec", {
 
 test_that("OpenAPI spec with custom ptype", {
     car_ptype <- mtcars[15:16, 2:3]
-    m <- modelops(cars_lm, "cars1", b, ptype = car_ptype)
+    m <- modelops(cars_lm, "cars1", b, save_ptype = car_ptype)
     p <- pr() %>% modelops_pr_predict(m)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post

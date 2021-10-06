@@ -13,10 +13,12 @@
 #' @param desc A text description of the model, most important for shared
 #' boards so that others can understand what the model is. If omitted,
 #' a brief description of the contents will be generated.
-#' @param ptype Should an input data prototype be stored with the model?
+#' @param save_ptype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for checking), or a
 #' dataframe.
+#' @param ptype An input data prototype. If `NULL`, there is no checking of
+#' new data at prediction time.
 #' @param versioned Should the model object be versioned? The default, `NULL`,
 #' will use the default for `board`.
 #' @param ... Other method-specific arguments passed to [modelops_slice_zero()]
@@ -45,7 +47,7 @@ modelops <- function(model,
                      ...,
                      desc = NULL,
                      metadata = list(),
-                     ptype = TRUE,
+                     save_ptype = TRUE,
                      versioned = NULL) {
     UseMethod("modelops")
 }
@@ -64,14 +66,14 @@ modelops.lm <- function(model,
                         ...,
                         desc = NULL,
                         metadata = list(),
-                        ptype = TRUE,
+                        save_ptype = TRUE,
                         versioned = NULL) {
 
     if (is_null(desc)) {
         desc <- "An OLS linear regression model"
     }
 
-    ptype <- modelops_create_ptype(model, ptype, ...)
+    ptype <- modelops_create_ptype(model, save_ptype, ...)
     model <- butcher::butcher(model)
 
     new_modelops(
@@ -93,7 +95,7 @@ new_modelops <- function(model,
                          ...,
                          desc = character(),
                          metadata = modelops::modelops_meta(),
-                         ptype = TRUE,
+                         ptype = NULL,
                          versioned = NULL) {
 
     data <- list(
