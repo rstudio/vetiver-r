@@ -43,8 +43,8 @@ devtools::install_github("tidymodels/vetiver")
 
 ## Example
 
-A `vetiver()` object collects the information needed to store, version,
-and deploy a trained model.
+A `vetiver_model()` object collects the information needed to store,
+version, and deploy a trained model.
 
 You can **version** and **share** your model by choosing a
 [pins](https://pins.rstudio.com/dev/) “board” for it, including a local
@@ -68,7 +68,7 @@ deployable, trained model object.
 
 ``` r
 vetiver_pin_write(v)
-#> Creating new version '20211007T201257Z-522c5'
+#> Creating new version '20211007T203721Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
