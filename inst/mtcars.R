@@ -11,6 +11,6 @@ pr() %>%
     vetiver_pr_predict(v, debug = TRUE) %>%
     pr_run(port = 8088)
 
-vetiver_write_plumber(model_board, "cars_linear", file = "plumber/mtcars/plumber.R")
+# vetiver_write_plumber(model_board, "cars_linear", file = "plumber/mtcars/plumber.R")
 
 
