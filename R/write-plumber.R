@@ -41,16 +41,16 @@ vetiver_write_plumber <- function(board, name, version = NULL,
             version <- version[["version"]]
             version <- version[[1]]
         }
-        pin_read <- glue('m <- vetiver_pin_read(b, "{name}", version = "{version}")')
-        m <- vetiver_pin_read(board, name, version = version)
+        pin_read <- glue('v <- vetiver_pin_read(b, "{name}", version = "{version}")')
+        v <- vetiver_pin_read(board, name, version = version)
     } else {
-        pin_read <- glue('m <- vetiver_pin_read(b, "{name}")')
-        m <- vetiver_pin_read(board, name)
+        pin_read <- glue('v <- vetiver_pin_read(b, "{name}")')
+        v <- vetiver_pin_read(board, name)
     }
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     doc_pkg <- if (is_null(docs)) NULL else glue("library({docs})")
-    load_required_pkgs <- glue_required_pkgs(m$metadata$required_pkgs)
+    load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs)
 
     board <- rlang::expr_deparse(pins::board_deparse(board))
     board <- glue('b <- {board}')
@@ -58,7 +58,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     plumber <- glue("\n
          #* @plumber
          function(pr) {{
-             pr %>% vetiver_pr_predict(m)
+             pr %>% vetiver_pr_predict(v)
          }}
          ")
 

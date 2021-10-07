@@ -16,11 +16,11 @@
           library(janeaustenr)
       }
       b <- board_folder(path = "/tmp/test")
-      m <- vetiver_pin_read(b, "cars1")
+      v <- vetiver_pin_read(b, "cars1")
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(m)
+          pr %>% vetiver_pr_predict(v)
       }
 
 # create plumber.R with no packages
@@ -34,10 +34,10 @@
       library(plumber)
       library(vetiver)
       b <- board_folder(path = "/tmp/test")
-      m <- vetiver_pin_read(b, "cars1")
+      v <- vetiver_pin_read(b, "cars1")
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(m)
+          pr %>% vetiver_pr_predict(v)
       }
 
