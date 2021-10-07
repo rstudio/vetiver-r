@@ -1,0 +1,30 @@
+url: https://tidymodels.github.io/vetiver
+
+template:
+  package: tidytemplate
+
+reference:
+- title: Handling vetiver objects
+  desc: >
+    A `vetiver()` object collects the information needed to store, version, and
+    deploy a trained model.
+  contents:
+  - vetiver
+  - vetiver_pin_write
+  - vetiver_pr_predict
+  - vetiver_write_plumber
+  - vetiver_endpoint
+  - predict.vetiver_endpoint
+
+- title: Developer functions
+  desc: >
+    These functions are helpful for developers extending vetiver for other
+    types of models.
+  contents:
+  - api_spec
+  - attach_pkgs
+  - handler_startup
+  - map_request_body
+  - vetiver_create_ptype
+  - vetiver_meta
+  - vetiver_type_convert
