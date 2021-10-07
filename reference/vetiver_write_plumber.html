@@ -37,7 +37,7 @@
 <link href="../tidyverse-2.css" rel="stylesheet">
 
 <!--optional theme-->
-<link href="../.css" rel="stylesheet">
+<link href="../tidymodels.css" rel="stylesheet">
 
 
 
@@ -88,7 +88,7 @@ vetiver_pin_write()." />
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">vetiver</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
         </div>
       </div>
@@ -191,7 +191,7 @@ can override this default behavior by choosing a specific <code>version</code>.<
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver.html'>vetiver</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='va'>b</span><span class='op'>)</span>
 <span class='fu'><a href='vetiver_pin_write.html'>vetiver_pin_write</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211007T190351Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211007T194129Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'>
 <span class='fu'>vetiver_write_plumber</span><span class='op'>(</span><span class='va'>b</span>, <span class='st'>"cars_linear"</span>, file <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
 
 </div></pre>
@@ -206,7 +206,7 @@ can override this default behavior by choosing a specific <code>version</code>.<
 
       <footer>
       <div class="tidyverse">
-  <p>vetiver is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>vetiver is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
 </div>
 
 <div class="author">

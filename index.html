@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href=".css" rel="stylesheet">
+<!--optional theme--><link href="tidymodels.css" rel="stylesheet">
 <meta property="og:title" content="Version, Pin, Deploy, and Monitor Models with pins and plumber">
 <meta property="og:description" content="A trained model can be shared and versioned via pins,
     deployed as an API via plumber, and monitored via a dashboard
@@ -46,7 +46,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">vetiver</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
         </div>
       </div>
@@ -84,8 +84,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
 <div id="vetiver-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#vetiver-" class="anchor"></a>vetiver 🏺</h1></div>
+
 <!-- badges: start -->
 
 <p><strong>This pre-release is available for feedback and experimenting.</strong></p>
@@ -123,7 +122,7 @@
 <p>When you use <code><a href="reference/vetiver_pin_write.html">vetiver_pin_write()</a></code>, you store and version your deployable, trained model object.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="co">#&gt; Creating new version '20211007T183514Z-522c5'</span>
+<span class="co">#&gt; Creating new version '20211007T193537Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver.html">vetiver()</a></code> object via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -193,6 +192,7 @@
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/tidymodels/vetiver/actions"><img src="https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/tidymodels/vetiver?branch=master"><img src="https://codecov.io/gh/tidymodels/vetiver/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
@@ -200,7 +200,7 @@
 
 
       <footer><div class="tidyverse">
-  <p>vetiver is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>vetiver is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
 </div>
 
 <div class="author">
