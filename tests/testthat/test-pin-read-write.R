@@ -4,8 +4,8 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 
 test_that("can pin a model", {
     b <- board_temp()
-    m <- vetiver(cars_lm, "cars1", b)
-    vetiver_pin_write(m)
+    v <- vetiver_model(cars_lm, "cars1", b)
+    vetiver_pin_write(v)
     expect_equal(
         pin_read(b, "cars1"),
         list(
@@ -18,8 +18,8 @@ test_that("can pin a model", {
 
 test_that("can pin a model with no ptype", {
     b <- board_temp()
-    m <- vetiver(cars_lm, "cars_null", b, save_ptype = FALSE)
-    vetiver_pin_write(m)
+    v <- vetiver_model(cars_lm, "cars_null", b, save_ptype = FALSE)
+    vetiver_pin_write(v)
     expect_equal(
         pin_read(b, "cars_null"),
         list(
@@ -32,8 +32,8 @@ test_that("can pin a model with no ptype", {
 
 test_that("can pin a model with custom ptype", {
     b <- board_temp()
-    m <- vetiver(cars_lm, "cars_custom", b, save_ptype = mtcars[3:10, 2:3])
-    vetiver_pin_write(m)
+    v <- vetiver_model(cars_lm, "cars_custom", b, save_ptype = mtcars[3:10, 2:3])
+    vetiver_pin_write(v)
     expect_equal(
         pin_read(b, "cars_custom"),
         list(
@@ -46,8 +46,8 @@ test_that("can pin a model with custom ptype", {
 
 test_that("default metadata for model", {
     b <- board_temp()
-    m <- vetiver(cars_lm, "cars2", b)
-    vetiver_pin_write(m)
+    v <- vetiver_model(cars_lm, "cars2", b)
+    vetiver_pin_write(v)
     meta <- pin_meta(b, "cars2")
     expect_equal(meta$user, list())
     expect_equal(meta$description, "An OLS linear regression model")
@@ -55,10 +55,10 @@ test_that("default metadata for model", {
 
 test_that("user can supply metadata for model", {
     b <- board_temp()
-    m <- vetiver(cars_lm, "cars3", b,
-                  desc = "lm model for mtcars",
-                  metadata = list(metrics = 1:10))
-    vetiver_pin_write(m)
+    v <- vetiver_model(cars_lm, "cars3", b,
+                       desc = "lm model for mtcars",
+                       metadata = list(metrics = 1:10))
+    vetiver_pin_write(v)
     meta <- pin_meta(b, "cars3")
     expect_equal(meta$user, list(metrics = 1:10))
     expect_equal(meta$description, "lm model for mtcars")
@@ -67,45 +67,45 @@ test_that("user can supply metadata for model", {
 test_that("can read a pinned model", {
     b <- board_temp()
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-    m <- vetiver(cars_lm, "cars1", b)
-    vetiver_pin_write(m)
-    m1 <- vetiver_pin_read(b, "cars1")
+    v <- vetiver_model(cars_lm, "cars1", b)
+    vetiver_pin_write(v)
+    v1 <- vetiver_pin_read(b, "cars1")
     meta <- pin_meta(b, "cars1")
-    expect_equal(m1$model, m$model)
-    expect_equal(m1$model_name, m$model_name)
-    expect_equal(m1$board, m$board)
-    expect_equal(m1$desc, m$desc)
+    expect_equal(v1$model, v$model)
+    expect_equal(v1$model_name, v$model_name)
+    expect_equal(v1$board, v$board)
+    expect_equal(v1$desc, v$desc)
     expect_equal(
-        m1$metadata,
-        list(user = m$metadata$user,
+        v1$metadata,
+        list(user = v$metadata$user,
              version = meta$local$version,
              url = meta$local$url,
-             required_pkgs = m$metadata$required_pkgs)
+             required_pkgs = v$metadata$required_pkgs)
     )
-    expect_equal(m1$ptype, m$ptype)
-    expect_equal(m1$versioned, FALSE)
+    expect_equal(v1$ptype, v$ptype)
+    expect_equal(v1$versioned, FALSE)
 })
 
 test_that("can read a versioned model with metadata", {
     b <- board_temp(versioned = TRUE)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-    m <- vetiver(cars_lm, "cars4", b,
-                  desc = "lm model for mtcars",
-                  metadata = list(metrics = 1:10))
-    vetiver_pin_write(m)
-    m4 <- vetiver_pin_read(b, "cars4")
+    v <- vetiver_model(cars_lm, "cars4", b,
+                       desc = "lm model for mtcars",
+                       metadata = list(metrics = 1:10))
+    vetiver_pin_write(v)
+    v4 <- vetiver_pin_read(b, "cars4")
     meta <- pin_meta(b, "cars4")
-    expect_equal(m4$model, m$model)
-    expect_equal(m4$model_name, m$model_name)
-    expect_equal(m4$board, m$board)
-    expect_equal(m4$desc, m$desc)
+    expect_equal(v4$model, v$model)
+    expect_equal(v4$model_name, v$model_name)
+    expect_equal(v4$board, v$board)
+    expect_equal(v4$desc, v$desc)
     expect_equal(
-        m4$metadata,
-        list(user = m$metadata$user,
+        v4$metadata,
+        list(user = v$metadata$user,
              version = meta$local$version,
              url = meta$local$url,
-             required_pkgs = m$metadata$required_pkgs)
+             required_pkgs = v$metadata$required_pkgs)
     )
-    expect_equal(m4$ptype, m$ptype)
-    expect_equal(m4$versioned, TRUE)
+    expect_equal(v4$ptype, v$ptype)
+    expect_equal(v4$versioned, TRUE)
 })

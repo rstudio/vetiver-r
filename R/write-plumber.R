@@ -1,7 +1,7 @@
-#' Write a deployable Plumber file for a vetiver object
+#' Write a deployable Plumber file for a vetiver model
 #'
 #' Use `vetiver_write_plumber()` to create a `plumber.R` file for a
-#' [vetiver()] object that has been versioned and stored via
+#' [vetiver_model()] that has been versioned and stored via
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams pins::pin_read
@@ -12,9 +12,9 @@
 #' for default Plumber docs.
 #'
 #' @details
-#' By default, this function will find and use the latest version of the model;
-#' the model API (when deployed) will be linked to that specific version. You
-#' can override this default behavior by choosing a specific `version`.
+#' By default, this function will find and use the latest version of vetiver
+#' model; the model API (when deployed) will be linked to that specific version.
+#' You can override this default behavior by choosing a specific `version`.
 #'
 #' @return
 #' The content of the `plumber.R` file, invisibly.
@@ -26,8 +26,8 @@
 #' tmp <- tempfile()
 #' b <- board_temp(versioned = TRUE)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' m <- vetiver(cars_lm, "cars_linear", b)
-#' vetiver_pin_write(m)
+#' v <- vetiver_model(cars_lm, "cars_linear", b)
+#' vetiver_pin_write(v)
 #'
 #' vetiver_write_plumber(b, "cars_linear", file = tmp)
 #'

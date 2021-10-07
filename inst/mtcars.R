@@ -1,12 +1,16 @@
-library(modelops)
+library(vetiver)
 library(pins)
 library(plumber)
 
-model_board <- board_temp(versioned = TRUE)
+model_board <- board_folder(path = "/tmp/test")
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- modelops(cars_lm, "cars_linear", model_board)
-modelops_pin_write(m)
+v <- vetiver_model(cars_lm, "cars_linear", model_board)
+vetiver_pin_write(v)
 
 pr() %>%
-    modelops_pr_predict(m, debug = TRUE) %>%
+    vetiver_pr_predict(v, debug = TRUE) %>%
     pr_run(port = 8088)
+
+vetiver_write_plumber(model_board, "cars_linear", file = "plumber/mtcars/plumber.R")
+
+

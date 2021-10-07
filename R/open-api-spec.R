@@ -65,10 +65,10 @@ map_ptype <- function(ptype) {
 #' @return The new OpenAPI Specification object updated
 #' @export
 #'
-api_spec <- function(spec, vetiver, path) {
-    ptype <- vetiver$ptype
-    spec$info$title <- glue("{vetiver$model_name} model API")
-    spec$info$description <- vetiver$desc
+api_spec <- function(spec, vetiver_model, path) {
+    ptype <- vetiver_model$ptype
+    spec$info$title <- glue("{vetiver_model$model_name} model API")
+    spec$info$description <- vetiver_model$desc
 
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
@@ -79,7 +79,7 @@ api_spec <- function(spec, vetiver, path) {
     )
 
     if ("/pin-url" %in% names(spec$paths)) {
-        spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver object"
+        spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver model"
     }
 
     spec

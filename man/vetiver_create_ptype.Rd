@@ -29,8 +29,8 @@ to compute an input data prototype.}
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.
-A \code{\link[=vetiver]{vetiver()}} object optionally stores an input data prototype for checking
-at prediction time.
+A \code{\link[=vetiver_model]{vetiver_model()}} object optionally stores an input data prototype for
+checking at prediction time.
 }
 \details{
 \itemize{

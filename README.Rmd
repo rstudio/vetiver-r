@@ -54,14 +54,14 @@ library(pins)
 
 model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- vetiver(cars_lm, "cars_linear", model_board)
-m
+v <- vetiver_model(cars_lm, "cars_linear", model_board)
+v
 ```
 
 When you use `vetiver_pin_write()`, you store and version your deployable, trained model object.
 
 ```{r}
-vetiver_pin_write(m)
+vetiver_pin_write(v)
 ```
 
 You can **deploy** your pinned `vetiver()` object via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
@@ -70,7 +70,7 @@ You can **deploy** your pinned `vetiver()` object via a [Plumber API](https://ww
 ```{r, eval=FALSE}
 library(plumber)
 pr() %>%
-  vetiver_pr_predict(m) %>%
+  vetiver_pr_predict(v) %>%
   pr_run(port = 8088)
 ```
 

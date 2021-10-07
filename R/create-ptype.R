@@ -1,8 +1,8 @@
 #' Return a vetiver input data prototype
 #'
 #' These are developer-facing functions, useful for supporting new model types.
-#' A [vetiver()] object optionally stores an input data prototype for checking
-#' at prediction time.
+#' A [vetiver_model()] object optionally stores an input data prototype for
+#' checking at prediction time.
 #'
 #' - The default, `TRUE`, finds a zero-row slice of the training data via
 #' [vetiver_slice_zero()].
@@ -10,7 +10,7 @@
 #' - You may pass your own data to `ptype`, but be sure to check that it has
 #' the same structure as your training data, perhaps with [hardhat::scream()].
 #'
-#' @inheritParams vetiver
+#' @inheritParams vetiver_model
 #'
 #' @examples
 #'

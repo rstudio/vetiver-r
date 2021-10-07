@@ -5,12 +5,12 @@
 \alias{vetiver_pin_read}
 \title{Read and write a trained model to a board of models}
 \usage{
-vetiver_pin_write(vetiver)
+vetiver_pin_write(vetiver_model)
 
 vetiver_pin_read(board, name, version = NULL)
 }
 \arguments{
-\item{vetiver}{A deployable model object created with \code{\link[=vetiver]{vetiver()}}}
+\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
 \code{\link[pins:board_url]{board_url()}} or other other \code{board_} function.}
@@ -26,20 +26,20 @@ along with an input prototype for new data and other model metadata. Use
 \code{vetiver_pin_read()} to retried that pinned object.
 }
 \details{
-These functions read and write a \code{\link[=vetiver]{vetiver()}} pin on the specified
-\code{board} containing the model object itself and other elements needed for
-prediction, such as the model's input data prototype or which packages are
-needed at prediction time. You may use \code{\link[pins:pin_read]{pins::pin_read()}} or
+These functions read and write a \code{\link[=vetiver_model]{vetiver_model()}} pin on the
+specified \code{board} containing the model object itself and other elements
+needed for prediction, such as the model's input data prototype or which
+packages are needed at prediction time. You may use \code{\link[pins:pin_read]{pins::pin_read()}} or
 \code{\link[pins:pin_meta]{pins::pin_meta()}} to handle the pin, but \code{vetiver_pin_read()} returns a
-\code{\link[=vetiver]{vetiver()}} object ready for deployment.
+\code{\link[=vetiver_model]{vetiver_model()}} object ready for deployment.
 }
 \examples{
 library(pins)
 model_board <- board_temp()
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- vetiver(cars_lm, "cars_linear", model_board)
-vetiver_pin_write(m)
+v <- vetiver_model(cars_lm, "cars_linear", model_board)
+vetiver_pin_write(v)
 model_board
 
 vetiver_pin_read(model_board, "cars_linear")

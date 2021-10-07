@@ -2,14 +2,20 @@
 % Please edit documentation in R/pr-predict.R
 \name{vetiver_pr_predict}
 \alias{vetiver_pr_predict}
-\title{Create a Plumber API to predict with a deployable \code{vetiver()} object}
+\title{Create a Plumber API to predict with a deployable \code{vetiver_model()} object}
 \usage{
-vetiver_pr_predict(pr, vetiver, path = "/predict", debug = interactive(), ...)
+vetiver_pr_predict(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  debug = interactive(),
+  ...
+)
 }
 \arguments{
 \item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
 
-\item{vetiver}{A deployable model object created with \code{\link[=vetiver]{vetiver()}}}
+\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{path}{The endpoint path}
 
@@ -19,10 +25,10 @@ vetiver_pr_predict(pr, vetiver, path = "/predict", debug = interactive(), ...)
 }
 \description{
 Use \code{vetiver_pr_predict()} to add a POST endpoint for predictions from a
-trained, pinned \code{\link[=vetiver]{vetiver()}} object to a Plumber router.
+trained, pinned \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
 }
 \details{
-First store and version your \code{\link[=vetiver]{vetiver()}} object with
+First store and version your \code{\link[=vetiver_model]{vetiver_model()}} with
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}, and then create an API endpoint with
 \code{vetiver_pr_predict()}.
 
@@ -34,11 +40,11 @@ library(pins)
 model_board <- board_temp()
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- vetiver(cars_lm, "cars_linear", model_board)
-vetiver_pin_write(m)
+v <- vetiver_model(cars_lm, "cars_linear", model_board)
+vetiver_pin_write(v)
 
 library(plumber)
-pr() \%>\% vetiver_pr_predict(m)
+pr() \%>\% vetiver_pr_predict(v)
 ## next, pipe to `pr_run()`
 
 }

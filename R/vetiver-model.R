@@ -1,6 +1,6 @@
 #' Create a vetiver object for deployment of a trained model
 #'
-#' A `vetiver()` object collects the information needed to store, version,
+#' A `vetiver_model()` object collects the information needed to store, version,
 #' and deploy a trained model.
 #'
 #'
@@ -25,49 +25,49 @@
 #' to compute an input data prototype.
 #' @inheritParams pins::pin_write
 #'
-#' @details  Once your `vetiver()` object has been created, you can:
+#' @details  Once your `vetiver_model()` object has been created, you can:
 #' - store and version it as a pin with [vetiver_pin_write()]
 #' - create an API endpoint for it with [vetiver_pr_predict()]
 #'
-#' If you provide your own data to `ptype`, consider checking that it has the
-#' same structure as your training data (perhaps with [hardhat::scream()])
+#' If you provide your own data to `save_ptype`, consider checking that it has
+#' the same structure as your training data (perhaps with [hardhat::scream()])
 #' and/or simulating data to avoid leaking PII via your deployed model.
 #'
-#' @return A new `vetiver` object
+#' @return A new `vetiver_model` object
 #'
 #' @examples
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' vetiver(cars_lm, "cars_linear", pins::board_temp())
+#' vetiver_model(cars_lm, "cars_linear", pins::board_temp())
 #'
 #' @export
-vetiver <- function(model,
-                    model_name,
-                    board,
-                    ...,
-                    desc = NULL,
-                    metadata = list(),
-                    save_ptype = TRUE,
-                    versioned = NULL) {
-    UseMethod("vetiver")
+vetiver_model <- function(model,
+                          model_name,
+                          board,
+                          ...,
+                          desc = NULL,
+                          metadata = list(),
+                          save_ptype = TRUE,
+                          versioned = NULL) {
+    UseMethod("vetiver_model")
 }
 
-#' @rdname vetiver
+#' @rdname vetiver_model
 #' @export
-vetiver.default <- function(model, ...) {
-    abort("There is no vetiver method available to deploy `model`.")
+vetiver_model.default <- function(model, ...) {
+    abort("There is no `vetiver_model` method available to deploy `model`.")
 }
 
-#' @rdname vetiver
+#' @rdname vetiver_model
 #' @export
-vetiver.lm <- function(model,
-                       model_name,
-                       board,
-                       ...,
-                       desc = NULL,
-                       metadata = list(),
-                       save_ptype = TRUE,
-                       versioned = NULL) {
+vetiver_model.lm <- function(model,
+                             model_name,
+                             board,
+                             ...,
+                             desc = NULL,
+                             metadata = list(),
+                             save_ptype = TRUE,
+                             versioned = NULL) {
 
     if (is_null(desc)) {
         desc <- "An OLS linear regression model"
@@ -76,7 +76,7 @@ vetiver.lm <- function(model,
     ptype <- vetiver_create_ptype(model, save_ptype, ...)
     model <- butcher::butcher(model)
 
-    new_vetiver(
+    new_vetiver_model(
         model = model,
         model_name = model_name,
         board = board,
@@ -87,16 +87,16 @@ vetiver.lm <- function(model,
     )
 }
 
-#' @rdname vetiver
+#' @rdname vetiver_model
 #' @export
-new_vetiver <- function(model,
-                        model_name = character(),
-                        board = pins::board_temp(),
-                        ...,
-                        desc = character(),
-                        metadata = vetiver::vetiver_meta(),
-                        ptype = NULL,
-                        versioned = NULL) {
+new_vetiver_model <- function(model,
+                              model_name = character(),
+                              board = pins::board_temp(),
+                              ...,
+                              desc = character(),
+                              metadata = vetiver::vetiver_meta(),
+                              ptype = NULL,
+                              versioned = NULL) {
 
     data <- list(
         model = model,
@@ -108,13 +108,13 @@ new_vetiver <- function(model,
         versioned = versioned
     )
 
-    structure(data, class = "vetiver")
+    structure(data, class = "vetiver_model")
 }
 
 
-#' Metadata constructor for vetiver object
+#' Metadata constructor for `vetiver_model()` object
 #'
-#' The metadata stored in a [vetiver()] object has three elements:
+#' The metadata stored in a [vetiver_model()] object has three elements:
 #'
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
@@ -133,12 +133,12 @@ vetiver_meta <- function(user = list(), version = NULL,
          url = url, required_pkgs = required_pkgs)
 }
 
-is_vetiver <- function(x) {
-    inherits(x, "vetiver")
+is_vetiver_model <- function(x) {
+    inherits(x, "vetiver_model")
 }
 
 #' @export
-format.vetiver <- function(x, ...) {
+format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
@@ -147,7 +147,7 @@ format.vetiver <- function(x, ...) {
 }
 
 #' @export
-print.vetiver <- function(x, ...) {
+print.vetiver_model <- function(x, ...) {
     cat(format(x, ...), sep = "\n")
     invisible(x)
 }

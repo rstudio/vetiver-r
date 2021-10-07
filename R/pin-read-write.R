@@ -7,20 +7,20 @@
 #' @inheritParams vetiver_pr_predict
 #' @inheritParams pins::pin_read
 #'
-#' @details These functions read and write a [vetiver()] pin on the specified
-#' `board` containing the model object itself and other elements needed for
-#' prediction, such as the model's input data prototype or which packages are
-#' needed at prediction time. You may use [pins::pin_read()] or
+#' @details These functions read and write a [vetiver_model()] pin on the
+#' specified `board` containing the model object itself and other elements
+#' needed for prediction, such as the model's input data prototype or which
+#' packages are needed at prediction time. You may use [pins::pin_read()] or
 #' [pins::pin_meta()] to handle the pin, but `vetiver_pin_read()` returns a
-#' [vetiver()] object ready for deployment.
+#' [vetiver_model()] object ready for deployment.
 #'
 #' @examples
 #' library(pins)
 #' model_board <- board_temp()
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' m <- vetiver(cars_lm, "cars_linear", model_board)
-#' vetiver_pin_write(m)
+#' v <- vetiver_model(cars_lm, "cars_linear", model_board)
+#' vetiver_pin_write(v)
 #' model_board
 #'
 #' vetiver_pin_read(model_board, "cars_linear")
@@ -29,17 +29,17 @@
 #' pin_versions(model_board, "cars_linear")
 #'
 #' @export
-vetiver_pin_write <- function(vetiver) {
+vetiver_pin_write <- function(vetiver_model) {
     pins::pin_write(
-        board = vetiver$board,
-        x = list(model = vetiver$model,
-                 ptype = vetiver$ptype,
-                 required_pkgs = vetiver$metadata$required_pkgs),
-        name = vetiver$model_name,
+        board = vetiver_model$board,
+        x = list(model = vetiver_model$model,
+                 ptype = vetiver_model$ptype,
+                 required_pkgs = vetiver_model$metadata$required_pkgs),
+        name = vetiver_model$model_name,
         type = "rds",
-        desc = vetiver$desc,
-        metadata = vetiver$metadata$user,
-        versioned = vetiver$versioned
+        desc = vetiver_model$desc,
+        metadata = vetiver_model$metadata$user,
+        versioned = vetiver_model$versioned
     )
 }
 
@@ -52,7 +52,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
 
     ## TODO: add subset of renv hash checking
 
-    new_vetiver(
+    new_vetiver_model(
         model = pinned$model,
         model_name = name,
         board = board,

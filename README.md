@@ -56,8 +56,8 @@ library(pins)
 
 model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- vetiver(cars_lm, "cars_linear", model_board)
-m
+v <- vetiver_model(cars_lm, "cars_linear", model_board)
+v
 #> 
 #> ── cars_linear ─ <butchered_lm> model for deployment 
 #> An OLS linear regression model using 10 features
@@ -67,8 +67,8 @@ When you use `vetiver_pin_write()`, you store and version your
 deployable, trained model object.
 
 ``` r
-vetiver_pin_write(m)
-#> Creating new version '20211007T193537Z-522c5'
+vetiver_pin_write(v)
+#> Creating new version '20211007T201257Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
@@ -79,7 +79,7 @@ ways](https://www.rplumber.io/articles/hosting.html).
 ``` r
 library(plumber)
 pr() %>%
-  vetiver_pr_predict(m) %>%
+  vetiver_pr_predict(v) %>%
   pr_run(port = 8088)
 ```
 

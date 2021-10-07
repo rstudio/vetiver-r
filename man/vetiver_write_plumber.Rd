@@ -2,7 +2,7 @@
 % Please edit documentation in R/write-plumber.R
 \name{vetiver_write_plumber}
 \alias{vetiver_write_plumber}
-\title{Write a deployable Plumber file for a vetiver object}
+\title{Write a deployable Plumber file for a vetiver model}
 \usage{
 vetiver_write_plumber(
   board,
@@ -33,21 +33,21 @@ The content of the \code{plumber.R} file, invisibly.
 }
 \description{
 Use \code{vetiver_write_plumber()} to create a \code{plumber.R} file for a
-\code{\link[=vetiver]{vetiver()}} object that has been versioned and stored via
+\code{\link[=vetiver_model]{vetiver_model()}} that has been versioned and stored via
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}.
 }
 \details{
-By default, this function will find and use the latest version of the model;
-the model API (when deployed) will be linked to that specific version. You
-can override this default behavior by choosing a specific \code{version}.
+By default, this function will find and use the latest version of vetiver
+model; the model API (when deployed) will be linked to that specific version.
+You can override this default behavior by choosing a specific \code{version}.
 }
 \examples{
 library(pins)
 tmp <- tempfile()
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
-m <- vetiver(cars_lm, "cars_linear", b)
-vetiver_pin_write(m)
+v <- vetiver_model(cars_lm, "cars_linear", b)
+vetiver_pin_write(v)
 
 vetiver_write_plumber(b, "cars_linear", file = tmp)
 

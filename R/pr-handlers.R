@@ -1,6 +1,6 @@
 #' Model handler functions for API endpoint
 #'
-#' Each model supported by `vetiver()` uses two handler functions
+#' Each model supported by `vetiver_model()` uses two handler functions
 #' in [vetiver_pr_predict()]:
 #' - The `handler_startup` function executes when the API starts. Use this
 #' function for tasks like loading packages. A model can use the default
@@ -9,36 +9,36 @@
 #' function for calling `predict()` and any other tasks that must be executed
 #' at each API call.
 #'
-#' @details These are two generics that use the class of `vetiver$model` for
-#' dispatch.
+#' @details These are two generics that use the class of `vetiver_model$model`
+#' for dispatch.
 #'
 #' @inheritParams vetiver_pr_predict
 #'
 #' @rdname handler_predict
 #' @export
-handler_startup <- function(vetiver, ...)
-    UseMethod("handler_startup", vetiver$model)
+handler_startup <- function(vetiver_model, ...)
+    UseMethod("handler_startup", vetiver_model$model)
 
 #' @rdname handler_predict
 #' @export
-handler_startup.default <- function(vetiver, ...) NULL
+handler_startup.default <- function(vetiver_model, ...) NULL
 
 #' @rdname handler_predict
 #' @export
-handler_predict <- function(vetiver, ...)
-    UseMethod("handler_predict", vetiver$model)
+handler_predict <- function(vetiver_model, ...)
+    UseMethod("handler_predict", vetiver_model$model)
 
 #' @rdname handler_predict
 #' @export
-handler_predict.default <- function(vetiver, ...)
+handler_predict.default <- function(vetiver_model, ...)
     abort("There is no method available to build a prediction handler for `x`.")
 
 
 #' @rdname handler_predict
 #' @export
-handler_predict.lm <- function(vetiver, ...) {
+handler_predict.lm <- function(vetiver_model, ...) {
 
-    ptype <- vetiver$ptype
+    ptype <- vetiver_model$ptype
 
     function(req) {
         newdata <- req$body
@@ -46,7 +46,7 @@ handler_predict.lm <- function(vetiver, ...) {
         if (!is_null(ptype)) {
             newdata <- hardhat::scream(newdata, ptype)
         }
-        ret <- predict(vetiver$model, newdata = newdata, ...)
+        ret <- predict(vetiver_model$model, newdata = newdata, ...)
         list(.pred = ret)
     }
 
