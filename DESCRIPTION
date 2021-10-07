@@ -30,6 +30,7 @@ Imports:
     vctrs,
     withr
 Suggests: 
+    covr,
     knitr,
     rapidoc,
     rmarkdown,

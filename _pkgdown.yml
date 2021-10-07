@@ -2,6 +2,13 @@ url: https://tidymodels.github.io/vetiver
 
 template:
   package: tidytemplate
+  params:
+    theme: tidymodels
+    part_of: <a href="https://tidymodels.org">tidymodels</a>
+    footer: vetiver is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
+
+home:
+  strip_header: true
 
 reference:
 - title: Handling vetiver objects

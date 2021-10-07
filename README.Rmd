@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
+[![Codecov test coverage](https://codecov.io/gh/tidymodels/vetiver/branch/master/graph/badge.svg)](https://codecov.io/gh/tidymodels/vetiver?branch=master)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
