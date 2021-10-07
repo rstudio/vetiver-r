@@ -1,4 +1,4 @@
 library(testthat)
-library(modelops)
+library(vetiver)
 
-test_check("modelops")
+test_check("vetiver")

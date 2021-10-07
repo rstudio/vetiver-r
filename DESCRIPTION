@@ -1,4 +1,4 @@
-Package: modelops
+Package: vetiver
 Title: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'
 Version: 0.0.0.9000
 Authors@R: c(
@@ -12,9 +12,9 @@ Description: A trained model can be shared and versioned via 'pins',
     model's input data prototype, predicting from a remote API endpoint,
     and monitoring model performance.
 License: MIT + file LICENSE
-URL: https://github.com/rstudio/modelops,
-    https://rstudio.github.io/modelops/
-BugReports: https://github.com/rstudio/modelops/issues
+URL: https://github.com/tidymodels/vetiver,
+    https://tidymodels.github.io/vetiver/
+BugReports: https://github.com/tidymodels/vetiver/issues
 Imports: 
     butcher,
     cli,

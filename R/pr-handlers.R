@@ -1,7 +1,7 @@
 #' Model handler functions for API endpoint
 #'
-#' Each model supported by `modelops()` uses two handler functions
-#' in [modelops_pr_predict()]:
+#' Each model supported by `vetiver()` uses two handler functions
+#' in [vetiver_pr_predict()]:
 #' - The `handler_startup` function executes when the API starts. Use this
 #' function for tasks like loading packages. A model can use the default
 #' method here, which is `NULL` (to do nothing at startup).
@@ -9,44 +9,44 @@
 #' function for calling `predict()` and any other tasks that must be executed
 #' at each API call.
 #'
-#' @details These are two generics that use class of `modelops$model` for
+#' @details These are two generics that use the class of `vetiver$model` for
 #' dispatch.
 #'
-#' @inheritParams modelops_pr_predict
+#' @inheritParams vetiver_pr_predict
 #'
 #' @rdname handler_predict
 #' @export
-handler_startup <- function(modelops, ...)
-    UseMethod("handler_startup", modelops$model)
+handler_startup <- function(vetiver, ...)
+    UseMethod("handler_startup", vetiver$model)
 
 #' @rdname handler_predict
 #' @export
-handler_startup.default <- function(modelops, ...) NULL
+handler_startup.default <- function(vetiver, ...) NULL
 
 #' @rdname handler_predict
 #' @export
-handler_predict <- function(modelops, ...)
-    UseMethod("handler_predict", modelops$model)
+handler_predict <- function(vetiver, ...)
+    UseMethod("handler_predict", vetiver$model)
 
 #' @rdname handler_predict
 #' @export
-handler_predict.default <- function(modelops, ...)
+handler_predict.default <- function(vetiver, ...)
     abort("There is no method available to build a prediction handler for `x`.")
 
 
 #' @rdname handler_predict
 #' @export
-handler_predict.lm <- function(modelops, ...) {
+handler_predict.lm <- function(vetiver, ...) {
 
-    ptype <- modelops$ptype
+    ptype <- vetiver$ptype
 
     function(req) {
         newdata <- req$body
-        newdata <- modelops_type_convert(newdata, ptype)
+        newdata <- vetiver_type_convert(newdata, ptype)
         if (!is_null(ptype)) {
             newdata <- hardhat::scream(newdata, ptype)
         }
-        ret <- predict(modelops$model, newdata = newdata, ...)
+        ret <- predict(vetiver$model, newdata = newdata, ...)
         list(.pred = ret)
     }
 
@@ -67,14 +67,14 @@ handler_predict.lm <- function(modelops, ...) {
 #' training_df
 #'
 #' ptype <- vctrs::vec_slice(training_df, 0)
-#' modelops_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), ptype)
+#' vetiver_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), ptype)
 #'
 #'
-#' @inheritParams predict.modelops_endpoint
+#' @inheritParams predict.vetiver_endpoint
 #' @param ptype An input data prototype, such as a 0-row slice of the training
 #' data
 #' @export
-modelops_type_convert <- function(new_data, ptype) {
+vetiver_type_convert <- function(new_data, ptype) {
     if (!is_null(ptype)) {
         spec <- readr::as.col_spec(ptype)
         is_character <- vapply(new_data, is.character, logical(1))

@@ -1,7 +1,7 @@
 
 test_that("all numeric", {
     expect_equal(
-        modelops_type_convert(mtcars, vctrs::vec_slice(mtcars, 0)),
+        vetiver_type_convert(mtcars, vctrs::vec_slice(mtcars, 0)),
         mtcars
     )
 })
@@ -11,7 +11,7 @@ test_that("a factor", {
     chicks$feed <- as.character(chicks$feed)
 
     expect_equal(
-        modelops_type_convert(chicks, vctrs::vec_slice(chickwts, 0)),
+        vetiver_type_convert(chicks, vctrs::vec_slice(chickwts, 0)),
         chickwts
     )
 })
@@ -22,7 +22,7 @@ test_that("a factor plus a bad character", {
     teeth$dose <- as.character(teeth$dose)
 
     expect_equal(
-        modelops_type_convert(teeth, vctrs::vec_slice(ToothGrowth, 0)),
+        vetiver_type_convert(teeth, vctrs::vec_slice(ToothGrowth, 0)),
         ToothGrowth
     )
 })
@@ -40,7 +40,7 @@ test_that("a date", {
     )
 
     expect_equal(
-        modelops_type_convert(new_data, vctrs::vec_slice(many_dates, 0)),
+        vetiver_type_convert(new_data, vctrs::vec_slice(many_dates, 0)),
         tibble::tibble(
             x = as.Date("2021-01-15"),
             y = as.Date("1980-03-01"),

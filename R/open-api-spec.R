@@ -60,15 +60,15 @@ map_ptype <- function(ptype) {
 #' Update the OpenAPI specification from model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
-#' @inheritParams modelops_pr_predict
+#' @inheritParams vetiver_pr_predict
 #'
 #' @return The new OpenAPI Specification object updated
 #' @export
 #'
-api_spec <- function(spec, modelops, path) {
-    ptype <- modelops$ptype
-    spec$info$title <- glue("{modelops$model_name} model API")
-    spec$info$description <- modelops$desc
+api_spec <- function(spec, vetiver, path) {
+    ptype <- vetiver$ptype
+    spec$info$title <- glue("{vetiver$model_name} model API")
+    spec$info$description <- vetiver$desc
 
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
@@ -79,7 +79,7 @@ api_spec <- function(spec, modelops, path) {
     )
 
     if ("/pin-url" %in% names(spec$paths)) {
-        spec$paths$`/pin-url`$get$summary <- "Get URL of pinned modelops object"
+        spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver object"
     }
 
     spec

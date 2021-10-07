@@ -4,10 +4,10 @@ library(plumber)
 b <- board_temp()
 
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-m <- modelops(cars_lm, "cars1", b)
+m <- vetiver(cars_lm, "cars1", b)
 
 test_that("default endpoint", {
-    p <- pr() %>% modelops_pr_predict(m)
+    p <- pr() %>% vetiver_pr_predict(m)
     ep <- p$endpoints[[1]][[1]]
     expect_equal(ep$verbs, c("POST"))
     expect_equal(ep$path, "/predict")
@@ -15,7 +15,7 @@ test_that("default endpoint", {
 
 test_that("pin URL endpoint", {
     m$metadata <- list(url = "potato")
-    p <- pr() %>% modelops_pr_predict(m)
+    p <- pr() %>% vetiver_pr_predict(m)
     ep_pin <- p$endpoints[[1]][[1]]
     expect_equal(ep_pin$verbs, c("GET"))
     expect_equal(ep_pin$path, "/pin-url")
@@ -26,7 +26,7 @@ test_that("pin URL endpoint", {
 
 test_that("default OpenAPI spec", {
     m$metadata <- list(url = "potatoes")
-    p <- pr() %>% modelops_pr_predict(m)
+    p <- pr() %>% vetiver_pr_predict(m)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
@@ -38,14 +38,14 @@ test_that("default OpenAPI spec", {
                                         disp = list(type = "number"))))
     get_spec <- car_spec$paths$`/pin-url`$get
     expect_equal(as.character(get_spec$summary),
-                 "Get URL of pinned modelops object")
+                 "Get URL of pinned vetiver object")
 
 })
 
 test_that("OpenAPI spec with custom ptype", {
     car_ptype <- mtcars[15:16, 2:3]
-    m <- modelops(cars_lm, "cars1", b, save_ptype = car_ptype)
-    p <- pr() %>% modelops_pr_predict(m)
+    m <- vetiver(cars_lm, "cars1", b, save_ptype = car_ptype)
+    p <- pr() %>% vetiver_pr_predict(m)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))

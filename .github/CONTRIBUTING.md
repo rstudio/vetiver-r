@@ -1,6 +1,6 @@
-# Contributing to modelops
+# Contributing to vetiver
 
-This outlines how to propose a change to modelops. 
+This outlines how to propose a change to vetiver. 
 For more detailed info about contributing to this, and other tidyverse packages, please see the
 [**development contributing guide**](https://rstd.io/tidy-contrib). 
 

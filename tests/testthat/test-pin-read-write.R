@@ -4,8 +4,8 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 
 test_that("can pin a model", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars1", b)
-    modelops_pin_write(m)
+    m <- vetiver(cars_lm, "cars1", b)
+    vetiver_pin_write(m)
     expect_equal(
         pin_read(b, "cars1"),
         list(
@@ -18,8 +18,8 @@ test_that("can pin a model", {
 
 test_that("can pin a model with no ptype", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars_null", b, save_ptype = FALSE)
-    modelops_pin_write(m)
+    m <- vetiver(cars_lm, "cars_null", b, save_ptype = FALSE)
+    vetiver_pin_write(m)
     expect_equal(
         pin_read(b, "cars_null"),
         list(
@@ -32,8 +32,8 @@ test_that("can pin a model with no ptype", {
 
 test_that("can pin a model with custom ptype", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars_custom", b, save_ptype = mtcars[3:10, 2:3])
-    modelops_pin_write(m)
+    m <- vetiver(cars_lm, "cars_custom", b, save_ptype = mtcars[3:10, 2:3])
+    vetiver_pin_write(m)
     expect_equal(
         pin_read(b, "cars_custom"),
         list(
@@ -46,8 +46,8 @@ test_that("can pin a model with custom ptype", {
 
 test_that("default metadata for model", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars2", b)
-    modelops_pin_write(m)
+    m <- vetiver(cars_lm, "cars2", b)
+    vetiver_pin_write(m)
     meta <- pin_meta(b, "cars2")
     expect_equal(meta$user, list())
     expect_equal(meta$description, "An OLS linear regression model")
@@ -55,10 +55,10 @@ test_that("default metadata for model", {
 
 test_that("user can supply metadata for model", {
     b <- board_temp()
-    m <- modelops(cars_lm, "cars3", b,
+    m <- vetiver(cars_lm, "cars3", b,
                   desc = "lm model for mtcars",
                   metadata = list(metrics = 1:10))
-    modelops_pin_write(m)
+    vetiver_pin_write(m)
     meta <- pin_meta(b, "cars3")
     expect_equal(meta$user, list(metrics = 1:10))
     expect_equal(meta$description, "lm model for mtcars")
@@ -67,9 +67,9 @@ test_that("user can supply metadata for model", {
 test_that("can read a pinned model", {
     b <- board_temp()
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-    m <- modelops(cars_lm, "cars1", b)
-    modelops_pin_write(m)
-    m1 <- modelops_pin_read(b, "cars1")
+    m <- vetiver(cars_lm, "cars1", b)
+    vetiver_pin_write(m)
+    m1 <- vetiver_pin_read(b, "cars1")
     meta <- pin_meta(b, "cars1")
     expect_equal(m1$model, m$model)
     expect_equal(m1$model_name, m$model_name)
@@ -89,11 +89,11 @@ test_that("can read a pinned model", {
 test_that("can read a versioned model with metadata", {
     b <- board_temp(versioned = TRUE)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-    m <- modelops(cars_lm, "cars4", b,
+    m <- vetiver(cars_lm, "cars4", b,
                   desc = "lm model for mtcars",
                   metadata = list(metrics = 1:10))
-    modelops_pin_write(m)
-    m4 <- modelops_pin_read(b, "cars4")
+    vetiver_pin_write(m)
+    m4 <- vetiver_pin_read(b, "cars4")
     meta <- pin_meta(b, "cars4")
     expect_equal(m4$model, m$model)
     expect_equal(m4$model_name, m$model_name)

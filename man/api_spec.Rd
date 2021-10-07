@@ -4,12 +4,12 @@
 \alias{api_spec}
 \title{Update the OpenAPI specification from model metadata}
 \usage{
-api_spec(spec, modelops, path)
+api_spec(spec, vetiver, path)
 }
 \arguments{
 \item{spec}{An OpenAPI Specification formatted list object}
 
-\item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
+\item{vetiver}{A deployable model object created with \code{\link[=vetiver]{vetiver()}}}
 
 \item{path}{The endpoint path}
 }

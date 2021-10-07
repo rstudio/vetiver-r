@@ -8,24 +8,24 @@
 \alias{handler_predict.lm}
 \title{Model handler functions for API endpoint}
 \usage{
-handler_startup(modelops, ...)
+handler_startup(vetiver, ...)
 
-\method{handler_startup}{default}(modelops, ...)
+\method{handler_startup}{default}(vetiver, ...)
 
-handler_predict(modelops, ...)
+handler_predict(vetiver, ...)
 
-\method{handler_predict}{default}(modelops, ...)
+\method{handler_predict}{default}(vetiver, ...)
 
-\method{handler_predict}{lm}(modelops, ...)
+\method{handler_predict}{lm}(vetiver, ...)
 }
 \arguments{
-\item{modelops}{A deployable model object created with \code{\link[=modelops]{modelops()}}}
+\item{vetiver}{A deployable model object created with \code{\link[=vetiver]{vetiver()}}}
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
 \description{
-Each model supported by \code{modelops()} uses two handler functions
-in \code{\link[=modelops_pr_predict]{modelops_pr_predict()}}:
+Each model supported by \code{vetiver()} uses two handler functions
+in \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}:
 \itemize{
 \item The \code{handler_startup} function executes when the API starts. Use this
 function for tasks like loading packages. A model can use the default
@@ -36,6 +36,6 @@ at each API call.
 }
 }
 \details{
-These are two generics that use class of \code{modelops$model} for
+These are two generics that use the class of \code{vetiver$model} for
 dispatch.
 }

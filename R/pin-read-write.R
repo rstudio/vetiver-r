@@ -1,63 +1,63 @@
 #' Read and write a trained model to a board of models
 #'
-#' Use `modelops_pin_write()` to pin a trained model to a board of models,
+#' Use `vetiver_pin_write()` to pin a trained model to a board of models,
 #' along with an input prototype for new data and other model metadata. Use
-#' `modelops_pin_read()` to retried that pinned object.
+#' `vetiver_pin_read()` to retried that pinned object.
 #'
-#' @inheritParams modelops_pr_predict
+#' @inheritParams vetiver_pr_predict
 #' @inheritParams pins::pin_read
 #'
-#' @details These functions read and write a [modelops()] pin on the specified
+#' @details These functions read and write a [vetiver()] pin on the specified
 #' `board` containing the model object itself and other elements needed for
 #' prediction, such as the model's input data prototype or which packages are
 #' needed at prediction time. You may use [pins::pin_read()] or
-#' [pins::pin_meta()] to handle the pin, but `modelops_pin_read()` returns a
-#' [modelops()] object ready for deployment.
+#' [pins::pin_meta()] to handle the pin, but `vetiver_pin_read()` returns a
+#' [vetiver()] object ready for deployment.
 #'
 #' @examples
 #' library(pins)
 #' model_board <- board_temp()
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' m <- modelops(cars_lm, "cars_linear", model_board)
-#' modelops_pin_write(m)
+#' m <- vetiver(cars_lm, "cars_linear", model_board)
+#' vetiver_pin_write(m)
 #' model_board
 #'
-#' modelops_pin_read(model_board, "cars_linear")
+#' vetiver_pin_read(model_board, "cars_linear")
 #'
 #' # can use `version` argument to read a specific version:
 #' pin_versions(model_board, "cars_linear")
 #'
 #' @export
-modelops_pin_write <- function(modelops) {
+vetiver_pin_write <- function(vetiver) {
     pins::pin_write(
-        board = modelops$board,
-        x = list(model = modelops$model,
-                 ptype = modelops$ptype,
-                 required_pkgs = modelops$metadata$required_pkgs),
-        name = modelops$model_name,
+        board = vetiver$board,
+        x = list(model = vetiver$model,
+                 ptype = vetiver$ptype,
+                 required_pkgs = vetiver$metadata$required_pkgs),
+        name = vetiver$model_name,
         type = "rds",
-        desc = modelops$desc,
-        metadata = modelops$metadata$user,
-        versioned = modelops$versioned
+        desc = vetiver$desc,
+        metadata = vetiver$metadata$user,
+        versioned = vetiver$versioned
     )
 }
 
-#' @rdname modelops_pin_write
+#' @rdname vetiver_pin_write
 #' @export
-modelops_pin_read <- function(board, name, version = NULL) {
+vetiver_pin_read <- function(board, name, version = NULL) {
 
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
     ## TODO: add subset of renv hash checking
 
-    new_modelops(
+    new_vetiver(
         model = pinned$model,
         model_name = name,
         board = board,
         desc = meta$description,
-        metadata = modelops_meta(
+        metadata = vetiver_meta(
             user = meta$user,
             version = meta$local$version,
             url = meta$local$url,

@@ -1,6 +1,6 @@
-#' Create a modelops object for deployment of a trained model
+#' Create a vetiver object for deployment of a trained model
 #'
-#' A `modelops()` object collects the information needed to store, version,
+#' A `vetiver()` object collects the information needed to store, version,
 #' and deploy a trained model.
 #'
 #'
@@ -21,82 +21,82 @@
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned? The default, `NULL`,
 #' will use the default for `board`.
-#' @param ... Other method-specific arguments passed to [modelops_slice_zero()]
+#' @param ... Other method-specific arguments passed to [vetiver_slice_zero()]
 #' to compute an input data prototype.
 #' @inheritParams pins::pin_write
 #'
-#' @details  Once your `modelops()` object has been created, you can:
-#' - store and version it as a pin with [modelops_pin_write()]
-#' - create an API endpoint for it with [modelops_pr_predict()]
+#' @details  Once your `vetiver()` object has been created, you can:
+#' - store and version it as a pin with [vetiver_pin_write()]
+#' - create an API endpoint for it with [vetiver_pr_predict()]
 #'
 #' If you provide your own data to `ptype`, consider checking that it has the
 #' same structure as your training data (perhaps with [hardhat::scream()])
 #' and/or simulating data to avoid leaking PII via your deployed model.
 #'
-#' @return A new `modelops` object
+#' @return A new `vetiver` object
 #'
 #' @examples
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' modelops(cars_lm, "cars_linear", pins::board_temp())
+#' vetiver(cars_lm, "cars_linear", pins::board_temp())
 #'
 #' @export
-modelops <- function(model,
-                     model_name,
-                     board,
-                     ...,
-                     desc = NULL,
-                     metadata = list(),
-                     save_ptype = TRUE,
-                     versioned = NULL) {
-    UseMethod("modelops")
+vetiver <- function(model,
+                    model_name,
+                    board,
+                    ...,
+                    desc = NULL,
+                    metadata = list(),
+                    save_ptype = TRUE,
+                    versioned = NULL) {
+    UseMethod("vetiver")
 }
 
-#' @rdname modelops
+#' @rdname vetiver
 #' @export
-modelops.default <- function(model, ...) {
-    abort("There is no modelops method available to deploy `model`.")
+vetiver.default <- function(model, ...) {
+    abort("There is no vetiver method available to deploy `model`.")
 }
 
-#' @rdname modelops
+#' @rdname vetiver
 #' @export
-modelops.lm <- function(model,
-                        model_name,
-                        board,
-                        ...,
-                        desc = NULL,
-                        metadata = list(),
-                        save_ptype = TRUE,
-                        versioned = NULL) {
+vetiver.lm <- function(model,
+                       model_name,
+                       board,
+                       ...,
+                       desc = NULL,
+                       metadata = list(),
+                       save_ptype = TRUE,
+                       versioned = NULL) {
 
     if (is_null(desc)) {
         desc <- "An OLS linear regression model"
     }
 
-    ptype <- modelops_create_ptype(model, save_ptype, ...)
+    ptype <- vetiver_create_ptype(model, save_ptype, ...)
     model <- butcher::butcher(model)
 
-    new_modelops(
+    new_vetiver(
         model = model,
         model_name = model_name,
         board = board,
         desc = desc,
-        metadata = modelops_meta(metadata),
+        metadata = vetiver_meta(metadata),
         ptype = ptype,
         versioned = versioned
     )
 }
 
-#' @rdname modelops
+#' @rdname vetiver
 #' @export
-new_modelops <- function(model,
-                         model_name = character(),
-                         board = pins::board_temp(),
-                         ...,
-                         desc = character(),
-                         metadata = modelops::modelops_meta(),
-                         ptype = NULL,
-                         versioned = NULL) {
+new_vetiver <- function(model,
+                        model_name = character(),
+                        board = pins::board_temp(),
+                        ...,
+                        desc = character(),
+                        metadata = vetiver::vetiver_meta(),
+                        ptype = NULL,
+                        versioned = NULL) {
 
     data <- list(
         model = model,
@@ -108,13 +108,13 @@ new_modelops <- function(model,
         versioned = versioned
     )
 
-    structure(data, class = "modelops")
+    structure(data, class = "vetiver")
 }
 
 
-#' Metadata constructor for modelops object
+#' Metadata constructor for vetiver object
 #'
-#' The metadata stored in a [modelops()] object has three elements:
+#' The metadata stored in a [vetiver()] object has three elements:
 #'
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
@@ -127,18 +127,18 @@ new_modelops <- function(model,
 #' @param required_pkgs Character string of R packages required for prediction
 #'
 #' @export
-modelops_meta <- function(user = list(), version = NULL,
-                          url = NULL, required_pkgs = NULL) {
+vetiver_meta <- function(user = list(), version = NULL,
+                         url = NULL, required_pkgs = NULL) {
     list(user = user, version = version,
          url = url, required_pkgs = required_pkgs)
 }
 
-is_modelops <- function(x) {
-    inherits(x, "modelops")
+is_vetiver <- function(x) {
+    inherits(x, "vetiver")
 }
 
 #' @export
-format.modelops <- function(x, ...) {
+format.vetiver <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
@@ -147,7 +147,7 @@ format.modelops <- function(x, ...) {
 }
 
 #' @export
-print.modelops <- function(x, ...) {
+print.vetiver <- function(x, ...) {
     cat(format(x, ...), sep = "\n")
     invisible(x)
 }
