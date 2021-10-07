@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a Plumber API to predict with a deployable vetiver() object — vetiver_pr_predict • vetiver</title>
+<title>Create a Plumber API to predict with a deployable vetiver_model() object — vetiver_pr_predict • vetiver</title>
 
 
 <!-- jquery -->
@@ -42,9 +42,9 @@
 
 
 
-<meta property="og:title" content="Create a Plumber API to predict with a deployable vetiver() object — vetiver_pr_predict" />
+<meta property="og:title" content="Create a Plumber API to predict with a deployable vetiver_model() object — vetiver_pr_predict" />
 <meta property="og:description" content="Use vetiver_pr_predict() to add a POST endpoint for predictions from a
-trained, pinned vetiver() object to a Plumber router." />
+trained, pinned vetiver_model() to a Plumber router." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,17 +125,23 @@ trained, pinned vetiver() object to a Plumber router." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a Plumber API to predict with a deployable <code>vetiver()</code> object</h1>
+    <h1>Create a Plumber API to predict with a deployable <code>vetiver_model()</code> object</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/pr-predict.R'><code>R/pr-predict.R</code></a></small>
     <div class="hidden name"><code>vetiver_pr_predict.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Use <code>vetiver_pr_predict()</code> to add a POST endpoint for predictions from a
-trained, pinned <code><a href='vetiver.html'>vetiver()</a></code> object to a Plumber router.</p>
+trained, pinned <code><a href='vetiver_model.html'>vetiver_model()</a></code> to a Plumber router.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vetiver_pr_predict</span><span class='op'>(</span><span class='va'>pr</span>, <span class='va'>vetiver</span>, path <span class='op'>=</span> <span class='st'>"/predict"</span>, debug <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>vetiver_pr_predict</span><span class='op'>(</span>
+  <span class='va'>pr</span>,
+  <span class='va'>vetiver_model</span>,
+  path <span class='op'>=</span> <span class='st'>"/predict"</span>,
+  debug <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,8 +151,8 @@ trained, pinned <code><a href='vetiver.html'>vetiver()</a></code> object to a Pl
       <td><p>A Plumber router, such as from <code><a href='https://www.rplumber.io/reference/pr.html'>plumber::pr()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>vetiver</th>
-      <td><p>A deployable model object created with <code><a href='vetiver.html'>vetiver()</a></code></p></td>
+      <th>vetiver_model</th>
+      <td><p>A deployable <code><a href='vetiver_model.html'>vetiver_model()</a></code> object</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -164,7 +170,7 @@ trained, pinned <code><a href='vetiver.html'>vetiver()</a></code> object to a Pl
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>First store and version your <code><a href='vetiver.html'>vetiver()</a></code> object with
+    <p>First store and version your <code><a href='vetiver_model.html'>vetiver_model()</a></code> with
 <code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code>, and then create an API endpoint with
 <code>vetiver_pr_predict()</code>.</p>
 <p>Setting <code>debug = TRUE</code> may expose any sensitive data from your model in
@@ -175,11 +181,11 @@ API errors.</p>
 <span class='va'>model_board</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver.html'>vetiver</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='va'>model_board</span><span class='op'>)</span>
-<span class='fu'><a href='vetiver_pin_write.html'>vetiver_pin_write</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211007T194128Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'>
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='va'>model_board</span><span class='op'>)</span>
+<span class='fu'><a href='vetiver_pin_write.html'>vetiver_pin_write</a></span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211007T203531Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.rplumber.io'>plumber</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://www.rplumber.io/reference/pr.html'>pr</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>vetiver_pr_predict</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
+<span class='fu'><a href='https://www.rplumber.io/reference/pr.html'>pr</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>vetiver_pr_predict</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># Plumber router with 1 endpoint, 4 filters, and 0 sub-routers.
 #&gt; # Use `pr_run()` on this object to start the API.
 #&gt; </span>├──<span style='color: #00BB00;'>[queryString]</span>

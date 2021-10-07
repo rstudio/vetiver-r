@@ -19,7 +19,7 @@
     <loc>https://tidymodels.github.io/vetiver/reference/predict.vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>https://tidymodels.github.io/vetiver/reference/vetiver.html</loc>
+    <loc>https://tidymodels.github.io/vetiver/reference/vetiver-package.html</loc>
   </url>
   <url>
     <loc>https://tidymodels.github.io/vetiver/reference/vetiver_create_ptype.html</loc>
@@ -29,6 +29,9 @@
   </url>
   <url>
     <loc>https://tidymodels.github.io/vetiver/reference/vetiver_meta.html</loc>
+  </url>
+  <url>
+    <loc>https://tidymodels.github.io/vetiver/reference/vetiver_model.html</loc>
   </url>
   <url>
     <loc>https://tidymodels.github.io/vetiver/reference/vetiver_pin_write.html</loc>

@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Model handler functions for API endpoint — handler_startup" />
-<meta property="og:description" content="Each model supported by vetiver() uses two handler functions
+<meta property="og:description" content="Each model supported by vetiver_model() uses two handler functions
 in vetiver_pr_predict():
 The handler_startup function executes when the API starts. Use this
 function for tasks like loading packages. A model can use the default
@@ -139,7 +139,7 @@ at each API call.
     </div>
 
     <div class="ref-description">
-    <p>Each model supported by <code><a href='vetiver.html'>vetiver()</a></code> uses two handler functions
+    <p>Each model supported by <code><a href='vetiver_model.html'>vetiver_model()</a></code> uses two handler functions
 in <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code>:</p><ul>
 <li><p>The <code>handler_startup</code> function executes when the API starts. Use this
 function for tasks like loading packages. A model can use the default
@@ -151,25 +151,25 @@ at each API call.</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>vetiver</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>vetiver_model</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>vetiver</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>vetiver_model</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver_model</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver_model</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>vetiver_model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vetiver</th>
-      <td><p>A deployable model object created with <code><a href='vetiver.html'>vetiver()</a></code></p></td>
+      <th>vetiver_model</th>
+      <td><p>A deployable <code><a href='vetiver_model.html'>vetiver_model()</a></code> object</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -179,8 +179,8 @@ at each API call.</p></li>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These are two generics that use the class of <code>vetiver$model</code> for
-dispatch.</p>
+    <p>These are two generics that use the class of <code>vetiver_model$model</code>
+for dispatch.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
