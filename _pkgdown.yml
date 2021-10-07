@@ -13,10 +13,10 @@ home:
 reference:
 - title: Handling vetiver objects
   desc: >
-    A `vetiver()` object collects the information needed to store, version, and
+    A `vetiver_model()` collects the information needed to store, version, and
     deploy a trained model.
   contents:
-  - vetiver
+  - vetiver_model
   - vetiver_pin_write
   - vetiver_pr_predict
   - vetiver_write_plumber
