@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/juliasilge/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/juliasilge/vetiver/actions)
+[![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
@@ -38,7 +38,7 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("juliasilge/vetiver")
+devtools::install_github("tidymodels/vetiver")
 ```
 
 ## Example
@@ -94,7 +94,7 @@ This project is released with a [Contributor Code of Conduct](https://contributo
 
 - For questions and discussions about modeling packages, modeling, and machine learning, please [post on RStudio Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
-- If you think you have encountered a bug, please [submit an issue](https://github.com/juliasilge/vetiver/issues).
+- If you think you have encountered a bug, please [submit an issue](https://github.com/tidymodels/vetiver/issues).
 
 - Either way, learn how to create and share a [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) (a minimal, reproducible example), to clearly communicate about your code.
 

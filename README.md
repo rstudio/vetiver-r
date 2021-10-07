@@ -7,7 +7,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/juliasilge/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/juliasilge/vetiver/actions)
+[![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
@@ -36,7 +36,7 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("juliasilge/vetiver")
+devtools::install_github("tidymodels/vetiver")
 ```
 
 ## Example
@@ -66,7 +66,7 @@ deployable, trained model object.
 
 ``` r
 vetiver_pin_write(m)
-#> Creating new version '20211007T181237Z-522c5'
+#> Creating new version '20211007T183514Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
@@ -106,7 +106,7 @@ By contributing to this project, you agree to abide by its terms.
     Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
 -   If you think you have encountered a bug, please [submit an
-    issue](https://github.com/juliasilge/vetiver/issues).
+    issue](https://github.com/tidymodels/vetiver/issues).
 
 -   Either way, learn how to create and share a
     [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
