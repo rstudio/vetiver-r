@@ -106,7 +106,7 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>A <code><a href="reference/vetiver-package.html">vetiver()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
+<p>A <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
 <p>You can <strong>version</strong> and <strong>share</strong> your model by choosing a <a href="https://pins.rstudio.com/dev/">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.github.io/vetiver">vetiver</a></span><span class="op">)</span>
@@ -122,7 +122,7 @@
 <p>When you use <code><a href="reference/vetiver_pin_write.html">vetiver_pin_write()</a></code>, you store and version your deployable, trained model object.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
-<span class="co">#&gt; Creating new version '20211007T201257Z-522c5'</span>
+<span class="co">#&gt; Creating new version '20211007T203721Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver-package.html">vetiver()</a></code> object via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
