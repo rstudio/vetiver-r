@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-10-08T19:13Z
+last_built: 2021-10-08T22:26Z
 urls:
   reference: https://tidymodels.github.io/vetiver/reference
   article: https://tidymodels.github.io/vetiver/articles
