@@ -15,6 +15,9 @@ vetiver_meta(user = list(), version = NULL, url = NULL, required_pkgs = NULL)
 
 \item{required_pkgs}{Character string of R packages required for prediction}
 }
+\value{
+A list.
+}
 \description{
 The metadata stored in a \code{\link[=vetiver_model]{vetiver_model()}} object has three elements:
 }
@@ -25,4 +28,8 @@ The metadata stored in a \code{\link[=vetiver_model]{vetiver_model()}} object ha
 \item \verb{$url}, the URL where the pin is located, if any
 \item \verb{$required_pkgs}, a character string of R packages required for prediction
 }
+}
+\examples{
+vetiver_meta()
+
 }

@@ -126,6 +126,10 @@ new_vetiver_model <- function(model,
 #' @param url URL for the pin, if any
 #' @param required_pkgs Character string of R packages required for prediction
 #'
+#' @return A list.
+#' @examples
+#' vetiver_meta()
+#'
 #' @export
 vetiver_meta <- function(user = list(), version = NULL,
                          url = NULL, required_pkgs = NULL) {
