@@ -14,6 +14,7 @@
 #'
 #' @inheritParams vetiver_pr_predict
 #'
+#' @return A function.
 #' @rdname handler_predict
 #' @export
 handler_startup <- function(vetiver_model, ...)
@@ -73,6 +74,7 @@ handler_predict.lm <- function(vetiver_model, ...) {
 #' @inheritParams predict.vetiver_endpoint
 #' @param ptype An input data prototype, such as a 0-row slice of the training
 #' data
+#' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
     if (!is_null(ptype)) {

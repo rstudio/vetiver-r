@@ -14,6 +14,9 @@
 #' [pins::pin_meta()] to handle the pin, but `vetiver_pin_read()` returns a
 #' [vetiver_model()] object ready for deployment.
 #'
+#' @return `vetiver_pin_read()` returns a [vetiver_model()]; `vetiver_pin_write()`
+#' returns the name of the new pin, invisibly.
+#'
 #' @examples
 #' library(pins)
 #' model_board <- board_temp()

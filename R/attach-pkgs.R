@@ -24,15 +24,14 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' ## succeeds
-#' attach_pkgs(c("knitr", "readr"))
-#' ## fails
-#' attach_pkgs(c("bloopy", "readr"))
 #' ## succeeds
 #' load_pkgs(c("knitr", "readr"))
+#' attach_pkgs(c("knitr", "readr"))
+#'
+#' \dontrun{
 #' ## fails
 #' load_pkgs(c("bloopy", "readr"))
+#' attach_pkgs(c("bloopy", "readr"))
 #' }
 #'
 attach_pkgs <- function(pkgs) {

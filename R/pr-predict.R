@@ -16,6 +16,8 @@
 #' Setting `debug = TRUE` may expose any sensitive data from your model in
 #' API errors.
 #'
+#' @return A Plumber router with the prediction endpoint added.
+#'
 #' @examples
 #' library(pins)
 #' model_board <- board_temp()

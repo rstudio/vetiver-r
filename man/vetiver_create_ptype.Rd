@@ -5,7 +5,7 @@
 \alias{vetiver_slice_zero}
 \alias{vetiver_slice_zero.default}
 \alias{vetiver_slice_zero.lm}
-\title{Return a vetiver input data prototype}
+\title{Create a vetiver input data prototype}
 \usage{
 vetiver_create_ptype(model, save_ptype, ...)
 
@@ -27,18 +27,24 @@ dataframe.}
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}
 to compute an input data prototype.}
 }
+\value{
+Either a zero-row dataframe, \code{NULL}, or the dataframe passed to
+\code{save_ptype}.
+}
 \description{
+Optionally find and return an input data prototype for a model.
+}
+\details{
 These are developer-facing functions, useful for supporting new model types.
 A \code{\link[=vetiver_model]{vetiver_model()}} object optionally stores an input data prototype for
 checking at prediction time.
-}
-\details{
 \itemize{
-\item The default, \code{TRUE}, finds a zero-row slice of the training data via
-\code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}.
-\item \code{FALSE} opts out of storing any input data prototype.
-\item You may pass your own data to \code{ptype}, but be sure to check that it has
-the same structure as your training data, perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}.
+\item The default for \code{save_ptype}, \code{TRUE}, finds a zero-row slice of the
+training data via \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}.
+\item \code{save_ptype = FALSE} opts out of storing any input data prototype.
+\item You may pass your own data to \code{save_ptype}, but be sure to check that it
+has the same structure as your training data, perhaps with
+\code{\link[hardhat:scream]{hardhat::scream()}}.
 }
 }
 \examples{

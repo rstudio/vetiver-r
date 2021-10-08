@@ -12,6 +12,9 @@ vetiver_type_convert(new_data, ptype)
 \item{ptype}{An input data prototype, such as a 0-row slice of the training
 data}
 }
+\value{
+A converted dataframe
+}
 \description{
 This is a developer-facing function, useful for supporting new model types.
 At prediction time, new observations typically must be checked and sometimes

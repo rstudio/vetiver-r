@@ -20,6 +20,10 @@ vetiver_pin_read(board, name, version = NULL)
 \item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
 find out which versions are available and when they were created.}
 }
+\value{
+\code{vetiver_pin_read()} returns a \code{\link[=vetiver_model]{vetiver_model()}}; \code{vetiver_pin_write()}
+returns the name of the new pin, invisibly.
+}
 \description{
 Use \code{vetiver_pin_write()} to pin a trained model to a board of models,
 along with an input prototype for new data and other model metadata. Use

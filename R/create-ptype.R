@@ -1,16 +1,23 @@
-#' Return a vetiver input data prototype
+#' Create a vetiver input data prototype
 #'
+#' Optionally find and return an input data prototype for a model.
+#'
+#' @details
 #' These are developer-facing functions, useful for supporting new model types.
 #' A [vetiver_model()] object optionally stores an input data prototype for
 #' checking at prediction time.
 #'
-#' - The default, `TRUE`, finds a zero-row slice of the training data via
-#' [vetiver_slice_zero()].
-#' - `FALSE` opts out of storing any input data prototype.
-#' - You may pass your own data to `ptype`, but be sure to check that it has
-#' the same structure as your training data, perhaps with [hardhat::scream()].
+#' - The default for `save_ptype`, `TRUE`, finds a zero-row slice of the
+#' training data via [vetiver_slice_zero()].
+#' - `save_ptype = FALSE` opts out of storing any input data prototype.
+#' - You may pass your own data to `save_ptype`, but be sure to check that it
+#' has the same structure as your training data, perhaps with
+#' [hardhat::scream()].
 #'
 #' @inheritParams vetiver_model
+#'
+#' @return Either a zero-row dataframe, `NULL`, or the dataframe passed to
+#' `save_ptype`.
 #'
 #' @examples
 #'

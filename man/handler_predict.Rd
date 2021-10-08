@@ -23,6 +23,9 @@ handler_predict(vetiver_model, ...)
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
+\value{
+A function.
+}
 \description{
 Each model supported by \code{vetiver_model()} uses two handler functions
 in \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}:

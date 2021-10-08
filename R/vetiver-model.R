@@ -33,7 +33,7 @@
 #' the same structure as your training data (perhaps with [hardhat::scream()])
 #' and/or simulating data to avoid leaking PII via your deployed model.
 #'
-#' @return A new `vetiver_model` object
+#' @return A new `vetiver_model` object.
 #'
 #' @examples
 #'

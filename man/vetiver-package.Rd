@@ -6,12 +6,12 @@
 \alias{vetiver-package}
 \title{vetiver: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'}
 \description{
-A trained model can be shared and versioned via 'pins', deployed as an API via 'plumber', and monitored via a dashboard created with 'rmarkdown'. Functions handle recording and checking the model's input data prototype, predicting from a remote API endpoint, and monitoring model performance.
+A trained model can be shared and versioned via 'pins', deployed as an API via 'plumber', and monitored via a dashboard created with 'rmarkdown'. Functions handle recording and checking the model's input data prototype, predicting from a remote API endpoint, and monitoring model performance. This extensible framework provides generics that can support many kinds of models.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://tidymodels.github.io/vetiver}
+  \item \url{https://tidymodels.github.io/vetiver/}
   \item \url{https://github.com/tidymodels/vetiver}
   \item Report bugs at \url{https://github.com/tidymodels/vetiver/issues}
 }

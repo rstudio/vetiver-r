@@ -62,8 +62,18 @@ map_ptype <- function(ptype) {
 #' @param spec An OpenAPI Specification formatted list object
 #' @inheritParams vetiver_pr_predict
 #'
-#' @return The new OpenAPI Specification object updated
+#' @return The updated OpenAPI Specification object
 #' @export
+#'
+#' @examples
+#' library(pins)
+#' library(plumber)
+#' model_board <- board_temp()
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear", model_board)
+#'
+#' modify_spec <- function(spec) api_spec(spec, v, "/predict")
+#' pr() %>% pr_set_api_spec(api = modify_spec)
 #'
 api_spec <- function(spec, vetiver_model, path) {
     ptype <- vetiver_model$ptype

@@ -23,6 +23,9 @@ vetiver_pr_predict(
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
+\value{
+A Plumber router with the prediction endpoint added.
+}
 \description{
 Use \code{vetiver_pr_predict()} to add a POST endpoint for predictions from a
 trained, pinned \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.

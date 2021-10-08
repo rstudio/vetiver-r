@@ -35,15 +35,14 @@ is likely safer to fully attach needed packages but that comes with the risk
 of naming conflicts between packages.
 }
 \examples{
-\dontrun{
-## succeeds
-attach_pkgs(c("knitr", "readr"))
-## fails
-attach_pkgs(c("bloopy", "readr"))
 ## succeeds
 load_pkgs(c("knitr", "readr"))
+attach_pkgs(c("knitr", "readr"))
+
+\dontrun{
 ## fails
 load_pkgs(c("bloopy", "readr"))
+attach_pkgs(c("bloopy", "readr"))
 }
 
 }

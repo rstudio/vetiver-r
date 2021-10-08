@@ -75,7 +75,7 @@ will use the default for \code{board}.}
 new data at prediction time.}
 }
 \value{
-A new \code{vetiver_model} object
+A new \code{vetiver_model} object.
 }
 \description{
 A \code{vetiver_model()} object collects the information needed to store, version,
