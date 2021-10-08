@@ -38,10 +38,7 @@ predict.vetiver_endpoint <- function(object, new_data, ...) {
 #' @return A new `vetiver_endpoint` object
 #'
 #' @examples
-#'
-#' \dontrun{
-#' vetiver_endpoint("https://colorado.rstudio.com/rsc/traffic-crashes/predict")
-#' }
+#' vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
 #'
 #' @export
 vetiver_endpoint <- function(url, ...) {

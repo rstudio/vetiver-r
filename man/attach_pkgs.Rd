@@ -35,15 +35,13 @@ is likely safer to fully attach needed packages but that comes with the risk
 of naming conflicts between packages.
 }
 \examples{
-## succeeds
+## succeed
 load_pkgs(c("knitr", "readr"))
 attach_pkgs(c("knitr", "readr"))
 
-\dontrun{
-## fails
-load_pkgs(c("bloopy", "readr"))
-attach_pkgs(c("bloopy", "readr"))
-}
+## fail
+try(load_pkgs(c("bloopy", "readr")))
+try(attach_pkgs(c("bloopy", "readr")))
 
 }
 \concept{namespace}

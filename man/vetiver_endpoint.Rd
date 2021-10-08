@@ -18,9 +18,6 @@ A new \code{vetiver_endpoint} object
 Create a model API endpoint object for prediction
 }
 \examples{
-
-\dontrun{
-vetiver_endpoint("https://colorado.rstudio.com/rsc/traffic-crashes/predict")
-}
+vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
 
 }

@@ -24,15 +24,13 @@
 #' @export
 #'
 #' @examples
-#' ## succeeds
+#' ## succeed
 #' load_pkgs(c("knitr", "readr"))
 #' attach_pkgs(c("knitr", "readr"))
 #'
-#' \dontrun{
-#' ## fails
-#' load_pkgs(c("bloopy", "readr"))
-#' attach_pkgs(c("bloopy", "readr"))
-#' }
+#' ## fail
+#' try(load_pkgs(c("bloopy", "readr")))
+#' try(attach_pkgs(c("bloopy", "readr")))
 #'
 attach_pkgs <- function(pkgs) {
     namespace_handling(pkgs, attachNamespace, "Package(s) could not be attached:")
