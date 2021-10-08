@@ -180,9 +180,9 @@ packages are needed at prediction time. You may use <code><a href='https://rdrr.
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 <span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='va'>model_board</span><span class='op'>)</span>
 <span class='fu'>vetiver_pin_write</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211007T215956Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'><span class='va'>model_board</span>
+</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211008T191341Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'><span class='va'>model_board</span>
 </div><div class='output co'>#&gt; <span style='font-weight: bold;'>Pin board</span> &lt;pins_board_folder&gt;
-#&gt; Path: '/tmp/RtmphbIAeO/pins-429f7d976d24'
+#&gt; Path: '/tmp/Rtmph7ycGZ/pins-42941ca310b2'
 #&gt; Cache size: 0
 #&gt; Pins [1]: 'cars_linear'</div><div class='input'>
 <span class='fu'>vetiver_pin_read</span><span class='op'>(</span><span class='va'>model_board</span>, <span class='st'>"cars_linear"</span><span class='op'>)</span>
@@ -194,7 +194,7 @@ packages are needed at prediction time. You may use <code><a href='https://rdrr.
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
 #&gt;   version                created             hash 
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> 20211007T215956Z-92526 2021-10-07 <span style='color: #949494;'>21:59:00</span> 92526</div><div class='input'>
+#&gt; <span style='color: #BCBCBC;'>1</span> 20211008T191341Z-92526 2021-10-08 <span style='color: #949494;'>19:13:00</span> 92526</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
