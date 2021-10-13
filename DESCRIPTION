@@ -13,7 +13,7 @@ Description: A trained model can be shared and versioned via 'pins',
     and monitoring model performance. This extensible framework provides
     generics that can support many kinds of models.
 License: MIT + file LICENSE
-URL: https://tidymodels.github.io/vetiver/,
+URL: https://vetiver.tidymodels.org/,
     https://github.com/tidymodels/vetiver
 BugReports: https://github.com/tidymodels/vetiver/issues
 Imports: 

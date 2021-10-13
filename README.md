@@ -9,7 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/vetiver/branch/master/graph/badge.svg)](https://codecov.io/gh/tidymodels/vetiver?branch=master)
+coverage](https://codecov.io/gh/tidymodels/vetiver/branch/master/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=master)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
@@ -68,7 +68,7 @@ deployable, trained model object.
 
 ``` r
 vetiver_pin_write(v)
-#> Creating new version '20211007T203721Z-522c5'
+#> Creating new version '20211013T194022Z-92526'
 #> Writing to pin 'cars_linear'
 ```
 

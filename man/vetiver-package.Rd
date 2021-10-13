@@ -11,7 +11,7 @@ A trained model can be shared and versioned via 'pins', deployed as an API via '
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://tidymodels.github.io/vetiver/}
+  \item \url{https://vetiver.tidymodels.org/}
   \item \url{https://github.com/tidymodels/vetiver}
   \item Report bugs at \url{https://github.com/tidymodels/vetiver/issues}
 }
