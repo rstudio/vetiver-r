@@ -36,6 +36,8 @@ vetiver_pr_predict <- function(pr,
                                path = "/predict",
                                debug = interactive(),
                                ...) {
+    # force arguments early
+    rlang::list2(...)
 
     handler_startup(vetiver_model)
 
