@@ -54,7 +54,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     }
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
-    doc_pkg <- 
+    doc_pkg <-
       if (is_null(docs)) {
         NULL
       } else {
@@ -111,5 +111,3 @@ glue_required_pkgs <- function(required_pkgs) {
     }
     NULL
 }
-
-

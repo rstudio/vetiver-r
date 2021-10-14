@@ -34,3 +34,18 @@ test_that("create plumber.R with no packages", {
     vetiver_write_plumber(b, "cars1", file = tmp, docs = NULL)
     expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
+
+test_that("If docs package isn't found, an error is thrown (or tried to be installed)", {
+    skip_on_cran()
+    rlang::local_interactive(FALSE)
+
+    b <- board_folder(path = "/tmp/test")
+    tmp <- tempfile()
+    cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
+    v <- vetiver_model(cars_lm, "cars1", b)
+    vetiver_pin_write(v)
+    expect_error(
+      vetiver_write_plumber(b, "cars1", file = tmp, docs = "unknown-package"),
+      "unknown-package"
+    )
+})
