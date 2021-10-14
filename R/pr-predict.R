@@ -36,7 +36,7 @@ vetiver_pr_predict <- function(pr,
                                path = "/predict",
                                debug = interactive(),
                                ...) {
-    # force arguments early
+    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
 
     handler_startup(vetiver_model)
