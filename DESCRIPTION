@@ -16,7 +16,7 @@ License: MIT + file LICENSE
 URL: https://vetiver.tidymodels.org/,
     https://github.com/tidymodels/vetiver
 BugReports: https://github.com/tidymodels/vetiver/issues
-Imports: 
+Imports:
     butcher,
     cli,
     glue,
@@ -24,20 +24,20 @@ Imports:
     httr,
     jsonlite,
     pins (>= 1.0.0),
-    plumber,
+    plumber (>= 1.0.0),
     purrr,
     readr,
     rlang,
     tibble,
     vctrs,
     withr
-Suggests: 
+Suggests:
     covr,
     knitr,
     rapidoc,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/Needs/website:tidyverse/tidytemplate
 Config/testthat/edition: 3
