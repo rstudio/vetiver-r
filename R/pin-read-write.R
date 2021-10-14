@@ -40,7 +40,7 @@ vetiver_pin_write <- function(vetiver_model) {
                  required_pkgs = vetiver_model$metadata$required_pkgs),
         name = vetiver_model$model_name,
         type = "rds",
-        desc = vetiver_model$desc,
+        description = vetiver_model$desc,
         metadata = vetiver_model$metadata$user,
         versioned = vetiver_model$versioned
     )
