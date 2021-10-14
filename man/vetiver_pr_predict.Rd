@@ -8,7 +8,7 @@ vetiver_pr_predict(
   pr,
   vetiver_model,
   path = "/predict",
-  debug = interactive(),
+  debug = is_interactive(),
   ...
 )
 }
