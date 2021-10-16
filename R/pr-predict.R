@@ -34,7 +34,7 @@
 vetiver_pr_predict <- function(pr,
                                vetiver_model,
                                path = "/predict",
-                               debug = interactive(),
+                               debug = is_interactive(),
                                ...) {
 
     handler_startup(vetiver_model)

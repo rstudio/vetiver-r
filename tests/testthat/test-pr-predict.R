@@ -57,7 +57,16 @@ test_that("OpenAPI spec with custom ptype", {
                                         disp = list(type = "number"))))
     expect_equal(post_spec$requestBody$content$`application/json`$schema$example,
                  purrr::transpose(car_ptype))
-
-
 })
 
+
+test_that("debug listens to `is_interactive()`", {
+  rlang::with_interactive(value = FALSE, {
+    p <- pr() %>% vetiver_pr_predict(v)
+    expect_equal(p$getDebug(), FALSE)
+  })
+  rlang::with_interactive(value = TRUE, {
+    p <- pr() %>% vetiver_pr_predict(v)
+    expect_equal(p$getDebug(), TRUE)
+  })
+})
