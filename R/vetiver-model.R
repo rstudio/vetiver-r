@@ -10,9 +10,8 @@
 #' @param board A pin board to store and version the `model`, created by
 #' [pins::board_folder()], [pins::board_rsconnect()], or other `board_`
 #' function from the pins package.
-#' @param desc A text description of the model, most important for shared
-#' boards so that others can understand what the model is. If omitted,
-#' a brief description of the contents will be generated.
+#' @param description A detailed description of the model. If omitted, a brief
+#' description of the model will be generated.
 #' @param save_ptype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for checking), or a
@@ -45,7 +44,7 @@ vetiver_model <- function(model,
                           model_name,
                           board,
                           ...,
-                          desc = NULL,
+                          description = NULL,
                           metadata = list(),
                           save_ptype = TRUE,
                           versioned = NULL) {
@@ -64,13 +63,13 @@ vetiver_model.lm <- function(model,
                              model_name,
                              board,
                              ...,
-                             desc = NULL,
+                             description = NULL,
                              metadata = list(),
                              save_ptype = TRUE,
                              versioned = NULL) {
 
-    if (is_null(desc)) {
-        desc <- "An OLS linear regression model"
+    if (is_null(description)) {
+        description <- "An OLS linear regression model"
     }
 
     ptype <- vetiver_create_ptype(model, save_ptype, ...)
@@ -80,7 +79,7 @@ vetiver_model.lm <- function(model,
         model = model,
         model_name = model_name,
         board = board,
-        desc = desc,
+        description = description,
         metadata = vetiver_meta(metadata),
         ptype = ptype,
         versioned = versioned
@@ -93,7 +92,7 @@ new_vetiver_model <- function(model,
                               model_name = character(),
                               board = pins::board_temp(),
                               ...,
-                              desc = character(),
+                              description = character(),
                               metadata = vetiver::vetiver_meta(),
                               ptype = NULL,
                               versioned = NULL) {
@@ -102,7 +101,7 @@ new_vetiver_model <- function(model,
         model = model,
         model_name = model_name,
         board = board,
-        desc = desc,
+        description = description,
         metadata = metadata,
         ptype = ptype,
         versioned = versioned
@@ -146,7 +145,7 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli::cli_text("{x$desc} using {dim(x$ptype)[[2]]} feature{?s}")
+        cli::cli_text("{x$description} using {dim(x$ptype)[[2]]} feature{?s}")
     })
 }
 

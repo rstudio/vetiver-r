@@ -56,7 +56,7 @@ test_that("default metadata for model", {
 test_that("user can supply metadata for model", {
     b <- board_temp()
     v <- vetiver_model(cars_lm, "cars3", b,
-                       desc = "lm model for mtcars",
+                       description = "lm model for mtcars",
                        metadata = list(metrics = 1:10))
     vetiver_pin_write(v)
     meta <- pin_meta(b, "cars3")
@@ -74,7 +74,7 @@ test_that("can read a pinned model", {
     expect_equal(v1$model, v$model)
     expect_equal(v1$model_name, v$model_name)
     expect_equal(v1$board, v$board)
-    expect_equal(v1$desc, v$desc)
+    expect_equal(v1$description, v$description)
     expect_equal(
         v1$metadata,
         list(user = v$metadata$user,
@@ -90,7 +90,7 @@ test_that("can read a versioned model with metadata", {
     b <- board_temp(versioned = TRUE)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
     v <- vetiver_model(cars_lm, "cars4", b,
-                       desc = "lm model for mtcars",
+                       description = "lm model for mtcars",
                        metadata = list(metrics = 1:10))
     vetiver_pin_write(v)
     v4 <- vetiver_pin_read(b, "cars4")
@@ -98,7 +98,7 @@ test_that("can read a versioned model with metadata", {
     expect_equal(v4$model, v$model)
     expect_equal(v4$model_name, v$model_name)
     expect_equal(v4$board, v$board)
-    expect_equal(v4$desc, v$desc)
+    expect_equal(v4$description, v$description)
     expect_equal(
         v4$metadata,
         list(user = v$metadata$user,
