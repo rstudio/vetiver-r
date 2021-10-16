@@ -66,3 +66,7 @@
           pr %>% vetiver_pr_predict(v)
       }
 
+# If docs package isn't found, an error is thrown (or tried to be installed)
+
+    The `unknown-package` package is required.
+

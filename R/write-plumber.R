@@ -54,7 +54,13 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     }
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
-    doc_pkg <- if (is_null(docs)) NULL else glue("library({docs})")
+    doc_pkg <-
+      if (is_null(docs)) {
+        NULL
+      } else {
+        rlang::check_installed(docs)
+        glue("library({docs})")
+      }
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs)
 
     board <- rlang::expr_deparse(pins::board_deparse(board))
@@ -105,5 +111,3 @@ glue_required_pkgs <- function(required_pkgs) {
     }
     NULL
 }
-
-
