@@ -12,7 +12,7 @@ vetiver_model(
   model_name,
   board,
   ...,
-  desc = NULL,
+  description = NULL,
   metadata = list(),
   save_ptype = TRUE,
   versioned = NULL
@@ -25,7 +25,7 @@ vetiver_model(
   model_name,
   board,
   ...,
-  desc = NULL,
+  description = NULL,
   metadata = list(),
   save_ptype = TRUE,
   versioned = NULL
@@ -36,7 +36,7 @@ new_vetiver_model(
   model_name = character(),
   board = pins::board_temp(),
   ...,
-  desc = character(),
+  description = character(),
   metadata = vetiver::vetiver_meta(),
   ptype = NULL,
   versioned = NULL
@@ -55,9 +55,8 @@ function from the pins package.}
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}
 to compute an input data prototype.}
 
-\item{desc}{A text description of the model, most important for shared
-boards so that others can understand what the model is. If omitted,
-a brief description of the contents will be generated.}
+\item{description}{A detailed description of the model. If omitted, a brief
+description of the model will be generated.}
 
 \item{metadata}{A list containing additional metadata to store with the pin.
 When retrieving the pin, this will be stored in the \code{user} key, to

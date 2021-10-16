@@ -78,7 +78,7 @@ map_ptype <- function(ptype) {
 api_spec <- function(spec, vetiver_model, path) {
     ptype <- vetiver_model$ptype
     spec$info$title <- glue("{vetiver_model$model_name} model API")
-    spec$info$description <- vetiver_model$desc
+    spec$info$description <- vetiver_model$description
 
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
