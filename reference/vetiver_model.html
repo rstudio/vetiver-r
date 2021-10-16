@@ -140,7 +140,7 @@ and deploy a trained model.</p>
   <span class='va'>model_name</span>,
   <span class='va'>board</span>,
   <span class='va'>...</span>,
-  desc <span class='op'>=</span> <span class='cn'>NULL</span>,
+  description <span class='op'>=</span> <span class='cn'>NULL</span>,
   metadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   save_ptype <span class='op'>=</span> <span class='cn'>TRUE</span>,
   versioned <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -155,7 +155,7 @@ and deploy a trained model.</p>
   <span class='va'>model_name</span>,
   <span class='va'>board</span>,
   <span class='va'>...</span>,
-  desc <span class='op'>=</span> <span class='cn'>NULL</span>,
+  description <span class='op'>=</span> <span class='cn'>NULL</span>,
   metadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   save_ptype <span class='op'>=</span> <span class='cn'>TRUE</span>,
   versioned <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -166,7 +166,7 @@ and deploy a trained model.</p>
   model_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
   board <span class='op'>=</span> <span class='fu'>pins</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>...</span>,
-  desc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  description <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
   metadata <span class='op'>=</span> <span class='fu'>vetiver</span><span class='fu'>::</span><span class='fu'><a href='vetiver_meta.html'>vetiver_meta</a></span><span class='op'>(</span><span class='op'>)</span>,
   ptype <span class='op'>=</span> <span class='cn'>NULL</span>,
   versioned <span class='op'>=</span> <span class='cn'>NULL</span>
@@ -196,10 +196,9 @@ function from the pins package.</p></td>
 to compute an input data prototype.</p></td>
     </tr>
     <tr>
-      <th>desc</th>
-      <td><p>A text description of the model, most important for shared
-boards so that others can understand what the model is. If omitted,
-a brief description of the contents will be generated.</p></td>
+      <th>description</th>
+      <td><p>A detailed description of the model. If omitted, a brief
+description of the model will be generated.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
