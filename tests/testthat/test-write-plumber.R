@@ -44,8 +44,7 @@ test_that("If docs package isn't found, an error is thrown (or tried to be insta
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
     v <- vetiver_model(cars_lm, "cars1", b)
     vetiver_pin_write(v)
-    expect_error(
-      vetiver_write_plumber(b, "cars1", file = tmp, docs = "unknown-package"),
-      "unknown-package"
+    expect_snapshot_error(
+      vetiver_write_plumber(b, "cars1", file = tmp, docs = "unknown-package")
     )
 })
