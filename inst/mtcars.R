@@ -2,7 +2,7 @@ library(vetiver)
 library(pins)
 library(plumber)
 
-model_board <- board_folder(path = "/tmp/test")
+model_board <- board_folder(path = "/tmp/test", versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear", model_board)
 vetiver_pin_write(v)
