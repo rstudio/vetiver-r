@@ -43,8 +43,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     if (board$versioned) {
         if (is_null(version)) {
             version <- pins::pin_versions(board, name)
-            version <- version[["version"]]
-            version <- version[[1]]
+            version <- choose_version(version)
         }
         pin_read <- glue('v <- vetiver_pin_read(b, "{name}", version = "{version}")')
         v <- vetiver_pin_read(board, name, version = version)
@@ -55,12 +54,12 @@ vetiver_write_plumber <- function(board, name, version = NULL,
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     doc_pkg <-
-      if (is_null(docs)) {
-        NULL
-      } else {
-        rlang::check_installed(docs)
-        glue("library({docs})")
-      }
+        if (is_null(docs)) {
+            NULL
+        } else {
+            rlang::check_installed(docs)
+            glue("library({docs})")
+        }
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs)
 
     board <- rlang::expr_deparse(pins::board_deparse(board))
@@ -111,3 +110,21 @@ glue_required_pkgs <- function(required_pkgs) {
     }
     NULL
 }
+
+choose_version <- function(df) {
+    if (has_name(df, "active")) {
+        version <- vec_slice(df, df$active)
+    } else if (has_name(df, "created")) {
+        idx <- head(order(df$created, decreasing = TRUE), 1)
+        version <- vec_slice(df, idx)
+    } else {
+        version <- vec_slice(df, 1)
+        warn(
+            c("Pinned vetiver model has no active version and no datetime on versions",
+              "Do you need to check your pinned model?",
+              glue('Using version {version[["version"]]}'))
+        )
+    }
+    version[["version"]]
+}
+
