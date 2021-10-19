@@ -68,7 +68,7 @@ deployable, trained model object.
 
 ``` r
 vetiver_pin_write(v)
-#> Creating new version '20211013T194022Z-92526'
+#> Creating new version '20211019T151502Z-92526'
 #> Writing to pin 'cars_linear'
 ```
 
@@ -83,7 +83,11 @@ pr() %>%
   pr_run(port = 8088)
 ```
 
-Make predictions with your deployed model at its endpoint and new data.
+If the deployed model endpoint is running via one R process (either
+remotely on a server or locally, perhaps via a [background job in the
+RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make
+predictions with that deployed model and new data in another, separate R
+process.
 
 ``` r
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
