@@ -49,7 +49,7 @@ new_vetiver_model(
 \item{model_name}{Model name or ID.}
 
 \item{board}{A pin board to store and version the \code{model}, created by
-\code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \code{board_}
+\code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \verb{board_*()}
 function from the pins package.}
 
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}

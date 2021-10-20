@@ -8,7 +8,7 @@
 #' [workflows::workflow()].
 #' @param model_name Model name or ID.
 #' @param board A pin board to store and version the `model`, created by
-#' [pins::board_folder()], [pins::board_rsconnect()], or other `board_`
+#' [pins::board_folder()], [pins::board_rsconnect()], or other `board_*()`
 #' function from the pins package.
 #' @param description A detailed description of the model. If omitted, a brief
 #' description of the model will be generated.
