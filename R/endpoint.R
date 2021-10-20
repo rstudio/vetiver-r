@@ -59,7 +59,7 @@ format.vetiver_endpoint <- function(x, ...) {
 
 #' @export
 print.vetiver_endpoint <- function(x, ...) {
-    cat(format(x, ...), sep = "\n")
+    cat(format(x), sep = "\n")
     invisible(x)
 }
 

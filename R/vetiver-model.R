@@ -151,7 +151,7 @@ format.vetiver_model <- function(x, ...) {
 
 #' @export
 print.vetiver_model <- function(x, ...) {
-    cat(format(x, ...), sep = "\n")
+    cat(format(x), sep = "\n")
     invisible(x)
 }
 
