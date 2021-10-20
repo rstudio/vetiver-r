@@ -32,19 +32,18 @@ predict.vetiver_endpoint <- function(object, new_data, ...) {
 #' Create a model API endpoint object for prediction
 #'
 #' @param url An API endpoint URL
-#' @param ... Other arguments, not currently used
 #' @return A new `vetiver_endpoint` object
 #'
 #' @examples
 #' vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
 #'
 #' @export
-vetiver_endpoint <- function(url, ...) {
+vetiver_endpoint <- function(url) {
     url <- as.character(url)
-    new_vetiver_endpoint(url, ...)
+    new_vetiver_endpoint(url)
 }
 
-new_vetiver_endpoint <- function(url = character(), ...) {
+new_vetiver_endpoint <- function(url = character()) {
     stopifnot(is.character(url))
     structure(list(url = url), class = "vetiver_endpoint")
 }

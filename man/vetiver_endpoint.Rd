@@ -4,12 +4,10 @@
 \alias{vetiver_endpoint}
 \title{Create a model API endpoint object for prediction}
 \usage{
-vetiver_endpoint(url, ...)
+vetiver_endpoint(url)
 }
 \arguments{
 \item{url}{An API endpoint URL}
-
-\item{...}{Other arguments, not currently used}
 }
 \value{
 A new \code{vetiver_endpoint} object
