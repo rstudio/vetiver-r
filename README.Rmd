@@ -64,7 +64,7 @@ When you use `vetiver_pin_write()`, you store and version your deployable, train
 vetiver_pin_write(v)
 ```
 
-You can **deploy** your pinned `vetiver()` object via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
+You can **deploy** your pinned `vetiver_model()` via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
 
 
 ```{r, eval=FALSE}
