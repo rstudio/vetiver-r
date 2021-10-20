@@ -4,9 +4,9 @@
 \name{vetiver-package}
 \alias{vetiver}
 \alias{vetiver-package}
-\title{vetiver: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'}
+\title{vetiver: Version, Share, Deploy, and Monitor Models}
 \description{
-A trained model can be shared and versioned via 'pins', deployed as an API via 'plumber', and monitored via a dashboard created with 'rmarkdown'. Functions handle recording and checking the model's input data prototype, predicting from a remote API endpoint, and monitoring model performance. This extensible framework provides generics that can support many kinds of models.
+The goal of 'vetiver' is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model's input data prototype, and predicting from a remote API endpoint. The 'vetiver' package is extensible, with generics that can support many kinds of models.
 }
 \seealso{
 Useful links:
