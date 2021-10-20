@@ -61,7 +61,7 @@ vetiver_slice_zero.default <- function(model, ...) {
 #' @export
 vetiver_slice_zero.lm <- function(model, ...) {
     pred_names <- attr(model$terms, "term.labels")
-    ptype <- vctrs::vec_slice(model$model[pred_names], 0)
+    ptype <- vctrs::vec_ptype(model$model[pred_names])
     tibble::as_tibble(ptype)
 }
 
