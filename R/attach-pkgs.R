@@ -42,26 +42,18 @@ load_pkgs <- function(pkgs) {
     namespace_handling(pkgs, loadNamespace, "Namespace(s) could not be loaded:")
 }
 
-
 namespace_handling <- function(pkgs, func, error_msg) {
-    if (length(pkgs) == 0) {
-        return(invisible(TRUE))
-    }
-
     loaded <- map_lgl(pkgs, isNamespaceLoaded)
     pkgs <- pkgs[!loaded]
 
     safe_load <- safely(withr::with_preserve_seed(func))
 
-    if (length(pkgs) > 0) {
-        did_load <- map(pkgs, safe_load)
-        bad <- compact(map(did_load, "error"))
-        bad <- map_chr(bad, "package")
-        if (length(bad) >= 1) {
-            abort(c(error_msg, bad))
-        }
+    did_load <- map(pkgs, safe_load)
+    bad <- compact(map(did_load, "error"))
+    bad <- map_chr(bad, "package")
+    if (length(bad) >= 1) {
+        abort(c(error_msg, bad))
     }
 
     invisible(TRUE)
 }
-
