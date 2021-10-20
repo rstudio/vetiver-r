@@ -6,8 +6,6 @@
 #'
 #' @return A tibble of model predictions with as many rows as in `new_data`.
 #' @importFrom stats predict
-#' @method predict vetiver_endpoint
-#' @export predict.vetiver_endpoint
 #' @export
 #'
 #' @examples
