@@ -78,15 +78,14 @@ A new \code{vetiver_model} object.
 }
 \description{
 A \code{vetiver_model()} object collects the information needed to store, version,
-and deploy a trained model.
-}
-\details{
-Once your \code{vetiver_model()} object has been created, you can:
+and deploy a trained model. Once your \code{vetiver_model()} object has been
+created, you can:
 \itemize{
 \item store and version it as a pin with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}
 \item create an API endpoint for it with \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}
 }
-
+}
+\details{
 If you provide your own data to \code{save_ptype}, consider checking that it has
 the same structure as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}})
 and/or simulating data to avoid leaking PII via your deployed model.

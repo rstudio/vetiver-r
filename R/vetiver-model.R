@@ -1,7 +1,10 @@
 #' Create a vetiver object for deployment of a trained model
 #'
 #' A `vetiver_model()` object collects the information needed to store, version,
-#' and deploy a trained model.
+#' and deploy a trained model. Once your `vetiver_model()` object has been
+#' created, you can:
+#' - store and version it as a pin with [vetiver_pin_write()]
+#' - create an API endpoint for it with [vetiver_pr_predict()]
 #'
 #'
 #' @param model A trained model, such as an `lm()` model or a tidymodels
@@ -24,10 +27,7 @@
 #' to compute an input data prototype.
 #' @inheritParams pins::pin_write
 #'
-#' @details  Once your `vetiver_model()` object has been created, you can:
-#' - store and version it as a pin with [vetiver_pin_write()]
-#' - create an API endpoint for it with [vetiver_pr_predict()]
-#'
+#' @details
 #' If you provide your own data to `save_ptype`, consider checking that it has
 #' the same structure as your training data (perhaps with [hardhat::scream()])
 #' and/or simulating data to avoid leaking PII via your deployed model.
