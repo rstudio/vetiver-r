@@ -27,7 +27,7 @@ returns the name of the new pin, invisibly.
 \description{
 Use \code{vetiver_pin_write()} to pin a trained model to a board of models,
 along with an input prototype for new data and other model metadata. Use
-\code{vetiver_pin_read()} to retried that pinned object.
+\code{vetiver_pin_read()} to retrieve that pinned object.
 }
 \details{
 These functions read and write a \code{\link[=vetiver_model]{vetiver_model()}} pin on the
