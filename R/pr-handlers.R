@@ -43,8 +43,8 @@ handler_predict.lm <- function(vetiver_model, ...) {
 
     function(req) {
         newdata <- req$body
-        newdata <- vetiver_type_convert(newdata, ptype)
         if (!is_null(ptype)) {
+            newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
         }
         ret <- predict(vetiver_model$model, newdata = newdata, ...)
@@ -77,13 +77,11 @@ handler_predict.lm <- function(vetiver_model, ...) {
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
-    if (!is_null(ptype)) {
         spec <- readr::as.col_spec(ptype)
         is_character <- vapply(new_data, is.character, logical(1))
         if (any(is_character)) {
             new_data <- readr::type_convert(new_data, col_types = spec)
         }
-    }
     new_data
 }
 
