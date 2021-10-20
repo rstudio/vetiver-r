@@ -113,7 +113,7 @@ new_vetiver_model <- function(model,
 
 #' Metadata constructor for `vetiver_model()` object
 #'
-#' The metadata stored in a [vetiver_model()] object has three elements:
+#' The metadata stored in a [vetiver_model()] object has four elements:
 #'
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
