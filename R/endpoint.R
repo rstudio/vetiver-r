@@ -19,12 +19,16 @@
 predict.vetiver_endpoint <- function(object, new_data, ...) {
     data_json <- jsonlite::toJSON(new_data)
     ret <- httr::POST(object$url, ..., body = data_json)
+    resp <- httr::content(ret, "text", encoding = "UTF-8")
+    ret <- jsonlite::fromJSON(resp)
 
-    msg <- httr::content(ret)[['message']]
-    glue_msg <- ifelse(rlang::is_null(msg), "predict", glue("predict: {msg}"))
-    httr::stop_for_status(ret, task = glue_msg)
-
-    ret <- httr::content(ret, simplify = TRUE)
+    if (has_name(ret, "error")) {
+        if (has_name(ret, "message")) {
+            abort(glue("Failed to predict: {ret$message}"))
+        } else {
+            abort("Failed to predict")
+        }
+    }
     tibble::as_tibble(ret)
 }
 
