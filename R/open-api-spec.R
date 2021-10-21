@@ -47,7 +47,7 @@ map_ptype <- function(ptype) {
     ## use `plumber:::plumberToApiTypeMap` here instead?
     ret <- map(
         ret,
-        ~ switch(class(.),
+        ~ switch(class(.)[[1]],
                  numeric = "number",
                  integer = "integer",
                  logical = "boolean",
