@@ -52,15 +52,12 @@ vetiver_model <- function(model,
                           save_ptype = TRUE,
                           versioned = NULL) {
 
-    model <- vetiver_prepare_model(model)
-
     if (is_null(description)) {
         description <- vetiver_create_description(model)
     }
-
     ptype <- vetiver_create_ptype(model, save_ptype, ...)
     metadata <- vetiver_create_meta(model, metadata)
-    model <- butcher::butcher(model)
+    model <- vetiver_prepare_model(model)
 
     new_vetiver_model(
         model = model,

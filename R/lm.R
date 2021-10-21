@@ -1,7 +1,13 @@
-#' @rdname vetiver_prepare_model
+#' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.lm <- function(model) {
     "An OLS linear regression model"
+}
+
+#' @rdname vetiver_create_description
+#' @export
+vetiver_prepare_model.lm <- function(model) {
+    butcher::butcher(model)
 }
 
 #' @rdname vetiver_create_ptype

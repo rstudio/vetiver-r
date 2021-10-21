@@ -2,34 +2,47 @@
 % Please edit documentation in R/lm.R, R/prepare.R
 \name{vetiver_create_description.lm}
 \alias{vetiver_create_description.lm}
+\alias{vetiver_prepare_model.lm}
+\alias{vetiver_create_description}
+\alias{vetiver_create_description.default}
 \alias{vetiver_prepare_model}
 \alias{vetiver_prepare_model.default}
 \title{Model constructor methods}
 \usage{
 \method{vetiver_create_description}{lm}(model)
 
-vetiver_prepare_model(model, ...)
+\method{vetiver_prepare_model}{lm}(model)
 
-\method{vetiver_prepare_model}{default}(model, ...)
+vetiver_create_description(model)
+
+\method{vetiver_create_description}{default}(model)
+
+vetiver_prepare_model(model)
+
+\method{vetiver_prepare_model}{default}(model)
+}
+\arguments{
+\item{model}{A trained model, such as an \code{lm()} model or a tidymodels
+\code{\link[workflows:workflow]{workflows::workflow()}}.}
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.
 Each model supported by \code{\link[=vetiver_model]{vetiver_model()}} uses four methods when the
 deployable object is created:
 \itemize{
-\item The \code{vetiver_prepare_model()} function executes first. Use this
-function for tasks like checking if the model is trained. A model can use the
-default method here, which is to return the model without changes (to do
-nothing).
 \item The \code{vetiver_create_description()} function generates a helpful description
 of the model based on its characteristics. This method is required.
 \item The \code{\link[=vetiver_create_meta]{vetiver_create_meta()}} function creates the correct \code{\link[=vetiver_meta]{vetiver_meta()}}
 for the model. This is especially helpful for specifying which packages are
-needing for prediction. A model can use the default method here, which is
+needed for prediction. A model can use the default method here, which is
 to have no special metadata.
 \item The \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}} function finds a zero-row slice of the
 training data to use as an input data prototype at prediction time. This
 method is required.
+\item The \code{vetiver_prepare_model()} function executes last. Use this function
+for tasks like checking if the model is trained and reducing the size of the
+model via \code{\link[butcher:butcher]{butcher::butcher()}}. A model can use the default method here,
+which is to return the model without changes.
 }
 }
 \details{
@@ -38,7 +51,7 @@ These are four generics that use the class of \code{model} for dispatch.
 \examples{
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-vetiver_prepare_model(cars_lm)
 vetiver_create_description(cars_lm)
+vetiver_prepare_model(cars_lm)
 
 }
