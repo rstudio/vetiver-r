@@ -7,8 +7,8 @@
       
       library(pins)
       library(plumber)
-      library(vetiver)
       library(rapidoc)
+      library(vetiver)
       
       # Packages needed to generate model predictions
       if (FALSE) {
@@ -32,8 +32,8 @@
       
       library(pins)
       library(plumber)
-      library(vetiver)
       library(rapidoc)
+      library(vetiver)
       
       # Packages needed to generate model predictions
       if (FALSE) {
@@ -57,6 +57,7 @@
       
       library(pins)
       library(plumber)
+      library(rapidoc)
       library(vetiver)
       b <- board_folder(path = "/tmp/test")
       v <- vetiver_pin_read(b, "cars1")
@@ -65,8 +66,4 @@
       function(pr) {
           pr %>% vetiver_pr_predict(v)
       }
-
-# If docs package isn't found, an error is thrown (or tried to be installed)
-
-    The `unknown-package` package is required.
 

@@ -25,6 +25,7 @@ Imports:
     pins (>= 1.0.0),
     plumber (>= 1.0.0),
     purrr,
+    rapidoc,
     readr (>= 1.4.0),
     rlang,
     tibble,
@@ -33,7 +34,6 @@ Imports:
 Suggests:
     covr,
     knitr,
-    rapidoc,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/Needs/website: 
