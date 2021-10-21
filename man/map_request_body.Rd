@@ -20,6 +20,9 @@ specification. These are \emph{not} R data types, but instead basic JSON data
 types. For example, factors in R will be documented as strings in the
 OpenAPI specification.
 }
+\details{
+This is a developer-facing function, useful for supporting new model types.
+}
 \examples{
 map_request_body(vctrs::vec_slice(chickwts, 0))
 

@@ -16,6 +16,7 @@ load_pkgs(pkgs)
 An invisible \code{TRUE}.
 }
 \description{
+These are developer-facing functions, useful for supporting new model types.
 Some models require one or more R packages to be fully attached to make
 predictions, and some require only that the namespace of one or more R
 packages is loaded.

@@ -51,31 +51,15 @@ vetiver_model <- function(model,
                           metadata = list(),
                           save_ptype = TRUE,
                           versioned = NULL) {
-    UseMethod("vetiver_model")
-}
 
-#' @rdname vetiver_model
-#' @export
-vetiver_model.default <- function(model, ...) {
-    abort("There is no `vetiver_model` method available to deploy `model`.")
-}
-
-#' @rdname vetiver_model
-#' @export
-vetiver_model.lm <- function(model,
-                             model_name,
-                             board,
-                             ...,
-                             description = NULL,
-                             metadata = list(),
-                             save_ptype = TRUE,
-                             versioned = NULL) {
+    model <- vetiver_prepare_model(model)
 
     if (is_null(description)) {
-        description <- "An OLS linear regression model"
+        description <- vetiver_create_description(model)
     }
 
-    ptype <- vetiver_create_ptype(model, save_ptype)
+    ptype <- vetiver_create_ptype(model, save_ptype, ...)
+    metadata <- vetiver_create_meta(model, metadata)
     model <- butcher::butcher(model)
 
     new_vetiver_model(
@@ -83,7 +67,7 @@ vetiver_model.lm <- function(model,
         model_name = model_name,
         board = board,
         description = description,
-        metadata = vetiver_meta(metadata),
+        metadata = metadata,
         ptype = ptype,
         versioned = versioned
     )
@@ -110,32 +94,6 @@ new_vetiver_model <- function(model,
     )
 
     structure(data, class = "vetiver_model")
-}
-
-
-#' Metadata constructor for `vetiver_model()` object
-#'
-#' The metadata stored in a [vetiver_model()] object has four elements:
-#'
-#' - `$user`, the metadata supplied by the user
-#' - `$version`, the version of the pin (which can be `NULL` before pinning)
-#' - `$url`, the URL where the pin is located, if any
-#' - `$required_pkgs`, a character string of R packages required for prediction
-#'
-#' @param user Metadata supplied by the user
-#' @param version Version of the pin
-#' @param url URL for the pin, if any
-#' @param required_pkgs Character string of R packages required for prediction
-#'
-#' @return A list.
-#' @examples
-#' vetiver_meta()
-#'
-#' @export
-vetiver_meta <- function(user = list(), version = NULL,
-                         url = NULL, required_pkgs = NULL) {
-    list(user = user, version = version,
-         url = url, required_pkgs = required_pkgs)
 }
 
 is_vetiver_model <- function(x) {

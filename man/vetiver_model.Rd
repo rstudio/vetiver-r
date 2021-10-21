@@ -2,25 +2,10 @@
 % Please edit documentation in R/vetiver-model.R
 \name{vetiver_model}
 \alias{vetiver_model}
-\alias{vetiver_model.default}
-\alias{vetiver_model.lm}
 \alias{new_vetiver_model}
 \title{Create a vetiver object for deployment of a trained model}
 \usage{
 vetiver_model(
-  model,
-  model_name,
-  board,
-  ...,
-  description = NULL,
-  metadata = list(),
-  save_ptype = TRUE,
-  versioned = NULL
-)
-
-\method{vetiver_model}{default}(model, ...)
-
-\method{vetiver_model}{lm}(
   model,
   model_name,
   board,
