@@ -75,7 +75,7 @@ vetiver_model.lm <- function(model,
         description <- "An OLS linear regression model"
     }
 
-    ptype <- vetiver_create_ptype(model, save_ptype, ...)
+    ptype <- vetiver_create_ptype(model, save_ptype)
     model <- butcher::butcher(model)
 
     new_vetiver_model(
@@ -92,13 +92,12 @@ vetiver_model.lm <- function(model,
 #' @rdname vetiver_model
 #' @export
 new_vetiver_model <- function(model,
-                              model_name = character(),
-                              board = pins::board_temp(),
-                              ...,
-                              description = character(),
-                              metadata = vetiver::vetiver_meta(),
-                              ptype = NULL,
-                              versioned = NULL) {
+                              model_name,
+                              board,
+                              description,
+                              metadata,
+                              ptype,
+                              versioned) {
 
     data <- list(
         model = model,

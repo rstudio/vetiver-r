@@ -33,13 +33,12 @@ vetiver_model(
 
 new_vetiver_model(
   model,
-  model_name = character(),
-  board = pins::board_temp(),
-  ...,
-  description = character(),
-  metadata = vetiver::vetiver_meta(),
-  ptype = NULL,
-  versioned = NULL
+  model_name,
+  board,
+  description,
+  metadata,
+  ptype,
+  versioned
 )
 }
 \arguments{
