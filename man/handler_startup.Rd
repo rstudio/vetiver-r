@@ -6,18 +6,21 @@
 \alias{handler_startup.default}
 \alias{handler_predict}
 \alias{handler_predict.default}
+\alias{handler_startup.xgb.Booster}
 \alias{handler_predict.xgb.Booster}
 \title{Model handler functions for API endpoint}
 \usage{
 \method{handler_predict}{lm}(vetiver_model, ...)
 
-handler_startup(vetiver_model, ...)
+handler_startup(vetiver_model)
 
-\method{handler_startup}{default}(vetiver_model, ...)
+\method{handler_startup}{default}(vetiver_model)
 
 handler_predict(vetiver_model, ...)
 
 \method{handler_predict}{default}(vetiver_model, ...)
+
+\method{handler_startup}{xgb.Booster}(vetiver_model)
 
 \method{handler_predict}{xgb.Booster}(vetiver_model, ...)
 }

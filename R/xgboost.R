@@ -24,7 +24,13 @@ vetiver_slice_zero.xgb.Booster <- function(model, ...) {
     tibble::as_tibble(ptype)
 }
 
-#' @rdname handler_predict
+#' @rdname handler_startup
+#' @export
+handler_startup.xgb.Booster <- function(vetiver_model) {
+    attach_pkgs(vetiver_model$metadata$required_pkgs)
+}
+
+#' @rdname handler_startup
 #' @export
 handler_predict.xgb.Booster <- function(vetiver_model, ...) {
 

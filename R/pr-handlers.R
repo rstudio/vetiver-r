@@ -25,21 +25,21 @@
 #' @return A `handler_startup` function should return invisibly, while a
 #' `handler_predict` function should return a function with the signature
 #' `function(req)`.
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
-handler_startup <- function(vetiver_model, ...)
+handler_startup <- function(vetiver_model)
     UseMethod("handler_startup", vetiver_model$model)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
-handler_startup.default <- function(vetiver_model, ...) invisible(NULL)
+handler_startup.default <- function(vetiver_model) invisible(NULL)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
 handler_predict <- function(vetiver_model, ...)
     UseMethod("handler_predict", vetiver_model$model)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
 handler_predict.default <- function(vetiver_model, ...)
     abort("There is no method available to build a prediction handler for `x`.")

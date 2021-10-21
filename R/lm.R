@@ -18,7 +18,7 @@ vetiver_slice_zero.lm <- function(model, ...) {
     tibble::as_tibble(ptype)
 }
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
 handler_predict.lm <- function(vetiver_model, ...) {
 
