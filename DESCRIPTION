@@ -35,7 +35,8 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    xgboost
 Config/Needs/website: 
     tidyverse/tidytemplate
 Config/testthat/edition: 3
