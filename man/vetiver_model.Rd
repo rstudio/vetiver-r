@@ -49,7 +49,7 @@ new_vetiver_model(
 \item{model_name}{Model name or ID.}
 
 \item{board}{A pin board to store and version the \code{model}, created by
-\code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \code{board_}
+\code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \verb{board_*()}
 function from the pins package.}
 
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}
@@ -65,7 +65,8 @@ avoid potential clashes with the metadata that pins itself uses.}
 \item{save_ptype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
-dataframe.}
+dataframe to be used for both checking at prediction time \emph{and} examples in
+API visual documentation.}
 
 \item{versioned}{Should the model object be versioned? The default, \code{NULL},
 will use the default for \code{board}.}
@@ -78,18 +79,19 @@ A new \code{vetiver_model} object.
 }
 \description{
 A \code{vetiver_model()} object collects the information needed to store, version,
-and deploy a trained model.
-}
-\details{
-Once your \code{vetiver_model()} object has been created, you can:
+and deploy a trained model. Once your \code{vetiver_model()} object has been
+created, you can:
 \itemize{
 \item store and version it as a pin with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}
 \item create an API endpoint for it with \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}
 }
-
-If you provide your own data to \code{save_ptype}, consider checking that it has
-the same structure as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}})
-and/or simulating data to avoid leaking PII via your deployed model.
+}
+\details{
+You can provide your own data to \code{save_ptype} to use as examples in the
+visual documentation created by \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}. If you do this,
+consider checking that your input data prototype has the same structure
+as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}) and/or simulating
+data to avoid leaking PII via your deployed model.
 }
 \examples{
 

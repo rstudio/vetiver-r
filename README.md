@@ -68,11 +68,11 @@ deployable, trained model object.
 
 ``` r
 vetiver_pin_write(v)
-#> Creating new version '20211019T151502Z-92526'
+#> Creating new version '20211020T200136Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
-You can **deploy** your pinned `vetiver()` object via a [Plumber
+You can **deploy** your pinned `vetiver_model()` via a [Plumber
 API](https://www.rplumber.io/), which can be [hosted in a variety of
 ways](https://www.rplumber.io/articles/hosting.html).
 

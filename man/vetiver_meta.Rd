@@ -19,7 +19,7 @@ vetiver_meta(user = list(), version = NULL, url = NULL, required_pkgs = NULL)
 A list.
 }
 \description{
-The metadata stored in a \code{\link[=vetiver_model]{vetiver_model()}} object has three elements:
+The metadata stored in a \code{\link[=vetiver_model]{vetiver_model()}} object has four elements:
 }
 \details{
 \itemize{

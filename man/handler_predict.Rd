@@ -24,7 +24,9 @@ handler_predict(vetiver_model, ...)
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
 \value{
-A function.
+A \code{handler_startup} function should return invisibly, while a
+\code{handler_predict} function should return a function with the signature
+\verb{function(req)}.
 }
 \description{
 Each model supported by \code{vetiver_model()} uses two handler functions
@@ -41,4 +43,12 @@ at each API call.
 \details{
 These are two generics that use the class of \code{vetiver_model$model}
 for dispatch.
+}
+\examples{
+
+cars_lm <- lm(mpg ~ ., data = mtcars)
+v <- vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+handler_startup(v)
+handler_predict(v)
+
 }

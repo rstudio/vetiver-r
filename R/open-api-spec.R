@@ -47,7 +47,7 @@ map_ptype <- function(ptype) {
     ## use `plumber:::plumberToApiTypeMap` here instead?
     ret <- map(
         ret,
-        ~ switch(class(.),
+        ~ switch(class(.)[[1]],
                  numeric = "number",
                  integer = "integer",
                  logical = "boolean",
@@ -83,7 +83,7 @@ api_spec <- function(spec, vetiver_model, path) {
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
     spec$paths[[path]]$post <- list(
-        summary = glue("Return predictions from model using {dim(ptype)[[2]]} features"),
+        summary = glue("Return predictions from model using {ncol(ptype)} features"),
         requestBody = request_body,
         responses = orig_post$responses
     )

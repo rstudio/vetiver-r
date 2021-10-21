@@ -2,7 +2,7 @@
 #'
 #' Use `vetiver_pin_write()` to pin a trained model to a board of models,
 #' along with an input prototype for new data and other model metadata. Use
-#' `vetiver_pin_read()` to retried that pinned object.
+#' `vetiver_pin_read()` to retrieve that pinned object.
 #'
 #' @inheritParams vetiver_pr_predict
 #' @inheritParams pins::pin_read

@@ -14,7 +14,16 @@
 #'
 #' @inheritParams vetiver_pr_predict
 #'
-#' @return A function.
+#' @examples
+#'
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+#' handler_startup(v)
+#' handler_predict(v)
+#'
+#' @return A `handler_startup` function should return invisibly, while a
+#' `handler_predict` function should return a function with the signature
+#' `function(req)`.
 #' @rdname handler_predict
 #' @export
 handler_startup <- function(vetiver_model, ...)
@@ -22,7 +31,7 @@ handler_startup <- function(vetiver_model, ...)
 
 #' @rdname handler_predict
 #' @export
-handler_startup.default <- function(vetiver_model, ...) NULL
+handler_startup.default <- function(vetiver_model, ...) invisible(NULL)
 
 #' @rdname handler_predict
 #' @export
@@ -43,8 +52,8 @@ handler_predict.lm <- function(vetiver_model, ...) {
 
     function(req) {
         newdata <- req$body
-        newdata <- vetiver_type_convert(newdata, ptype)
         if (!is_null(ptype)) {
+            newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
         }
         ret <- predict(vetiver_model$model, newdata = newdata, ...)
@@ -77,13 +86,11 @@ handler_predict.lm <- function(vetiver_model, ...) {
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
-    if (!is_null(ptype)) {
         spec <- readr::as.col_spec(ptype)
         is_character <- vapply(new_data, is.character, logical(1))
         if (any(is_character)) {
             new_data <- readr::type_convert(new_data, col_types = spec)
         }
-    }
     new_data
 }
 

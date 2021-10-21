@@ -38,6 +38,7 @@ vetiver_pr_predict <- function(pr,
                                ...) {
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
+    loadNamespace("rapidoc")
 
     handler_startup(vetiver_model)
 
@@ -52,13 +53,10 @@ vetiver_pr_predict <- function(pr,
     pr <- plumber::pr_post(pr, path = path,
                            handler = handler_predict(vetiver_model, ...))
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
-    if (rlang::is_installed("rapidoc")) {
-        pr <- plumber::pr_set_docs(
-            pr,
-            "rapidoc",
-            heading_text = paste("vetiver", utils::packageVersion("vetiver"))
-        )
-    }
+    pr <- plumber::pr_set_docs(
+        pr, "rapidoc",
+        heading_text = paste("vetiver", utils::packageVersion("vetiver"))
+    )
     pr
 }
 

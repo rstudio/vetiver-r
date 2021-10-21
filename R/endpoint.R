@@ -6,13 +6,11 @@
 #'
 #' @return A tibble of model predictions with as many rows as in `new_data`.
 #' @importFrom stats predict
-#' @method predict vetiver_endpoint
-#' @export predict.vetiver_endpoint
 #' @export
 #'
 #' @examples
 #'
-#' \dontrun{
+#' if (FALSE) {
 #' endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 #' predict(endpoint, mtcars[4:7, -1])
 #' }
@@ -21,12 +19,16 @@
 predict.vetiver_endpoint <- function(object, new_data, ...) {
     data_json <- jsonlite::toJSON(new_data)
     ret <- httr::POST(object$url, ..., body = data_json)
+    resp <- httr::content(ret, "text", encoding = "UTF-8")
+    ret <- jsonlite::fromJSON(resp)
 
-    msg <- httr::content(ret)[['message']]
-    glue_msg <- ifelse(rlang::is_null(msg), "predict", glue("predict: {msg}"))
-    httr::stop_for_status(ret, task = glue_msg)
-
-    ret <- httr::content(ret, simplify = TRUE)
+    if (has_name(ret, "error")) {
+        if (has_name(ret, "message")) {
+            abort(glue("Failed to predict: {ret$message}"))
+        } else {
+            abort("Failed to predict")
+        }
+    }
     tibble::as_tibble(ret)
 }
 
@@ -34,19 +36,18 @@ predict.vetiver_endpoint <- function(object, new_data, ...) {
 #' Create a model API endpoint object for prediction
 #'
 #' @param url An API endpoint URL
-#' @param ... Other arguments, not currently used
 #' @return A new `vetiver_endpoint` object
 #'
 #' @examples
 #' vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
 #'
 #' @export
-vetiver_endpoint <- function(url, ...) {
+vetiver_endpoint <- function(url) {
     url <- as.character(url)
-    new_vetiver_endpoint(url, ...)
+    new_vetiver_endpoint(url)
 }
 
-new_vetiver_endpoint <- function(url = character(), ...) {
+new_vetiver_endpoint <- function(url = character()) {
     stopifnot(is.character(url))
     structure(list(url = url), class = "vetiver_endpoint")
 }
@@ -61,7 +62,7 @@ format.vetiver_endpoint <- function(x, ...) {
 
 #' @export
 print.vetiver_endpoint <- function(x, ...) {
-    cat(format(x, ...), sep = "\n")
+    cat(format(x), sep = "\n")
     invisible(x)
 }
 

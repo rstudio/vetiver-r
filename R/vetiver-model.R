@@ -1,21 +1,25 @@
 #' Create a vetiver object for deployment of a trained model
 #'
 #' A `vetiver_model()` object collects the information needed to store, version,
-#' and deploy a trained model.
+#' and deploy a trained model. Once your `vetiver_model()` object has been
+#' created, you can:
+#' - store and version it as a pin with [vetiver_pin_write()]
+#' - create an API endpoint for it with [vetiver_pr_predict()]
 #'
 #'
 #' @param model A trained model, such as an `lm()` model or a tidymodels
 #' [workflows::workflow()].
 #' @param model_name Model name or ID.
 #' @param board A pin board to store and version the `model`, created by
-#' [pins::board_folder()], [pins::board_rsconnect()], or other `board_`
+#' [pins::board_folder()], [pins::board_rsconnect()], or other `board_*()`
 #' function from the pins package.
 #' @param description A detailed description of the model. If omitted, a brief
 #' description of the model will be generated.
 #' @param save_ptype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for checking), or a
-#' dataframe.
+#' dataframe to be used for both checking at prediction time *and* examples in
+#' API visual documentation.
 #' @param ptype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned? The default, `NULL`,
@@ -24,13 +28,12 @@
 #' to compute an input data prototype.
 #' @inheritParams pins::pin_write
 #'
-#' @details  Once your `vetiver_model()` object has been created, you can:
-#' - store and version it as a pin with [vetiver_pin_write()]
-#' - create an API endpoint for it with [vetiver_pr_predict()]
-#'
-#' If you provide your own data to `save_ptype`, consider checking that it has
-#' the same structure as your training data (perhaps with [hardhat::scream()])
-#' and/or simulating data to avoid leaking PII via your deployed model.
+#' @details
+#' You can provide your own data to `save_ptype` to use as examples in the
+#' visual documentation created by [vetiver_pr_predict()]. If you do this,
+#' consider checking that your input data prototype has the same structure
+#' as your training data (perhaps with [hardhat::scream()]) and/or simulating
+#' data to avoid leaking PII via your deployed model.
 #'
 #' @return A new `vetiver_model` object.
 #'
@@ -113,7 +116,7 @@ new_vetiver_model <- function(model,
 
 #' Metadata constructor for `vetiver_model()` object
 #'
-#' The metadata stored in a [vetiver_model()] object has three elements:
+#' The metadata stored in a [vetiver_model()] object has four elements:
 #'
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
@@ -151,7 +154,7 @@ format.vetiver_model <- function(x, ...) {
 
 #' @export
 print.vetiver_model <- function(x, ...) {
-    cat(format(x, ...), sep = "\n")
+    cat(format(x), sep = "\n")
     invisible(x)
 }
 

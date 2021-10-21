@@ -1,17 +1,16 @@
 Package: vetiver
-Title: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'
+Title: Version, Share, Deploy, and Monitor Models
 Version: 0.0.0.9000
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
     person("RStudio", role = "cph")
   )
-Description: A trained model can be shared and versioned via 'pins',
-    deployed as an API via 'plumber', and monitored via a dashboard
-    created with 'rmarkdown'. Functions handle recording and checking the
-    model's input data prototype, predicting from a remote API endpoint,
-    and monitoring model performance. This extensible framework provides
-    generics that can support many kinds of models.
+Description: The goal of 'vetiver' is to provide fluent tooling to version,
+    share, deploy, and monitor a trained model. Functions handle both
+    recording and checking the model's input data prototype, and
+    predicting from a remote API endpoint. The 'vetiver' package is
+    extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
 URL: https://vetiver.tidymodels.org/,
     https://github.com/tidymodels/vetiver
@@ -26,6 +25,7 @@ Imports:
     pins (>= 1.0.0),
     plumber (>= 1.0.0),
     purrr,
+    rapidoc,
     readr (>= 1.4.0),
     rlang,
     tibble,
@@ -34,14 +34,11 @@ Imports:
 Suggests:
     covr,
     knitr,
-    rapidoc,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder:
-    knitr
-Config/Needs/website:tidyverse/tidytemplate
+Config/Needs/website: 
+    tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
-LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
