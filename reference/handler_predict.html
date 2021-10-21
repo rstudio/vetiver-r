@@ -179,12 +179,33 @@ at each API call.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A function.</p>
+    <p>A <code>handler_startup</code> function should return invisibly, while a
+<code>handler_predict</code> function should return a function with the signature
+<code>function(req)</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These are two generics that use the class of <code>vetiver_model$model</code>
 for dispatch.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='fu'>pins</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
+<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; function (req) 
+#&gt; {
+#&gt;     newdata &lt;- req$body
+#&gt;     if (!is_null(ptype)) {
+#&gt;         newdata &lt;- vetiver_type_convert(newdata, ptype)
+#&gt;         newdata &lt;- hardhat::scream(newdata, ptype)
+#&gt;     }
+#&gt;     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)
+#&gt;     list(.pred = ret)
+#&gt; }
+#&gt; &lt;bytecode: 0x5652b69a56a0&gt;
+#&gt; &lt;environment: 0x5652b69ba9f0&gt;</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

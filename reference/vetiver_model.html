@@ -44,7 +44,12 @@
 
 <meta property="og:title" content="Create a vetiver object for deployment of a trained model — vetiver_model" />
 <meta property="og:description" content="A vetiver_model() object collects the information needed to store, version,
-and deploy a trained model." />
+and deploy a trained model. Once your vetiver_model() object has been
+created, you can:
+store and version it as a pin with vetiver_pin_write()
+create an API endpoint for it with vetiver_pr_predict()
+
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -132,7 +137,12 @@ and deploy a trained model." />
 
     <div class="ref-description">
     <p>A <code>vetiver_model()</code> object collects the information needed to store, version,
-and deploy a trained model.</p>
+and deploy a trained model. Once your <code>vetiver_model()</code> object has been
+created, you can:</p><ul>
+<li><p>store and version it as a pin with <code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code></p></li>
+<li><p>create an API endpoint for it with <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code></p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>vetiver_model</span><span class='op'>(</span>
@@ -187,7 +197,7 @@ and deploy a trained model.</p>
     <tr>
       <th>board</th>
       <td><p>A pin board to store and version the <code>model</code>, created by
-<code><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>pins::board_folder()</a></code>, <code><a href='https://rdrr.io/pkg/pins/man/board_rsconnect.html'>pins::board_rsconnect()</a></code>, or other <code>board_</code>
+<code><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>pins::board_folder()</a></code>, <code><a href='https://rdrr.io/pkg/pins/man/board_rsconnect.html'>pins::board_rsconnect()</a></code>, or other <code>board_*()</code>
 function from the pins package.</p></td>
     </tr>
     <tr>
@@ -211,7 +221,8 @@ avoid potential clashes with the metadata that pins itself uses.</p></td>
       <td><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
 training data), <code>FALSE</code> (no input data prototype for checking), or a
-dataframe.</p></td>
+dataframe to be used for both checking at prediction time <em>and</em> examples in
+API visual documentation.</p></td>
     </tr>
     <tr>
       <th>versioned</th>
@@ -230,14 +241,11 @@ new data at prediction time.</p></td>
     <p>A new <code>vetiver_model</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Once your <code>vetiver_model()</code> object has been created, you can:</p><ul>
-<li><p>store and version it as a pin with <code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code></p></li>
-<li><p>create an API endpoint for it with <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code></p></li>
-</ul>
-
-<p>If you provide your own data to <code>save_ptype</code>, consider checking that it has
-the same structure as your training data (perhaps with <code><a href='https://rdrr.io/pkg/hardhat/man/scream.html'>hardhat::scream()</a></code>)
-and/or simulating data to avoid leaking PII via your deployed model.</p>
+    <p>You can provide your own data to <code>save_ptype</code> to use as examples in the
+visual documentation created by <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code>. If you do this,
+consider checking that your input data prototype has the same structure
+as your training data (perhaps with <code><a href='https://rdrr.io/pkg/hardhat/man/scream.html'>hardhat::scream()</a></code>) and/or simulating
+data to avoid leaking PII via your deployed model.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
