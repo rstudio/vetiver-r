@@ -63,7 +63,7 @@ vetiver_model <- function(model,
         model = model,
         model_name = model_name,
         board = board,
-        description = description,
+        description = as.character(description),
         metadata = metadata,
         ptype = ptype,
         versioned = versioned

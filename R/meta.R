@@ -13,7 +13,6 @@
 #' @param version Version of the pin
 #' @param url URL for the pin, if any
 #' @param required_pkgs Character string of R packages required for prediction
-#' @param ... Other arguments passed to `vetiver_create_meta()`
 #'
 #' @return The `vetiver_meta()` constructor returns a list. The
 #' `vetiver_create_meta` function returns a `vetiver_meta()` list.
@@ -24,6 +23,7 @@
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' vetiver_create_meta(cars_lm, list())
 #'
+#' @rdname vetiver_create_meta
 #' @export
 vetiver_meta <- function(user = list(), version = NULL,
                          url = NULL, required_pkgs = NULL) {
@@ -32,14 +32,14 @@ vetiver_meta <- function(user = list(), version = NULL,
 }
 
 
-#' @rdname vetiver_meta
+#' @rdname vetiver_create_meta
 #' @export
-vetiver_create_meta <- function(model, metadata, ...) {
+vetiver_create_meta <- function(model, metadata) {
     UseMethod("vetiver_create_meta")
 }
 
-#' @rdname vetiver_meta
+#' @rdname vetiver_create_meta
 #' @export
-vetiver_create_meta.default <- function(model, metadata, ...) {
+vetiver_create_meta.default <- function(model, metadata) {
     vetiver_meta(metadata)
 }
