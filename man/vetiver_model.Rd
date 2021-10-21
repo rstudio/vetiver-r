@@ -65,7 +65,8 @@ avoid potential clashes with the metadata that pins itself uses.}
 \item{save_ptype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for checking), or a
-dataframe.}
+dataframe to be used for both checking at prediction time \emph{and} examples in
+API visual documentation.}
 
 \item{versioned}{Should the model object be versioned? The default, \code{NULL},
 will use the default for \code{board}.}
@@ -86,9 +87,11 @@ created, you can:
 }
 }
 \details{
-If you provide your own data to \code{save_ptype}, consider checking that it has
-the same structure as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}})
-and/or simulating data to avoid leaking PII via your deployed model.
+You can provide your own data to \code{save_ptype} to use as examples in the
+visual documentation created by \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}. If you do this,
+consider checking that your input data prototype has the same structure
+as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}) and/or simulating
+data to avoid leaking PII via your deployed model.
 }
 \examples{
 

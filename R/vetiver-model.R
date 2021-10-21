@@ -18,7 +18,8 @@
 #' @param save_ptype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for checking), or a
-#' dataframe.
+#' dataframe to be used for both checking at prediction time *and* examples in
+#' API visual documentation.
 #' @param ptype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned? The default, `NULL`,
@@ -28,9 +29,11 @@
 #' @inheritParams pins::pin_write
 #'
 #' @details
-#' If you provide your own data to `save_ptype`, consider checking that it has
-#' the same structure as your training data (perhaps with [hardhat::scream()])
-#' and/or simulating data to avoid leaking PII via your deployed model.
+#' You can provide your own data to `save_ptype` to use as examples in the
+#' visual documentation created by [vetiver_pr_predict()]. If you do this,
+#' consider checking that your input data prototype has the same structure
+#' as your training data (perhaps with [hardhat::scream()]) and/or simulating
+#' data to avoid leaking PII via your deployed model.
 #'
 #' @return A new `vetiver_model` object.
 #'
