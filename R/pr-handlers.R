@@ -14,7 +14,16 @@
 #'
 #' @inheritParams vetiver_pr_predict
 #'
-#' @return A function.
+#' @examples
+#'
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+#' handler_startup(v)
+#' handler_predict(v)
+#'
+#' @return A `handler_startup` function should return invisibly, while a
+#' `handler_predict` function should return a function with the signature
+#' `function(req)`.
 #' @rdname handler_predict
 #' @export
 handler_startup <- function(vetiver_model, ...)
@@ -22,7 +31,7 @@ handler_startup <- function(vetiver_model, ...)
 
 #' @rdname handler_predict
 #' @export
-handler_startup.default <- function(vetiver_model, ...) NULL
+handler_startup.default <- function(vetiver_model, ...) invisible(NULL)
 
 #' @rdname handler_predict
 #' @export
