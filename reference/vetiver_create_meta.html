@@ -44,7 +44,13 @@
 
 <meta property="og:title" content="Metadata constructors for vetiver_model() object — vetiver_meta" />
 <meta property="og:description" content="These are developer-facing functions, useful for supporting new model types.
-The metadata stored in a vetiver_model() object has four elements:" />
+The metadata stored in a vetiver_model() object has four elements:
+$user, the metadata supplied by the user
+$version, the version of the pin (which can be NULL before pinning)
+$url, the URL where the pin is located, if any
+$required_pkgs, a character string of R packages required for prediction
+
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -132,7 +138,13 @@ The metadata stored in a vetiver_model() object has four elements:" />
 
     <div class="ref-description">
     <p>These are developer-facing functions, useful for supporting new model types.
-The metadata stored in a <code><a href='vetiver_model.html'>vetiver_model()</a></code> object has four elements:</p>
+The metadata stored in a <code><a href='vetiver_model.html'>vetiver_model()</a></code> object has four elements:</p><ul>
+<li><p><code>$user</code>, the metadata supplied by the user</p></li>
+<li><p><code>$version</code>, the version of the pin (which can be <code>NULL</code> before pinning)</p></li>
+<li><p><code>$url</code>, the URL where the pin is located, if any</p></li>
+<li><p><code>$required_pkgs</code>, a character string of R packages required for prediction</p></li>
+</ul>
+
     </div>
 
     <pre class="usage"><span class='fu'>vetiver_meta</span><span class='op'>(</span>user <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, version <span class='op'>=</span> <span class='cn'>NULL</span>, url <span class='op'>=</span> <span class='cn'>NULL</span>, required_pkgs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
@@ -181,16 +193,6 @@ avoid potential clashes with the metadata that pins itself uses.</p></td>
 
     <p>The <code>vetiver_meta()</code> constructor returns a list. The
 <code>vetiver_create_meta</code> function returns a <code>vetiver_meta()</code> list.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    
-<ul>
-<li><p><code>$user</code>, the metadata supplied by the user</p></li>
-<li><p><code>$version</code>, the version of the pin (which can be <code>NULL</code> before pinning)</p></li>
-<li><p><code>$url</code>, the URL where the pin is located, if any</p></li>
-<li><p><code>$required_pkgs</code>, a character string of R packages required for prediction</p></li>
-</ul>
-
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>vetiver_meta</span><span class='op'>(</span><span class='op'>)</span>
