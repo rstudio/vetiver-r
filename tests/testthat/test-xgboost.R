@@ -49,8 +49,9 @@ test_that("default OpenAPI spec", {
 test_that("create plumber.R for xgboost", {
     skip_on_cran()
     b <- board_folder(path = "/tmp/test")
+    vetiver_pin_write(b, v)
     tmp <- tempfile()
-    vetiver_write_plumber(b, "cars_xgb", file = tmp)
+    vetiver_write_plumber(b, "cars2", file = tmp)
     expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
 

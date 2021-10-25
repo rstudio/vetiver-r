@@ -15,7 +15,7 @@
           library(xgboost)
       }
       b <- board_folder(path = "/tmp/test")
-      v <- vetiver_pin_read(b, "cars_xgb")
+      v <- vetiver_pin_read(b, "cars2")
       
       #* @plumber
       function(pr) {
