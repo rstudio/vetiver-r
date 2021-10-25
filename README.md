@@ -46,29 +46,25 @@ devtools::install_github("tidymodels/vetiver")
 A `vetiver_model()` object collects the information needed to store,
 version, and deploy a trained model.
 
-You can **version** and **share** your model by choosing a
-[pins](https://pins.rstudio.com/dev/) “board” for it, including a local
-folder, RStudio Connect, Amazon S3, and more.
-
 ``` r
 library(vetiver)
-library(pins)
-
-model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", model_board)
+v <- vetiver_model(cars_lm, "cars_linear")
 v
 #> 
 #> ── cars_linear ─ <butchered_lm> model for deployment 
 #> An OLS linear regression model using 10 features
 ```
 
-When you use `vetiver_pin_write()`, you store and version your
-deployable, trained model object.
+You can **version** and **share** your `vetiver_model()` by choosing a
+[pins](https://pins.rstudio.com/dev/) “board” for it, including a local
+folder, RStudio Connect, Amazon S3, and more.
 
 ``` r
-vetiver_pin_write(v)
-#> Creating new version '20211020T200136Z-522c5'
+library(pins)
+model_board <- board_temp()
+model_board %>% vetiver_pin_write(v)
+#> Creating new version '20211025T173323Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 

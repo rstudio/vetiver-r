@@ -1,5 +1,6 @@
 #' Model handler functions for API endpoint
 #'
+#' These are developer-facing functions, useful for supporting new model types.
 #' Each model supported by `vetiver_model()` uses two handler functions
 #' in [vetiver_pr_predict()]:
 #' - The `handler_startup` function executes when the API starts. Use this
@@ -17,51 +18,31 @@
 #' @examples
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' v <- vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+#' v <- vetiver_model(cars_lm, "cars_linear")
 #' handler_startup(v)
 #' handler_predict(v)
 #'
 #' @return A `handler_startup` function should return invisibly, while a
 #' `handler_predict` function should return a function with the signature
 #' `function(req)`.
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
-handler_startup <- function(vetiver_model, ...)
+handler_startup <- function(vetiver_model)
     UseMethod("handler_startup", vetiver_model$model)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
-handler_startup.default <- function(vetiver_model, ...) invisible(NULL)
+handler_startup.default <- function(vetiver_model) invisible(NULL)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
 handler_predict <- function(vetiver_model, ...)
     UseMethod("handler_predict", vetiver_model$model)
 
-#' @rdname handler_predict
+#' @rdname handler_startup
 #' @export
 handler_predict.default <- function(vetiver_model, ...)
     abort("There is no method available to build a prediction handler for `x`.")
-
-
-#' @rdname handler_predict
-#' @export
-handler_predict.lm <- function(vetiver_model, ...) {
-
-    ptype <- vetiver_model$ptype
-
-    function(req) {
-        newdata <- req$body
-        if (!is_null(ptype)) {
-            newdata <- vetiver_type_convert(newdata, ptype)
-            newdata <- hardhat::scream(newdata, ptype)
-        }
-        ret <- predict(vetiver_model$model, newdata = newdata, ...)
-        list(.pred = ret)
-    }
-
-}
-
 
 #' Convert new data at prediction time using input data prototype
 #'

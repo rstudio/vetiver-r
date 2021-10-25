@@ -12,6 +12,9 @@
 #' @return A list to be used within [plumber::pr_set_api_spec()]
 #' @export
 #'
+#' @details
+#' This is a developer-facing function, useful for supporting new model types.
+#'
 #' @examples
 #' map_request_body(vctrs::vec_slice(chickwts, 0))
 #'

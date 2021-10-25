@@ -46,22 +46,19 @@ devtools::install_github("tidymodels/vetiver")
 
 A `vetiver_model()` object collects the information needed to store, version, and deploy a trained model. 
 
-You can **version** and **share** your model by choosing a [pins](https://pins.rstudio.com/dev/) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more.
-
 ```{r}
 library(vetiver)
-library(pins)
-
-model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", model_board)
+v <- vetiver_model(cars_lm, "cars_linear")
 v
 ```
 
-When you use `vetiver_pin_write()`, you store and version your deployable, trained model object.
+You can **version** and **share** your `vetiver_model()` by choosing a [pins](https://pins.rstudio.com/dev/) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more.
 
 ```{r}
-vetiver_pin_write(v)
+library(pins)
+model_board <- board_temp()
+model_board %>% vetiver_pin_write(v)
 ```
 
 You can **deploy** your pinned `vetiver_model()` via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).

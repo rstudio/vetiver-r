@@ -7,8 +7,8 @@
 #' A [vetiver_model()] object optionally stores an input data prototype for
 #' checking at prediction time.
 #'
-#' - The default for `save_ptype`, `TRUE`, finds a zero-row slice of the
-#' training data via [vetiver_slice_zero()].
+#' - The default for `save_ptype`, `TRUE`, finds an input data prototype (a
+#' zero-row slice of the training data) via [vetiver_ptype()].
 #' - `save_ptype = FALSE` opts out of storing any input data prototype.
 #' - You may pass your own data to `save_ptype`, but be sure to check that it
 #' has the same structure as your training data, perhaps with
@@ -26,7 +26,7 @@
 #' vetiver_create_ptype(cars_lm, TRUE)
 #'
 #' ## calls the right method for `model` via:
-#' vetiver_slice_zero(cars_lm)
+#' vetiver_ptype(cars_lm)
 #'
 #' ## can also turn off `ptype`
 #' vetiver_create_ptype(cars_lm, FALSE)
@@ -34,7 +34,7 @@
 #' @export
 vetiver_create_ptype <- function(model, save_ptype, ...) {
     if (isTRUE(save_ptype)) {
-        ptype <- vetiver_slice_zero(model, ...)
+        ptype <- vetiver_ptype(model, ...)
     } else if (isFALSE(save_ptype)) {
         ptype <- NULL
     } else if (rlang::inherits_any(save_ptype, "data.frame")) {
@@ -47,23 +47,16 @@ vetiver_create_ptype <- function(model, save_ptype, ...) {
 
 #' @rdname vetiver_create_ptype
 #' @export
-vetiver_slice_zero <- function(model, ...) {
-    UseMethod("vetiver_slice_zero")
+vetiver_ptype <- function(model, ...) {
+    UseMethod("vetiver_ptype")
 }
 
 #' @rdname vetiver_create_ptype
 #' @export
-vetiver_slice_zero.default <- function(model, ...) {
+vetiver_ptype.default <- function(model, ...) {
     abort("There is no method available to create a 0-row input data prototype for `model`.")
 }
 
-#' @rdname vetiver_create_ptype
-#' @export
-vetiver_slice_zero.lm <- function(model, ...) {
-    pred_names <- attr(model$terms, "term.labels")
-    ptype <- vctrs::vec_ptype(model$model[pred_names])
-    tibble::as_tibble(ptype)
-}
 
 
 

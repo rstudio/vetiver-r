@@ -13,7 +13,7 @@ test_that("default ptype", {
 test_that("default ptype, check vetiver_slice_zero", {
     expect_equal(
         vetiver_create_ptype(cars_lm, TRUE),
-        vetiver_slice_zero(cars_lm)
+        vetiver_ptype(cars_lm)
     )
 })
 
