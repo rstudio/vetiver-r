@@ -32,6 +32,7 @@ reference:
   - attach_pkgs
   - handler_startup
   - map_request_body
+  - vetiver_create_description
+  - vetiver_create_meta
   - vetiver_create_ptype
-  - vetiver_meta
   - vetiver_type_convert
