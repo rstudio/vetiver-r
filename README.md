@@ -57,14 +57,14 @@ v
 ```
 
 You can **version** and **share** your `vetiver_model()` by choosing a
-[pins](https://pins.rstudio.com/dev/) “board” for it, including a local
+[pins](https://pins.rstudio.com) “board” for it, including a local
 folder, RStudio Connect, Amazon S3, and more.
 
 ``` r
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211025T173323Z-522c5'
+#> Creating new version '20211025T192224Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 

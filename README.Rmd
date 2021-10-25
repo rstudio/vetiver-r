@@ -53,7 +53,7 @@ v <- vetiver_model(cars_lm, "cars_linear")
 v
 ```
 
-You can **version** and **share** your `vetiver_model()` by choosing a [pins](https://pins.rstudio.com/dev/) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more.
+You can **version** and **share** your `vetiver_model()` by choosing a [pins](https://pins.rstudio.com) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more.
 
 ```{r}
 library(pins)
