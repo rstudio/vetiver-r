@@ -32,8 +32,9 @@ dataframe to be used for both checking at prediction time \emph{and} examples in
 API visual documentation.}
 }
 \value{
-Either a zero-row dataframe, \code{NULL}, or the dataframe passed to
-\code{save_ptype}.
+A \code{vetiver_ptype} method returns a zero-row dataframe, and
+\code{vetiver_create_ptype()} returns either such a zero-row dataframe, \code{NULL},
+or the dataframe passed to \code{save_ptype}.
 }
 \description{
 Optionally find and return an input data prototype for a model.

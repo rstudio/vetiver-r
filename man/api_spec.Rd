@@ -20,11 +20,9 @@ The updated OpenAPI Specification object
 Update the OpenAPI specification from model metadata
 }
 \examples{
-library(pins)
 library(plumber)
-model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", model_board)
+v <- vetiver_model(cars_lm, "cars_linear")
 
 modify_spec <- function(spec) api_spec(spec, v, "/predict")
 pr() \%>\% pr_set_api_spec(api = modify_spec)

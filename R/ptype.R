@@ -16,8 +16,9 @@
 #'
 #' @inheritParams vetiver_model
 #'
-#' @return Either a zero-row dataframe, `NULL`, or the dataframe passed to
-#' `save_ptype`.
+#' @return A `vetiver_ptype` method returns a zero-row dataframe, and
+#' `vetiver_create_ptype()` returns either such a zero-row dataframe, `NULL`,
+#' or the dataframe passed to `save_ptype`.
 #'
 #' @examples
 #'
