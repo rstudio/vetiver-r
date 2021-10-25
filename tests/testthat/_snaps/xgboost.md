@@ -1,3 +1,12 @@
+# can print xgboost model
+
+    Code
+      v
+    Output
+      
+      -- cars2 - <xgb.Booster> model for deployment 
+      An xgboost reg:squarederror model using 10 features
+
 # create plumber.R for xgboost
 
     Code

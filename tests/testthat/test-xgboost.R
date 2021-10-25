@@ -7,6 +7,10 @@ cars_xgb <- xgboost::xgboost(as.matrix(mtcars[,-1]),
                             objective = "reg:squarederror")
 v <- vetiver_model(cars_xgb, "cars2")
 
+test_that("can print xgboost model", {
+    expect_snapshot(v)
+})
+
 test_that("can pin an xgboost model", {
     b <- board_temp()
     vetiver_pin_write(b, v)
