@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a vetiver object for deployment of a trained model — vetiver_model • vetiver</title>
+<title>Model constructor methods — vetiver_create_description.lm • vetiver</title>
 
 
 <!-- jquery -->
@@ -42,12 +42,23 @@
 
 
 
-<meta property="og:title" content="Create a vetiver object for deployment of a trained model — vetiver_model" />
-<meta property="og:description" content="A vetiver_model() object collects the information needed to store, version,
-and deploy a trained model. Once your vetiver_model() object has been
-created, you can:
-store and version it as a pin with vetiver_pin_write()
-create an API endpoint for it with vetiver_pr_predict()
+<meta property="og:title" content="Model constructor methods — vetiver_create_description.lm" />
+<meta property="og:description" content="These are developer-facing functions, useful for supporting new model types.
+Each model supported by vetiver_model() uses four methods when the
+deployable object is created:
+The vetiver_create_description() function generates a helpful description
+of the model based on its characteristics. This method is required.
+The vetiver_create_meta() function creates the correct vetiver_meta()
+for the model. This is especially helpful for specifying which packages are
+needed for prediction. A model can use the default method here, which is
+to have no special metadata.
+The vetiver_ptype() function finds an input data prototype from the
+training data (a zero-row slice) to use for checking at prediction time.
+This method is required.
+The vetiver_prepare_model() function executes last. Use this function
+for tasks like checking if the model is trained and reducing the size of the
+model via butcher::butcher(). A model can use the default method here,
+which is to return the model without changes.
 
 " />
 <meta name="twitter:card" content="summary" />
@@ -130,32 +141,50 @@ create an API endpoint for it with vetiver_pr_predict()
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a vetiver object for deployment of a trained model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/vetiver-model.R'><code>R/vetiver-model.R</code></a></small>
-    <div class="hidden name"><code>vetiver_model.Rd</code></div>
+    <h1>Model constructor methods</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/lm.R'><code>R/lm.R</code></a>, <a href='https://github.com/tidymodels/vetiver/blob/master/R/prepare.R'><code>R/prepare.R</code></a>, <a href='https://github.com/tidymodels/vetiver/blob/master/R/xgboost.R'><code>R/xgboost.R</code></a></small>
+    <div class="hidden name"><code>vetiver_create_description.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A <code>vetiver_model()</code> object collects the information needed to store, version,
-and deploy a trained model. Once your <code>vetiver_model()</code> object has been
-created, you can:</p><ul>
-<li><p>store and version it as a pin with <code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code></p></li>
-<li><p>create an API endpoint for it with <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code></p></li>
+    <p>These are developer-facing functions, useful for supporting new model types.
+Each model supported by <code><a href='vetiver_model.html'>vetiver_model()</a></code> uses four methods when the
+deployable object is created:</p><ul>
+<li><p>The <code>vetiver_create_description()</code> function generates a helpful description
+of the model based on its characteristics. This method is required.</p></li>
+<li><p>The <code><a href='vetiver_meta.html'>vetiver_create_meta()</a></code> function creates the correct <code><a href='vetiver_meta.html'>vetiver_meta()</a></code>
+for the model. This is especially helpful for specifying which packages are
+needed for prediction. A model can use the default method here, which is
+to have no special metadata.</p></li>
+<li><p>The <code><a href='vetiver_ptype.lm.html'>vetiver_ptype()</a></code> function finds an input data prototype from the
+training data (a zero-row slice) to use for checking at prediction time.
+This method is required.</p></li>
+<li><p>The <code>vetiver_prepare_model()</code> function executes last. Use this function
+for tasks like checking if the model is trained and reducing the size of the
+model via <code><a href='https://butcher.tidymodels.org/reference/butcher.html'>butcher::butcher()</a></code>. A model can use the default method here,
+which is to return the model without changes.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>vetiver_model</span><span class='op'>(</span>
-  <span class='va'>model</span>,
-  <span class='va'>model_name</span>,
-  <span class='va'>...</span>,
-  description <span class='op'>=</span> <span class='cn'>NULL</span>,
-  metadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  save_ptype <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  versioned <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span>
+    <pre class="usage"><span class='co'># S3 method for lm</span>
+<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 
-<span class='fu'>new_vetiver_model</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>model_name</span>, <span class='va'>description</span>, <span class='va'>metadata</span>, <span class='va'>ptype</span>, <span class='va'>versioned</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for lm</span>
+<span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+
+<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+
+<span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+
+<span class='co'># S3 method for xgb.Booster</span>
+<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,65 +194,27 @@ created, you can:</p><ul>
       <td><p>A trained model, such as an <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code> model or a tidymodels
 <code>workflows::workflow()</code>.</p></td>
     </tr>
-    <tr>
-      <th>model_name</th>
-      <td><p>Model name or ID.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other method-specific arguments passed to <code><a href='vetiver_ptype.lm.html'>vetiver_ptype()</a></code>
-to compute an input data prototype.</p></td>
-    </tr>
-    <tr>
-      <th>description</th>
-      <td><p>A detailed description of the model. If omitted, a brief
-description of the model will be generated.</p></td>
-    </tr>
-    <tr>
-      <th>metadata</th>
-      <td><p>A list containing additional metadata to store with the pin.
-When retrieving the pin, this will be stored in the <code>user</code> key, to
-avoid potential clashes with the metadata that pins itself uses.</p></td>
-    </tr>
-    <tr>
-      <th>save_ptype</th>
-      <td><p>Should an input data prototype be stored with the model?
-The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
-training data), <code>FALSE</code> (no input data prototype for checking), or a
-dataframe to be used for both checking at prediction time <em>and</em> examples in
-API visual documentation.</p></td>
-    </tr>
-    <tr>
-      <th>versioned</th>
-      <td><p>Should the model object be versioned when stored with
-<code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code>? The default, <code>NULL</code>, will use the default for the
-<code>board</code> where you store the model.</p></td>
-    </tr>
-    <tr>
-      <th>ptype</th>
-      <td><p>An input data prototype. If <code>NULL</code>, there is no checking of
-new data at prediction time.</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A new <code>vetiver_model</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>You can provide your own data to <code>save_ptype</code> to use as examples in the
-visual documentation created by <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code>. If you do this,
-consider checking that your input data prototype has the same structure
-as your training data (perhaps with <code><a href='https://rdrr.io/pkg/hardhat/man/scream.html'>hardhat::scream()</a></code>) and/or simulating
-data to avoid leaking PII via your deployed model.</p>
+    <p>These are four generics that use the class of <code>model</code> for dispatch.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='fu'>vetiver_model</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='fu'>pins</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "An OLS linear regression model"</div><div class='input'><span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
-#&gt; ── <span style='font-style: italic;'>cars_linear</span> ─ <span style='color: #0000BB;'>&lt;butchered_lm&gt;</span> model for deployment 
-#&gt; An OLS linear regression model using 10 features</div><div class='input'>
+#&gt; Call:
+#&gt; dummy_call()
+#&gt; 
+#&gt; Coefficients:
+#&gt; (Intercept)          cyl         disp           hp         drat           wt  
+#&gt;    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  
+#&gt;        qsec           vs           am         gear         carb  
+#&gt;     0.82104      0.31776      2.52023      0.65541     -0.19942  
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

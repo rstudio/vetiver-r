@@ -107,22 +107,20 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>A <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
-<p>You can <strong>version</strong> and <strong>share</strong> your model by choosing a <a href="https://pins.rstudio.com/dev/">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.tidymodels.org/">vetiver</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins">pins</a></span><span class="op">)</span>
-
-<span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html">board_temp</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span>, <span class="va">model_board</span><span class="op">)</span>
+<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span>
 <span class="va">v</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── cars_linear ─ &lt;butchered_lm&gt; model for deployment </span>
 <span class="co">#&gt; An OLS linear regression model using 10 features</span></code></pre></div>
-<p>When you use <code><a href="reference/vetiver_pin_write.html">vetiver_pin_write()</a></code>, you store and version your deployable, trained model object.</p>
+<p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com/dev/">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
-<span class="co">#&gt; Creating new version '20211020T200136Z-522c5'</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins">pins</a></span><span class="op">)</span>
+<span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html">board_temp</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">model_board</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="co">#&gt; Creating new version '20211025T173323Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a vetiver input data prototype — vetiver_create_ptype • vetiver</title>
+<title>Create a vetiver input data prototype — vetiver_ptype.lm • vetiver</title>
 
 
 <!-- jquery -->
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Create a vetiver input data prototype — vetiver_create_ptype" />
+<meta property="og:title" content="Create a vetiver input data prototype — vetiver_ptype.lm" />
 <meta property="og:description" content="Optionally find and return an input data prototype for a model." />
 <meta name="twitter:card" content="summary" />
 
@@ -125,7 +125,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a vetiver input data prototype</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/create-ptype.R'><code>R/create-ptype.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/lm.R'><code>R/lm.R</code></a>, <a href='https://github.com/tidymodels/vetiver/blob/master/R/ptype.R'><code>R/ptype.R</code></a>, <a href='https://github.com/tidymodels/vetiver/blob/master/R/xgboost.R'><code>R/xgboost.R</code></a></small>
     <div class="hidden name"><code>vetiver_create_ptype.Rd</code></div>
     </div>
 
@@ -133,15 +133,18 @@
     <p>Optionally find and return an input data prototype for a model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>save_ptype</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='co'># S3 method for lm</span>
+<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>vetiver_slice_zero</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>save_ptype</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>vetiver_slice_zero</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for lm</span>
-<span class='fu'>vetiver_slice_zero</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for xgb.Booster</span>
+<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,17 +155,17 @@
 <code>workflows::workflow()</code>.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Other method-specific arguments passed to <code>vetiver_ptype()</code>
+to compute an input data prototype.</p></td>
+    </tr>
+    <tr>
       <th>save_ptype</th>
       <td><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
 training data), <code>FALSE</code> (no input data prototype for checking), or a
 dataframe to be used for both checking at prediction time <em>and</em> examples in
 API visual documentation.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other method-specific arguments passed to <code>vetiver_slice_zero()</code>
-to compute an input data prototype.</p></td>
     </tr>
     </table>
 
@@ -175,8 +178,8 @@ to compute an input data prototype.</p></td>
     <p>These are developer-facing functions, useful for supporting new model types.
 A <code><a href='vetiver_model.html'>vetiver_model()</a></code> object optionally stores an input data prototype for
 checking at prediction time.</p><ul>
-<li><p>The default for <code>save_ptype</code>, <code>TRUE</code>, finds a zero-row slice of the
-training data via <code>vetiver_slice_zero()</code>.</p></li>
+<li><p>The default for <code>save_ptype</code>, <code>TRUE</code>, finds an input data prototype (a
+zero-row slice of the training data) via <code>vetiver_ptype()</code>.</p></li>
 <li><p><code>save_ptype = FALSE</code> opts out of storing any input data prototype.</p></li>
 <li><p>You may pass your own data to <code>save_ptype</code>, but be sure to check that it
 has the same structure as your training data, perhaps with
@@ -192,7 +195,7 @@ has the same structure as your training data, perhaps with
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 0 × 2</span>
 #&gt; <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></div><div class='input'>
 <span class='co'>## calls the right method for `model` via:</span>
-<span class='fu'>vetiver_slice_zero</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
+<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 0 × 2</span>
 #&gt; <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></div><div class='input'>
 <span class='co'>## can also turn off `ptype`</span>

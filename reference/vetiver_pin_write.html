@@ -137,7 +137,7 @@ along with an input prototype for new data and other model metadata. Use
 <code>vetiver_pin_read()</code> to retrieve that pinned object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vetiver_pin_write</span><span class='op'>(</span><span class='va'>vetiver_model</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>vetiver_pin_write</span><span class='op'>(</span><span class='va'>board</span>, <span class='va'>vetiver_model</span><span class='op'>)</span>
 
 <span class='fu'>vetiver_pin_read</span><span class='op'>(</span><span class='va'>board</span>, <span class='va'>name</span>, version <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
@@ -145,13 +145,13 @@ along with an input prototype for new data and other model metadata. Use
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vetiver_model</th>
-      <td><p>A deployable <code><a href='vetiver_model.html'>vetiver_model()</a></code> object</p></td>
-    </tr>
-    <tr>
       <th>board</th>
       <td><p>A pin board, created by <code><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_folder()</a></code>, <code><a href='https://rdrr.io/pkg/pins/man/board_rsconnect.html'>board_rsconnect()</a></code>,
 <code><a href='https://rdrr.io/pkg/pins/man/board_url.html'>board_url()</a></code> or other other <code>board_</code> function.</p></td>
+    </tr>
+    <tr>
+      <th>vetiver_model</th>
+      <td><p>A deployable <code><a href='vetiver_model.html'>vetiver_model()</a></code> object</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -182,11 +182,11 @@ packages are needed at prediction time. You may use <code><a href='https://rdrr.
 <span class='va'>model_board</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='va'>model_board</span><span class='op'>)</span>
-<span class='fu'>vetiver_pin_write</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211021T175206Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'><span class='va'>model_board</span>
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span><span class='op'>)</span>
+<span class='fu'>vetiver_pin_write</span><span class='op'>(</span><span class='va'>model_board</span>, <span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Creating new version '20211025T185459Z-92526'</span></div><div class='output co'>#&gt; <span class='message'>Writing to pin 'cars_linear'</span></div><div class='input'><span class='va'>model_board</span>
 </div><div class='output co'>#&gt; <span style='font-weight: bold;'>Pin board</span> &lt;pins_board_folder&gt;
-#&gt; Path: '/tmp/RtmpkctXHU/pins-372842c7c09e'
+#&gt; Path: '/tmp/RtmpqdfyJX/pins-38663418fd6d'
 #&gt; Cache size: 0
 #&gt; Pins [1]: 'cars_linear'</div><div class='input'>
 <span class='fu'>vetiver_pin_read</span><span class='op'>(</span><span class='va'>model_board</span>, <span class='st'>"cars_linear"</span><span class='op'>)</span>
@@ -198,7 +198,7 @@ packages are needed at prediction time. You may use <code><a href='https://rdrr.
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
 #&gt;   version                created             hash 
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> 20211021T175206Z-92526 2021-10-21 <span style='color: #949494;'>17:52:00</span> 92526</div><div class='input'>
+#&gt; <span style='color: #BCBCBC;'>1</span> 20211025T185459Z-92526 2021-10-25 <span style='color: #949494;'>18:54:00</span> 92526</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

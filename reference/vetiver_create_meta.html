@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a vetiver object for deployment of a trained model — vetiver_model • vetiver</title>
+<title>Metadata constructors for vetiver_model() object — vetiver_meta • vetiver</title>
 
 
 <!-- jquery -->
@@ -42,14 +42,9 @@
 
 
 
-<meta property="og:title" content="Create a vetiver object for deployment of a trained model — vetiver_model" />
-<meta property="og:description" content="A vetiver_model() object collects the information needed to store, version,
-and deploy a trained model. Once your vetiver_model() object has been
-created, you can:
-store and version it as a pin with vetiver_pin_write()
-create an API endpoint for it with vetiver_pr_predict()
-
-" />
+<meta property="og:title" content="Metadata constructors for vetiver_model() object — vetiver_meta" />
+<meta property="og:description" content="These are developer-facing functions, useful for supporting new model types.
+The metadata stored in a vetiver_model() object has four elements:" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,54 +125,49 @@ create an API endpoint for it with vetiver_pr_predict()
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a vetiver object for deployment of a trained model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/vetiver-model.R'><code>R/vetiver-model.R</code></a></small>
-    <div class="hidden name"><code>vetiver_model.Rd</code></div>
+    <h1>Metadata constructors for <code>vetiver_model()</code> object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/vetiver/blob/master/R/meta.R'><code>R/meta.R</code></a>, <a href='https://github.com/tidymodels/vetiver/blob/master/R/xgboost.R'><code>R/xgboost.R</code></a></small>
+    <div class="hidden name"><code>vetiver_create_meta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A <code>vetiver_model()</code> object collects the information needed to store, version,
-and deploy a trained model. Once your <code>vetiver_model()</code> object has been
-created, you can:</p><ul>
-<li><p>store and version it as a pin with <code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code></p></li>
-<li><p>create an API endpoint for it with <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code></p></li>
-</ul>
-
+    <p>These are developer-facing functions, useful for supporting new model types.
+The metadata stored in a <code><a href='vetiver_model.html'>vetiver_model()</a></code> object has four elements:</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vetiver_model</span><span class='op'>(</span>
-  <span class='va'>model</span>,
-  <span class='va'>model_name</span>,
-  <span class='va'>...</span>,
-  description <span class='op'>=</span> <span class='cn'>NULL</span>,
-  metadata <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  save_ptype <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  versioned <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span>
+    <pre class="usage"><span class='fu'>vetiver_meta</span><span class='op'>(</span>user <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, version <span class='op'>=</span> <span class='cn'>NULL</span>, url <span class='op'>=</span> <span class='cn'>NULL</span>, required_pkgs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>new_vetiver_model</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>model_name</span>, <span class='va'>description</span>, <span class='va'>metadata</span>, <span class='va'>ptype</span>, <span class='va'>versioned</span><span class='op'>)</span></pre>
+<span class='fu'>vetiver_create_meta</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>metadata</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>vetiver_create_meta</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>metadata</span><span class='op'>)</span>
+
+<span class='co'># S3 method for xgb.Booster</span>
+<span class='fu'>vetiver_create_meta</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>metadata</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>user</th>
+      <td><p>Metadata supplied by the user</p></td>
+    </tr>
+    <tr>
+      <th>version</th>
+      <td><p>Version of the pin</p></td>
+    </tr>
+    <tr>
+      <th>url</th>
+      <td><p>URL for the pin, if any</p></td>
+    </tr>
+    <tr>
+      <th>required_pkgs</th>
+      <td><p>Character string of R packages required for prediction</p></td>
+    </tr>
+    <tr>
       <th>model</th>
       <td><p>A trained model, such as an <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code> model or a tidymodels
 <code>workflows::workflow()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>model_name</th>
-      <td><p>Model name or ID.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other method-specific arguments passed to <code><a href='vetiver_ptype.lm.html'>vetiver_ptype()</a></code>
-to compute an input data prototype.</p></td>
-    </tr>
-    <tr>
-      <th>description</th>
-      <td><p>A detailed description of the model. If omitted, a brief
-description of the model will be generated.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
@@ -185,45 +175,51 @@ description of the model will be generated.</p></td>
 When retrieving the pin, this will be stored in the <code>user</code> key, to
 avoid potential clashes with the metadata that pins itself uses.</p></td>
     </tr>
-    <tr>
-      <th>save_ptype</th>
-      <td><p>Should an input data prototype be stored with the model?
-The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
-training data), <code>FALSE</code> (no input data prototype for checking), or a
-dataframe to be used for both checking at prediction time <em>and</em> examples in
-API visual documentation.</p></td>
-    </tr>
-    <tr>
-      <th>versioned</th>
-      <td><p>Should the model object be versioned when stored with
-<code><a href='vetiver_pin_write.html'>vetiver_pin_write()</a></code>? The default, <code>NULL</code>, will use the default for the
-<code>board</code> where you store the model.</p></td>
-    </tr>
-    <tr>
-      <th>ptype</th>
-      <td><p>An input data prototype. If <code>NULL</code>, there is no checking of
-new data at prediction time.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A new <code>vetiver_model</code> object.</p>
+    <p>The <code>vetiver_meta()</code> constructor returns a list. The
+<code>vetiver_create_meta</code> function returns a <code>vetiver_meta()</code> list.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>You can provide your own data to <code>save_ptype</code> to use as examples in the
-visual documentation created by <code><a href='vetiver_pr_predict.html'>vetiver_pr_predict()</a></code>. If you do this,
-consider checking that your input data prototype has the same structure
-as your training data (perhaps with <code><a href='https://rdrr.io/pkg/hardhat/man/scream.html'>hardhat::scream()</a></code>) and/or simulating
-data to avoid leaking PII via your deployed model.</p>
+    
+<ul>
+<li><p><code>$user</code>, the metadata supplied by the user</p></li>
+<li><p><code>$version</code>, the version of the pin (which can be <code>NULL</code> before pinning)</p></li>
+<li><p><code>$url</code>, the URL where the pin is located, if any</p></li>
+<li><p><code>$required_pkgs</code>, a character string of R packages required for prediction</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>vetiver_meta</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $user
+#&gt; list()
+#&gt; 
+#&gt; $version
+#&gt; NULL
+#&gt; 
+#&gt; $url
+#&gt; NULL
+#&gt; 
+#&gt; $required_pkgs
+#&gt; NULL
+#&gt; </div><div class='input'>
 <span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='fu'>vetiver_model</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span>, <span class='fu'>pins</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pins/man/board_folder.html'>board_temp</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; ── <span style='font-style: italic;'>cars_linear</span> ─ <span style='color: #0000BB;'>&lt;butchered_lm&gt;</span> model for deployment 
-#&gt; An OLS linear regression model using 10 features</div><div class='input'>
+<span class='fu'>vetiver_create_meta</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $user
+#&gt; list()
+#&gt; 
+#&gt; $version
+#&gt; NULL
+#&gt; 
+#&gt; $url
+#&gt; NULL
+#&gt; 
+#&gt; $required_pkgs
+#&gt; NULL
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

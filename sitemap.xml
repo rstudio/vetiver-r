@@ -10,7 +10,7 @@
     <loc>https://vetiver.tidymodels.org/reference/attach_pkgs.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/handler_predict.html</loc>
+    <loc>https://vetiver.tidymodels.org/reference/handler_startup.html</loc>
   </url>
   <url>
     <loc>https://vetiver.tidymodels.org/reference/map_request_body.html</loc>
@@ -22,13 +22,16 @@
     <loc>https://vetiver.tidymodels.org/reference/vetiver-package.html</loc>
   </url>
   <url>
+    <loc>https://vetiver.tidymodels.org/reference/vetiver_create_description.html</loc>
+  </url>
+  <url>
+    <loc>https://vetiver.tidymodels.org/reference/vetiver_create_meta.html</loc>
+  </url>
+  <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_create_ptype.html</loc>
   </url>
   <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_endpoint.html</loc>
-  </url>
-  <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_meta.html</loc>
   </url>
   <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_model.html</loc>
