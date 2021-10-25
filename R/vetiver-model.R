@@ -10,9 +10,6 @@
 #' @param model A trained model, such as an `lm()` model or a tidymodels
 #' [workflows::workflow()].
 #' @param model_name Model name or ID.
-#' @param board A pin board to store and version the `model`, created by
-#' [pins::board_folder()], [pins::board_rsconnect()], or other `board_*()`
-#' function from the pins package.
 #' @param description A detailed description of the model. If omitted, a brief
 #' description of the model will be generated.
 #' @param save_ptype Should an input data prototype be stored with the model?
@@ -22,8 +19,9 @@
 #' API visual documentation.
 #' @param ptype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
-#' @param versioned Should the model object be versioned? The default, `NULL`,
-#' will use the default for `board`.
+#' @param versioned Should the model object be versioned when stored with
+#' [vetiver_pin_write()]? The default, `NULL`, will use the default for the
+#' `board` where you store the model.
 #' @param ... Other method-specific arguments passed to [vetiver_slice_zero()]
 #' to compute an input data prototype.
 #' @inheritParams pins::pin_write
@@ -45,7 +43,6 @@
 #' @export
 vetiver_model <- function(model,
                           model_name,
-                          board,
                           ...,
                           description = NULL,
                           metadata = list(),
@@ -62,7 +59,6 @@ vetiver_model <- function(model,
     new_vetiver_model(
         model = model,
         model_name = model_name,
-        board = board,
         description = as.character(description),
         metadata = metadata,
         ptype = ptype,
@@ -74,7 +70,6 @@ vetiver_model <- function(model,
 #' @export
 new_vetiver_model <- function(model,
                               model_name,
-                              board,
                               description,
                               metadata,
                               ptype,
@@ -83,7 +78,6 @@ new_vetiver_model <- function(model,
     data <- list(
         model = model,
         model_name = model_name,
-        board = board,
         description = description,
         metadata = metadata,
         ptype = ptype,

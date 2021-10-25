@@ -11,9 +11,10 @@
 #' working directory. See [plumber::plumb()] for naming precedence rules.
 #'
 #' @details
-#' By default, this function will find and use the latest version of vetiver
-#' model; the model API (when deployed) will be linked to that specific version.
-#' You can override this default behavior by choosing a specific `version`.
+#' By default, this function will find and use the latest version of your
+#' vetiver model; the model API (when deployed) will be linked to that specific
+#' version. You can override this default behavior by choosing a specific
+#' `version`.
 #'
 #' @return
 #' The content of the `plumber.R` file, invisibly.
@@ -25,8 +26,8 @@
 #' tmp <- tempfile()
 #' b <- board_temp(versioned = TRUE)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' v <- vetiver_model(cars_lm, "cars_linear", b)
-#' vetiver_pin_write(v)
+#' v <- vetiver_model(cars_lm, "cars_linear")
+#' vetiver_pin_write(b, v)
 #'
 #' vetiver_write_plumber(b, "cars_linear", file = tmp)
 #'

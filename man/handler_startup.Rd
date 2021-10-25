@@ -54,7 +54,7 @@ for dispatch.
 \examples{
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+v <- vetiver_model(cars_lm, "cars_linear")
 handler_startup(v)
 handler_predict(v)
 

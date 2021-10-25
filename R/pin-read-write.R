@@ -22,8 +22,8 @@
 #' model_board <- board_temp()
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' v <- vetiver_model(cars_lm, "cars_linear", model_board)
-#' vetiver_pin_write(v)
+#' v <- vetiver_model(cars_lm, "cars_linear")
+#' vetiver_pin_write(model_board, v)
 #' model_board
 #'
 #' vetiver_pin_read(model_board, "cars_linear")
@@ -32,9 +32,9 @@
 #' pin_versions(model_board, "cars_linear")
 #'
 #' @export
-vetiver_pin_write <- function(vetiver_model) {
+vetiver_pin_write <- function(board, vetiver_model) {
     pins::pin_write(
-        board = vetiver_model$board,
+        board = board,
         x = list(model = vetiver_model$model,
                  ptype = vetiver_model$ptype,
                  required_pkgs = vetiver_model$metadata$required_pkgs),
@@ -58,7 +58,6 @@ vetiver_pin_read <- function(board, name, version = NULL) {
     new_vetiver_model(
         model = pinned$model,
         model_name = name,
-        board = board,
         description = meta$description,
         metadata = vetiver_meta(
             user = meta$user,

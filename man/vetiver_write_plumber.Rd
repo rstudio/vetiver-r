@@ -30,17 +30,18 @@ Use \code{vetiver_write_plumber()} to create a \code{plumber.R} file for a
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}.
 }
 \details{
-By default, this function will find and use the latest version of vetiver
-model; the model API (when deployed) will be linked to that specific version.
-You can override this default behavior by choosing a specific \code{version}.
+By default, this function will find and use the latest version of your
+vetiver model; the model API (when deployed) will be linked to that specific
+version. You can override this default behavior by choosing a specific
+\code{version}.
 }
 \examples{
 library(pins)
 tmp <- tempfile()
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", b)
-vetiver_pin_write(v)
+v <- vetiver_model(cars_lm, "cars_linear")
+vetiver_pin_write(b, v)
 
 vetiver_write_plumber(b, "cars_linear", file = tmp)
 

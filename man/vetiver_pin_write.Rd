@@ -5,15 +5,15 @@
 \alias{vetiver_pin_read}
 \title{Read and write a trained model to a board of models}
 \usage{
-vetiver_pin_write(vetiver_model)
+vetiver_pin_write(board, vetiver_model)
 
 vetiver_pin_read(board, name, version = NULL)
 }
 \arguments{
-\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
-
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
 \code{\link[pins:board_url]{board_url()}} or other other \code{board_} function.}
+
+\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{name}{Pin name.}
 
@@ -42,8 +42,8 @@ library(pins)
 model_board <- board_temp()
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", model_board)
-vetiver_pin_write(v)
+v <- vetiver_model(cars_lm, "cars_linear")
+vetiver_pin_write(model_board, v)
 model_board
 
 vetiver_pin_read(model_board, "cars_linear")

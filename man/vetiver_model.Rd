@@ -8,7 +8,6 @@
 vetiver_model(
   model,
   model_name,
-  board,
   ...,
   description = NULL,
   metadata = list(),
@@ -16,25 +15,13 @@ vetiver_model(
   versioned = NULL
 )
 
-new_vetiver_model(
-  model,
-  model_name,
-  board,
-  description,
-  metadata,
-  ptype,
-  versioned
-)
+new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
 }
 \arguments{
 \item{model}{A trained model, such as an \code{lm()} model or a tidymodels
 \code{\link[workflows:workflow]{workflows::workflow()}}.}
 
 \item{model_name}{Model name or ID.}
-
-\item{board}{A pin board to store and version the \code{model}, created by
-\code{\link[pins:board_folder]{pins::board_folder()}}, \code{\link[pins:board_rsconnect]{pins::board_rsconnect()}}, or other \verb{board_*()}
-function from the pins package.}
 
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}
 to compute an input data prototype.}
@@ -52,8 +39,9 @@ training data), \code{FALSE} (no input data prototype for checking), or a
 dataframe to be used for both checking at prediction time \emph{and} examples in
 API visual documentation.}
 
-\item{versioned}{Should the model object be versioned? The default, \code{NULL},
-will use the default for \code{board}.}
+\item{versioned}{Should the model object be versioned when stored with
+\code{\link[=vetiver_pin_write]{vetiver_pin_write()}}? The default, \code{NULL}, will use the default for the
+\code{board} where you store the model.}
 
 \item{ptype}{An input data prototype. If \code{NULL}, there is no checking of
 new data at prediction time.}

@@ -39,12 +39,9 @@ Setting \code{debug = TRUE} may expose any sensitive data from your model in
 API errors.
 }
 \examples{
-library(pins)
-model_board <- board_temp()
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear", model_board)
-vetiver_pin_write(v)
+v <- vetiver_model(cars_lm, "cars_linear")
 
 library(plumber)
 pr() \%>\% vetiver_pr_predict(v)

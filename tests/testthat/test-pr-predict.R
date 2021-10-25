@@ -1,10 +1,6 @@
-library(pins)
 library(plumber)
-
-b <- board_temp()
-
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-v <- vetiver_model(cars_lm, "cars1", b)
+v <- vetiver_model(cars_lm, "cars1")
 
 test_that("default endpoint", {
     p <- pr() %>% vetiver_pr_predict(v)
