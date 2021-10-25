@@ -2,7 +2,6 @@
 #'
 #' These are developer-facing functions, useful for supporting new model types.
 #' The metadata stored in a [vetiver_model()] object has four elements:
-#'
 #' - `$user`, the metadata supplied by the user
 #' - `$version`, the version of the pin (which can be `NULL` before pinning)
 #' - `$url`, the URL where the pin is located, if any

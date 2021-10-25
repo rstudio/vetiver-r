@@ -2,19 +2,19 @@
 % Please edit documentation in R/lm.R, R/ptype.R, R/xgboost.R
 \name{vetiver_ptype.lm}
 \alias{vetiver_ptype.lm}
-\alias{vetiver_create_ptype}
 \alias{vetiver_ptype}
 \alias{vetiver_ptype.default}
+\alias{vetiver_create_ptype}
 \alias{vetiver_ptype.xgb.Booster}
 \title{Create a vetiver input data prototype}
 \usage{
 \method{vetiver_ptype}{lm}(model, ...)
 
-vetiver_create_ptype(model, save_ptype, ...)
-
 vetiver_ptype(model, ...)
 
 \method{vetiver_ptype}{default}(model, ...)
+
+vetiver_create_ptype(model, save_ptype, ...)
 
 \method{vetiver_ptype}{xgb.Booster}(model, ...)
 }

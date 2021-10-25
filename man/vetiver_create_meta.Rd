@@ -38,8 +38,6 @@ The \code{vetiver_meta()} constructor returns a list. The
 \description{
 These are developer-facing functions, useful for supporting new model types.
 The metadata stored in a \code{\link[=vetiver_model]{vetiver_model()}} object has four elements:
-}
-\details{
 \itemize{
 \item \verb{$user}, the metadata supplied by the user
 \item \verb{$version}, the version of the pin (which can be \code{NULL} before pinning)

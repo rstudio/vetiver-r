@@ -31,6 +31,19 @@
 #' ## can also turn off `ptype`
 #' vetiver_create_ptype(cars_lm, FALSE)
 #'
+#' @rdname vetiver_create_ptype
+#' @export
+vetiver_ptype <- function(model, ...) {
+    UseMethod("vetiver_ptype")
+}
+
+#' @rdname vetiver_create_ptype
+#' @export
+vetiver_ptype.default <- function(model, ...) {
+    abort("There is no method available to create a 0-row input data prototype for `model`.")
+}
+
+#' @rdname vetiver_create_ptype
 #' @export
 vetiver_create_ptype <- function(model, save_ptype, ...) {
     if (isTRUE(save_ptype)) {
@@ -44,19 +57,6 @@ vetiver_create_ptype <- function(model, save_ptype, ...) {
     }
     ptype
 }
-
-#' @rdname vetiver_create_ptype
-#' @export
-vetiver_ptype <- function(model, ...) {
-    UseMethod("vetiver_ptype")
-}
-
-#' @rdname vetiver_create_ptype
-#' @export
-vetiver_ptype.default <- function(model, ...) {
-    abort("There is no method available to create a 0-row input data prototype for `model`.")
-}
-
 
 
 
