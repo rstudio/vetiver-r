@@ -23,7 +23,7 @@ new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
 
 \item{model_name}{Model name or ID.}
 
-\item{...}{Other method-specific arguments passed to \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}}
+\item{...}{Other method-specific arguments passed to \code{\link[=vetiver_ptype]{vetiver_ptype()}}
 to compute an input data prototype.}
 
 \item{description}{A detailed description of the model. If omitted, a brief

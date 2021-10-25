@@ -39,9 +39,9 @@ of the model based on its characteristics. This method is required.
 for the model. This is especially helpful for specifying which packages are
 needed for prediction. A model can use the default method here, which is
 to have no special metadata.
-\item The \code{\link[=vetiver_slice_zero]{vetiver_slice_zero()}} function finds a zero-row slice of the
-training data to use as an input data prototype at prediction time. This
-method is required.
+\item The \code{\link[=vetiver_ptype]{vetiver_ptype()}} function finds an input data prototype from the
+training data (a zero-row slice) to use for checking at prediction time.
+This method is required.
 \item The \code{vetiver_prepare_model()} function executes last. Use this function
 for tasks like checking if the model is trained and reducing the size of the
 model via \code{\link[butcher:butcher]{butcher::butcher()}}. A model can use the default method here,

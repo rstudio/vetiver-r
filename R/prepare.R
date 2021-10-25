@@ -9,9 +9,9 @@
 #' for the model. This is especially helpful for specifying which packages are
 #' needed for prediction. A model can use the default method here, which is
 #' to have no special metadata.
-#' - The [vetiver_slice_zero()] function finds a zero-row slice of the
-#' training data to use as an input data prototype at prediction time. This
-#' method is required.
+#' - The [vetiver_ptype()] function finds an input data prototype from the
+#' training data (a zero-row slice) to use for checking at prediction time.
+#' This method is required.
 #' - The `vetiver_prepare_model()` function executes last. Use this function
 #' for tasks like checking if the model is trained and reducing the size of the
 #' model via [butcher::butcher()]. A model can use the default method here,

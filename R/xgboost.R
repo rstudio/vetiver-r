@@ -16,7 +16,7 @@ vetiver_create_meta.xgb.Booster <- function(model, metadata) {
 
 #' @rdname vetiver_create_ptype
 #' @export
-vetiver_slice_zero.xgb.Booster <- function(model, ...) {
+vetiver_ptype.xgb.Booster <- function(model, ...) {
     pred_names <- matrix(NA_real_,
                          ncol = model$nfeatures,
                          dimnames = list("", model$feature_names))
