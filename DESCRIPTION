@@ -18,6 +18,7 @@ BugReports: https://github.com/tidymodels/vetiver/issues
 Imports:
     butcher,
     cli,
+    generics,
     glue,
     hardhat,
     httr,
@@ -34,8 +35,11 @@ Imports:
 Suggests:
     covr,
     knitr,
+    parsnip,
+    ranger,
     rmarkdown,
     testthat (>= 3.0.0),
+    workflows,
     xgboost
 Config/Needs/website: 
     tidyverse/tidytemplate
