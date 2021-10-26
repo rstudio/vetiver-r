@@ -32,6 +32,7 @@ Imports:
     vctrs,
     withr
 Suggests:
+    caret,
     covr,
     knitr,
     rmarkdown,
