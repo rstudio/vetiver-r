@@ -10,7 +10,6 @@
 #' @param ptype An input data prototype from a model
 #'
 #' @return A list to be used within [plumber::pr_set_api_spec()]
-#' @export
 #'
 #' @details
 #' This is a developer-facing function, useful for supporting new model types.
@@ -18,7 +17,18 @@
 #' @examples
 #' map_request_body(vctrs::vec_slice(chickwts, 0))
 #'
+#' @export
 map_request_body <- function(ptype) {
+    UseMethod("map_request_body")
+}
+
+#' @export
+map_request_body.default <- function(ptype) {
+    abort("There is no method available to create visual documentation for `ptype`.")
+}
+
+#' @export
+map_request_body.data.frame <- function(ptype) {
     ptype_prop <- map_ptype(ptype)
 
     if (nrow(ptype) > 0) {
@@ -60,6 +70,64 @@ map_ptype <- function(ptype) {
     map(ret, ~ list(type = .))
 }
 
+
+#' @export
+map_request_body.array <- function(ptype) {
+
+    dims <- dim(ptype)
+    ptype_prop <- map(dims, ~ list(type = "array",
+                                   minItems = .x,
+                                   maxItems = .x,
+                                   type = "number"))
+    ptype_prop <- set_names(ptype_prop, glue("dim{seq_along(dims)}"))
+
+    if (dims[1] > 0) {
+        schema_list <- list(
+            type = "array",
+            minItems = 1,
+            items = list(
+                type = "object",
+                properties = ptype_prop
+            ),
+            example = ptype
+        )
+    } else {
+        schema_list <- list(
+            type = "array",
+            minItems = 1,
+            items = list(
+                type = "object",
+                properties = ptype_prop
+            )
+        )
+    }
+
+    list(content = list(`application/json` = list(schema = schema_list)))
+}
+
+
+#' @export
+glue_spec_summary <- function(ptype) {
+    UseMethod("glue_spec_summary")
+}
+
+#' @export
+glue_spec_summary.default <- function(ptype) {
+    abort("There is no method available to create a spec summary for `ptype`.")
+}
+
+#' @export
+glue_spec_summary.data.frame <- function(ptype) {
+    glue("Return predictions from model using {ncol(ptype)} features")
+}
+
+#' @export
+glue_spec_summary.array <- function(ptype) {
+    "Return predictions from model using multidimensional array"
+}
+
+
+
 #' Update the OpenAPI specification from model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
@@ -84,7 +152,7 @@ api_spec <- function(spec, vetiver_model, path) {
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
     spec$paths[[path]]$post <- list(
-        summary = glue("Return predictions from model using {ncol(ptype)} features"),
+        summary = glue_spec_summary(ptype),
         requestBody = request_body,
         responses = orig_post$responses
     )
