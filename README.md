@@ -9,7 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/vetiver/branch/master/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=master)
+coverage](https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=main)
 <!-- badges: end -->
 
 **This pre-release is available for feedback and experimenting.**
@@ -64,7 +64,7 @@ folder, RStudio Connect, Amazon S3, and more.
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211025T192224Z-522c5'
+#> Creating new version '20211028T151126Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
