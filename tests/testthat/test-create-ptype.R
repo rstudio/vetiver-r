@@ -31,3 +31,10 @@ test_that("custom ptype", {
         mtcars[3:10, 2:3]
     )
 })
+
+test_that("bad ptype", {
+    expect_snapshot(
+        vetiver_create_ptype(cars_lm, "potato"),
+        error = TRUE
+    )
+})

@@ -128,11 +128,10 @@ map_request_body.array <- function(ptype) {
 #' pr() %>% pr_set_api_spec(api = modify_spec)
 #'
 api_spec <- function(spec, vetiver_model, path) {
-    ptype <- vetiver_model$ptype
     spec$info$title <- glue("{vetiver_model$model_name} model API")
     spec$info$description <- vetiver_model$description
 
-    request_body <- map_request_body(ptype)
+    ptype <- vetiver_model$ptype
     orig_post <- spec[["paths"]][[path]][["post"]]
     if (is_null(ptype)) {
         request_body <- map_request_body(tibble::tibble(NULL))

@@ -9,14 +9,6 @@ test_that("default endpoint", {
     expect_equal(ep$path, "/predict")
 })
 
-test_that("default endpoint for save_ptype = FALSE", {
-  v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
-  p <- pr() %>% vetiver_pr_predict(v1)
-  ep <- p$endpoints[[1]][[1]]
-  expect_equal(ep$verbs, c("POST"))
-  expect_equal(ep$path, "/predict")
-})
-
 test_that("pin URL endpoint", {
     v$metadata <- list(url = "potato")
     p <- pr() %>% vetiver_pr_predict(v)
@@ -43,6 +35,22 @@ test_that("default OpenAPI spec", {
     get_spec <- car_spec$paths$`/pin-url`$get
     expect_equal(as.character(get_spec$summary),
                  "Get URL of pinned vetiver model")
+
+})
+
+test_that("OpenAPI spec for save_ptype = FALSE", {
+  v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
+  p <- pr() %>% vetiver_pr_predict(v1)
+  ep <- p$endpoints[[1]][[1]]
+  expect_equal(ep$verbs, c("POST"))
+  expect_equal(ep$path, "/predict")
+  car_spec <- p$getApiSpec()
+  post_spec <- car_spec$paths$`/predict`$post
+  expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
+  expect_equal(as.character(post_spec$summary),
+               "Return predictions from model")
+  expect_equal(names(post_spec$requestBody$content$`application/json`$schema$items),
+               c("type", "properties"))
 
 })
 
