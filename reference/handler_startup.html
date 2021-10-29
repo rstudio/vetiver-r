@@ -196,24 +196,25 @@ at each API call.</p></li>
 for dispatch.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span><span class='op'>)</span>
-<span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
-<span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; function (req) 
-#&gt; {
-#&gt;     newdata &lt;- req$body
-#&gt;     if (!is_null(ptype)) {
-#&gt;         newdata &lt;- vetiver_type_convert(newdata, ptype)
-#&gt;         newdata &lt;- hardhat::scream(newdata, ptype)
-#&gt;     }
-#&gt;     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)
-#&gt;     list(.pred = ret)
-#&gt; }
-#&gt; &lt;bytecode: 0x559debf89a90&gt;
-#&gt; &lt;environment: 0x559debf889f0&gt;</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vetiver_model.html'>vetiver_model</a></span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='st'>"cars_linear"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>handler_startup</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>handler_predict</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (req) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     newdata &lt;- req$body</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (!is_null(ptype)) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         newdata &lt;- vetiver_type_convert(newdata, ptype)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         newdata &lt;- hardhat::scream(newdata, ptype)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     list(.pred = ret)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x56262f57be18&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x56262f57d9b8&gt;</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

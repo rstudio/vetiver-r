@@ -189,20 +189,23 @@ has the same structure as your training data, perhaps with
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>+</span> <span class='va'>disp</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-
-<span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 0 × 2</span>
-#&gt; <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></div><div class='input'>
-<span class='co'>## calls the right method for `model` via:</span>
-<span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 0 × 2</span>
-#&gt; <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></div><div class='input'>
-<span class='co'>## can also turn off `ptype`</span>
-<span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>+</span> <span class='va'>disp</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 0 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## calls the right method for `model` via:</span></span>
+<span class='r-in'><span class='fu'>vetiver_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 0 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## can also turn off `ptype`</span></span>
+<span class='r-in'><span class='fu'>vetiver_create_ptype</span><span class='op'>(</span><span class='va'>cars_lm</span>, <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

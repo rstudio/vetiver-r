@@ -119,14 +119,14 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins">pins</a></span><span class="op">)</span>
 <span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html">board_temp</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">model_board</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
 <span class="co">#&gt; Creating new version '20211028T151126Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
-<span class="fu"><a href="https://www.rplumber.io/reference/pr.html">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/vetiver_pr_predict.html">vetiver_pr_predict</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="https://www.rplumber.io/reference/pr.html">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/vetiver_pr_predict.html">vetiver_pr_predict</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></code></pre></div>
 <p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://solutions.rstudio.com/r/jobs/">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">

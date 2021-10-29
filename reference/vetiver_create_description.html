@@ -201,21 +201,23 @@ which is to return the model without changes.</p></li>
     <p>These are four generics that use the class of <code>model</code> for dispatch.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-<span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "An OLS linear regression model"</div><div class='input'><span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; dummy_call()
-#&gt; 
-#&gt; Coefficients:
-#&gt; (Intercept)          cyl         disp           hp         drat           wt  
-#&gt;    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  
-#&gt;        qsec           vs           am         gear         carb  
-#&gt;     0.82104      0.31776      2.52023      0.65541     -0.19942  
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cars_lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>vetiver_create_description</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "An OLS linear regression model"</span>
+<span class='r-in'><span class='fu'>vetiver_prepare_model</span><span class='op'>(</span><span class='va'>cars_lm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Call:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dummy_call()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coefficients:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept)          cyl         disp           hp         drat           wt  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    12.30337     -0.11144      0.01334     -0.02148      0.78711     -3.71530  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        qsec           vs           am         gear         carb  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     0.82104      0.31776      2.52023      0.65541     -0.19942  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

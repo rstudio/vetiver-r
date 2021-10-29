@@ -162,37 +162,38 @@ OpenAPI specification.</p>
     <p>This is a developer-facing function, useful for supporting new model types.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>map_request_body</span><span class='op'>(</span><span class='fu'>vctrs</span><span class='fu'>::</span><span class='fu'><a href='https://vctrs.r-lib.org/reference/vec_slice.html'>vec_slice</a></span><span class='op'>(</span><span class='va'>chickwts</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $content
-#&gt; $content$`application/json`
-#&gt; $content$`application/json`$schema
-#&gt; $content$`application/json`$schema$type
-#&gt; [1] "array"
-#&gt; 
-#&gt; $content$`application/json`$schema$minItems
-#&gt; [1] 1
-#&gt; 
-#&gt; $content$`application/json`$schema$items
-#&gt; $content$`application/json`$schema$items$type
-#&gt; [1] "object"
-#&gt; 
-#&gt; $content$`application/json`$schema$items$properties
-#&gt; $content$`application/json`$schema$items$properties$weight
-#&gt; $content$`application/json`$schema$items$properties$weight$type
-#&gt; [1] "number"
-#&gt; 
-#&gt; 
-#&gt; $content$`application/json`$schema$items$properties$feed
-#&gt; $content$`application/json`$schema$items$properties$feed$type
-#&gt; [1] "string"
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>map_request_body</span><span class='op'>(</span><span class='fu'>vctrs</span><span class='fu'>::</span><span class='fu'><a href='https://vctrs.r-lib.org/reference/vec_slice.html'>vec_slice</a></span><span class='op'>(</span><span class='va'>chickwts</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "array"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$minItems</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "object"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$properties</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$properties$weight</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$properties$weight$type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "number"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$properties$feed</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $content$`application/json`$schema$items$properties$feed$type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "string"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
