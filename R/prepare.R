@@ -1,7 +1,7 @@
 #' Model constructor methods
 #'
 #' These are developer-facing functions, useful for supporting new model types.
-#' Each model supported by [`vetiver_model()`] uses four methods when the
+#' Each model supported by [`vetiver_model()`] uses up to four methods when the
 #' deployable object is created:
 #' - The `vetiver_create_description()` function generates a helpful description
 #' of the model based on its characteristics. This method is required.

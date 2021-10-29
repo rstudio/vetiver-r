@@ -30,7 +30,7 @@ vetiver_prepare_model(model)
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.
-Each model supported by \code{\link[=vetiver_model]{vetiver_model()}} uses four methods when the
+Each model supported by \code{\link[=vetiver_model]{vetiver_model()}} uses up to four methods when the
 deployable object is created:
 \itemize{
 \item The \code{vetiver_create_description()} function generates a helpful description
