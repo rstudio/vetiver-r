@@ -9,6 +9,14 @@ test_that("default endpoint", {
     expect_equal(ep$path, "/predict")
 })
 
+test_that("default endpoint for save_ptype = FALSE", {
+  v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
+  p <- pr() %>% vetiver_pr_predict(v1)
+  ep <- p$endpoints[[1]][[1]]
+  expect_equal(ep$verbs, c("POST"))
+  expect_equal(ep$path, "/predict")
+})
+
 test_that("pin URL endpoint", {
     v$metadata <- list(url = "potato")
     p <- pr() %>% vetiver_pr_predict(v)

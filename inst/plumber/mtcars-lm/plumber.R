@@ -2,12 +2,12 @@
 
 library(pins)
 library(plumber)
-library(vetiver)
 library(rapidoc)
+library(vetiver)
 b <- board_folder(path = "/tmp/test")
-m <- vetiver_pin_read(b, "cars_linear")
+v <- vetiver_pin_read(b, "cars_linear", version = "20211029T193711Z-522c5")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_pr_predict(m)
+    pr %>% vetiver_pr_predict(v)
 }

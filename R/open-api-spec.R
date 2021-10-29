@@ -134,11 +134,21 @@ api_spec <- function(spec, vetiver_model, path) {
 
     request_body <- map_request_body(ptype)
     orig_post <- spec[["paths"]][[path]][["post"]]
-    spec$paths[[path]]$post <- list(
-        summary = glue_spec_summary(ptype),
-        requestBody = request_body,
-        responses = orig_post$responses
-    )
+    if (is_null(ptype)) {
+        request_body <- map_request_body(tibble::tibble(NULL))
+        spec$paths[[path]]$post <- list(
+            summary = "Return predictions from model",
+            requestBody = request_body,
+            responses = orig_post$responses
+        )
+    } else {
+        request_body <- map_request_body(ptype)
+        spec$paths[[path]]$post <- list(
+            summary = glue_spec_summary(ptype),
+            requestBody = request_body,
+            responses = orig_post$responses
+        )
+    }
 
     if ("/pin-url" %in% names(spec$paths)) {
         spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver model"
@@ -146,7 +156,6 @@ api_spec <- function(spec, vetiver_model, path) {
 
     spec
 }
-
 
 #' @rdname api_spec
 #' @export
