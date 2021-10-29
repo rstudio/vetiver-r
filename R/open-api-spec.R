@@ -106,40 +106,23 @@ map_request_body.array <- function(ptype) {
 }
 
 
-#' @export
-glue_spec_summary <- function(ptype) {
-    UseMethod("glue_spec_summary")
-}
-
-#' @export
-glue_spec_summary.default <- function(ptype) {
-    abort("There is no method available to create a spec summary for `ptype`.")
-}
-
-#' @export
-glue_spec_summary.data.frame <- function(ptype) {
-    glue("Return predictions from model using {ncol(ptype)} features")
-}
-
-#' @export
-glue_spec_summary.array <- function(ptype) {
-    "Return predictions from model using multidimensional array"
-}
-
-
-
 #' Update the OpenAPI specification from model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
 #' @inheritParams vetiver_pr_predict
+#' @inheritParams map_request_body
 #'
-#' @return The updated OpenAPI Specification object
+#' @return `api_spec()` returns the updated OpenAPI Specification object. This
+#' function uses `glue_spec_summary()` internally, which returns a `glue`
+#' character string.
 #' @export
 #'
 #' @examples
 #' library(plumber)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' v <- vetiver_model(cars_lm, "cars_linear")
+#'
+#' glue_spec_summary(v$ptype)
 #'
 #' modify_spec <- function(spec) api_spec(spec, v, "/predict")
 #' pr() %>% pr_set_api_spec(api = modify_spec)
@@ -163,4 +146,30 @@ api_spec <- function(spec, vetiver_model, path) {
 
     spec
 }
+
+
+#' @rdname api_spec
+#' @export
+glue_spec_summary <- function(ptype) {
+    UseMethod("glue_spec_summary")
+}
+
+#' @rdname api_spec
+#' @export
+glue_spec_summary.default <- function(ptype) {
+    abort("There is no method available to create a spec summary for `ptype`.")
+}
+
+#' @rdname api_spec
+#' @export
+glue_spec_summary.data.frame <- function(ptype) {
+    glue("Return predictions from model using {ncol(ptype)} features")
+}
+
+#' @rdname api_spec
+#' @export
+glue_spec_summary.array <- function(ptype) {
+    "Return predictions from model using multidimensional array"
+}
+
 
