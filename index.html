@@ -47,7 +47,7 @@
         <a class="navbar-brand" href="index.html">vetiver</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://tidymodels.org">tidymodels</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
         </div>
       </div>
     </div>
@@ -87,17 +87,16 @@
 
 <!-- badges: start -->
 
-<p><strong>This pre-release is available for feedback and experimenting.</strong></p>
 <blockquote>
 <p><em>Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.</em></p>
 </blockquote>
-<p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models. For an example of how to use and extend the vetiver package, see <a href="https://github.com/juliasilge/deploytidymodels">deploytidymodels</a>.</p>
+<p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><del>You can install the released version of vetiver from <a href="https://CRAN.R-project.org">CRAN</a> with:</del></p>
+<p>You can install the released version of vetiver from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span> <span class="co">## not yet</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span></code></pre></div>
 <p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
@@ -120,7 +119,7 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins">pins</a></span><span class="op">)</span>
 <span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html">board_temp</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
-<span class="co">#&gt; Creating new version '20211028T151126Z-522c5'</span>
+<span class="co">#&gt; Creating new version '20211029T212859Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -157,6 +156,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=vetiver">https://​cloud.r-project.org/​package=vetiver</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/tidymodels/vetiver/">https://​github.com/​tidymodels/​vetiver/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidymodels/vetiver/issues">https://​github.com/​tidymodels/​vetiver/​issues</a>
@@ -188,9 +189,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/tidymodels/vetiver/actions"><img src="https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/tidymodels/vetiver?branch=main"><img src="https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 </div>
