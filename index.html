@@ -4,134 +4,118 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="The goal of vetiver is to provide fluent tooling to version,
+    share, deploy, and monitor a trained model. Functions handle both
+    recording and checking the models input data prototype, and
+    predicting from a remote API endpoint. The vetiver' package is
+    extensible, with generics that can support many kinds of models.">
 <title>Version, Share, Deploy, and Monitor Models • vetiver</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet">
+<link href="deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
-<!--optional theme--><link href=".css" rel="stylesheet">
-<meta property="og:title" content="Version, Share, Deploy, and Monitor Models">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Version, Share, Deploy, and Monitor Models">
 <meta property="og:description" content="The goal of vetiver is to provide fluent tooling to version,
     share, deploy, and monitor a trained model. Functions handle both
     recording and checking the models input data prototype, and
     predicting from a remote API endpoint. The vetiver' package is
     extensible, with generics that can support many kinds of models.">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-      <div class="navbar-brand-container">
-        <a class="navbar-brand" href="index.html">vetiver</a>
-        <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
-        </div>
-      </div>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <a class="navbar-brand me-2" href="index.html">vetiver</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="reference/index.html">Reference</a>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
-        <li>
-  <a href="https://github.com/tidymodels/vetiver/">
-    <span class="fab fa-github fa-lg"></span>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tidymodels/vetiver/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-      
-
-      </header><div class="row">
+</nav><div class="container template-home" id="container">
+<div class="row">
   <div class="contents col-md-9">
-<div id="vetiver-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#vetiver-" class="anchor"></a>vetiver 🏺</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="vetiver-">vetiver 🏺<a class="anchor" aria-label="anchor" href="#vetiver-"></a>
+</h1></div>
 <!-- badges: start -->
 
 <blockquote>
 <p><em>Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.</em></p>
 </blockquote>
 <p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of vetiver from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the released version of vetiver from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span></code></pre></div>
-<p>And the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span></code></pre></div>
+<p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidymodels/vetiver"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>A <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.tidymodels.org/">vetiver</a></span><span class="op">)</span>
-<span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.tidymodels.org/">vetiver</a></span><span class="op">)</span>
+<span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span>
 <span class="va">v</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── cars_linear ─ &lt;butchered_lm&gt; model for deployment </span>
 <span class="co">#&gt; An OLS linear regression model using 10 features</span></code></pre></div>
-<p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
+<p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins">pins</a></span><span class="op">)</span>
-<span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html">board_temp</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins" class="external-link">pins</a></span><span class="op">)</span>
+<span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
 <span class="co">#&gt; Creating new version '20211102T145641Z-522c5'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span></code></pre></div>
-<p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html">hosted in a variety of ways</a>.</p>
+<p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/" class="external-link">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html" class="external-link">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
-<span class="fu"><a href="https://www.rplumber.io/reference/pr.html">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/vetiver_pr_predict.html">vetiver_pr_predict</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></code></pre></div>
-<p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://solutions.rstudio.com/r/jobs/">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span>
+<span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="reference/vetiver_pr_predict.html">vetiver_pr_predict</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></code></pre></div>
+<p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://solutions.rstudio.com/r/jobs/" class="external-link">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">endpoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_endpoint.html">vetiver_endpoint</a></span><span class="op">(</span><span class="st">"http://127.0.0.1:8088/predict"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">7</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">mtcars</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">7</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 1</span>
 <span class="co">#&gt;   .pred</span>
 <span class="co">#&gt;   &lt;dbl&gt;</span>
@@ -140,82 +124,80 @@
 <span class="co">#&gt; 3  20.4</span>
 <span class="co">#&gt; 4  14.4</span></code></pre></div>
 </div>
-<div id="contributing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributing" class="anchor"></a>Contributing</h2>
-<p>This project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>This project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <ul>
-<li><p>For questions and discussions about modeling packages, modeling, and machine learning, please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=tidymodels,question">post on RStudio Community</a>.</p></li>
-<li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/vetiver/issues">submit an issue</a>.</p></li>
-<li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
+<li><p>For questions and discussions about modeling packages, modeling, and machine learning, please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=tidymodels,question" class="external-link">post on RStudio Community</a>.</p></li>
+<li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/vetiver/issues" class="external-link">submit an issue</a>.</p></li>
+<li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html" class="external-link">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
 </ul>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  <div class="col-md-3" id="pkgdown-sidebar">
+<div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=vetiver">https://​cloud.r-project.org/​package=vetiver</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/tidymodels/vetiver/">https://​github.com/​tidymodels/​vetiver/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tidymodels/vetiver/issues">https://​github.com/​tidymodels/​vetiver/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=vetiver" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/tidymodels/vetiver/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tidymodels/vetiver/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Julia Silge <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-3671-836X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>
+<a href="https://juliasilge.com/" class="external-link">Julia Silge</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-3671-836X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/tidymodels/vetiver/actions"><img src="https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://CRAN.R-project.org/package=vetiver"><img src="https://www.r-pkg.org/badges/version/vetiver" alt="CRAN status"></a></li>
-<li><a href="https://app.codecov.io/gh/tidymodels/vetiver?branch=main"><img src="https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/tidymodels/vetiver/actions" class="external-link"><img src="https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=vetiver" class="external-link"><img src="https://www.r-pkg.org/badges/version/vetiver" alt="CRAN status"></a></li>
+<li><a href="https://app.codecov.io/gh/tidymodels/vetiver?branch=main" class="external-link"><img src="https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="tidyverse">
-  <p>vetiver is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  </div>
 </div>
 
-<div class="author">
-  <p>
-    Developed by Julia Silge.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
-  </p>
+
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="https://juliasilge.com/" class="external-link">Julia Silge</a>.</p>
 </div>
 
-      </footer>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>
