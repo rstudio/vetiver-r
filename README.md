@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/vetiver)](https://CRAN.R-project.org/package=vetiver)
 [![Codecov test
 coverage](https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=main)
 [![Lifecycle:
@@ -60,7 +62,7 @@ folder, RStudio Connect, Amazon S3, and more.
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211029T212859Z-522c5'
+#> Creating new version '20211102T145641Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
