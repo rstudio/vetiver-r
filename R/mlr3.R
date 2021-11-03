@@ -1,7 +1,7 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.Learner <- function(model) {
-    glue("A {model$id} model")
+    glue("A mlr3 {model$id} learner")
 }
 
 #' @rdname vetiver_create_meta
@@ -24,7 +24,7 @@ vetiver_prepare_model.Learner <- function(model) {
     if (is.null(model$state)) {
         rlang::abort("Your `model` object is not a trained learner.")
     }
-    butcher::butcher(model$state$model)
+    model
 }
 
 #' @rdname handler_startup
@@ -36,10 +36,10 @@ handler_startup.Learner <- function(vetiver_model) {
 #' @rdname handler_startup
 #' @export
 handler_predict.Learner <- function(vetiver_model, ...) {
-
     function(req) {
         new_data <- req$body
         new_data <-  vetiver_type_convert(new_data, vetiver_model$ptype)
-        predict(vetiver_model$model, new_data = new_data, ...)
+        pred <- vetiver_model$model$predict_newdata(newdata = new_data)
+        list(.pred = pred$response)
     }
 }
