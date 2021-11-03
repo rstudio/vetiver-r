@@ -40,6 +40,6 @@ handler_predict.Learner <- function(vetiver_model, ...) {
         new_data <- req$body
         new_data <-  vetiver_type_convert(new_data, vetiver_model$ptype)
         pred <- vetiver_model$model$predict_newdata(newdata = new_data)
-        list(.pred = pred$response)
+        setNames(list(pred$response), vetiver_model$model$state$train_task$target_names)
     }
 }
