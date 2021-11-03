@@ -1,16 +1,14 @@
 library(mlr3)
-library(tibble)
 library(vetiver)
+library(plumber)
 
 task = tsk("pima")
 learner = lrn("classif.rpart")
 
 learner$train(task)
 
-v <- vetiver_model(learner, "cars_linear")
+v <- vetiver_model(learner, "pima_rpart")
 v
-
-library(plumber)
 
 pr() %>%
   vetiver_pr_predict(v) %>%
