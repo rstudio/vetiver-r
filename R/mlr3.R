@@ -7,7 +7,7 @@ vetiver_create_description.Learner <- function(model) {
 #' @rdname vetiver_create_meta
 #' @export
 vetiver_create_meta.Learner <- function(model, metadata) {
-    reqs <- learner$packages
+    reqs <- model$packages
     reqs <- sort(unique(c(reqs, "mlr3")))
     vetiver_meta(metadata, required_pkgs = reqs)
 }
@@ -15,7 +15,7 @@ vetiver_create_meta.Learner <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.Learner <- function(model, ...) {
-    as_tibble(model$state$task_prototype)[, model$state$train_task$feature_names]
+    tibble::as_tibble(model$state$task_prototype)[, model$state$train_task$feature_names]
 }
 
 #' @rdname vetiver_create_description
@@ -40,6 +40,6 @@ handler_predict.Learner <- function(vetiver_model, ...) {
         new_data <- req$body
         new_data <-  vetiver_type_convert(new_data, vetiver_model$ptype)
         pred <- vetiver_model$model$predict_newdata(newdata = new_data)
-        setNames(list(pred$response), vetiver_model$model$state$train_task$target_names)
+        stats::setNames(list(pred$response), vetiver_model$model$state$train_task$target_names)
     }
 }

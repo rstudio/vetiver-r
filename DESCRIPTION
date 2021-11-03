@@ -37,6 +37,7 @@ Suggests:
     mlr3,
     mlr3learners,
     rmarkdown,
+    rpart,
     testthat (>= 3.0.0),
     xgboost
 Remotes:
