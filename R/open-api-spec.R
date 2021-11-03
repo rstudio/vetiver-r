@@ -13,6 +13,7 @@
 #'
 #' @details
 #' This is a developer-facing function, useful for supporting new model types.
+#' It is called by [api_spec()].
 #'
 #' @examples
 #' map_request_body(vctrs::vec_slice(chickwts, 0))

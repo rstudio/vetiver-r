@@ -5,14 +5,14 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/tidymodels/vetiver/workflows/R-CMD-check/badge.svg)](https://github.com/tidymodels/vetiver/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/vetiver)](https://CRAN.R-project.org/package=vetiver)
 [![Codecov test
 coverage](https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=main)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
-
-**This pre-release is available for feedback and experimenting.**
 
 > *Vetiver, the oil of tranquility, is used as a stabilizing ingredient
 > in perfumery to preserve more volatile fragrances.*
@@ -21,17 +21,15 @@ The goal of vetiver is to provide fluent tooling to version, share,
 deploy, and monitor a trained model. Functions handle both recording and
 checking the model’s input data prototype, and predicting from a remote
 API endpoint. The vetiver package is extensible, with generics that can
-support many kinds of models. For an example of how to use and extend
-the vetiver package, see
-[deploytidymodels](https://github.com/juliasilge/deploytidymodels).
+support many kinds of models.
 
 ## Installation
 
-~~You can install the released version of vetiver from
-[CRAN](https://CRAN.R-project.org) with:~~
+You can install the released version of vetiver from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("vetiver") ## not yet
+install.packages("vetiver")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
@@ -64,7 +62,7 @@ folder, RStudio Connect, Amazon S3, and more.
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211028T151126Z-522c5'
+#> Creating new version '20211102T145641Z-522c5'
 #> Writing to pin 'cars_linear'
 ```
 
