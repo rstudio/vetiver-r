@@ -38,7 +38,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <img src="" class="logo" alt=""><h1>Create a vetiver input data prototype</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/ptype.R" class="external-link"><code>R/ptype.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/xgboost.R" class="external-link"><code>R/xgboost.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/ptype.R" class="external-link"><code>R/ptype.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/tidymodels.R" class="external-link"><code>R/tidymodels.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>vetiver_create_ptype.Rd</code></div>
     </div>
 
@@ -58,6 +58,9 @@
 
 <span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_ptype</span>, <span class="va">...</span><span class="op">)</span>
 
+<span class="co"># S3 method for workflow</span>
+<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
+
 <span class="co"># S3 method for xgb.Booster</span>
 <span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></code></pre>
     </div>
@@ -67,7 +70,7 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>model</dt>
 <dd><p>A trained model, such as an <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> model or a tidymodels
-<code>workflows::workflow()</code>.</p></dd>
+<code><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflows::workflow()</a></code>.</p></dd>
 <dt>...</dt>
 <dd><p>Other method-specific arguments passed to <code>vetiver_ptype()</code>
 to compute an input data prototype.</p></dd>

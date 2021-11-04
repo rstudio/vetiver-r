@@ -52,7 +52,7 @@ $required_pkgs, a character string of R packages required for prediction
   <div class="col-md-9 contents">
     <div class="page-header">
       <img src="" class="logo" alt=""><h1>Metadata constructors for <code>vetiver_model()</code> object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/meta.R" class="external-link"><code>R/meta.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/xgboost.R" class="external-link"><code>R/xgboost.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/meta.R" class="external-link"><code>R/meta.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/tidymodels.R" class="external-link"><code>R/tidymodels.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/xgboost.R" class="external-link"><code>R/xgboost.R</code></a></small>
       <div class="d-none name"><code>vetiver_create_meta.Rd</code></div>
     </div>
 
@@ -73,6 +73,9 @@ The metadata stored in a <code><a href="vetiver_model.html">vetiver_model()</a><
 <span class="co"># S3 method for default</span>
 <span class="fu">vetiver_create_meta</span><span class="op">(</span><span class="va">model</span>, <span class="va">metadata</span><span class="op">)</span>
 
+<span class="co"># S3 method for workflow</span>
+<span class="fu">vetiver_create_meta</span><span class="op">(</span><span class="va">model</span>, <span class="va">metadata</span><span class="op">)</span>
+
 <span class="co"># S3 method for xgb.Booster</span>
 <span class="fu">vetiver_create_meta</span><span class="op">(</span><span class="va">model</span>, <span class="va">metadata</span><span class="op">)</span></code></pre>
     </div>
@@ -90,7 +93,7 @@ The metadata stored in a <code><a href="vetiver_model.html">vetiver_model()</a><
 <dd><p>Character string of R packages required for prediction</p></dd>
 <dt>model</dt>
 <dd><p>A trained model, such as an <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> model or a tidymodels
-<code>workflows::workflow()</code>.</p></dd>
+<code><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflows::workflow()</a></code>.</p></dd>
 <dt>metadata</dt>
 <dd><p>A list containing additional metadata to store with the pin.
 When retrieving the pin, this will be stored in the <code>user</code> key, to

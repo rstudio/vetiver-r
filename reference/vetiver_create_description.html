@@ -72,7 +72,7 @@ which is to return the model without changes.
   <div class="col-md-9 contents">
     <div class="page-header">
       <img src="" class="logo" alt=""><h1>Model constructor methods</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/prepare.R" class="external-link"><code>R/prepare.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/xgboost.R" class="external-link"><code>R/xgboost.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/prepare.R" class="external-link"><code>R/prepare.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/tidymodels.R" class="external-link"><code>R/tidymodels.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>vetiver_create_description.Rd</code></div>
     </div>
 
@@ -112,6 +112,12 @@ which is to return the model without changes.</p></li>
 <span class="co"># S3 method for default</span>
 <span class="fu">vetiver_prepare_model</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 
+<span class="co"># S3 method for workflow</span>
+<span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+
+<span class="co"># S3 method for workflow</span>
+<span class="fu">vetiver_prepare_model</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+
 <span class="co"># S3 method for xgb.Booster</span>
 <span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre>
     </div>
@@ -121,7 +127,7 @@ which is to return the model without changes.</p></li>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>model</dt>
 <dd><p>A trained model, such as an <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> model or a tidymodels
-<code>workflows::workflow()</code>.</p></dd>
+<code><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflows::workflow()</a></code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
