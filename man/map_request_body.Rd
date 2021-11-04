@@ -22,6 +22,7 @@ OpenAPI specification.
 }
 \details{
 This is a developer-facing function, useful for supporting new model types.
+It is called by \code{\link[=api_spec]{api_spec()}}.
 }
 \examples{
 map_request_body(vctrs::vec_slice(chickwts, 0))

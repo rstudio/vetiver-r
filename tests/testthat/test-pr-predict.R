@@ -38,6 +38,22 @@ test_that("default OpenAPI spec", {
 
 })
 
+test_that("OpenAPI spec for save_ptype = FALSE", {
+  v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
+  p <- pr() %>% vetiver_pr_predict(v1)
+  ep <- p$endpoints[[1]][[1]]
+  expect_equal(ep$verbs, c("POST"))
+  expect_equal(ep$path, "/predict")
+  car_spec <- p$getApiSpec()
+  post_spec <- car_spec$paths$`/predict`$post
+  expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
+  expect_equal(as.character(post_spec$summary),
+               "Return predictions from model")
+  expect_equal(names(post_spec$requestBody$content$`application/json`$schema$items),
+               c("type", "properties"))
+
+})
+
 test_that("OpenAPI spec with custom ptype", {
     car_ptype <- mtcars[15:16, 2:3]
     v <- vetiver_model(cars_lm, "cars1", b, save_ptype = car_ptype)
