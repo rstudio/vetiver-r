@@ -58,7 +58,7 @@ at each API call.
   <div class="col-md-9 contents">
     <div class="page-header">
       <img src="" class="logo" alt=""><h1>Model handler functions for API endpoint</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/handlers.R" class="external-link"><code>R/handlers.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/tidymodels.R" class="external-link"><code>R/tidymodels.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/handlers.R" class="external-link"><code>R/handlers.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/mlr3.R" class="external-link"><code>R/mlr3.R</code></a>, and 2 more</small>
       <div class="d-none name"><code>handler_startup.Rd</code></div>
     </div>
 
@@ -119,7 +119,9 @@ at each API call.</p></li>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>handler_startup</code> function should return invisibly, while a
 <code>handler_predict</code> function should return a function with the signature
-<code>function(req)</code>.</p>
+<code>function(req)</code>. The request body (<code>req$body</code>) consists of the new data
+at prediction time, and the function must return predictions made with
+these new observations.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -145,8 +147,8 @@ for dispatch.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     list(.pred = ret)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56541ebe3c08&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56541ebdf2d8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bd70e59390&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bd70e54fa0&gt;</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
