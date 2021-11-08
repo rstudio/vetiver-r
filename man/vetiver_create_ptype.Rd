@@ -2,6 +2,7 @@
 % Please edit documentation in R/lm.R, R/ptype.R, R/tidymodels.R, R/xgboost.R
 \name{vetiver_ptype.lm}
 \alias{vetiver_ptype.lm}
+\alias{vetiver_ptype.Learner}
 \alias{vetiver_ptype}
 \alias{vetiver_ptype.default}
 \alias{vetiver_create_ptype}
@@ -10,6 +11,8 @@
 \title{Create a vetiver input data prototype}
 \usage{
 \method{vetiver_ptype}{lm}(model, ...)
+
+\method{vetiver_ptype}{Learner}(model, ...)
 
 vetiver_ptype(model, ...)
 

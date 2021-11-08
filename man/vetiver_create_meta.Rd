@@ -4,6 +4,7 @@
 \alias{vetiver_meta}
 \alias{vetiver_create_meta}
 \alias{vetiver_create_meta.default}
+\alias{vetiver_create_meta.Learner}
 \alias{vetiver_create_meta.workflow}
 \alias{vetiver_create_meta.xgb.Booster}
 \title{Metadata constructors for \code{vetiver_model()} object}
@@ -13,6 +14,8 @@ vetiver_meta(user = list(), version = NULL, url = NULL, required_pkgs = NULL)
 vetiver_create_meta(model, metadata)
 
 \method{vetiver_create_meta}{default}(model, metadata)
+
+\method{vetiver_create_meta}{Learner}(model, metadata)
 
 \method{vetiver_create_meta}{workflow}(model, metadata)
 

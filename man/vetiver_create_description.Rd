@@ -3,6 +3,8 @@
 \name{vetiver_create_description.lm}
 \alias{vetiver_create_description.lm}
 \alias{vetiver_prepare_model.lm}
+\alias{vetiver_create_description.Learner}
+\alias{vetiver_prepare_model.Learner}
 \alias{vetiver_create_description}
 \alias{vetiver_create_description.default}
 \alias{vetiver_prepare_model}
@@ -15,6 +17,10 @@
 \method{vetiver_create_description}{lm}(model)
 
 \method{vetiver_prepare_model}{lm}(model)
+
+\method{vetiver_create_description}{Learner}(model)
+
+\method{vetiver_prepare_model}{Learner}(model)
 
 vetiver_create_description(model)
 

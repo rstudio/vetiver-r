@@ -6,6 +6,8 @@
 \alias{handler_predict}
 \alias{handler_predict.default}
 \alias{handler_predict.lm}
+\alias{handler_startup.Learner}
+\alias{handler_predict.Learner}
 \alias{handler_startup.workflow}
 \alias{handler_predict.workflow}
 \alias{handler_startup.xgb.Booster}
@@ -21,6 +23,10 @@ handler_predict(vetiver_model, ...)
 \method{handler_predict}{default}(vetiver_model, ...)
 
 \method{handler_predict}{lm}(vetiver_model, ...)
+
+\method{handler_startup}{Learner}(vetiver_model)
+
+\method{handler_predict}{Learner}(vetiver_model, ...)
 
 \method{handler_startup}{workflow}(vetiver_model)
 
