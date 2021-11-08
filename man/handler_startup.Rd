@@ -46,8 +46,8 @@ handler_predict(vetiver_model, ...)
 A \code{handler_startup} function should return invisibly, while a
 \code{handler_predict} function should return a function with the signature
 \verb{function(req)}. The request body (\code{req$body}) consists of the new data
-at prediction time, and the function must return predictions made with
-these new observations.
+at prediction time; this function should return predictions either as a
+tibble or as a list coercable to a tibble via \code{\link[tibble:as_tibble]{tibble::as_tibble()}}.
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.
