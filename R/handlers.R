@@ -24,7 +24,9 @@
 #'
 #' @return A `handler_startup` function should return invisibly, while a
 #' `handler_predict` function should return a function with the signature
-#' `function(req)`.
+#' `function(req)`. The request body (`req$body`) consists of the new data
+#' at prediction time; this function should return predictions either as a
+#' tibble or as a list coercable to a tibble via [tibble::as_tibble()].
 #' @rdname handler_startup
 #' @export
 handler_startup <- function(vetiver_model)

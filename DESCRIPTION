@@ -1,10 +1,10 @@
 Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph", "fnd"))
   )
 Description: The goal of 'vetiver' is to provide fluent tooling to version,
     share, deploy, and monitor a trained model. Functions handle both
@@ -18,6 +18,7 @@ BugReports: https://github.com/tidymodels/vetiver/issues
 Imports:
     butcher,
     cli,
+    generics,
     glue,
     hardhat,
     httr,
@@ -35,11 +36,19 @@ Suggests:
     caret,
     covr,
     knitr,
+    mlr3,
+    mlr3learners,
+    parsnip,
     ranger,
     rmarkdown,
+    rpart,
     testthat (>= 3.0.0),
+    workflows,
     xgboost
-Config/Needs/website: 
+Remotes:
+    mlr-org/mlr3,
+    mlr-org/mlr3learners
+Config/Needs/website:
     tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8

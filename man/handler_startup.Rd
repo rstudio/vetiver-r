@@ -8,6 +8,10 @@
 \alias{handler_predict}
 \alias{handler_predict.default}
 \alias{handler_predict.lm}
+\alias{handler_startup.Learner}
+\alias{handler_predict.Learner}
+\alias{handler_startup.workflow}
+\alias{handler_predict.workflow}
 \alias{handler_startup.xgb.Booster}
 \alias{handler_predict.xgb.Booster}
 \title{Model handler functions for API endpoint}
@@ -26,6 +30,14 @@ handler_predict(vetiver_model, ...)
 
 \method{handler_predict}{lm}(vetiver_model, ...)
 
+\method{handler_startup}{Learner}(vetiver_model)
+
+\method{handler_predict}{Learner}(vetiver_model, ...)
+
+\method{handler_startup}{workflow}(vetiver_model)
+
+\method{handler_predict}{workflow}(vetiver_model, ...)
+
 \method{handler_startup}{xgb.Booster}(vetiver_model)
 
 \method{handler_predict}{xgb.Booster}(vetiver_model, ...)
@@ -38,7 +50,9 @@ handler_predict(vetiver_model, ...)
 \value{
 A \code{handler_startup} function should return invisibly, while a
 \code{handler_predict} function should return a function with the signature
-\verb{function(req)}.
+\verb{function(req)}. The request body (\code{req$body}) consists of the new data
+at prediction time; this function should return predictions either as a
+tibble or as a list coercable to a tibble via \code{\link[tibble:as_tibble]{tibble::as_tibble()}}.
 }
 \description{
 These are developer-facing functions, useful for supporting new model types.

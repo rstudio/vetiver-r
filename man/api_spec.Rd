@@ -2,9 +2,21 @@
 % Please edit documentation in R/open-api-spec.R
 \name{api_spec}
 \alias{api_spec}
+\alias{glue_spec_summary}
+\alias{glue_spec_summary.default}
+\alias{glue_spec_summary.data.frame}
+\alias{glue_spec_summary.array}
 \title{Update the OpenAPI specification from model metadata}
 \usage{
 api_spec(spec, vetiver_model, path)
+
+glue_spec_summary(ptype)
+
+\method{glue_spec_summary}{default}(ptype)
+
+\method{glue_spec_summary}{data.frame}(ptype)
+
+\method{glue_spec_summary}{array}(ptype)
 }
 \arguments{
 \item{spec}{An OpenAPI Specification formatted list object}
@@ -12,9 +24,13 @@ api_spec(spec, vetiver_model, path)
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{path}{The endpoint path}
+
+\item{ptype}{An input data prototype from a model}
 }
 \value{
-The updated OpenAPI Specification object
+\code{api_spec()} returns the updated OpenAPI Specification object. This
+function uses \code{glue_spec_summary()} internally, which returns a \code{glue}
+character string.
 }
 \description{
 Update the OpenAPI specification from model metadata
@@ -23,6 +39,8 @@ Update the OpenAPI specification from model metadata
 library(plumber)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
+
+glue_spec_summary(v$ptype)
 
 modify_spec <- function(spec) api_spec(spec, v, "/predict")
 pr() \%>\% pr_set_api_spec(api = modify_spec)
