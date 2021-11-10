@@ -9,6 +9,8 @@
 \alias{vetiver_create_meta.xgb.Booster}
 \title{Metadata constructors for \code{vetiver_model()} object}
 \usage{
+\method{vetiver_create_meta}{train}(model, metadata)
+
 vetiver_meta(user = list(), version = NULL, url = NULL, required_pkgs = NULL)
 
 vetiver_create_meta(model, metadata)
@@ -22,6 +24,13 @@ vetiver_create_meta(model, metadata)
 \method{vetiver_create_meta}{xgb.Booster}(model, metadata)
 }
 \arguments{
+\item{model}{A trained model, such as an \code{lm()} model or a tidymodels
+\code{\link[workflows:workflow]{workflows::workflow()}}.}
+
+\item{metadata}{A list containing additional metadata to store with the pin.
+When retrieving the pin, this will be stored in the \code{user} key, to
+avoid potential clashes with the metadata that pins itself uses.}
+
 \item{user}{Metadata supplied by the user}
 
 \item{version}{Version of the pin}
@@ -29,13 +38,6 @@ vetiver_create_meta(model, metadata)
 \item{url}{URL for the pin, if any}
 
 \item{required_pkgs}{Character string of R packages required for prediction}
-
-\item{model}{A trained model, such as an \code{lm()} model or a tidymodels
-\code{\link[workflows:workflow]{workflows::workflow()}}.}
-
-\item{metadata}{A list containing additional metadata to store with the pin.
-When retrieving the pin, this will be stored in the \code{user} key, to
-avoid potential clashes with the metadata that pins itself uses.}
 }
 \value{
 The \code{vetiver_meta()} constructor returns a list. The

@@ -11,6 +11,8 @@
 \alias{vetiver_ptype.xgb.Booster}
 \title{Create a vetiver input data prototype}
 \usage{
+\method{vetiver_ptype}{train}(model, ...)
+
 \method{vetiver_ptype}{lm}(model, ...)
 
 \method{vetiver_ptype}{Learner}(model, ...)
