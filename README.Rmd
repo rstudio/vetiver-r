@@ -26,6 +26,14 @@ knitr::opts_chunk$set(
 
 The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model's input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models.
 
+You can use vetiver with:
+
+- a [tidymodels](https://www.tidymodels.org/) workflow
+- [caret](https://topepo.github.io/caret/)
+- [mlr3](https://mlr3.mlr-org.com/)
+- [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+- [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
+
 ## Installation
 
 You can install the released version of vetiver from [CRAN](https://CRAN.R-project.org) with:
@@ -46,9 +54,19 @@ devtools::install_github("tidymodels/vetiver")
 A `vetiver_model()` object collects the information needed to store, version, and deploy a trained model. 
 
 ```{r}
+library(parsnip)
+library(workflows)
+data(Sacramento, package = "modeldata")
+
+rf_spec <- rand_forest(mode = "regression")
+rf_form <- price ~ type + sqft + beds + baths
+
+rf_fit <- 
+    workflow(rf_form, rf_spec) %>%
+    fit(Sacramento)
+
 library(vetiver)
-cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear")
+v <- vetiver_model(rf_fit, "sacramento_rf")
 v
 ```
 
@@ -70,19 +88,48 @@ pr() %>%
   pr_run(port = 8088)
 ```
 
-If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate R process.
+If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:
+
+```{r}
+library(vetiver)
+endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
+endpoint
+```
+
+Such a model API endpoint deployed with vetiver will return predictions for appropriate new data.
 
 ``` r
-endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
-predict(endpoint, mtcars[4:7, -1])
-#> # A tibble: 4 x 1
-#>   .pred
-#>   <dbl>
-#> 1  21.2
-#> 2  17.7
-#> 3  20.4
-#> 4  14.4
+library(tidyverse)
+new_sac <- Sacramento %>% 
+    slice_sample(n = 20) %>% 
+    select(type, sqft, beds, baths)
+
+predict(endpoint, new_sac)
+#> # A tibble: 20 x 1
+#>      .pred
+#>      <dbl>
+#>  1 165042.
+#>  2 212461.
+#>  3 119008.
+#>  4 201752.
+#>  5 223096.
+#>  6 115696.
+#>  7 191262.
+#>  8 211706.
+#>  9 259336.
+#> 10 206826.
+#> 11 234952.
+#> 12 221993.
+#> 13 204983.
+#> 14 548052.
+#> 15 151186.
+#> 16 299365.
+#> 17 213439.
+#> 18 287993.
+#> 19 272017.
+#> 20 226629.
 ```
+
 
 
 ## Contributing

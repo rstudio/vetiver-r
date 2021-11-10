@@ -23,6 +23,14 @@ checking the model’s input data prototype, and predicting from a remote
 API endpoint. The vetiver package is extensible, with generics that can
 support many kinds of models.
 
+You can use vetiver with:
+
+-   a [tidymodels](https://www.tidymodels.org/) workflow
+-   [caret](https://topepo.github.io/caret/)
+-   [mlr3](https://mlr3.mlr-org.com/)
+-   [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+-   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
+
 ## Installation
 
 You can install the released version of vetiver from
@@ -45,13 +53,23 @@ A `vetiver_model()` object collects the information needed to store,
 version, and deploy a trained model.
 
 ``` r
+library(parsnip)
+library(workflows)
+data(Sacramento, package = "modeldata")
+
+rf_spec <- rand_forest(mode = "regression")
+rf_form <- price ~ type + sqft + beds + baths
+
+rf_fit <- 
+    workflow(rf_form, rf_spec) %>%
+    fit(Sacramento)
+
 library(vetiver)
-cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear")
+v <- vetiver_model(rf_fit, "sacramento_rf")
 v
 #> 
-#> ── cars_linear ─ <butchered_lm> model for deployment 
-#> An OLS linear regression model using 10 features
+#> ── sacramento_rf ─ <butchered_workflow> model for deployment 
+#> A ranger regression modeling workflow using 4 features
 ```
 
 You can **version** and **share** your `vetiver_model()` by choosing a
@@ -62,8 +80,8 @@ folder, RStudio Connect, Amazon S3, and more.
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211102T145641Z-522c5'
-#> Writing to pin 'cars_linear'
+#> Creating new version '20211110T213512Z-a0445'
+#> Writing to pin 'sacramento_rf'
 ```
 
 You can **deploy** your pinned `vetiver_model()` via a [Plumber
@@ -81,18 +99,50 @@ If the deployed model endpoint is running via one R process (either
 remotely on a server or locally, perhaps via a [background job in the
 RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make
 predictions with that deployed model and new data in another, separate R
-process.
+process. First, create a model endpoint:
 
 ``` r
+library(vetiver)
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
-predict(endpoint, mtcars[4:7, -1])
-#> # A tibble: 4 x 1
-#>   .pred
-#>   <dbl>
-#> 1  21.2
-#> 2  17.7
-#> 3  20.4
-#> 4  14.4
+endpoint
+#> 
+#> ── A model API endpoint for prediction: 
+#> http://127.0.0.1:8088/predict
+```
+
+Such a model API endpoint deployed with vetiver will return predictions
+for appropriate new data.
+
+``` r
+library(tidyverse)
+new_sac <- Sacramento %>% 
+    slice_sample(n = 20) %>% 
+    select(type, sqft, beds, baths)
+
+predict(endpoint, new_sac)
+#> # A tibble: 20 x 1
+#>      .pred
+#>      <dbl>
+#>  1 165042.
+#>  2 212461.
+#>  3 119008.
+#>  4 201752.
+#>  5 223096.
+#>  6 115696.
+#>  7 191262.
+#>  8 211706.
+#>  9 259336.
+#> 10 206826.
+#> 11 234952.
+#> 12 221993.
+#> 13 204983.
+#> 14 548052.
+#> 15 151186.
+#> 16 299365.
+#> 17 213439.
+#> 18 287993.
+#> 19 272017.
+#> 20 226629.
 ```
 
 ## Contributing
