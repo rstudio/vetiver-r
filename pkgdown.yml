@@ -1,8 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 1.9000.9000.9000
-pkgdown_sha: 8122179c440692487eda000d6542d7734a37d36d
+pkgdown_sha: e72fc30f333dc4f50f3f9d1f274fc29d67e34974
 articles: {}
-last_built: 2021-11-10T22:25Z
+last_built: 2021-11-16T19:55Z
 urls:
   reference: https://vetiver.tidymodels.org/reference
   article: https://vetiver.tidymodels.org/articles
