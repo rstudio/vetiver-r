@@ -37,6 +37,7 @@ Suggests:
     covr,
     dplyr,
     knitr,
+    LiblineaR,
     mlr3,
     mlr3learners,
     modeldata,
