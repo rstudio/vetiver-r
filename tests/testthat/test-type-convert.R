@@ -25,6 +25,12 @@ test_that("a factor plus a bad character", {
         vetiver_type_convert(teeth, vctrs::vec_slice(ToothGrowth, 0)),
         ToothGrowth
     )
+
+    expect_error(
+        vetiver_type_convert(tibble::tibble(len = 4.2, supp = "ZZ", dose = 0.1),
+                             vctrs::vec_slice(ToothGrowth, 0)),
+        "expected value in level set"
+    )
 })
 
 test_that("a date", {
@@ -39,6 +45,10 @@ test_that("a date", {
         x = "2021-01-15", y = "1980-03-01", z = "1950-06-01 00:00:15"
     )
 
+    bad_data <- tibble::tibble(
+        x = "potato", y = "1980-03-01", z = "1950-06-01 00:00:15"
+    )
+
     expect_equal(
         vetiver_type_convert(new_data, vctrs::vec_slice(many_dates, 0)),
         tibble::tibble(
@@ -46,6 +56,11 @@ test_that("a date", {
             y = as.Date("1980-03-01"),
             z = as.POSIXct("1950-06-01 00:00:15", tz = "UTC")
         )
+    )
+
+    expect_error(
+        vetiver_type_convert(bad_data, vctrs::vec_slice(many_dates, 0)),
+        "expected date like , but got 'potato'"
     )
 })
 

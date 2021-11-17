@@ -62,6 +62,8 @@ handler_predict.default <- function(vetiver_model, ...)
 #' ptype <- vctrs::vec_slice(training_df, 0)
 #' vetiver_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), ptype)
 #'
+#' ## unsuccessful conversion generates an error:
+#' try(vetiver_type_convert(tibble(x = "potato", y = "J", z = "k"), ptype))
 #'
 #' @inheritParams predict.vetiver_endpoint
 #' @param ptype An input data prototype, such as a 0-row slice of the training
@@ -69,12 +71,21 @@ handler_predict.default <- function(vetiver_model, ...)
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
-        spec <- readr::as.col_spec(ptype)
-        is_character <- vapply(new_data, is.character, logical(1))
-        if (any(is_character)) {
-            new_data <- readr::type_convert(new_data, col_types = spec)
-        }
+    spec <- readr::as.col_spec(ptype)
+    is_character <- vapply(new_data, is.character, logical(1))
+    if (any(is_character)) {
+        new_data <- type_convert_strict(new_data, col_types = spec)
+    }
     new_data
 }
 
+type_convert_strict <- function(new_data, col_types) {
+    warn_to_error <- function(e) {
+        abort(conditionMessage(e))
+    }
 
+    tryCatch(
+        warning = function(e) warn_to_error(e),
+        expr = readr::type_convert(new_data, col_types = col_types)
+    )
+}
