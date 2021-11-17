@@ -20,7 +20,10 @@ vetiver_pin_read() to retrieve that pinned object."><!-- mathjax --><script src=
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-2">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/vetiver.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
@@ -96,11 +99,11 @@ packages are needed at prediction time. You may use <code><a href="https://rdrr.
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211116T195606Z-4f67f'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211117T185244Z-4f67f'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span class="va">model_board</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Pin board</span> &lt;pins_board_folder&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/Rtmp9hDSdx/pins-322e6773fc00'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpkCKsl0/pins-2c8523a7a535'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cache size: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pins [1]: 'cars_linear'</span>
 <span class="r-in"></span>
@@ -114,7 +117,7 @@ packages are needed at prediction time. You may use <code><a href="https://rdrr.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   version                created             hash </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20211116T195606Z-4f67f 2021-11-16 <span style="color: #949494;">19:56:00</span> 4f67f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20211117T185244Z-4f67f 2021-11-17 <span style="color: #949494;">18:52:00</span> 4f67f</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
