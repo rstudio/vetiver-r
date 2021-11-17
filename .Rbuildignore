@@ -12,3 +12,4 @@
 ^codecov\.yml$
 ^CRAN-RELEASE$
 ^rsconnect$
+^inst/plumber/chicago-rpart/rsconnect$

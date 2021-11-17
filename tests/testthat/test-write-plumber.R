@@ -20,7 +20,9 @@ test_that("create plumber.R with args in dots", {
     v <- vetiver_model(cars_lm, "cars1")
     v$metadata$required_pkgs <- c("beepr", "janeaustenr")
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", endpoint = "/predict2", type = "numeric", file = tmp)
+    vetiver_write_plumber(b, "cars1",
+                          debug = TRUE, endpoint = "/predict2", type = "numeric",
+                          file = tmp)
     expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
 })
 

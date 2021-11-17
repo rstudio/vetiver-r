@@ -58,9 +58,8 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     if (rlang::is_empty(plumber_dots)) {
         pr_predict <- "pr %>% vetiver_pr_predict(v)"
     } else {
-        plumber_args <- glue('{names(plumber_dots)} = "{plumber_dots}"')
-        plumber_args <- glue_collapse(plumber_args, sep = ", ")
-        pr_predict <- glue("pr %>% vetiver_pr_predict(v, {plumber_args})")
+        pr_predict <- expr(pr %>% vetiver_pr_predict(v, !!!plumber_dots))
+        pr_predict <- expr_deparse(pr_predict)
     }
 
     plumber <- glue("\n

@@ -45,7 +45,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(v, endpoint = "/predict2", type = "numeric")
+          pr %>% vetiver_pr_predict(v, debug = TRUE, endpoint = "/predict2", type = "numeric")
       }
 
 # create plumber.R with no packages
