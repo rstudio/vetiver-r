@@ -32,7 +32,6 @@ The vetiver package is extensible, with generics that can support many kinds of 
 library(parsnip)
 library(recipes)
 library(workflows)
-library(dplyr)
 data(bivariate, package = "modeldata")
 bivariate_train
 

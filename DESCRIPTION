@@ -35,7 +35,6 @@ Imports:
 Suggests:
     caret,
     covr,
-    dplyr,
     knitr,
     LiblineaR,
     mlr3,
