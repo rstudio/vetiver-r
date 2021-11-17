@@ -172,7 +172,7 @@ glue_spec_summary.default <- function(ptype) {
 #' @rdname api_spec
 #' @export
 glue_spec_summary.data.frame <- function(ptype) {
-    glue("Return predictions from model using {ncol(ptype)} features")
+    cli::pluralize("Return predictions from model using {ncol(ptype)} feature{?s}")
 }
 
 #' @rdname api_spec
