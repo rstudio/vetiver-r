@@ -106,4 +106,5 @@ print.vetiver_model <- function(x, ...) {
     invisible(x)
 }
 
-
+#' @export
+predict.vetiver_model <- function(object, ...) predict(object$model, ...)

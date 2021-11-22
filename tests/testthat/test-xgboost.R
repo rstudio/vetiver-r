@@ -2,6 +2,7 @@ library(pins)
 library(plumber)
 skip_if_not_installed("xgboost")
 
+set.seed(123)
 cars_xgb <- xgboost::xgboost(as.matrix(mtcars[,-1]),
                             mtcars$mpg, nrounds = 3,
                             objective = "reg:squarederror")
@@ -10,6 +11,13 @@ v <- vetiver_model(cars_xgb, "cars2")
 test_that("can print xgboost model", {
     expect_snapshot(v)
 })
+
+test_that("can predict xgboost model", {
+    preds <- predict(v, as.matrix(mtcars[,-1]))
+    expect_equal(length(preds), 32)
+    expect_equal(mean(preds), 12.7, tolerance = 0.1)
+})
+
 
 test_that("can pin an xgboost model", {
     b <- board_temp()
