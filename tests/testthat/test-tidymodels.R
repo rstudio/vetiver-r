@@ -9,6 +9,7 @@ library(parsnip)
 rf_spec <- rand_forest(mode = "regression") %>%
     set_engine("ranger")
 
+set.seed(123)
 mtcars_wf <- workflow() %>%
     add_model(rf_spec) %>%
     add_formula(mpg ~ .) %>%
@@ -18,6 +19,12 @@ v <- vetiver_model(mtcars_wf, "cars_wf")
 
 test_that("can print tidymodels model", {
     expect_snapshot(v)
+})
+
+test_that("can predict tidymodels model", {
+    preds <- predict(v, mtcars)
+    expect_s3_class(preds, "tbl_df")
+    expect_equal(mean(preds$.pred), 20.1, tolerance = 0.1)
 })
 
 test_that("can pin a tidymodels model", {
