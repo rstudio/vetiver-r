@@ -15,4 +15,8 @@
 #' @importFrom generics required_pkgs
 NULL
 
+#' @importFrom generics augment
+#' @export
+generics::augment
+
 globalVariables(c("pr"))
