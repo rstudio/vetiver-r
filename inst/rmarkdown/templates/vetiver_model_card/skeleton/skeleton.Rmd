@@ -1,9 +1,8 @@
 ---
 title: "Model Card: your model title"
+date: '`r Sys.Date()`'
 output: 
-  html_document:
-    theme:
-      bootswatch: litera
+  html_document
 params:
     board: !r pins::board_rsconnect()
     name: julia.silge/sacramento_rf
@@ -25,7 +24,7 @@ A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transpar
 
 ## Model details
 
-- Developed by PERSON OR TEAM
+- Developed by PERSON AND/OR TEAM
 - `r cli::pluralize("{v$description} using {ncol(v$ptype)} feature{?s}")`
 - More details about how model was developed and what it is predicting
 - Version `r v$metadata$version` of this model was published at `r v_meta$created`
