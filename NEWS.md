@@ -8,6 +8,8 @@
 
 * Added `predict` method for `vetiver_model()` (in addition to `vetiver_endpoint()`) (#61).
 
+* Added R Markdown template for [Model Card](https://doi.org/10.1145/3287560.3287596) for responsible, transparent model reporting (#62).
+
 # vetiver 0.1.0
 
 * Initial CRAN release of package.
