@@ -8,6 +8,8 @@
 
 * Added `predict` method for `vetiver_model()` (in addition to `vetiver_endpoint()`) (#61).
 
+* New function `vetiver_deploy_rsconnect()` to deploy to RStudio Connect.
+
 # vetiver 0.1.0
 
 * Initial CRAN release of package.
