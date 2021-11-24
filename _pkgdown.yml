@@ -17,6 +17,7 @@ reference:
   - vetiver_pin_write
   - vetiver_pr_predict
   - vetiver_write_plumber
+  - vetiver_deploy_rsconnect
   - vetiver_endpoint
   - predict.vetiver_endpoint
 
