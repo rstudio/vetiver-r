@@ -45,7 +45,7 @@ vetiver_pin_write <- function(board, vetiver_model) {
         versioned = vetiver_model$versioned
     )
     rlang::inform(
-        c("Create a Model Card for your published model",
+        c("\nCreate a Model Card for your published model",
           "Model Cards provide a framework for transparent, responsible reporting",
           "Use the vetiver `.Rmd` template as a place to start"),
         class = "model_card_nudge",
