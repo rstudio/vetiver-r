@@ -27,6 +27,7 @@ A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transpar
 - Developed by PERSON AND/OR TEAM
 - `r cli::pluralize("{v$description} using {ncol(v$ptype)} feature{?s}")`
 - More details about how model was developed and what it is predicting
+- More details on feature engineering and/or data preprocessing for model
 - Version `r v$metadata$version` of this model was published at `r v_meta$created`
 - Citation and/or license details for the model
 - If you have questions about this model, please contact PERSON@ORG.ORG
@@ -53,9 +54,9 @@ A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transpar
 - The training dataset for this model was ...
 - The training dataset for this model has the "prototype" or signature:
 
-```{r}
-glimpse(v$ptype)
-```
+    ```{r}
+    glimpse(v$ptype)
+    ```
 
 - The evaluation dataset used in this model card is ...
 - We chose this evaluation data because ...
