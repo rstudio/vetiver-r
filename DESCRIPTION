@@ -45,6 +45,7 @@ Suggests:
     recipes,
     rmarkdown,
     rpart,
+    rsconnect,
     testthat (>= 3.0.0),
     workflows,
     xgboost

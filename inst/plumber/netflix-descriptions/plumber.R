@@ -25,7 +25,7 @@ if (FALSE) {
     library(yardstick)
 }
 b <- board_rsconnect(server = "https://colorado.rstudio.com/rsc")
-v <- vetiver_pin_read(b, "julia.silge/netflix_descriptions", version = "50786")
+v <- vetiver_pin_read(b, "julia.silge/netflix_descriptions", version = "51265")
 
 #* @plumber
 function(pr) {
