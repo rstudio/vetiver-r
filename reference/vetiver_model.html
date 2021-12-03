@@ -19,10 +19,12 @@ create an API endpoint for it with vetiver_pr_predict()
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -47,11 +49,12 @@ create an API endpoint for it with vetiver_pr_predict()
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Create a vetiver object for deployment of a trained model</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/vetiver-model.R" class="external-link"><code>R/vetiver-model.R</code></a></small>
       <div class="d-none name"><code>vetiver_model.Rd</code></div>
@@ -64,9 +67,9 @@ created, you can:</p><ul><li><p>store and version it as a pin with <code><a href
 <li><p>create an API endpoint for it with <code><a href="vetiver_pr_predict.html">vetiver_pr_predict()</a></code></p></li>
 </ul></div>
 
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
-    <pre class="sourceCode r"><code><span class="fu">vetiver_model</span><span class="op">(</span>
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_model</span><span class="op">(</span>
   <span class="va">model</span>,
   <span class="va">model_name</span>,
   <span class="va">...</span>,
@@ -76,10 +79,9 @@ created, you can:</p><ul><li><p>store and version it as a pin with <code><a href
   versioned <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
-<span class="fu">new_vetiver_model</span><span class="op">(</span><span class="va">model</span>, <span class="va">model_name</span>, <span class="va">description</span>, <span class="va">metadata</span>, <span class="va">ptype</span>, <span class="va">versioned</span><span class="op">)</span></code></pre>
+<span class="fu">new_vetiver_model</span><span class="op">(</span><span class="va">model</span>, <span class="va">model_name</span>, <span class="va">description</span>, <span class="va">metadata</span>, <span class="va">ptype</span>, <span class="va">versioned</span><span class="op">)</span></code></pre></div>
     </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>model</dt>
@@ -123,11 +125,10 @@ consider checking that your input data prototype has the same structure
 as your training data (perhaps with <code><a href="https://rdrr.io/pkg/hardhat/man/scream.html" class="external-link">hardhat::scream()</a></code>) and/or simulating
 data to avoid leaking PII via your deployed model.</p>
     </div>
-    </div>
 
-    <div id="examples">
-    <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_model</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span>, <span class="fu">pins</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -136,11 +137,8 @@ data to avoid leaking PII via your deployed model.</p>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
@@ -150,7 +148,7 @@ data to avoid leaking PII via your deployed model.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
   </div></footer></body></html>

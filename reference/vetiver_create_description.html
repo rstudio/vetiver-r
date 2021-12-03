@@ -41,10 +41,12 @@ which is to return the model without changes.
     
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
 
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -69,11 +71,12 @@ which is to return the model without changes.
   </a>
 </li>
       </ul></div>
+
+    
   </div>
 </nav><div class="container template-reference-topic" id="container">
 <div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Model constructor methods</h1>
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/mlr3.R" class="external-link"><code>R/mlr3.R</code></a>, and 3 more</small>
       <div class="d-none name"><code>vetiver_create_description.Rd</code></div>
@@ -97,9 +100,9 @@ model via <code><a href="https://butcher.tidymodels.org/reference/butcher.html" 
 which is to return the model without changes.</p></li>
 </ul></div>
 
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
-    <pre class="sourceCode r"><code><span class="co"># S3 method for train</span>
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for train</span>
 <span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 
 <span class="co"># S3 method for train</span>
@@ -134,10 +137,9 @@ which is to return the model without changes.</p></li>
 <span class="fu">vetiver_prepare_model</span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 
 <span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre>
+<span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></code></pre></div>
     </div>
 
-    <div id="ref-sections">
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>model</dt>
@@ -148,11 +150,10 @@ which is to return the model without changes.</p></li>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>These are four generics that use the class of <code>model</code> for dispatch.</p>
     </div>
-    </div>
 
-    <div id="examples">
-    <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_create_description</span><span class="op">(</span><span class="va">cars_lm</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "An OLS linear regression model"</span>
@@ -172,11 +173,8 @@ which is to return the model without changes.</p></li>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc"><h2>On this page</h2>
-    </nav></div>
-</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
    </div>
@@ -186,7 +184,7 @@ which is to return the model without changes.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
   </div></footer></body></html>

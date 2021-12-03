@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 1.9000.9000.9000
-pkgdown_sha: e72fc30f333dc4f50f3f9d1f274fc29d67e34974
+pkgdown: 2.0.0.9000
+pkgdown_sha: 9b17511675bc33fd14715a84231aee38f1261edb
 articles:
   vetiver: vetiver.html
-last_built: 2021-11-24T01:09Z
+last_built: 2021-12-03T01:29Z
 urls:
   reference: https://vetiver.tidymodels.org/reference
   article: https://vetiver.tidymodels.org/articles
