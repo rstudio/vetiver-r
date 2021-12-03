@@ -1,0 +1,132 @@
+---
+title: "Model Card: your model title"
+date: '`r Sys.Date()`'
+output: 
+  html_document
+params:
+    board: !r pins::board_rsconnect()
+    name: julia.silge/sacramento_rf
+    version: NULL
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(vetiver)
+library(pins)
+library(yardstick)
+knitr::opts_chunk$set(echo = FALSE)
+v <- vetiver_pin_read(params$board, params$name, version = params$version)
+v_meta <- pin_meta(params$board, params$name)
+theme_set(theme_light())
+```
+
+A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transparent, responsible reporting for a trained machine learning model.
+
+## Model details
+
+- Developed by PERSON AND/OR TEAM
+- `r cli::pluralize("{v$description} using {ncol(v$ptype)} feature{?s}")`
+- More details about how model was developed and what it is predicting
+- More details on feature engineering and/or data preprocessing for model
+- Version `r v$metadata$version` of this model was published at `r v_meta$created`
+- Citation and/or license details for the model
+- If you have questions about this model, please contact PERSON@ORG.ORG
+
+## Intended use
+
+- The primary intended uses of this model are ...
+- The primary intended users of this model are ...
+- Some use cases are out of scope for this model, such as ...
+
+## Important aspects/factors
+
+- Aspects or factors (demographic, environmental, technical) that are relevant to the context of this model are ...
+- In evaluating this model, we examined aspects such as ...
+
+## Metrics
+
+- The metrics used to evaluate this model are ...
+- These metrics are computed via ...
+- We chose these metrics because ...
+
+## Training data & evaluation data
+
+- The training dataset for this model was ...
+- The training dataset for this model has the "prototype" or signature:
+
+    ```{r}
+    glimpse(v$ptype)
+    ```
+
+- The evaluation dataset used in this model card is ...
+- We chose this evaluation data because ...
+
+```{r}
+## EVALUATION DATA:
+
+data(Sacramento, package = "modeldata")
+
+## consider using a package like skimr or DataExplorer for automated 
+## presentation of evaluation data characteristics
+```
+
+
+## Quantitative analyses {.tabset}
+
+```{r}
+## compute predictions for your evaluation data
+## `handler_startup` is designed to get the R process ready to make predictions
+suppressPackageStartupMessages(handler_startup(v))
+preds <- augment(v, Sacramento)
+```
+
+
+### Overall model performance
+
+```{r}
+preds %>%
+    metrics(price, .pred)
+```
+
+### Disaggregated model performance
+
+```{r}
+preds %>%
+    group_by(type) %>%
+    metrics(price, .pred)
+```
+
+### Visualize model performance
+
+```{r, fig.height=3}
+preds %>%
+    ggplot(aes(price, .pred, color = type)) +
+    geom_abline(slope = 1, lty = 2, color = "gray60", size = 1.2) +
+    geom_point(alpha = 0.5, show.legend = FALSE) +
+    facet_wrap(vars(type))
+```
+
+### Make a custom plot
+
+```{r}
+preds %>%
+    mutate(.resid = price - .pred) %>%
+    ggplot(aes(longitude, latitude, color = .resid)) +
+    geom_point(alpha = 0.8) +
+    scale_color_gradient2() +
+    coord_fixed()
+```
+
+
+## Ethical considerations
+
+- We considered ...
+
+## Caveats & recommendations
+
+- This model does ...
+- This model does not ...
+- We recommend ...
+
+
+

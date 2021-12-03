@@ -96,7 +96,7 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli::cli_text("{x$description} using {dim(x$ptype)[[2]]} feature{?s}")
+        cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
     })
 }
 
@@ -108,3 +108,7 @@ print.vetiver_model <- function(x, ...) {
 
 #' @export
 predict.vetiver_model <- function(object, ...) predict(object$model, ...)
+
+#' @export
+augment.vetiver_model <- function(x, ...) augment(x$model, ...)
+
