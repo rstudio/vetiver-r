@@ -10,7 +10,7 @@
 
 * New function `vetiver_deploy_rsconnect()` to deploy to RStudio Connect.
 
-* Added R Markdown template for [Model Card](https://doi.org/10.1145/3287560.3287596) for responsible, transparent model reporting (#62).
+* Added R Markdown template for [Model Card](https://doi.org/10.1145/3287560.3287596) for responsible, transparent model reporting (#62, #63).
 
 # vetiver 0.1.0
 
