@@ -12,9 +12,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-Sys.setenv("TESTTHAT" = "true")
-options(pins.quiet = FALSE)
 ```
 
 The goal of vetiver is to provide fluent tooling for MLOps tasks for your trained model including:
@@ -63,7 +60,7 @@ Think of this `vetiver_model()` as a deployable model object.
 
 You can store and version your model by choosing a [pins](https://pins.rstudio.com) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more. Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board. When we write the `vetiver_model()` to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
 
-```{r}
+```{r message=FALSE}
 library(pins)
 model_board <- board_temp(versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
@@ -71,10 +68,11 @@ model_board %>% vetiver_pin_write(v)
 
 Let's train our model again with a new version of the dataset and write it once more to our board.
 
-```{r}
+```{r message=FALSE}
 svm_fit <- 
   workflow(biv_rec, svm_spec) %>%
   fit(sample_frac(bivariate_train, 0.7))
+
 v <- vetiver_model(svm_fit, "biv_svm")
 
 model_board %>% vetiver_pin_write(v)

@@ -80,8 +80,6 @@ folder, RStudio Connect, Amazon S3, and more.
 library(pins)
 model_board <- board_temp()
 model_board %>% vetiver_pin_write(v)
-#> Creating new version '20211110T213512Z-a0445'
-#> Writing to pin 'sacramento_rf'
 ```
 
 You can **deploy** your pinned `vetiver_model()` via a [Plumber
