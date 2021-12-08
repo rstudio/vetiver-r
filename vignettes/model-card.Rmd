@@ -44,7 +44,9 @@ If you are not using RStudio, you'll also need to install [Pandoc](https://pando
 
 ```r
 rmarkdown::draft(
-    "my_model_card.Rmd", template = "vetiver_model_card", package = "vetiver"
+    "my_model_card.Rmd", 
+    template = "vetiver_model_card", 
+    package = "vetiver"
 )
 ```
 
