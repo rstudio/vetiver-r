@@ -33,22 +33,44 @@ vetiver_pr_predict <- function(pr,
                                path = "/predict",
                                debug = is_interactive(),
                                ...) {
+    rlang::list2(...)
+    pr <- vetiver_pr_post(
+        pr = pr,
+        vetiver_model = vetiver_model,
+        path = path,
+        debug = debug,
+        ...
+    )
+
+    pr <- vetiver_pr_docs(pr = pr, vetiver_model = vetiver_model, path = path)
+
+    pr
+}
+
+vetiver_pr_post <- function(pr,
+                            vetiver_model,
+                            path = "/predict",
+                            debug = is_interactive(),
+                            ...) {
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
-    loadNamespace("rapidoc")
-
     handler_startup(vetiver_model)
-
-    modify_spec <- function(spec) api_spec(spec, vetiver_model, path)
-
     pr <- plumber::pr_set_debug(pr, debug = debug)
     if (!is_null(vetiver_model$metadata$url)) {
         pr <- plumber::pr_get(pr,
                               path = "/pin-url",
                               function() vetiver_model$metadata$url)
     }
-    pr <- plumber::pr_post(pr, path = path,
+    pr <- plumber::pr_post(pr,
+                           path = path,
                            handler = handler_predict(vetiver_model, ...))
+
+}
+
+
+vetiver_pr_docs <- function(pr, vetiver_model, path) {
+    loadNamespace("rapidoc")
+    modify_spec <- function(spec) api_spec(spec, vetiver_model, path)
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
     pr <- plumber::pr_set_docs(
         pr, "rapidoc",
@@ -56,4 +78,5 @@ vetiver_pr_predict <- function(pr,
     )
     pr
 }
+
 
