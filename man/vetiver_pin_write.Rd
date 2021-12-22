@@ -11,7 +11,7 @@ vetiver_pin_read(board, name, version = NULL)
 }
 \arguments{
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
-\code{\link[pins:board_url]{board_url()}} or other other \code{board_} function.}
+\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 

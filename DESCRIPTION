@@ -49,9 +49,6 @@ Suggests:
     testthat (>= 3.0.0),
     workflows,
     xgboost
-Remotes:
-    mlr-org/mlr3,
-    mlr-org/mlr3learners
 Config/Needs/website:
     tidyverse/tidytemplate
 Config/testthat/edition: 3
