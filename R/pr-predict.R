@@ -3,6 +3,10 @@
 #' Use `vetiver_pr_predict()` to add a POST endpoint for predictions from a
 #' trained, pinned [vetiver_model()] to a Plumber router.
 #'
+#' This function uses `vetiver_pr_post()` for endpoint definition and
+#' `vetiver_pr_docs` to create visual API documentation; these more modular
+#' functions are available for more advanced use cases.
+#'
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param vetiver_model A deployable [vetiver_model()] object
 #' @param ... Other arguments passed to `predict()`, such as prediction `type`
@@ -25,7 +29,9 @@
 #'
 #' library(plumber)
 #' pr() %>% vetiver_pr_predict(v)
-#' ## next, pipe to `pr_run()`
+#' ## is the same as:
+#' pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
+#' ## for either, next, pipe to `pr_run()`
 #'
 #' @export
 vetiver_pr_predict <- function(pr,
@@ -47,6 +53,8 @@ vetiver_pr_predict <- function(pr,
     pr
 }
 
+#' @rdname vetiver_pr_predict
+#' @export
 vetiver_pr_post <- function(pr,
                             vetiver_model,
                             path = "/predict",
@@ -67,8 +75,9 @@ vetiver_pr_post <- function(pr,
 
 }
 
-
-vetiver_pr_docs <- function(pr, vetiver_model, path) {
+#' @rdname vetiver_pr_predict
+#' @export
+vetiver_pr_docs <- function(pr, vetiver_model, path = "/predict") {
     loadNamespace("rapidoc")
     modify_spec <- function(spec) api_spec(spec, vetiver_model, path)
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
