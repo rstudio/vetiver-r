@@ -79,12 +79,12 @@ Connect.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>board</dt>
-<dd><p>A pin board, created by <code><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://rdrr.io/pkg/pins/man/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
-<code><a href="https://rdrr.io/pkg/pins/man/board_url.html" class="external-link">board_url()</a></code> or other other <code>board_</code> function.</p></dd>
+<dd><p>A pin board, created by <code><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://pins.rstudio.com/reference/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
+<code><a href="https://pins.rstudio.com/reference/board_url.html" class="external-link">board_url()</a></code> or another <code>board_</code> function.</p></dd>
 <dt>name</dt>
 <dd><p>Pin name.</p></dd>
 <dt>version</dt>
-<dd><p>Retrieve a specific version of a pin. Use <code><a href="https://rdrr.io/pkg/pins/man/pin_versions.html" class="external-link">pin_versions()</a></code> to
+<dd><p>Retrieve a specific version of a pin. Use <code><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions()</a></code> to
 find out which versions are available and when they were created.</p></dd>
 <dt>predict_args</dt>
 <dd><p>A list of optional arguments passed to
@@ -107,13 +107,13 @@ find out which versions are available and when they were created.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins" class="external-link">pins</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211208T182931Z-4f67f'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211222T004628Z-4f67f'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Create a Model Card for your published model</span>

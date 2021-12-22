@@ -74,14 +74,14 @@ along with an input prototype for new data and other model metadata. Use
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>board</dt>
-<dd><p>A pin board, created by <code><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://rdrr.io/pkg/pins/man/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
-<code><a href="https://rdrr.io/pkg/pins/man/board_url.html" class="external-link">board_url()</a></code> or other other <code>board_</code> function.</p></dd>
+<dd><p>A pin board, created by <code><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://pins.rstudio.com/reference/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
+<code><a href="https://pins.rstudio.com/reference/board_url.html" class="external-link">board_url()</a></code> or another <code>board_</code> function.</p></dd>
 <dt>vetiver_model</dt>
 <dd><p>A deployable <code><a href="vetiver_model.html">vetiver_model()</a></code> object</p></dd>
 <dt>name</dt>
 <dd><p>Pin name.</p></dd>
 <dt>version</dt>
-<dd><p>Retrieve a specific version of a pin. Use <code><a href="https://rdrr.io/pkg/pins/man/pin_versions.html" class="external-link">pin_versions()</a></code> to
+<dd><p>Retrieve a specific version of a pin. Use <code><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions()</a></code> to
 find out which versions are available and when they were created.</p></dd>
 </dl></div>
     <div class="section level2">
@@ -93,24 +93,24 @@ find out which versions are available and when they were created.</p></dd>
     <p>These functions read and write a <code><a href="vetiver_model.html">vetiver_model()</a></code> pin on the
 specified <code>board</code> containing the model object itself and other elements
 needed for prediction, such as the model's input data prototype or which
-packages are needed at prediction time. You may use <code><a href="https://rdrr.io/pkg/pins/man/pin_read.html" class="external-link">pins::pin_read()</a></code> or
-<code><a href="https://rdrr.io/pkg/pins/man/pin_meta.html" class="external-link">pins::pin_meta()</a></code> to handle the pin, but <code>vetiver_pin_read()</code> returns a
+packages are needed at prediction time. You may use <code><a href="https://pins.rstudio.com/reference/pin_read.html" class="external-link">pins::pin_read()</a></code> or
+<code><a href="https://pins.rstudio.com/reference/pin_meta.html" class="external-link">pins::pin_meta()</a></code> to handle the pin, but <code>vetiver_pin_read()</code> returns a
 <code><a href="vetiver_model.html">vetiver_model()</a></code> object ready for deployment.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/pins" class="external-link">pins</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pins/man/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
+<span class="r-in"><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211208T182932Z-4f67f'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20211222T004629Z-4f67f'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span class="va">model_board</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Pin board</span> &lt;pins_board_folder&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpxPD5O1/pins-2ddd6bf17c38'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/Rtmp59hsup/pins-378b518b0678'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cache size: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pins [1]: 'cars_linear'</span>
 <span class="r-in"></span>
@@ -120,11 +120,11 @@ packages are needed at prediction time. You may use <code><a href="https://rdrr.
 <span class="r-out co"><span class="r-pr">#&gt;</span> An OLS linear regression model using 10 features</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># can use `version` argument to read a specific version:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/pins/man/pin_versions.html" class="external-link">pin_versions</a></span><span class="op">(</span><span class="va">model_board</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions</a></span><span class="op">(</span><span class="va">model_board</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   version                created             hash </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20211208T182932Z-4f67f 2021-12-08 <span style="color: #949494;">18:29:00</span> 4f67f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20211222T004629Z-4f67f 2021-12-22 <span style="color: #949494;">00:46:00</span> 4f67f</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
