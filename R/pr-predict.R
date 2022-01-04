@@ -39,6 +39,7 @@ vetiver_pr_predict <- function(pr,
                                path = "/predict",
                                debug = is_interactive(),
                                ...) {
+    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
     pr <- vetiver_pr_post(
         pr = pr,

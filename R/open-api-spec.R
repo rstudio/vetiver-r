@@ -112,6 +112,8 @@ map_request_body.array <- function(ptype) {
 #' @param spec An OpenAPI Specification formatted list object
 #' @inheritParams vetiver_pr_predict
 #' @inheritParams map_request_body
+#' @param return_type Character string to describe what endpoint returns, such
+#' as "predictions"
 #'
 #' @return `api_spec()` returns the updated OpenAPI Specification object. This
 #' function uses `glue_spec_summary()` internally, which returns a `glue`
@@ -144,38 +146,51 @@ api_spec <- function(spec, vetiver_model, path) {
         summary <- glue_spec_summary(ptype)
     }
 
-    orig_post <- spec$paths[[path]]$post
-    spec$paths[[path]]$post <- list(
+    endpoints <- map_chr(spec$paths, names)
+    endpoints <- names(endpoints[endpoints == "post"])
+    endpoints <- setdiff(endpoints, path)
+
+    spec <- update_spec(spec, path, summary, request_body)
+
+    for (endpoint in endpoints) {
+        endpoint_summary <- glue_spec_summary(ptype, endpoint)
+        spec <- update_spec(spec, endpoint, endpoint_summary, request_body)
+    }
+    spec
+}
+
+update_spec <- function(spec, endpoint, summary, request_body) {
+    orig_post <- pluck(spec, "paths", endpoint, "post")
+    spec$paths[[endpoint]]$post <- list(
         summary = summary,
         requestBody = request_body,
         responses = orig_post$responses
     )
-
     spec
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary <- function(ptype) {
+glue_spec_summary <- function(ptype, return_type) {
     UseMethod("glue_spec_summary")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.default <- function(ptype) {
+glue_spec_summary.default <- function(ptype, return_type = NULL) {
     abort("There is no method available to create a spec summary for `ptype`.")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.data.frame <- function(ptype) {
-    cli::pluralize("Return predictions from model using {ncol(ptype)} feature{?s}")
+glue_spec_summary.data.frame <- function(ptype, return_type = "predictions") {
+    cli::pluralize("Return {return_type} from model using {ncol(ptype)} feature{?s}")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.array <- function(ptype) {
-    "Return predictions from model using multidimensional array"
+glue_spec_summary.array <- function(ptype, return_type = "predictions") {
+    "Return {return_type} from model using multidimensional array"
 }
 
 

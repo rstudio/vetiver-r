@@ -10,13 +10,13 @@
 \usage{
 api_spec(spec, vetiver_model, path)
 
-glue_spec_summary(ptype)
+glue_spec_summary(ptype, return_type)
 
-\method{glue_spec_summary}{default}(ptype)
+\method{glue_spec_summary}{default}(ptype, return_type = NULL)
 
-\method{glue_spec_summary}{data.frame}(ptype)
+\method{glue_spec_summary}{data.frame}(ptype, return_type = "predictions")
 
-\method{glue_spec_summary}{array}(ptype)
+\method{glue_spec_summary}{array}(ptype, return_type = "predictions")
 }
 \arguments{
 \item{spec}{An OpenAPI Specification formatted list object}
@@ -26,6 +26,9 @@ glue_spec_summary(ptype)
 \item{path}{The endpoint path}
 
 \item{ptype}{An input data prototype from a model}
+
+\item{return_type}{Character string to describe what endpoint returns, such
+as "predictions"}
 }
 \value{
 \code{api_spec()} returns the updated OpenAPI Specification object. This
