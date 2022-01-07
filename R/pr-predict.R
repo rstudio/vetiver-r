@@ -4,7 +4,7 @@
 #' trained, pinned [vetiver_model()] to a Plumber router.
 #'
 #' This function uses `vetiver_pr_post()` for endpoint definition and
-#' `vetiver_pr_docs` to create visual API documentation; these more modular
+#' `vetiver_pr_docs()` to create visual API documentation; these more modular
 #' functions are available for more advanced use cases.
 #'
 #' @param pr A Plumber router, such as from [plumber::pr()].
