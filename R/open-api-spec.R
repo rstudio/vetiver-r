@@ -136,6 +136,10 @@ api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     if ("/pin-url" %in% names(spec$paths)) {
         spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver model"
     }
+    if ("/ping" %in% names(spec$paths)) {
+        spec$paths$`/ping`$get$summary <- "Health check"
+    }
+
 
     ptype <- vetiver_model$ptype
     if (is_null(ptype)) {

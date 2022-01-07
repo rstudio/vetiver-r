@@ -4,9 +4,9 @@ v <- vetiver_model(cars_lm, "cars1")
 
 test_that("default endpoint", {
   p <- pr() %>% vetiver_pr_predict(v)
-  ep <- p$endpoints[[1]][[1]]
-  expect_equal(ep$verbs, c("POST"))
-  expect_equal(ep$path, "/predict")
+  expect_equal(names(p$routes), c("ping", "predict"))
+  expect_equal(map_chr(p$routes, "verbs"),
+               c(ping = "GET", predict = "POST"))
 })
 
 test_that("default endpoint via modular functions", {
@@ -19,12 +19,9 @@ test_that("default endpoint via modular functions", {
 test_that("pin URL endpoint", {
   v$metadata <- list(url = "potato")
   p <- pr() %>% vetiver_pr_predict(v)
-  ep_pin <- p$endpoints[[1]][[1]]
-  expect_equal(ep_pin$verbs, c("GET"))
-  expect_equal(ep_pin$path, "/pin-url")
-  ep_predict <- p$endpoints[[1]][[2]]
-  expect_equal(ep_predict$verbs, c("POST"))
-  expect_equal(ep_predict$path, "/predict")
+  expect_equal(names(p$routes), c("pin-url", "ping", "predict"))
+  expect_equal(map_chr(p$routes, "verbs"),
+               c(`pin-url` = "GET", ping = "GET", predict = "POST"))
 })
 
 test_that("default OpenAPI spec", {
@@ -57,9 +54,9 @@ test_that("OpenAPI spec is the same for modular functions", {
 test_that("OpenAPI spec for save_ptype = FALSE", {
   v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
   p <- pr() %>% vetiver_pr_predict(v1)
-  ep <- p$endpoints[[1]][[1]]
-  expect_equal(ep$verbs, c("POST"))
-  expect_equal(ep$path, "/predict")
+  expect_equal(names(p$routes), c("ping", "predict"))
+  expect_equal(map_chr(p$routes, "verbs"),
+               c(ping = "GET", predict = "POST"))
   car_spec <- p$getApiSpec()
   post_spec <- car_spec$paths$`/predict`$post
   expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
@@ -101,7 +98,8 @@ test_that("OpenAPI spec with additional endpoint", {
     vetiver_pr_docs(v)
 
   car_spec <- p$getApiSpec()
-  expect_equal(names(car_spec$paths), paste0("/", names(p$routes)))
+  expect_equal(sort(names(car_spec$paths)),
+               sort(paste0("/", names(p$routes))))
 
   post_spec <- car_spec$paths$`/predict`$post
   sum_spec <- car_spec$paths$`/sum`$post
@@ -130,3 +128,4 @@ test_that("debug listens to `is_interactive()`", {
     expect_equal(p$getDebug(), TRUE)
   })
 })
+
