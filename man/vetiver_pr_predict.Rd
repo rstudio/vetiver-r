@@ -55,9 +55,17 @@ You can first store and version your \code{\link[=vetiver_model]{vetiver_model()
 Setting \code{debug = TRUE} may expose any sensitive data from your model in
 API errors.
 
-The function \code{vetiver_pr_predict()} uses \code{vetiver_pr_post()} for endpoint definition and
-\code{vetiver_pr_docs()} to create visual API documentation; these modular
-functions are available for more advanced use cases.
+Two GET endpoints will also be added to the router \code{pr}, depending on the
+characteristics of the model object: a \verb{/pin-url} endpoint to return the
+URL of the pinned model and a \verb{/ping} endpoint for the API health.
+
+The function \code{vetiver_pr_predict()} uses:
+\itemize{
+\item \code{vetiver_pr_post()} for endpoint definition and
+\item \code{vetiver_pr_docs()} to create visual API documentation
+}
+
+These modular functions are available for more advanced use cases.
 }
 \examples{
 

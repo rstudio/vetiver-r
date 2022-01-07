@@ -20,9 +20,15 @@
 #' Setting `debug = TRUE` may expose any sensitive data from your model in
 #' API errors.
 #'
-#' The function `vetiver_pr_predict()` uses `vetiver_pr_post()` for endpoint definition and
-#' `vetiver_pr_docs()` to create visual API documentation; these modular
-#' functions are available for more advanced use cases.
+#' Two GET endpoints will also be added to the router `pr`, depending on the
+#' characteristics of the model object: a `/pin-url` endpoint to return the
+#' URL of the pinned model and a `/ping` endpoint for the API health.
+#'
+#' The function `vetiver_pr_predict()` uses:
+#' - `vetiver_pr_post()` for endpoint definition and
+#' - `vetiver_pr_docs()` to create visual API documentation
+#'
+#' These modular functions are available for more advanced use cases.
 #'
 #' @return A Plumber router with the prediction endpoint added.
 #'
@@ -69,14 +75,23 @@ vetiver_pr_post <- function(pr,
     rlang::list2(...)
     handler_startup(vetiver_model)
     pr <- plumber::pr_set_debug(pr, debug = debug)
+    pr <- plumber::pr_get(
+        pr,
+        path = "/ping",
+        function() {list(status = "online", time = Sys.time())}
+    )
     if (!is_null(vetiver_model$metadata$url)) {
-        pr <- plumber::pr_get(pr,
-                              path = "/pin-url",
-                              function() vetiver_model$metadata$url)
+        pr <- plumber::pr_get(
+            pr,
+            path = "/pin-url",
+            function() vetiver_model$metadata$url
+        )
     }
-    pr <- plumber::pr_post(pr,
-                           path = path,
-                           handler = handler_predict(vetiver_model, ...))
+    pr <- plumber::pr_post(
+        pr,
+        path = path,
+        handler = handler_predict(vetiver_model, ...)
+    )
 
 }
 
