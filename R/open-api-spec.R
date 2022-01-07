@@ -107,11 +107,13 @@ map_request_body.array <- function(ptype) {
 }
 
 
-#' Update the OpenAPI specification from model metadata
+#' Update the OpenAPI specification using model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
 #' @inheritParams vetiver_pr_predict
 #' @inheritParams map_request_body
+#' @param return_type Character string to describe what endpoint returns, such
+#' as "predictions"
 #'
 #' @return `api_spec()` returns the updated OpenAPI Specification object. This
 #' function uses `glue_spec_summary()` internally, which returns a `glue`
@@ -128,57 +130,69 @@ map_request_body.array <- function(ptype) {
 #' modify_spec <- function(spec) api_spec(spec, v, "/predict")
 #' pr() %>% pr_set_api_spec(api = modify_spec)
 #'
-api_spec <- function(spec, vetiver_model, path) {
+api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     spec$info$title <- glue("{vetiver_model$model_name} model API")
     spec$info$description <- vetiver_model$description
-
-    ptype <- vetiver_model$ptype
-    orig_post <- spec[["paths"]][[path]][["post"]]
-    if (is_null(ptype)) {
-        request_body <- map_request_body(tibble::tibble(NULL))
-        spec$paths[[path]]$post <- list(
-            summary = "Return predictions from model",
-            requestBody = request_body,
-            responses = orig_post$responses
-        )
-    } else {
-        request_body <- map_request_body(ptype)
-        spec$paths[[path]]$post <- list(
-            summary = glue_spec_summary(ptype),
-            requestBody = request_body,
-            responses = orig_post$responses
-        )
-    }
-
     if ("/pin-url" %in% names(spec$paths)) {
         spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver model"
     }
 
+    ptype <- vetiver_model$ptype
+    if (is_null(ptype)) {
+        request_body <- map_request_body(tibble::tibble(NULL))
+        summary <- "Return predictions from model"
+    } else {
+        request_body <- map_request_body(ptype)
+        summary <- glue_spec_summary(ptype)
+    }
+
+    if (all_docs) {
+        endpoints <- map_chr(spec$paths, names)
+        endpoints <- names(endpoints[endpoints == "post"])
+        endpoints <- setdiff(endpoints, path)
+
+        spec <- update_spec(spec, path, summary, request_body)
+
+        for (endpoint in endpoints) {
+            endpoint_summary <- glue_spec_summary(ptype, endpoint)
+            spec <- update_spec(spec, endpoint, endpoint_summary, request_body)
+        }
+    }
+    spec
+}
+
+update_spec <- function(spec, endpoint, summary, request_body) {
+    orig_post <- pluck(spec, "paths", endpoint, "post")
+    spec$paths[[endpoint]]$post <- list(
+        summary = summary,
+        requestBody = request_body,
+        responses = orig_post$responses
+    )
     spec
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary <- function(ptype) {
+glue_spec_summary <- function(ptype, return_type) {
     UseMethod("glue_spec_summary")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.default <- function(ptype) {
+glue_spec_summary.default <- function(ptype, return_type = NULL) {
     abort("There is no method available to create a spec summary for `ptype`.")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.data.frame <- function(ptype) {
-    cli::pluralize("Return predictions from model using {ncol(ptype)} feature{?s}")
+glue_spec_summary.data.frame <- function(ptype, return_type = "predictions") {
+    cli::pluralize("Return {return_type} from model using {ncol(ptype)} feature{?s}")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.array <- function(ptype) {
-    "Return predictions from model using multidimensional array"
+glue_spec_summary.array <- function(ptype, return_type = "predictions") {
+    "Return {return_type} from model using multidimensional array"
 }
 
 
