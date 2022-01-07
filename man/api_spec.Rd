@@ -8,7 +8,7 @@
 \alias{glue_spec_summary.array}
 \title{Update the OpenAPI specification from model metadata}
 \usage{
-api_spec(spec, vetiver_model, path)
+api_spec(spec, vetiver_model, path, all_docs = TRUE)
 
 glue_spec_summary(ptype, return_type)
 
@@ -24,6 +24,11 @@ glue_spec_summary(ptype, return_type)
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{path}{The endpoint path}
+
+\item{all_docs}{Should the interactive visual API documentation be created
+for \emph{all} POST endpoints in the router \code{pr}? This defaults to \code{TRUE}, and
+assumes that all POST endpoints use the \code{vetiver_model$ptype} input data
+prototype.}
 
 \item{ptype}{An input data prototype from a model}
 

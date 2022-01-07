@@ -22,7 +22,7 @@ vetiver_pr_post(
   ...
 )
 
-vetiver_pr_docs(pr, vetiver_model, path = "/predict")
+vetiver_pr_docs(pr, vetiver_model, path = "/predict", all_docs = TRUE)
 }
 \arguments{
 \item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
@@ -34,6 +34,11 @@ vetiver_pr_docs(pr, vetiver_model, path = "/predict")
 \item{debug}{\code{TRUE} provides more insight into your API errors.}
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
+
+\item{all_docs}{Should the interactive visual API documentation be created
+for \emph{all} POST endpoints in the router \code{pr}? This defaults to \code{TRUE}, and
+assumes that all POST endpoints use the \code{vetiver_model$ptype} input data
+prototype.}
 }
 \value{
 A Plumber router with the prediction endpoint added.

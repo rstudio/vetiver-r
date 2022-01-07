@@ -10,6 +10,10 @@
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param vetiver_model A deployable [vetiver_model()] object
 #' @param ... Other arguments passed to `predict()`, such as prediction `type`
+#' @param all_docs Should the interactive visual API documentation be created
+#' for _all_ POST endpoints in the router `pr`? This defaults to `TRUE`, and
+#' assumes that all POST endpoints use the `vetiver_model$ptype` input data
+#' prototype.
 #' @inheritParams plumber::pr_post
 #' @inheritParams plumber::pr_set_debug
 #'
@@ -78,9 +82,12 @@ vetiver_pr_post <- function(pr,
 
 #' @rdname vetiver_pr_predict
 #' @export
-vetiver_pr_docs <- function(pr, vetiver_model, path = "/predict") {
+vetiver_pr_docs <- function(pr,
+                            vetiver_model,
+                            path = "/predict",
+                            all_docs = TRUE) {
     loadNamespace("rapidoc")
-    modify_spec <- function(spec) api_spec(spec, vetiver_model, path)
+    modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
     pr <- plumber::pr_set_docs(
         pr, "rapidoc",

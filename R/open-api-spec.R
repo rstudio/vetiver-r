@@ -130,7 +130,7 @@ map_request_body.array <- function(ptype) {
 #' modify_spec <- function(spec) api_spec(spec, v, "/predict")
 #' pr() %>% pr_set_api_spec(api = modify_spec)
 #'
-api_spec <- function(spec, vetiver_model, path) {
+api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     spec$info$title <- glue("{vetiver_model$model_name} model API")
     spec$info$description <- vetiver_model$description
     if ("/pin-url" %in% names(spec$paths)) {
@@ -146,15 +146,17 @@ api_spec <- function(spec, vetiver_model, path) {
         summary <- glue_spec_summary(ptype)
     }
 
-    endpoints <- map_chr(spec$paths, names)
-    endpoints <- names(endpoints[endpoints == "post"])
-    endpoints <- setdiff(endpoints, path)
+    if (all_docs) {
+        endpoints <- map_chr(spec$paths, names)
+        endpoints <- names(endpoints[endpoints == "post"])
+        endpoints <- setdiff(endpoints, path)
 
-    spec <- update_spec(spec, path, summary, request_body)
+        spec <- update_spec(spec, path, summary, request_body)
 
-    for (endpoint in endpoints) {
-        endpoint_summary <- glue_spec_summary(ptype, endpoint)
-        spec <- update_spec(spec, endpoint, endpoint_summary, request_body)
+        for (endpoint in endpoints) {
+            endpoint_summary <- glue_spec_summary(ptype, endpoint)
+            spec <- update_spec(spec, endpoint, endpoint_summary, request_body)
+        }
     }
     spec
 }
