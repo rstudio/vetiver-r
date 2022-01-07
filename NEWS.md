@@ -12,6 +12,8 @@
 
 * Added R Markdown template for [Model Card](https://doi.org/10.1145/3287560.3287596) for responsible, transparent model reporting (#62, #63).
 
+* Modularized `vetiver_pr_predict()` to support more advanced use cases (#67).
+
 # vetiver 0.1.0
 
 * Initial CRAN release of package.
