@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.1.1
 
 * Added support for tidymodels (#51), caret (#52), and mlr3 (#56).
 
