@@ -45,19 +45,19 @@ A Plumber router with the prediction endpoint added.
 }
 \description{
 Use \code{vetiver_pr_predict()} to add a POST endpoint for predictions from a
-trained, pinned \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
+trained \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
 }
 \details{
-This function uses \code{vetiver_pr_post()} for endpoint definition and
-\code{vetiver_pr_docs} to create visual API documentation; these more modular
-functions are available for more advanced use cases.
-
-First store and version your \code{\link[=vetiver_model]{vetiver_model()}} with
+You can first store and version your \code{\link[=vetiver_model]{vetiver_model()}} with
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}, and then create an API endpoint with
 \code{vetiver_pr_predict()}.
 
 Setting \code{debug = TRUE} may expose any sensitive data from your model in
 API errors.
+
+The function \code{vetiver_pr_predict()} uses \code{vetiver_pr_post()} for endpoint definition and
+\code{vetiver_pr_docs()} to create visual API documentation; these modular
+functions are available for more advanced use cases.
 }
 \examples{
 

@@ -1,11 +1,7 @@
 #' Create a Plumber API to predict with a deployable `vetiver_model()` object
 #'
 #' Use `vetiver_pr_predict()` to add a POST endpoint for predictions from a
-#' trained, pinned [vetiver_model()] to a Plumber router.
-#'
-#' This function uses `vetiver_pr_post()` for endpoint definition and
-#' `vetiver_pr_docs()` to create visual API documentation; these more modular
-#' functions are available for more advanced use cases.
+#' trained [vetiver_model()] to a Plumber router.
 #'
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param vetiver_model A deployable [vetiver_model()] object
@@ -17,12 +13,16 @@
 #' @inheritParams plumber::pr_post
 #' @inheritParams plumber::pr_set_debug
 #'
-#' @details First store and version your [vetiver_model()] with
+#' @details You can first store and version your [vetiver_model()] with
 #' [vetiver_pin_write()], and then create an API endpoint with
 #' `vetiver_pr_predict()`.
 #'
 #' Setting `debug = TRUE` may expose any sensitive data from your model in
 #' API errors.
+#'
+#' The function `vetiver_pr_predict()` uses `vetiver_pr_post()` for endpoint definition and
+#' `vetiver_pr_docs()` to create visual API documentation; these modular
+#' functions are available for more advanced use cases.
 #'
 #' @return A Plumber router with the prediction endpoint added.
 #'

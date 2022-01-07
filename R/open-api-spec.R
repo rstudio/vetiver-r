@@ -107,7 +107,7 @@ map_request_body.array <- function(ptype) {
 }
 
 
-#' Update the OpenAPI specification from model metadata
+#' Update the OpenAPI specification using model metadata
 #'
 #' @param spec An OpenAPI Specification formatted list object
 #' @inheritParams vetiver_pr_predict

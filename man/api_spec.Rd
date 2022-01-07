@@ -6,7 +6,7 @@
 \alias{glue_spec_summary.default}
 \alias{glue_spec_summary.data.frame}
 \alias{glue_spec_summary.array}
-\title{Update the OpenAPI specification from model metadata}
+\title{Update the OpenAPI specification using model metadata}
 \usage{
 api_spec(spec, vetiver_model, path, all_docs = TRUE)
 
@@ -41,7 +41,7 @@ function uses \code{glue_spec_summary()} internally, which returns a \code{glue}
 character string.
 }
 \description{
-Update the OpenAPI specification from model metadata
+Update the OpenAPI specification using model metadata
 }
 \examples{
 library(plumber)
