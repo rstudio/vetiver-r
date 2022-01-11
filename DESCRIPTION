@@ -18,6 +18,7 @@ BugReports: https://github.com/tidymodels/vetiver/issues
 Imports:
     butcher,
     cli,
+    curl,
     generics,
     glue,
     hardhat,
@@ -28,6 +29,7 @@ Imports:
     purrr,
     rapidoc,
     readr (>= 1.4.0),
+    renv,
     rlang,
     tibble,
     vctrs,

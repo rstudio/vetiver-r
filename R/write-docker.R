@@ -1,15 +1,34 @@
 DEFAULT_RSPM_REPO_ID <-  "1" # cran
 DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 
-
-
+#' Write a Dockerfile for a vetiver model
+#'
+#' @inheritParams vetiver_pr_predict
+#' @param plumber_file A path for your Plumber file, created via
+#' [vetiver_write_plumber()]. Defaults to `plumber.R` in the working directory.
+#' @param path A path to write the Dockerfile and `renv.lock` lockfile,
+#' capturing the model's package dependencies. Defaults to the working directory.
+#'
+#' @return The content of the Dockerfile, invisibly.
+#' @export
+#'
+#' @examples
+#'
+#' library(pins)
+#' tmp_plumber <- tempfile()
+#' b <- board_temp(versioned = TRUE)
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear")
+#' vetiver_pin_write(b, v)
+#' vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
+#' vetiver_write_docker(v, tmp_plumber, tempdir())
+#'
 vetiver_write_docker <- function(vetiver_model,
                                  plumber_file = "plumber.R",
-                                 path = ".",
-                                 ...) {
+                                 path = ".") {
 
-    pkgs <- unique(c(infra_pkgs, v$metadata$required_pkgs))
-    lockfile <- write_renv_lockfile(path = path, pkgs = pkgs)
+    pkgs <- unique(c(infra_pkgs, vetiver_model$metadata$required_pkgs))
+    lockfile <- normalizePath(write_renv_lockfile(path = path, pkgs = pkgs))
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} /opt/ml/renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
