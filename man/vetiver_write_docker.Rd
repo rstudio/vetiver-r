@@ -19,7 +19,9 @@ capturing the model's package dependencies. Defaults to the working directory.}
 The content of the Dockerfile, invisibly.
 }
 \description{
-Write a Dockerfile for a vetiver model
+After creating a Plumber file with \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}, use
+\code{vetiver_write_docker()} to create a Dockerfile plus an \code{renv.lock} file
+for a pinned \code{\link[=vetiver_model]{vetiver_model()}}.
 }
 \examples{
 
