@@ -32,7 +32,10 @@ vetiver_write_docker <- function(vetiver_model,
                                  path = ".") {
 
     pkgs <- unique(c(infra_pkgs, vetiver_model$metadata$required_pkgs))
-    lockfile <- normalizePath(write_renv_lockfile(path = path, pkgs = pkgs))
+    lockfile <- normalizePath(
+        write_renv_lockfile(path = path, pkgs = pkgs),
+        winslash = "/"
+    )
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} /opt/ml/renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")

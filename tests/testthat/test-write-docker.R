@@ -1,7 +1,7 @@
 library(pins)
 
 b <- board_folder(path = "/tmp/test")
-tmp_dir <- normalizePath(withr::local_tempdir())
+tmp_dir <- normalizePath(withr::local_tempdir(), winslash = "/")
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 v <- vetiver_model(cars_lm, "cars1")
 
