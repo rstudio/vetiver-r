@@ -87,7 +87,7 @@ glue_sys_reqs <- function(pkgs) {
         rlang::abort(sys_reqs$error)
     }
     sys_reqs <- map(sys_reqs$requirements, pluck, "requirements", "packages")
-    sys_reqs <- unique(map_chr(sys_reqs, 1L))
+    sys_reqs <- sort(unique(map_chr(sys_reqs, 1L)))
     sys_reqs <- glue_collapse(sys_reqs, sep = " \\\n  ")
     glue(
         "RUN apt-get update -qq && ",

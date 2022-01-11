@@ -10,12 +10,12 @@
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
         git \
         libcurl4-openssl-dev \
-        zlib1g-dev \
-        libsodium-dev \
+        libgit2-dev \
         libicu-dev \
-        make \
+        libsodium-dev \
         libssl-dev \
-        libgit2-dev
+        make \
+        zlib1g-dev
       
       ARG RENV_REF=main
       RUN Rscript -e "remotes::install_github('rstudio/renv@${RENV_REF}')"
@@ -39,11 +39,11 @@
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
         git \
         libcurl4-openssl-dev \
-        libsodium-dev \
+        libgit2-dev \
         libicu-dev \
-        make \
+        libsodium-dev \
         libssl-dev \
-        libgit2-dev
+        make
       
       ARG RENV_REF=main
       RUN Rscript -e "remotes::install_github('rstudio/renv@${RENV_REF}')"
