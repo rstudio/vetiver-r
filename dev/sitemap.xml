@@ -82,6 +82,9 @@
     <loc>https://vetiver.tidymodels.org/dev/reference/vetiver_type_convert.html</loc>
   </url>
   <url>
+    <loc>https://vetiver.tidymodels.org/dev/reference/vetiver_write_docker.html</loc>
+  </url>
+  <url>
     <loc>https://vetiver.tidymodels.org/dev/reference/vetiver_write_plumber.html</loc>
   </url>
 </urlset>
