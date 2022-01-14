@@ -2,6 +2,8 @@
 % Please edit documentation in R/pr-predict.R
 \name{vetiver_pr_predict}
 \alias{vetiver_pr_predict}
+\alias{vetiver_pr_post}
+\alias{vetiver_pr_docs}
 \title{Create a Plumber API to predict with a deployable \code{vetiver_model()} object}
 \usage{
 vetiver_pr_predict(
@@ -11,6 +13,16 @@ vetiver_pr_predict(
   debug = is_interactive(),
   ...
 )
+
+vetiver_pr_post(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  debug = is_interactive(),
+  ...
+)
+
+vetiver_pr_docs(pr, vetiver_model, path = "/predict", all_docs = TRUE)
 }
 \arguments{
 \item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
@@ -22,21 +34,38 @@ vetiver_pr_predict(
 \item{debug}{\code{TRUE} provides more insight into your API errors.}
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
+
+\item{all_docs}{Should the interactive visual API documentation be created
+for \emph{all} POST endpoints in the router \code{pr}? This defaults to \code{TRUE}, and
+assumes that all POST endpoints use the \code{vetiver_model$ptype} input data
+prototype.}
 }
 \value{
 A Plumber router with the prediction endpoint added.
 }
 \description{
 Use \code{vetiver_pr_predict()} to add a POST endpoint for predictions from a
-trained, pinned \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
+trained \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
 }
 \details{
-First store and version your \code{\link[=vetiver_model]{vetiver_model()}} with
+You can first store and version your \code{\link[=vetiver_model]{vetiver_model()}} with
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}, and then create an API endpoint with
 \code{vetiver_pr_predict()}.
 
 Setting \code{debug = TRUE} may expose any sensitive data from your model in
 API errors.
+
+Two GET endpoints will also be added to the router \code{pr}, depending on the
+characteristics of the model object: a \verb{/pin-url} endpoint to return the
+URL of the pinned model and a \verb{/ping} endpoint for the API health.
+
+The function \code{vetiver_pr_predict()} uses:
+\itemize{
+\item \code{vetiver_pr_post()} for endpoint definition and
+\item \code{vetiver_pr_docs()} to create visual API documentation
+}
+
+These modular functions are available for more advanced use cases.
 }
 \examples{
 
@@ -45,6 +74,8 @@ v <- vetiver_model(cars_lm, "cars_linear")
 
 library(plumber)
 pr() \%>\% vetiver_pr_predict(v)
-## next, pipe to `pr_run()`
+## is the same as:
+pr() \%>\% vetiver_pr_post(v) \%>\% vetiver_pr_docs(v)
+## for either, next, pipe to `pr_run()`
 
 }

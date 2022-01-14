@@ -37,9 +37,9 @@ test_that("can pin an xgboost model", {
 
 test_that("default endpoint for xgboost", {
     p <- pr() %>% vetiver_pr_predict(v)
-    ep <- p$endpoints[[1]][[1]]
-    expect_equal(ep$verbs, c("POST"))
-    expect_equal(ep$path, "/predict")
+    expect_equal(names(p$routes), c("ping", "predict"))
+    expect_equal(map_chr(p$routes, "verbs"),
+                 c(ping = "GET", predict = "POST"))
 })
 
 test_that("default OpenAPI spec", {

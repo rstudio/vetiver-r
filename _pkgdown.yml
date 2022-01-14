@@ -7,6 +7,9 @@ template:
     primary: "#CA225E"
   package: tidytemplate
 
+development:
+  mode: auto
+
 reference:
 - title: Handling vetiver objects
   desc: >
