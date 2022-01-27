@@ -14,9 +14,9 @@
 #' description of the model will be generated.
 #' @param save_ptype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
-#' training data), `FALSE` (no input data prototype for checking), or a
-#' dataframe to be used for both checking at prediction time *and* examples in
-#' API visual documentation.
+#' training data), `FALSE` (no input data prototype for visual documentation or
+#' checking), or a dataframe to be used for both checking at prediction time
+#' *and* examples in API visual documentation.
 #' @param ptype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned when stored with

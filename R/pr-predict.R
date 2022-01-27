@@ -6,6 +6,9 @@
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param vetiver_model A deployable [vetiver_model()] object
 #' @param ... Other arguments passed to `predict()`, such as prediction `type`
+#' @param check_ptype Should the `ptype` stored in `vetiver_model` (used for
+#' visual API documentation) also be used to check new data at prediction time?
+#' Defaults to `TRUE`.
 #' @param all_docs Should the interactive visual API documentation be created
 #' for _all_ POST endpoints in the router `pr`? This defaults to `TRUE`, and
 #' assumes that all POST endpoints use the `vetiver_model$ptype` input data
@@ -70,7 +73,8 @@ vetiver_pr_post <- function(pr,
                             vetiver_model,
                             path = "/predict",
                             debug = is_interactive(),
-                            ...) {
+                            ...,
+                            check_ptype = TRUE) {
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
     handler_startup(vetiver_model)
@@ -86,6 +90,9 @@ vetiver_pr_post <- function(pr,
             path = "/pin-url",
             function() vetiver_model$metadata$url
         )
+    }
+    if (!check_ptype) {
+        vetiver_model$ptype <- NULL
     }
     pr <- plumber::pr_post(
         pr,
