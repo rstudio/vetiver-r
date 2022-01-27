@@ -51,6 +51,20 @@ test_that("OpenAPI spec is the same for modular functions", {
   expect_equal(spec1, spec2)
 })
 
+test_that("OpenAPI spec for check_ptype = FALSE", {
+  p <- pr() %>% vetiver_pr_post(v, check_ptype = FALSE) %>% vetiver_pr_docs(v)
+  expect_equal(names(p$routes), c("ping", "predict"))
+  expect_equal(map_chr(p$routes, "verbs"),
+               c(ping = "GET", predict = "POST"))
+  car_spec <- p$getApiSpec()
+  post_spec <- car_spec$paths$`/predict`$post
+  expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
+  expect_equal(as.character(post_spec$summary),
+               "Return predictions from model using 2 features")
+  expect_equal(names(post_spec$requestBody$content$`application/json`$schema$items),
+               c("type", "properties"))
+})
+
 test_that("OpenAPI spec for save_ptype = FALSE", {
   v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
   p <- pr() %>% vetiver_pr_predict(v1)
