@@ -37,9 +37,9 @@ to compute an input data prototype.}
 
 \item{save_ptype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
-training data), \code{FALSE} (no input data prototype for checking), or a
-dataframe to be used for both checking at prediction time \emph{and} examples in
-API visual documentation.}
+training data), \code{FALSE} (no input data prototype for visual documentation or
+checking), or a dataframe to be used for both checking at prediction time
+\emph{and} examples in API visual documentation.}
 }
 \value{
 A \code{vetiver_ptype} method returns a zero-row dataframe, and
