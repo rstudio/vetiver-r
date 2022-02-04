@@ -13,7 +13,7 @@
 #' @details These are two generics that use the class of `vetiver_model$model`
 #' for dispatch.
 #'
-#' @inheritParams vetiver_pr_predict
+#' @inheritParams vetiver_pr_post
 #'
 #' @examples
 #'

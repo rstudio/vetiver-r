@@ -7,7 +7,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' `vetiver_write_docker()` to create a Dockerfile plus an `renv.lock` file
 #' for a pinned [vetiver_model()].
 #'
-#' @inheritParams vetiver_pr_predict
+#' @inheritParams vetiver_pr_post
 #' @param plumber_file A path for your Plumber file, created via
 #' [vetiver_write_plumber()]. Defaults to `plumber.R` in the working directory.
 #' @param path A path to write the Dockerfile and `renv.lock` lockfile,
