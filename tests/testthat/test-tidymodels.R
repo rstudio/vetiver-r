@@ -42,7 +42,7 @@ test_that("can pin a tidymodels model", {
 })
 
 test_that("default endpoint for tidymodels", {
-    p <- pr() %>% vetiver_pr_predict(v)
+    p <- pr() %>% vetiver_pr_post(v)
     expect_equal(names(p$routes), c("ping", "predict"))
     expect_equal(map_chr(p$routes, "verbs"),
                  c(ping = "GET", predict = "POST"))
@@ -50,7 +50,7 @@ test_that("default endpoint for tidymodels", {
 
 test_that("default OpenAPI spec", {
     v$metadata <- list(url = "potatoes")
-    p <- pr() %>% vetiver_pr_predict(v)
+    p <- pr() %>% vetiver_pr_post(v)
     car_spec <- p$getApiSpec()
     expect_equal(car_spec$info$description,
                  "A ranger regression modeling workflow")

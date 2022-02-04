@@ -20,7 +20,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(v)
+          pr %>% vetiver_pr_post(v)
       }
 
 # create plumber.R with args in dots
@@ -64,6 +64,6 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(v)
+          pr %>% vetiver_pr_post(v)
       }
 

@@ -1,0 +1,8 @@
+# default endpoint with deprecated function
+
+    Code
+      p2 <- pr() %>% vetiver_pr_predict(v)
+    Warning <lifecycle_warning_deprecated>
+      `vetiver_pr_predict()` was deprecated in vetiver 0.1.2.
+      Please use `vetiver_pr_post()` instead.
+
