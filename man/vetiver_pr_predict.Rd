@@ -13,19 +13,19 @@ vetiver_pr_predict(
 )
 }
 \arguments{
-\item{pr}{A Plumber API. Note: The supplied Plumber API object will also be updated in place as well as returned by the function.}
+\item{pr}{A Plumber router, such as from \code{\link[plumber:pr]{plumber::pr()}}.}
+
+\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{path}{The endpoint path}
 
-\item{...}{Additional arguments for \code{PlumberEndpoint}}
+\item{debug}{\code{TRUE} provides more insight into your API errors.}
+
+\item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 This function was deprecated to use \link{vetiver_pr_post} directly instead.
-}
-\details{
-Use \code{vetiver_pr_predict()} to add a POST endpoint for predictions from a
-trained \code{\link[=vetiver_model]{vetiver_model()}} to a Plumber router.
 }
 \keyword{internal}

@@ -110,15 +110,12 @@ vetiver_pr_docs <- function(pr,
 
 #' Create a Plumber API to predict with a deployable `vetiver_model()` object
 #'
-#' Use `vetiver_pr_predict()` to add a POST endpoint for predictions from a
-#' trained [vetiver_model()] to a Plumber router.
-#'
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
 #' This function was deprecated to use [vetiver_pr_post] directly instead.
 #'
-#' @inheritParams plumber::pr_post
+#' @inheritParams vetiver_pr_post
 #' @export
 #' @keywords internal
 vetiver_pr_predict <- function(pr,
