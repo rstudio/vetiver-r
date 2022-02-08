@@ -32,7 +32,7 @@ test_that("can pin a tidymodels model", {
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "cars_wf")
     expect_equal(
-        pin_read(b, "cars_wf"),
+        pinned,
         list(
             model = butcher::butcher(mtcars_wf),
             ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
