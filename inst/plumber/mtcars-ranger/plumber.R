@@ -14,5 +14,5 @@ v <- vetiver_pin_read(b, "cars_ranger")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_pr_predict(v)
+    pr %>% vetiver_pr_predict(v, debug = TRUE, type = "quantiles")
 }

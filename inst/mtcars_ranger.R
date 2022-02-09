@@ -12,4 +12,10 @@ pr() %>%
     vetiver_pr_predict(v, debug = TRUE, type = "quantiles")
 ## next pipe to pr_run(port = 8088) to see visual documentation
 
-vetiver_write_plumber(model_board, "cars_ranger", file = "inst/plumber/mtcars-ranger/plumber.R")
+vetiver_write_plumber(
+    model_board,
+    "cars_ranger",
+    debug = TRUE,
+    type = "quantiles",
+    file = "inst/plumber/mtcars-ranger/plumber.R"
+)
