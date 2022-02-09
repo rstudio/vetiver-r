@@ -70,7 +70,7 @@ at each API call.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Model handler functions for API endpoint</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/handlers.R" class="external-link"><code>R/handlers.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, and 3 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/glm.R" class="external-link"><code>R/glm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/handlers.R" class="external-link"><code>R/handlers.R</code></a>, and 4 more</small>
       <div class="d-none name"><code>handler_startup.Rd</code></div>
     </div>
 
@@ -91,6 +91,9 @@ at each API call.</p></li>
 <span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
 
 <span class="co"># S3 method for train</span>
+<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
+
+<span class="co"># S3 method for glm</span>
 <span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
@@ -163,8 +166,8 @@ for dispatch.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     list(.pred = ret)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x558d71643e28&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x558d71646bb8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5560c2f41300&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5560c2f40260&gt;</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
