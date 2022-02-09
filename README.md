@@ -30,6 +30,8 @@ You can use vetiver with:
 -   [mlr3](https://mlr3.mlr-org.com/)
 -   [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
 -   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
+    and
+    [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
 
 ## Installation
 
