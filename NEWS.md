@@ -2,6 +2,8 @@
 
 * Generate Dockerfiles to deploy model (#71).
 
+* Added support for glm (#75).
+
 # vetiver 0.1.1
 
 * Added support for tidymodels (#51), caret (#52), and mlr3 (#56).
