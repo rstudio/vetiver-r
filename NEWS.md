@@ -2,7 +2,7 @@
 
 * Generate Dockerfiles to deploy model (#71).
 
-* Added support for glm (#75) and ranger.
+* Added support for glm (#75) and ranger (#76).
 
 # vetiver 0.1.1
 
