@@ -32,6 +32,10 @@
 #' ## can also turn off `ptype`
 #' vetiver_create_ptype(cars_lm, FALSE)
 #'
+#' ## some models require that you pass in training features
+#' cars_rf <- ranger::ranger(mpg ~ ., data = mtcars)
+#' vetiver_ptype(cars_rf, ptype_data = mtcars[,-1])
+#'
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype <- function(model, ...) {
@@ -59,5 +63,11 @@ vetiver_create_ptype <- function(model, save_ptype, ...) {
     ptype
 }
 
-
+check_ptype_data <- function(dots) {
+    if (!rlang::has_name(dots, "ptype_data")) {
+        abort(c("No `ptype_data` available to create an input data prototype",
+                "Pass at least one row of training features as `ptype_data`",
+                "See the documentation for `vetiver_ptype()`"))
+    }
+}
 

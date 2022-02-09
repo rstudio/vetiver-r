@@ -24,7 +24,8 @@ new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
 \item{model_name}{Model name or ID.}
 
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_ptype]{vetiver_ptype()}}
-to compute an input data prototype.}
+to compute an input data prototype, such as \code{ptype_data} (a sample of
+training features).}
 
 \item{description}{A detailed description of the model. If omitted, a brief
 description of the model will be generated.}

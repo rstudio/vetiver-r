@@ -23,7 +23,8 @@
 #' [vetiver_pin_write()]? The default, `NULL`, will use the default for the
 #' `board` where you store the model.
 #' @param ... Other method-specific arguments passed to [vetiver_ptype()]
-#' to compute an input data prototype.
+#' to compute an input data prototype, such as `ptype_data` (a sample of
+#' training features).
 #' @inheritParams pins::pin_write
 #'
 #' @details
