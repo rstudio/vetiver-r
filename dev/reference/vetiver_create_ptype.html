@@ -50,7 +50,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Create a vetiver input data prototype</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/glm.R" class="external-link"><code>R/glm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, and 4 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/glm.R" class="external-link"><code>R/glm.R</code></a>, <a href="https://github.com/tidymodels/vetiver/blob/HEAD/R/lm.R" class="external-link"><code>R/lm.R</code></a>, and 5 more</small>
       <div class="d-none name"><code>vetiver_create_ptype.Rd</code></div>
     </div>
 
@@ -79,6 +79,9 @@
 
 <span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_ptype</span>, <span class="va">...</span><span class="op">)</span>
 
+<span class="co"># S3 method for ranger</span>
+<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
+
 <span class="co"># S3 method for workflow</span>
 <span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
 
@@ -93,7 +96,8 @@
 <code><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflows::workflow()</a></code>.</p></dd>
 <dt>...</dt>
 <dd><p>Other method-specific arguments passed to <code>vetiver_ptype()</code>
-to compute an input data prototype.</p></dd>
+to compute an input data prototype, such as <code>ptype_data</code> (a sample of
+training features).</p></dd>
 <dt>save_ptype</dt>
 <dd><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
@@ -136,6 +140,13 @@ has the same structure as your training data, perhaps with
 <span class="r-in"><span class="co">## can also turn off `ptype`</span></span>
 <span class="r-in"><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## some models require that you pass in training features</span></span>
+<span class="r-in"><span class="va">cars_rf</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, ptype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;, drat &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wt &lt;dbl&gt;, qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;, carb &lt;dbl&gt;</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

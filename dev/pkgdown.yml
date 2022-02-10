@@ -4,7 +4,7 @@ pkgdown_sha: ae7363faac9040a473a54fb3d770decdfb8dfec1
 articles:
   model-card: model-card.html
   vetiver: vetiver.html
-last_built: 2022-02-09T16:06Z
+last_built: 2022-02-10T15:53Z
 urls:
   reference: https://vetiver.tidymodels.org/reference
   article: https://vetiver.tidymodels.org/articles
