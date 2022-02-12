@@ -92,7 +92,7 @@ ways](https://www.rplumber.io/articles/hosting.html).
 ``` r
 library(plumber)
 pr() %>%
-  vetiver_pr_predict(v) %>%
+  vetiver_api(v) %>%
   pr_run(port = 8088)
 ```
 

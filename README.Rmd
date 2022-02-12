@@ -85,7 +85,7 @@ You can **deploy** your pinned `vetiver_model()` via a [Plumber API](https://www
 ```{r, eval=FALSE}
 library(plumber)
 pr() %>%
-  vetiver_pr_predict(v) %>%
+  vetiver_api(v) %>%
   pr_run(port = 8088)
 ```
 

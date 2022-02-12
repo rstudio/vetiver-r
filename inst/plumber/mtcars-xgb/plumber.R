@@ -10,9 +10,9 @@ if (FALSE) {
     library(xgboost)
 }
 b <- board_folder(path = "/tmp/test")
-v <- vetiver_pin_read(b, "cars_xgb", version = "20211029T193715Z-11cd9")
+v <- vetiver_pin_read(b, "cars_xgb", version = "20220211T213735Z-cc767")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_pr_predict(v)
+    pr %>% vetiver_api(v)
 }

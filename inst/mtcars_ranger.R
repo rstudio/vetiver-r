@@ -8,8 +8,7 @@ v <- vetiver_model(cars_rf, "cars_ranger", ptype_data = mtcars[,-1])
 model_board <- board_folder(path = "/tmp/test")
 vetiver_pin_write(model_board, v)
 
-pr() %>%
-    vetiver_pr_predict(v, debug = TRUE, type = "quantiles")
+pr() %>% vetiver_api(v, debug = TRUE, type = "quantiles")
 ## next pipe to pr_run(port = 8088) to see visual documentation
 
 vetiver_write_plumber(
