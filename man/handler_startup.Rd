@@ -67,7 +67,7 @@ tibble or as a list coercable to a tibble via \code{\link[tibble:as_tibble]{tibb
 \description{
 These are developer-facing functions, useful for supporting new model types.
 Each model supported by \code{vetiver_model()} uses two handler functions
-in \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}:
+in \code{\link[=vetiver_api]{vetiver_api()}}:
 \itemize{
 \item The \code{handler_startup} function executes when the API starts. Use this
 function for tasks like loading packages. A model can use the default
