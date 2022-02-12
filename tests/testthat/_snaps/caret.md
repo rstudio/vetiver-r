@@ -31,6 +31,6 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_pr_predict(v)
+          pr %>% vetiver_api(v)
       }
 
