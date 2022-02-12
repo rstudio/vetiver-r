@@ -5,8 +5,8 @@
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams pins::pin_read
-#' @param ... Other arguments passed to [vetiver_pr_predict()] such as
-#' the endpoint `path` or prediction `type`.
+#' @param ... Other arguments passed to [vetiver_api()] such as the endpoint
+#' `path` or prediction `type`.
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
 #' working directory. See [plumber::plumb()] for naming precedence rules.
 #'
@@ -56,9 +56,9 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     board <- glue('b <- {board}')
 
     if (rlang::is_empty(plumber_dots)) {
-        pr_predict <- "pr %>% vetiver_pr_predict(v)"
+        pr_predict <- "pr %>% vetiver_api(v)"
     } else {
-        pr_predict <- expr(pr %>% vetiver_pr_predict(v, !!!plumber_dots))
+        pr_predict <- expr(pr %>% vetiver_api(v, !!!plumber_dots))
         pr_predict <- expr_deparse(pr_predict)
     }
 

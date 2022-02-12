@@ -4,7 +4,7 @@
 #' along with an input prototype for new data and other model metadata. Use
 #' `vetiver_pin_read()` to retrieve that pinned object.
 #'
-#' @inheritParams vetiver_pr_predict
+#' @inheritParams vetiver_api
 #' @inheritParams pins::pin_read
 #'
 #' @details These functions read and write a [vetiver_model()] pin on the
