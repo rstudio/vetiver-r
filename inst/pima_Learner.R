@@ -11,7 +11,7 @@ v <- vetiver_model(learner, "pima_rpart")
 v
 
 pr() %>%
-  vetiver_pr_predict(v) %>%
+  vetiver_api(v) %>%
   pr_run(port = 8088)
 
 library(mlr3)

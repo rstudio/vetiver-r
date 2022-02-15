@@ -22,8 +22,8 @@ vetiver_deploy_rsconnect(
 \item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
 find out which versions are available and when they were created.}
 
-\item{predict_args}{A list of optional arguments passed to
-\code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}} such as the endpoint \code{path} or prediction \code{type}.}
+\item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
+such as the endpoint \code{path} or prediction \code{type}.}
 
 \item{appTitle}{The API title on RStudio Connect. Use the default based on
 \code{name}, or pass in your own title.}

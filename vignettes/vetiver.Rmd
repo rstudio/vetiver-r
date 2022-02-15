@@ -93,7 +93,7 @@ You can deploy your model by creating a [Plumber](https://www.rplumber.io/) rout
 ```{r}
 library(plumber)
 pr() %>%
-  vetiver_pr_predict(v)
+  vetiver_api(v)
 ```
 
 To start a server using this object, pipe (`%>%`) to `pr_run(port = 8088)` or your port of choice. This allows you to interact with your vetiver API locally and debug it. Plumber APIs such as these can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html). You can use the function `vetiver_write_plumber()` to create a ready-to-go `plumber.R` file that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).

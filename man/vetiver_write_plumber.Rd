@@ -15,8 +15,8 @@ vetiver_write_plumber(board, name, version = NULL, ..., file = "plumber.R")
 \item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
 find out which versions are available and when they were created.}
 
-\item{...}{Other arguments passed to \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}} such as
-the endpoint \code{path} or prediction \code{type}.}
+\item{...}{Other arguments passed to \code{\link[=vetiver_api]{vetiver_api()}} such as the endpoint
+\code{path} or prediction \code{type}.}
 
 \item{file}{A path to write the Plumber file. Defaults to \code{plumber.R} in the
 working directory. See \code{\link[plumber:plumb]{plumber::plumb()}} for naming precedence rules.}

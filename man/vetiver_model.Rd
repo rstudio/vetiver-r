@@ -56,12 +56,12 @@ and deploy a trained model. Once your \code{vetiver_model()} object has been
 created, you can:
 \itemize{
 \item store and version it as a pin with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}
-\item create an API endpoint for it with \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}
+\item create an API endpoint for it with \code{\link[=vetiver_api]{vetiver_api()}}
 }
 }
 \details{
 You can provide your own data to \code{save_ptype} to use as examples in the
-visual documentation created by \code{\link[=vetiver_pr_predict]{vetiver_pr_predict()}}. If you do this,
+visual documentation created by \code{\link[=vetiver_api]{vetiver_api()}}. If you do this,
 consider checking that your input data prototype has the same structure
 as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}) and/or simulating
 data to avoid leaking PII via your deployed model.

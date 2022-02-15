@@ -4,7 +4,7 @@
 #' and deploy a trained model. Once your `vetiver_model()` object has been
 #' created, you can:
 #' - store and version it as a pin with [vetiver_pin_write()]
-#' - create an API endpoint for it with [vetiver_pr_predict()]
+#' - create an API endpoint for it with [vetiver_api()]
 #'
 #'
 #' @param model A trained model, such as an `lm()` model or a tidymodels
@@ -29,7 +29,7 @@
 #'
 #' @details
 #' You can provide your own data to `save_ptype` to use as examples in the
-#' visual documentation created by [vetiver_pr_predict()]. If you do this,
+#' visual documentation created by [vetiver_api()]. If you do this,
 #' consider checking that your input data prototype has the same structure
 #' as your training data (perhaps with [hardhat::scream()]) and/or simulating
 #' data to avoid leaking PII via your deployed model.

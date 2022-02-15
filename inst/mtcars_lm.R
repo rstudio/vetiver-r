@@ -8,7 +8,7 @@ vetiver_pin_write(model_board, v)
 
 library(plumber)
 pr() %>%
-    vetiver_pr_predict(v, debug = TRUE)
+    vetiver_api(v, debug = TRUE)
 ## next pipe to pr_run(port = 8088) to see visual documentation
 
 vetiver_write_plumber(model_board, "cars_linear", file = "inst/plumber/mtcars-lm/plumber.R")

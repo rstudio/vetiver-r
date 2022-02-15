@@ -22,10 +22,10 @@ if (FALSE) {
     library(workflows)
     library(yardstick)
 }
-b <- board_rsconnect(server = "https://colorado.rstudio.com/rsc")
-v <- vetiver_pin_read(b, "julia.silge/chicago_ridership", version = "50777")
+b <- board_rsconnect("envvar", server = "https://colorado.rstudio.com/rsc")
+v <- vetiver_pin_read(b, "julia.silge/chicago_ridership", version = "53335")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_pr_predict(v, debug = TRUE)
+    pr %>% vetiver_api(v, debug = TRUE)
 }

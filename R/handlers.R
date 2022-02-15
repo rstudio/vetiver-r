@@ -2,7 +2,7 @@
 #'
 #' These are developer-facing functions, useful for supporting new model types.
 #' Each model supported by `vetiver_model()` uses two handler functions
-#' in [vetiver_pr_predict()]:
+#' in [vetiver_api()]:
 #' - The `handler_startup` function executes when the API starts. Use this
 #' function for tasks like loading packages. A model can use the default
 #' method here, which is `NULL` (to do nothing at startup).
@@ -13,7 +13,7 @@
 #' @details These are two generics that use the class of `vetiver_model$model`
 #' for dispatch.
 #'
-#' @inheritParams vetiver_pr_predict
+#' @inheritParams vetiver_api
 #'
 #' @examples
 #'

@@ -23,9 +23,9 @@ if (FALSE) {
     library(yardstick)
 }
 b <- board_folder(path = "/tmp/test")
-v <- vetiver_pin_read(b, "biv_svm", version = "20211110T222140Z-cc717")
+v <- vetiver_pin_read(b, "biv_svm", version = "20220211T213615Z-182ed")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_pr_predict(v)
+    pr %>% vetiver_api(v)
 }

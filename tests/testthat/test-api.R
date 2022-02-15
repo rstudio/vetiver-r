@@ -3,14 +3,18 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 v <- vetiver_model(cars_lm, "cars1")
 
 test_that("default endpoint", {
-  p <- pr() %>% vetiver_pr_predict(v)
+  p <- pr() %>% vetiver_api(v)
   expect_equal(names(p$routes), c("ping", "predict"))
   expect_equal(map_chr(p$routes, "verbs"),
                c(ping = "GET", predict = "POST"))
 })
 
+test_that("old function is deprecated", {
+  expect_snapshot(p <- pr() %>% vetiver_pr_predict(v))
+})
+
 test_that("default endpoint via modular functions", {
-  p1 <- pr() %>% vetiver_pr_predict(v)
+  p1 <- pr() %>% vetiver_api(v)
   p2 <- pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
   expect_equal(p1$endpoints, p2$endpoints)
   expect_equal(p1$routes, p2$routes)
@@ -18,7 +22,7 @@ test_that("default endpoint via modular functions", {
 
 test_that("pin URL endpoint", {
   v$metadata <- list(url = "potato")
-  p <- pr() %>% vetiver_pr_predict(v)
+  p <- pr() %>% vetiver_api(v)
   expect_equal(names(p$routes), c("pin-url", "ping", "predict"))
   expect_equal(map_chr(p$routes, "verbs"),
                c(`pin-url` = "GET", ping = "GET", predict = "POST"))
@@ -26,7 +30,7 @@ test_that("pin URL endpoint", {
 
 test_that("default OpenAPI spec", {
   v$metadata <- list(url = "potatoes")
-  p <- pr() %>% vetiver_pr_predict(v)
+  p <- pr() %>% vetiver_api(v)
   car_spec <- p$getApiSpec()
   post_spec <- car_spec$paths$`/predict`$post
   expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
@@ -44,7 +48,7 @@ test_that("default OpenAPI spec", {
 
 test_that("OpenAPI spec is the same for modular functions", {
   v$metadata <- list(url = "potatoes")
-  p1 <- pr() %>% vetiver_pr_predict(v)
+  p1 <- pr() %>% vetiver_api(v)
   p2 <- pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
   spec1 <- p1$getApiSpec()
   spec2 <- p2$getApiSpec()
@@ -67,7 +71,7 @@ test_that("OpenAPI spec for check_ptype = FALSE", {
 
 test_that("OpenAPI spec for save_ptype = FALSE", {
   v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
-  p <- pr() %>% vetiver_pr_predict(v1)
+  p <- pr() %>% vetiver_api(v1)
   expect_equal(names(p$routes), c("ping", "predict"))
   expect_equal(map_chr(p$routes, "verbs"),
                c(ping = "GET", predict = "POST"))
@@ -84,7 +88,7 @@ test_that("OpenAPI spec for save_ptype = FALSE", {
 test_that("OpenAPI spec with custom ptype", {
   car_ptype <- mtcars[15:16, 2:3]
   v <- vetiver_model(cars_lm, "cars1", b, save_ptype = car_ptype)
-  p <- pr() %>% vetiver_pr_predict(v)
+  p <- pr() %>% vetiver_api(v)
   car_spec <- p$getApiSpec()
   post_spec <- car_spec$paths$`/predict`$post
   expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
@@ -134,11 +138,11 @@ test_that("OpenAPI spec with additional endpoint", {
 
 test_that("debug listens to `is_interactive()`", {
   rlang::with_interactive(value = FALSE, {
-    p <- pr() %>% vetiver_pr_predict(v)
+    p <- pr() %>% vetiver_api(v)
     expect_equal(p$getDebug(), FALSE)
   })
   rlang::with_interactive(value = TRUE, {
-    p <- pr() %>% vetiver_pr_predict(v)
+    p <- pr() %>% vetiver_api(v)
     expect_equal(p$getDebug(), TRUE)
   })
 })
