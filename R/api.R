@@ -142,6 +142,7 @@ vetiver_pr_predict <- function(pr,
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
     vetiver_api(
+        pr = pr,
         vetiver_model = vetiver_model,
         path = path,
         debug = debug,
