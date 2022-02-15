@@ -9,6 +9,10 @@ test_that("default endpoint", {
                c(ping = "GET", predict = "POST"))
 })
 
+test_that("old function is deprecated", {
+  expect_snapshot(pr() %>% vetiver_pr_predict(v))
+})
+
 test_that("default endpoint via modular functions", {
   p1 <- pr() %>% vetiver_api(v)
   p2 <- pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
