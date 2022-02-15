@@ -80,8 +80,8 @@ vetiver_pin_write()."><meta name="robots" content="noindex"><!-- mathjax --><scr
 <dd><p>Retrieve a specific version of a pin. Use <code><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions()</a></code> to
 find out which versions are available and when they were created.</p></dd>
 <dt>...</dt>
-<dd><p>Other arguments passed to <code><a href="vetiver_pr_predict.html">vetiver_pr_predict()</a></code> such as
-the endpoint <code>path</code> or prediction <code>type</code>.</p></dd>
+<dd><p>Other arguments passed to <code><a href="vetiver_api.html">vetiver_api()</a></code> such as the endpoint
+<code>path</code> or prediction <code>type</code>.</p></dd>
 <dt>file</dt>
 <dd><p>A path to write the Plumber file. Defaults to <code>plumber.R</code> in the
 working directory. See <code><a href="https://www.rplumber.io/reference/plumb.html" class="external-link">plumber::plumb()</a></code> for naming precedence rules.</p></dd>
@@ -106,7 +106,7 @@ version. You can override this default behavior by choosing a specific
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220210T155343Z-4f67f'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220215T221741Z-4f67f'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
