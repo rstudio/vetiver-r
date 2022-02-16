@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 2nd CRAN release of vetiver. This release adds support for several important model types (tidymodels, caret, mlr3), as well as other features such as an R Markdown template for model reporting.
+This is the 3rd CRAN release of vetiver. This release adds support for several important model types (glm, ranger), as well as the ability to generate Dockerfiles for deployment.
 
 ## Test environments
 
