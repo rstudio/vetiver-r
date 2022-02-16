@@ -10,7 +10,7 @@ redact_docker <- function(dockerfile) {
     dockerfile <- gsub(getRversion(), "<r_version>", dockerfile)
 }
 
-test_that("create plumber.R with packages", {
+test_that("create Dockerfile with packages", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("beepr", "caret")
     vetiver_pin_write(b, v)
@@ -22,7 +22,7 @@ test_that("create plumber.R with packages", {
     )
 })
 
-test_that("create plumber.R with no packages", {
+test_that("create Dockerfile with no packages", {
     skip_on_cran()
     vetiver_pin_write(b, v)
     vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))

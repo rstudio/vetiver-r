@@ -16,7 +16,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' @return The content of the Dockerfile, invisibly.
 #' @export
 #'
-#' @examples
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
 #' library(pins)
 #' tmp_plumber <- tempfile()
