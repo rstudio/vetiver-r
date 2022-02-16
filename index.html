@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,10 @@
 <li><a href="https://topepo.github.io/caret/" class="external-link">caret</a></li>
 <li><a href="https://mlr3.mlr-org.com/" class="external-link">mlr3</a></li>
 <li><a href="https://xgboost.readthedocs.io/en/latest/R-package/" class="external-link">XGBoost</a></li>
-<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html" class="external-link"><code>lm()</code></a></li>
+<li><a href="https://cran.r-project.org/package=ranger" class="external-link">ranger</a></li>
+<li>
+<a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html" class="external-link"><code>lm()</code></a> and <a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html" class="external-link"><code>glm()</code></a>
+</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -138,7 +141,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span>
 <span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/vetiver_pr_predict.html">vetiver_pr_predict</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></code></pre></div>
 <p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://solutions.rstudio.com/r/jobs/" class="external-link">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -256,7 +259,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
   </div></footer>

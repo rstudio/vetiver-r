@@ -58,6 +58,9 @@
     <loc>https://vetiver.tidymodels.org/reference/vetiver-package.html</loc>
   </url>
   <url>
+    <loc>https://vetiver.tidymodels.org/reference/vetiver_api.html</loc>
+  </url>
+  <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_create_description.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_type_convert.html</loc>
+  </url>
+  <url>
+    <loc>https://vetiver.tidymodels.org/reference/vetiver_write_docker.html</loc>
   </url>
   <url>
     <loc>https://vetiver.tidymodels.org/reference/vetiver_write_plumber.html</loc>

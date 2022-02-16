@@ -16,7 +16,7 @@ packages is loaded."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,11 +102,13 @@ of naming conflicts between packages.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## fail</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">load_pkgs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bloopy"</span>, <span class="st">"readr"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Namespace(s) could not be loaded:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * bloopy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in namespace_handling(pkgs, loadNamespace, "Namespace(s) could not be loaded:") : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Namespace(s) could not be loaded:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> bloopy</span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">attach_pkgs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bloopy"</span>, <span class="st">"readr"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Package(s) could not be attached:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * bloopy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in namespace_handling(pkgs, attachNamespace, "Package(s) could not be attached:") : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Package(s) could not be attached:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> bloopy</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -121,7 +123,7 @@ of naming conflicts between packages.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
   </div></footer></body></html>
