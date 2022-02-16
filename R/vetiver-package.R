@@ -20,3 +20,8 @@ NULL
 generics::augment
 
 globalVariables(c("pr"))
+
+## to avoid NOTE about "All declared Imports should be used."
+rapidoc_function_for_note <- function() {
+    rapidoc::rapidoc_spec()
+}

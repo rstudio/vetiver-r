@@ -4,7 +4,7 @@
 
 * Added support for glm (#75) and ranger (#76).
 
-* Deprecated `vetiver_pr_predict()` in favor of using `vetiver_api()`.
+* Deprecated `vetiver_pr_predict()` in favor of using `vetiver_api()` (#77).
 
 # vetiver 0.1.1
 
