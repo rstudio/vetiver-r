@@ -1,4 +1,4 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 #
 # NOTE: This workflow is overkill for most R packages and
@@ -25,7 +25,8 @@ jobs:
           - {os: macOS-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'oldrel-1'}
+          # Use 3.6 to trigger usage of RTools35
+          - {os: windows-latest, r: '3.6'}
 
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
@@ -57,3 +58,4 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"note"'
+          upload-snapshots: true

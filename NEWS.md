@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Update all tests to use redaction for snapshots.
+
 # vetiver 0.1.2
 
 * Generate Dockerfiles to deploy model (#71).
