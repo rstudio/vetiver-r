@@ -15,7 +15,7 @@
           library(beepr)
           library(janeaustenr)
       }
-      b <- board_folder(path = "/tmp/test")
+      b <- board_folder(path = "<redacted>")
       v <- vetiver_pin_read(b, "cars1")
       
       #* @plumber
@@ -40,7 +40,7 @@
           library(beepr)
           library(janeaustenr)
       }
-      b <- board_folder(path = "/tmp/test")
+      b <- board_folder(path = "<redacted>")
       v <- vetiver_pin_read(b, "cars1")
       
       #* @plumber
@@ -59,7 +59,7 @@
       library(plumber)
       library(rapidoc)
       library(vetiver)
-      b <- board_folder(path = "/tmp/test")
+      b <- board_folder(path = "<redacted>")
       v <- vetiver_pin_read(b, "cars1")
       
       #* @plumber

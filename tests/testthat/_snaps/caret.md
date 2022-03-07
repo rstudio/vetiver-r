@@ -26,7 +26,7 @@
           library(e1071)
           library(ranger)
       }
-      b <- board_folder(path = "/tmp/test")
+      b <- board_folder(path = "<redacted>")
       v <- vetiver_pin_read(b, "cars_rf")
       
       #* @plumber

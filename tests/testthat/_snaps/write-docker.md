@@ -1,4 +1,4 @@
-# create plumber.R with packages
+# create Dockerfile with packages
 
     Code
       cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n")
@@ -27,7 +27,7 @@
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(rev(commandArgs())[1]); pr$run(host = '0.0.0.0', port = 8000)"]
       CMD ["/opt/ml/plumber.R"]
 
-# create plumber.R with no packages
+# create Dockerfile with no packages
 
     Code
       cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n")

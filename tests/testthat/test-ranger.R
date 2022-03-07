@@ -61,10 +61,13 @@ test_that("default OpenAPI spec", {
 
 test_that("create plumber.R for ranger", {
     skip_on_cran()
-    b <- board_folder(path = "/tmp/test")
+    b <- board_folder(path = tmp_dir)
     vetiver_pin_write(b, v)
     tmp <- tempfile()
     vetiver_write_plumber(b, "cars3", file = tmp)
-    expect_snapshot(cat(readr::read_lines(tmp), sep = "\n"))
+    expect_snapshot(
+        cat(readr::read_lines(tmp), sep = "\n"),
+        transform = redact_vetiver
+    )
 })
 
