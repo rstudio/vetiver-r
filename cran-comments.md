@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 3rd CRAN release of vetiver. This release adds support for several important model types (glm, ranger), as well as the ability to generate Dockerfiles for deployment.
+This is the 4th CRAN release of vetiver. This release removes some code that wrote to the temp directory in the tests and uses ranger conditionally in tests/examples, as instructed by CRAN.
 
 ## R CMD check results
 

@@ -31,7 +31,7 @@
 #'
 #' ## can also turn off `ptype`
 #' vetiver_create_ptype(cars_lm, FALSE)
-#'
+#' @examplesIf rlang::is_installed("ranger")
 #' ## some models require that you pass in training features
 #' cars_rf <- ranger::ranger(mpg ~ ., data = mtcars)
 #' vetiver_ptype(cars_rf, ptype_data = mtcars[,-1])

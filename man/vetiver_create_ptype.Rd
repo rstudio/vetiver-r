@@ -80,9 +80,9 @@ vetiver_ptype(cars_lm)
 
 ## can also turn off `ptype`
 vetiver_create_ptype(cars_lm, FALSE)
-
+\dontshow{if (rlang::is_installed("ranger")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## some models require that you pass in training features
 cars_rf <- ranger::ranger(mpg ~ ., data = mtcars)
 vetiver_ptype(cars_rf, ptype_data = mtcars[,-1])
-
+\dontshow{\}) # examplesIf}
 }

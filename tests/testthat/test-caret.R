@@ -1,6 +1,7 @@
 library(pins)
 library(plumber)
 skip_if_not_installed("caret")
+skip_if_not_installed("ranger")
 library(caret)
 
 predictors <- mtcars[, c("cyl", "disp", "hp")]
