@@ -66,7 +66,12 @@ for a pinned <code><a href="vetiver_model.html">vetiver_model()</a></code>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_write_docker</span><span class="op">(</span><span class="va">vetiver_model</span>, plumber_file <span class="op">=</span> <span class="st">"plumber.R"</span>, path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_write_docker</span><span class="op">(</span>
+  <span class="va">vetiver_model</span>,
+  plumber_file <span class="op">=</span> <span class="st">"plumber.R"</span>,
+  path <span class="op">=</span> <span class="st">"."</span>,
+  rspm <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,6 +84,10 @@ for a pinned <code><a href="vetiver_model.html">vetiver_model()</a></code>.</p>
 <dt>path</dt>
 <dd><p>A path to write the Dockerfile and <code>renv.lock</code> lockfile,
 capturing the model's package dependencies. Defaults to the working directory.</p></dd>
+<dt>rspm</dt>
+<dd><p>A logical to use the
+<a href="https://packagemanager.rstudio.com/" class="external-link">RStudio Public Package Manager</a> for
+<code><a href="https://rstudio.github.io/renv/reference/restore.html" class="external-link">renv::restore()</a></code> in the Docker image. Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -94,11 +103,11 @@ capturing the model's package dependencies. Defaults to the working directory.</
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220310T005247Z-4f67f'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220311T004020Z-4f67f'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span class="fu"><a href="vetiver_write_plumber.html">vetiver_write_plumber</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp_plumber</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_write_docker</span><span class="op">(</span><span class="va">v</span>, <span class="va">tmp_plumber</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to '/tmp/Rtmp9jZ0FP/renv.lock'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to '/tmp/RtmpB6BDHE/renv.lock'.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
