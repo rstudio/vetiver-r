@@ -4,7 +4,12 @@
 \alias{vetiver_write_docker}
 \title{Write a Dockerfile for a vetiver model}
 \usage{
-vetiver_write_docker(vetiver_model, plumber_file = "plumber.R", path = ".")
+vetiver_write_docker(
+  vetiver_model,
+  plumber_file = "plumber.R",
+  path = ".",
+  rspm = TRUE
+)
 }
 \arguments{
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
@@ -14,6 +19,10 @@ vetiver_write_docker(vetiver_model, plumber_file = "plumber.R", path = ".")
 
 \item{path}{A path to write the Dockerfile and \code{renv.lock} lockfile,
 capturing the model's package dependencies. Defaults to the working directory.}
+
+\item{rspm}{A logical to use the
+\href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
+\code{\link[renv:restore]{renv::restore()}} in the Docker image. Defaults to \code{TRUE}.}
 }
 \value{
 The content of the Dockerfile, invisibly.

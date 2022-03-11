@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Improve how Dockerfiles are generated.
+
 # vetiver 0.1.3
 
 * Update all tests to use redaction for snapshots.
