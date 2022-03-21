@@ -5,11 +5,11 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/tidymodels/vetiver/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/vetiver/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/tidymodels/vetiver-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/vetiver-r/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vetiver)](https://CRAN.R-project.org/package=vetiver)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver?branch=main)
+coverage](https://codecov.io/gh/tidymodels-r/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver-r?branch=main)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
@@ -47,7 +47,7 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("tidymodels/vetiver")
+devtools::install_github("tidymodels/vetiver-r")
 ```
 
 ## Example
@@ -157,7 +157,7 @@ By contributing to this project, you agree to abide by its terms.
     Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
 -   If you think you have encountered a bug, please [submit an
-    issue](https://github.com/tidymodels/vetiver/issues).
+    issue](https://github.com/tidymodels/vetiver-r/issues).
 
 -   Either way, learn how to create and share a
     [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
