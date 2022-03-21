@@ -68,7 +68,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/tidymodels/vetiver/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/tidymodels/vetiver-r/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -109,14 +109,14 @@
 <p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidymodels/vetiver"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidymodels/vetiver-r"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>A <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parsnip.tidymodels.org" class="external-link">parsnip</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Sacramento</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
 
@@ -124,7 +124,7 @@
 <span class="va">rf_form</span> <span class="op">&lt;-</span> <span class="va">price</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">sqft</span> <span class="op">+</span> <span class="va">beds</span> <span class="op">+</span> <span class="va">baths</span>
 
 <span class="va">rf_fit</span> <span class="op">&lt;-</span> 
-    <span class="fu"><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Sacramento</span><span class="op">)</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.tidymodels.org/">vetiver</a></span><span class="op">)</span>
@@ -190,7 +190,7 @@
 <p>This project is released with a <a href="https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <ul>
 <li><p>For questions and discussions about modeling packages, modeling, and machine learning, please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=tidymodels,question" class="external-link">post on RStudio Community</a>.</p></li>
-<li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/vetiver/issues" class="external-link">submit an issue</a>.</p></li>
+<li><p>If you think you have encountered a bug, please <a href="https://github.com/tidymodels/vetiver-r/issues" class="external-link">submit an issue</a>.</p></li>
 <li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html" class="external-link">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
 </ul>
 </div>
@@ -199,8 +199,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=vetiver" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/tidymodels/vetiver/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/tidymodels/vetiver/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/tidymodels/vetiver-r/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tidymodels/vetiver-r/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -240,9 +240,9 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/tidymodels/vetiver/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidymodels/vetiver/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/tidymodels/vetiver-r/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidymodels/vetiver-r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=vetiver" class="external-link"><img src="https://www.r-pkg.org/badges/version/vetiver" alt="CRAN status"></a></li>
-<li><a href="https://app.codecov.io/gh/tidymodels/vetiver?branch=main" class="external-link"><img src="https://codecov.io/gh/tidymodels/vetiver/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://app.codecov.io/gh/tidymodels/vetiver-r?branch=main" class="external-link"><img src="https://codecov.io/gh/tidymodels-r/vetiver/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>

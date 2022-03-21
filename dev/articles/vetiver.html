@@ -60,7 +60,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/tidymodels/vetiver/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/tidymodels/vetiver-r/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -80,7 +80,7 @@
       <img src="" class="logo" alt=""><h1>Version, share, and deploy a model with vetiver</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver/blob/HEAD/vignettes/vetiver.Rmd" class="external-link"><code>vignettes/vetiver.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/vetiver-r/blob/HEAD/vignettes/vetiver.Rmd" class="external-link"><code>vignettes/vetiver.Rmd</code></a></small>
       <div class="d-none name"><code>vetiver.Rmd</code></div>
     </div>
 
@@ -98,7 +98,7 @@
 </h2>
 <p>The vetiver package is extensible, with generics that can support many kinds of models. For this example, let’s consider one kind of model supported by vetiver, a <a href="https://www.tidymodels.org/" class="external-link">tidymodels</a> workflow that encompasses both feature engineering and model estimation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parsnip.tidymodels.org" class="external-link">parsnip</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
@@ -142,7 +142,7 @@
   <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html" class="external-link">set_engine</a></span><span class="op">(</span><span class="st">"LiblineaR"</span><span class="op">)</span>
 
 <span class="va">svm_fit</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">sample_frac</a></span><span class="op">(</span><span class="va">bivariate_train</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>This <code>svm_fit</code> object is a fitted workflow, with both feature engineering and model parameters estimated using the training data <code>bivariate_train</code>. We can create a <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> from this trained model; a <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> collects the information needed to store, version, and deploy a trained model.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -165,7 +165,7 @@
 <p>Let’s train our model again with a new version of the dataset and write it once more to our board.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">svm_fit</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="https://workflows.tidymodels.org//reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">sample_frac</a></span><span class="op">(</span><span class="va">bivariate_train</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">svm_fit</span>, <span class="st">"biv_svm"</span><span class="op">)</span>
@@ -177,8 +177,8 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span>
 <span class="co">#&gt;   version                created             hash </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220316T222757Z-a1389 2022-03-16 <span style="color: #949494;">22:27:00</span> a1389</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220316T222758Z-a9bc9 2022-03-16 <span style="color: #949494;">22:27:00</span> a9bc9</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220321T190525Z-4acd4 2022-03-21 <span style="color: #949494;">19:05:00</span> 4acd4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220321T190525Z-dae2b 2022-03-21 <span style="color: #949494;">19:05:00</span> dae2b</span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your collaborators.</p>
 </div>
 <div class="section level2">
@@ -211,12 +211,12 @@
 <span class="co"># Packages needed to generate model predictions</span>
 <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">LiblineaR</span><span class="op">)</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://parsnip.tidymodels.org" class="external-link">parsnip</a></span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span>
 <span class="op">}</span>
-<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/Rtmplwb4WX/pins-34a125f8c4d3"</span><span class="op">)</span>
-<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220316T222757Z-a1389"</span><span class="op">)</span>
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpyOIAR0/pins-34f11b561be7"</span><span class="op">)</span>
+<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220321T190525Z-4acd4"</span><span class="op">)</span>
 
 <span class="co">#* @plumber</span>
 <span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span>
