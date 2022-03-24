@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^vetiver\.Rproj$
+^vetiver-r\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
