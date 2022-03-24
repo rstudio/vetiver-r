@@ -1,46 +1,66 @@
-Package: modelops
-Title: Version, Pin, Deploy, and Monitor Models with 'pins' and 'plumber'
-Version: 0.0.0.9000
-Authors@R: 
-    c(person(given = "Julia",
-             family = "Silge",
-             role = c("cre", "aut"),
-             email = "julia.silge@rstudio.com",
-             comment = c(ORCID = "0000-0002-3671-836X")),
-      person(given = "RStudio",
-             role = "cph"))
-Description: A trained model can be shared and versioned via 'pins',
-    deployed as an API via 'plumber', and monitored via a dashboard
-    created with 'rmarkdown'. Functions handle recording and checking the
-    model's input data prototype, predicting from a remote API endpoint,
-    and monitoring model performance.
+Package: vetiver
+Title: Version, Share, Deploy, and Monitor Models
+Version: 0.1.3.9000
+Authors@R: c(
+    person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-3671-836X")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
+Description: The goal of 'vetiver' is to provide fluent tooling to
+    version, share, deploy, and monitor a trained model. Functions handle
+    both recording and checking the model's input data prototype, and
+    predicting from a remote API endpoint. The 'vetiver' package is
+    extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
-URL: https://github.com/rstudio/modelops, https://rstudio.github.io/modelops/
-BugReports: https://github.com/rstudio/modelops/issues
-Imports: 
+URL: https://vetiver.tidymodels.org/,
+    https://github.com/tidymodels/vetiver-r
+BugReports: https://github.com/tidymodels/vetiver-r/issues
+Depends: 
+    R (>= 3.4)
+Imports:
     butcher,
     ellipsis,
     flexdashboard,
+    cli,
+    curl,
+    fs,
+    generics,
     glue,
     hardhat,
     httr,
     jsonlite,
-    pins (>= 0.99.9000),
-    plumber,
+    lifecycle,
+    pins (>= 1.0.0),
+    plumber (>= 1.0.0),
     purrr,
+    rapidoc,
+    readr (>= 1.4.0),
+    renv,
     rlang,
     tibble,
-    vctrs
-Suggests: 
+    vctrs,
+    withr
+Suggests:
+    caret,
+    covr,
     knitr,
+    LiblineaR,
+    mlr3,
+    mlr3learners,
+    modeldata,
+    parsnip,
+    ranger,
+    recipes,
     rmarkdown,
-    testthat (>= 3.0.0)
+    rpart,
+    rsconnect,
+    testthat (>= 3.0.0),
+    workflows,
+    xgboost
 VignetteBuilder: 
     knitr
-Remotes: 
-    rstudio/pins
+Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
-LazyData: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2.9000

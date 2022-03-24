@@ -1,4 +1,6 @@
-^modelops\.Rproj$
+^renv$
+^renv\.lock$
+^vetiver\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
@@ -6,3 +8,12 @@
 ^\.github$
 ^vignettes/articles$
 ^CODE_OF_CONDUCT\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^codecov\.yml$
+^CRAN-RELEASE$
+^rsconnect$
+^inst/plumber/chicago-rpart/rsconnect$
+^inst/plumber/netflix-descriptions/rsconnect$
+^CRAN-SUBMISSION$

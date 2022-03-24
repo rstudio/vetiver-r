@@ -1,94 +1,152 @@
-#' Add a POST endpoint to a Plumber router using a pinned model workflow object
+#' Create a Plumber API to predict with a deployable `vetiver_model()` object
 #'
-#' Models that have been pinned to a board with [`pin_model`] can be added to a
-#' Plumber router as a POST handler. The argument `type` specifies what kind of
-#' predictions the handler will return.
+#' Use `vetiver_api()` to add a POST endpoint for predictions from a
+#' trained [vetiver_model()] to a Plumber router.
 #'
 #' @param pr A Plumber router, such as from [plumber::pr()].
-#' @param board A board containing models pinned via [pin_model].
-#' @param type A single character or `NULL` describing the type of prediction.
-#' The specific pinned model must support the `type` requested. Some examples
-#' of `type` for [workflows::workflow()] include "class", "prob", and "numeric".
-#' When `NULL`, a default prediction type will be chosen based on the model
-#' characteristics.
-#' @param ... Other arguments passed to [plumber::pr_post()].
-#' @inheritParams pin_model
+#' @param vetiver_model A deployable [vetiver_model()] object
+#' @param ... Other arguments passed to `predict()`, such as prediction `type`
+#' @param check_ptype Should the `ptype` stored in `vetiver_model` (used for
+#' visual API documentation) also be used to check new data at prediction time?
+#' Defaults to `TRUE`.
+#' @param all_docs Should the interactive visual API documentation be created
+#' for _all_ POST endpoints in the router `pr`? This defaults to `TRUE`, and
+#' assumes that all POST endpoints use the `vetiver_model$ptype` input data
+#' prototype.
 #' @inheritParams plumber::pr_post
+#' @inheritParams plumber::pr_set_debug
+#'
+#' @details You can first store and version your [vetiver_model()] with
+#' [vetiver_pin_write()], and then create an API endpoint with `vetiver_api()`.
+#'
+#' Setting `debug = TRUE` may expose any sensitive data from your model in
+#' API errors.
+#'
+#' Two GET endpoints will also be added to the router `pr`, depending on the
+#' characteristics of the model object: a `/pin-url` endpoint to return the
+#' URL of the pinned model and a `/ping` endpoint for the API health.
+#'
+#' The function `vetiver_api()` uses:
+#' - `vetiver_pr_post()` for endpoint definition and
+#' - `vetiver_pr_docs()` to create visual API documentation
+#'
+#' These modular functions are available for more advanced use cases.
+#'
+#' @return A Plumber router with the prediction endpoint added.
 #'
 #' @examples
-#' library(pins)
-#' model_board <- board_temp()
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#'
-#' model_board %>% pin_model(cars_lm, "cars")
+#' v <- vetiver_model(cars_lm, "cars_linear")
 #'
 #' library(plumber)
-#' pr() %>% pr_model(model_board, "cars")
-#' ## next, pipe to `pr_run()`
+#' pr() %>% vetiver_api(v)
+#' ## is the same as:
+#' pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
+#' ## for either, next, pipe to `pr_run()`
 #'
-#' @importFrom glue glue
 #' @export
-pr_model <- function(pr,
-                     board,
-                     model_id,
-                     type = NULL,
-                     path = "/predict",
-                     ...) {
-
-    board_pins <- pins::pin_list(board)
-    if (!model_id %in% board_pins) {
-        rlang::abort(glue("Model {model_id} not found"))
-    }
-
-    pinned <- pins::pin_read(board, model_id)
-
-    handle_model(
-        x = pinned$model,
-        other_pinned = purrr::list_modify(pinned, model = rlang::zap()),
+vetiver_api <- function(pr,
+                        vetiver_model,
+                        path = "/predict",
+                        debug = is_interactive(),
+                        ...) {
+    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
+    rlang::list2(...)
+    pr <- vetiver_pr_post(
         pr = pr,
-        type = type,
+        vetiver_model = vetiver_model,
         path = path,
+        debug = debug,
         ...
     )
+
+    pr <- vetiver_pr_docs(pr = pr, vetiver_model = vetiver_model, path = path)
+
+    pr
 }
 
-#' Wrapper function for creating model handler function
-#'
-#' @param x A trained model
-#' @param ... Other arguments passed from [pr_model()]
-#'
+#' @rdname vetiver_api
 #' @export
-handle_model <- function(x, ...)
-    UseMethod("handle_model")
-
-#' @rdname handle_model
-#' @export
-handle_model.default <- function(x, ...)
-    rlang::abort("There is no method available to build a model handler for `x`.")
-
-
-#' @rdname handle_model
-#' @export
-handle_model.lm <- function(x, ...) {
-    ellipsis::check_dots_used()
-    args <- list(...)
-    ## make rest of args to pass to pr_post
-    ptype <- args$other_pinned$ptype
-
-    predict_handler <- function(req) {
-        newdata <- req$body
-        if (!rlang::is_null(ptype)) {
-            newdata <- hardhat::scream(newdata, ptype)
-        }
-        ret <- predict(x, newdata = newdata, type = args$type)
-        list(.pred = ret)
+vetiver_pr_post <- function(pr,
+                            vetiver_model,
+                            path = "/predict",
+                            debug = is_interactive(),
+                            ...,
+                            check_ptype = TRUE) {
+    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
+    rlang::list2(...)
+    handler_startup(vetiver_model)
+    pr <- plumber::pr_set_debug(pr, debug = debug)
+    pr <- plumber::pr_get(
+        pr,
+        path = "/ping",
+        function() {list(status = "online", time = Sys.time())}
+    )
+    if (!is_null(vetiver_model$metadata$url)) {
+        pr <- plumber::pr_get(
+            pr,
+            path = "/pin-url",
+            function() vetiver_model$metadata$url
+        )
     }
-
-    plumber::pr_post(pr = args$pr, path = args$path, handler = predict_handler)
+    if (!check_ptype) {
+        vetiver_model$ptype <- NULL
+    }
+    pr <- plumber::pr_post(
+        pr,
+        path = path,
+        handler = handler_predict(vetiver_model, ...)
+    )
 
 }
 
+#' @rdname vetiver_api
+#' @export
+vetiver_pr_docs <- function(pr,
+                            vetiver_model,
+                            path = "/predict",
+                            all_docs = TRUE) {
+    loadNamespace("rapidoc")
+    modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
+    pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
+    pr <- plumber::pr_set_docs(
+        pr, "rapidoc",
+        heading_text = paste("vetiver", utils::packageVersion("vetiver"))
+    )
+    pr
+}
 
+#' Create a Plumber API to predict with a deployable `vetiver_model()` object
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function was deprecated to use [vetiver_api] directly instead.
+#'
+#' @inheritParams vetiver_api
+#' @export
+#' @keywords internal
+vetiver_pr_predict <- function(pr,
+                               vetiver_model,
+                               path = "/predict",
+                               debug = is_interactive(),
+                               ...) {
 
+    lifecycle::deprecate_warn(
+        "0.1.2",
+        "vetiver_pr_predict()",
+        "vetiver_api()"
+    )
 
+    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
+    rlang::list2(...)
+    vetiver_api(
+        pr = pr,
+        vetiver_model = vetiver_model,
+        path = path,
+        debug = debug,
+        ...,
+        docs = TRUE
+    )
+}

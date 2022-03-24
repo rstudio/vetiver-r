@@ -1,12 +1,7 @@
-## Test environments
+## Release Summary
 
-* GitHub Actions (ubuntu-16.04): devel, release, oldrel, 3.5, 3.4, 3.3
-* GitHub Actions (windows): release, oldrel
-* GitHub Actions (macOS): release
-* win-builder: devel
+This is the 4th CRAN release of vetiver. This release removes some code that wrote to the temp directory in the tests and uses ranger conditionally in tests/examples, as instructed by CRAN.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 notes

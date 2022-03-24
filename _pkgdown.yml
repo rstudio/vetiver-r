@@ -1,0 +1,44 @@
+url: https://vetiver.tidymodels.org
+
+template:
+  bootstrap: 5
+  bslib:
+    danger: "#CA225E"
+    primary: "#CA225E"
+  package: tidytemplate
+  includes:
+    in_header: |
+      <script defer data-domain="vetiver.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
+
+
+development:
+  mode: auto
+
+reference:
+- title: Handling vetiver objects
+  desc: >
+    A `vetiver_model()` collects the information needed to store, version, and
+    deploy a trained model.
+  contents:
+  - vetiver_model
+  - vetiver_pin_write
+  - vetiver_api
+  - vetiver_write_plumber
+  - vetiver_write_docker
+  - vetiver_deploy_rsconnect
+  - vetiver_endpoint
+  - predict.vetiver_endpoint
+
+- title: Developer functions
+  desc: >
+    These functions are helpful for developers extending vetiver for other
+    types of models.
+  contents:
+  - api_spec
+  - attach_pkgs
+  - handler_startup
+  - map_request_body
+  - vetiver_create_description
+  - vetiver_create_meta
+  - vetiver_create_ptype
+  - vetiver_type_convert

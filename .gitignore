@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+*dcf
+docs
+inst/doc
+*html
