@@ -19,8 +19,6 @@ Depends:
     R (>= 3.4)
 Imports:
     butcher,
-    ellipsis,
-    flexdashboard,
     cli,
     curl,
     fs,
@@ -43,6 +41,7 @@ Imports:
 Suggests:
     caret,
     covr,
+    flexdashboard,
     knitr,
     LiblineaR,
     mlr3,
