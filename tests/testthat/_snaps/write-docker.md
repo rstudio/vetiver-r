@@ -20,7 +20,7 @@
       
       COPY <redacted>/renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
-      RUN R -e "renv::restore()"
+      RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
       EXPOSE 8000
@@ -47,7 +47,7 @@
       
       COPY <redacted>/renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
-      RUN R -e "renv::restore()"
+      RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
       EXPOSE 8000
@@ -74,7 +74,7 @@
       
       COPY <redacted>/renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
-      RUN R -e "renv::restore()"
+      RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
       EXPOSE 8000
