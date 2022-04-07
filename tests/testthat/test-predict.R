@@ -6,7 +6,6 @@ root_path <- "http://localhost"
 port <- 8000
 
 local_plumber_session <- function(pr, port, docs = FALSE) {
-    withr::defer(rs$close())
     rs <- callr::r_session$new()
     rs$call(
         function(pr, port, docs) {
