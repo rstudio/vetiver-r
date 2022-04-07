@@ -1,5 +1,3 @@
-library(pins)
-library(plumber)
 skip_if_not_installed("xgboost")
 
 set.seed(123)

@@ -1,10 +1,15 @@
-
 test_that("all numeric", {
     expect_equal(
         vetiver_type_convert(mtcars, vctrs::vec_slice(mtcars, 0)),
-        mtcars
+        tibble::tibble(mtcars)
     )
 })
+
+test_that("missing variables", {
+    expect_snapshot_error(
+        vetiver_type_convert(mtcars[,2:3], vctrs::vec_slice(mtcars, 0)),
+    )
+}) ## extra variables are caught by hardhat::scream()
 
 test_that("a factor", {
     chicks <- chickwts
@@ -12,7 +17,7 @@ test_that("a factor", {
 
     expect_equal(
         vetiver_type_convert(chicks, vctrs::vec_slice(chickwts, 0)),
-        chickwts
+        tibble::tibble(chickwts)
     )
 })
 
@@ -23,13 +28,12 @@ test_that("a factor plus a bad character", {
 
     expect_equal(
         vetiver_type_convert(teeth, vctrs::vec_slice(ToothGrowth, 0)),
-        ToothGrowth
+        tibble::tibble(ToothGrowth)
     )
 
-    expect_error(
+    expect_snapshot_error(
         vetiver_type_convert(tibble::tibble(len = 4.2, supp = "ZZ", dose = 0.1),
-                             vctrs::vec_slice(ToothGrowth, 0)),
-        "expected value in level set"
+                             vctrs::vec_slice(ToothGrowth, 0))
     )
 })
 
@@ -58,10 +62,7 @@ test_that("a date", {
         )
     )
 
-    expect_error(
+    expect_snapshot_error(
         vetiver_type_convert(bad_data, vctrs::vec_slice(many_dates, 0)),
-        "expected date like , but got 'potato'"
     )
 })
-
-

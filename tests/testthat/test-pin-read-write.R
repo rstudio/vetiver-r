@@ -1,7 +1,3 @@
-library(pins)
-
-cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-
 test_that("can pin a model", {
     b <- board_temp()
     v <- vetiver_model(cars_lm, "cars1")
