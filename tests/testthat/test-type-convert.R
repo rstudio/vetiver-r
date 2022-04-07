@@ -1,4 +1,3 @@
-
 test_that("all numeric", {
     expect_equal(
         vetiver_type_convert(mtcars, vctrs::vec_slice(mtcars, 0)),
@@ -63,5 +62,3 @@ test_that("a date", {
         "expected date like , but got 'potato'"
     )
 })
-
-

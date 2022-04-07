@@ -1,7 +1,3 @@
-library(plumber)
-cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-v <- vetiver_model(cars_lm, "cars1")
-
 test_that("default endpoint", {
   p <- pr() %>% vetiver_api(v)
   expect_equal(names(p$routes), c("ping", "predict"))

@@ -1,8 +1,4 @@
-library(pins)
-
 b <- board_folder(path = tmp_dir)
-cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-v <- vetiver_model(cars_lm, "cars1")
 
 test_that("create Dockerfile with packages", {
     skip_on_cran()

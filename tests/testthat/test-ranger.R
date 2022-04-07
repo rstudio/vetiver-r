@@ -1,5 +1,3 @@
-library(pins)
-library(plumber)
 skip_if_not_installed("ranger")
 
 set.seed(123)
