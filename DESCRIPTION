@@ -39,6 +39,7 @@ Imports:
     vctrs,
     withr
 Suggests:
+    callr,
     caret,
     covr,
     knitr,
