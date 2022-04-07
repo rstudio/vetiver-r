@@ -48,6 +48,7 @@ Suggests:
     mlr3learners,
     modeldata,
     parsnip,
+    pingr,
     ranger,
     recipes,
     rmarkdown,
