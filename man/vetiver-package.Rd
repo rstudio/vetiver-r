@@ -12,8 +12,8 @@ The goal of 'vetiver' is to provide fluent tooling to version, share, deploy, an
 Useful links:
 \itemize{
   \item \url{https://vetiver.tidymodels.org/}
-  \item \url{https://github.com/tidymodels/vetiver}
-  \item Report bugs at \url{https://github.com/tidymodels/vetiver/issues}
+  \item \url{https://github.com/tidymodels/vetiver-r}
+  \item Report bugs at \url{https://github.com/tidymodels/vetiver-r/issues}
 }
 
 }
