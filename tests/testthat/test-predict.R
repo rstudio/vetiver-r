@@ -3,9 +3,10 @@ cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars1")
 pr <- pr() %>% vetiver_api(v)
 root_path <- "http://localhost"
-port <- 8028
+port <- 8000
 
-local_plumber <- function(pr, port, docs = FALSE) {
+local_plumber_session <- function(pr, port, docs = FALSE) {
+    withr::defer(rs$close())
     rs <- callr::r_session$new()
     rs$call(
         function(pr, port, docs) {
@@ -14,16 +15,17 @@ local_plumber <- function(pr, port, docs = FALSE) {
         args = list(pr = pr, port = port, docs = docs)
     )
     withr::defer(rs$close())
+    rs
 }
 
 test_that("router has health check endpoint", {
-    local_plumber(pr, port)
+    rs <- local_plumber_session(pr, port)
     r <- httr::GET(root_path, port = port, path = "ping")
     expect_equal(r$status_code, 200)
 })
 
 test_that("can predict on basic vetiver router", {
-    local_plumber(pr, port)
+    rs <- local_plumber_session(pr, port)
     endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
     preds <- predict(endpoint, mtcars[10:17, -1])
     expect_s3_class(preds, "tbl_df")
