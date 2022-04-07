@@ -1,6 +1,6 @@
 skip_on_cran()
 
-pr <- pr() %>% vetiver_api(v)
+pr <- pr() %>% vetiver_api(v, debug = TRUE)
 rs <- local_plumber_session(pr, port)
 
 ## on GH actions, it can take A WHILE for the API to come up on some architectures:

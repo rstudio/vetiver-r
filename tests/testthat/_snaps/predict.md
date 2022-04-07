@@ -3,7 +3,7 @@
     Code
       predict(endpoint, mtcars[, 2:4])
     Error <rlang_error>
-      Failed to predict: Error in `hardhat::scream()` at vetiver-r/R/lm.R:31:12:
+      Failed to predict: Error in `hardhat::scream()`:
       ! Can't convert from `data` <tbl_df<
         cyl : integer
         disp: double
