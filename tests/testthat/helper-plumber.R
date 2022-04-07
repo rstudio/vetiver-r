@@ -4,7 +4,7 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 v <- vetiver_model(cars_lm, "cars1")
 
 root_path <- "http://localhost"
-port <- 6556
+port <- httpuv::randomPort()
 
 local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) {
     rs <- callr::r_session$new()

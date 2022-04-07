@@ -42,6 +42,7 @@ Suggests:
     callr,
     caret,
     covr,
+    httpuv,
     knitr,
     LiblineaR,
     mlr3,
