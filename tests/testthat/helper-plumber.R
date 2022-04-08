@@ -17,3 +17,8 @@ local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) 
     withr::defer(rs$close(), envir = env)
     rs
 }
+
+redact_port <- function(snapshot) {
+    snapshot <- gsub(port, "<port>", snapshot, fixed = TRUE)
+}
+

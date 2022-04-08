@@ -1,3 +1,12 @@
+# can predict on basic vetiver router
+
+    Code
+      print(endpoint)
+    Output
+      
+      -- A model API endpoint for prediction: 
+      http://localhost:<port>/predict
+
 # get correct errors
 
     Code

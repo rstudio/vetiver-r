@@ -17,6 +17,7 @@ test_that("router has health check endpoint", {
 test_that("can predict on basic vetiver router", {
     endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
     expect_s3_class(endpoint, "vetiver_endpoint")
+    expect_snapshot(print(endpoint), transform = redact_port)
 
     preds <- predict(endpoint, mtcars[10:17, 2:3])
     expect_s3_class(preds, "tbl_df")
@@ -28,3 +29,4 @@ test_that("get correct errors", {
     expect_snapshot(predict(endpoint, mtcars[, 2:4]), error = TRUE)
     expect_snapshot(predict(endpoint, mtcars[, 3:5]), error = TRUE)
 })
+
