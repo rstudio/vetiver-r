@@ -1,5 +1,3 @@
-library(pins)
-library(plumber)
 skip_if_not_installed("mlr3")
 
 test_that("mlr3 learner description can be printed", {

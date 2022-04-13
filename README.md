@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# vetiver 🏺
+# vetiver <a href='https://vetiver.tidymodels.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -9,7 +9,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vetiver)](https://CRAN.R-project.org/package=vetiver)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels-r/vetiver/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver-r?branch=main)
+coverage](https://codecov.io/gh/tidymodels/vetiver-r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/vetiver-r?branch=main)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->

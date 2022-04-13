@@ -1,5 +1,3 @@
-library(pins)
-
 test_that("can choose a version", {
     b <- board_temp()
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
