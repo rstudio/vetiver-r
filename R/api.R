@@ -112,7 +112,7 @@ vetiver_pr_docs <- function(pr,
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
     logo <-
         '<img slot="logo" src="../logo/vetiver.png"
-         width=60px style=\"margin-left:7px\"/>'
+         width=55px style=\"margin-left:7px\"/>'
     pr <- plumber::pr_static(pr, "/logo", system.file(package = "vetiver"))
     pr <- plumber::pr_set_docs(
         pr,
@@ -120,7 +120,7 @@ vetiver_pr_docs <- function(pr,
         slots = logo,
         heading_text = paste("vetiver", utils::packageVersion("vetiver")),
         header_color = "#F2C6AC",
-        primary_color = "#40233D"
+        primary_color = "#8C2D2D"
     )
     pr
 }
