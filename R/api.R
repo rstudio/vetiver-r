@@ -110,9 +110,17 @@ vetiver_pr_docs <- function(pr,
     loadNamespace("rapidoc")
     modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
+    logo <-
+        '<img slot="logo" src="../logo/vetiver.png"
+         width=55px style=\"margin-left:7px\"/>'
+    pr <- plumber::pr_static(pr, "/logo", system.file(package = "vetiver"))
     pr <- plumber::pr_set_docs(
-        pr, "rapidoc",
-        heading_text = paste("vetiver", utils::packageVersion("vetiver"))
+        pr,
+        "rapidoc",
+        slots = logo,
+        heading_text = paste("vetiver", utils::packageVersion("vetiver")),
+        header_color = "#F2C6AC",
+        primary_color = "#8C2D2D"
     )
     pr
 }
