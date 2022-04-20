@@ -8,7 +8,8 @@ vetiver_write_docker(
   vetiver_model,
   plumber_file = "plumber.R",
   path = ".",
-  rspm = TRUE
+  rspm = TRUE,
+  port = 8000
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ capturing the model's package dependencies. Defaults to the working directory.}
 \item{rspm}{A logical to use the
 \href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
 \code{\link[renv:restore]{renv::restore()}} in the Docker image. Defaults to \code{TRUE}.}
+
+\item{port}{A number to indicate the server port for listening.}
 }
 \value{
 The content of the Dockerfile, invisibly.

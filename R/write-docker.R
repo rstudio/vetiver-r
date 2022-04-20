@@ -15,6 +15,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' @param rspm A logical to use the
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
 #' [renv::restore()] in the Docker image. Defaults to `TRUE`.
+#' @param port A number to indicate the server port for listening.
 #'
 #' @return The content of the Dockerfile, invisibly.
 #' @export
@@ -33,7 +34,8 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 vetiver_write_docker <- function(vetiver_model,
                                  plumber_file = "plumber.R",
                                  path = ".",
-                                 rspm = TRUE) {
+                                 rspm = TRUE,
+                                 port = 8000) {
 
     from_r_version <- glue::glue("FROM rocker/r-ver:{getRversion()}")
     rspm_env <- ifelse(
@@ -48,6 +50,7 @@ vetiver_write_docker <- function(vetiver_model,
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
+    entrypoint <- glue('ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(\'/opt/ml/plumber.R\'); pr$run(host = \'0.0.0.0\', port = {port})"]')
 
 
     ret <- compact(list(
@@ -60,8 +63,9 @@ vetiver_write_docker <- function(vetiver_model,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
         copy_plumber,
-        "\nEXPOSE 8000",
-        'ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(\'/opt/ml/plumber.R\'); pr$run(host = \'0.0.0.0\', port = 8000)"]'
+        "",
+        glue("EXPOSE {port}"),
+        entrypoint
     ))
 
     readr::write_lines(ret, file = file.path(path, "Dockerfile"))
