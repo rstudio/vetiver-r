@@ -23,7 +23,6 @@
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
-      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with no RSPM
@@ -50,7 +49,6 @@
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
-      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with no packages
@@ -77,7 +75,6 @@
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
-      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with specific port
@@ -105,6 +102,5 @@
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
       
-      EXPOSE 8080
-      ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8080)"]
+      ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = as.numeric(Sys.getenv("PORT")))"]
 

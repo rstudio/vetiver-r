@@ -15,7 +15,9 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' @param rspm A logical to use the
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
 #' [renv::restore()] in the Docker image. Defaults to `TRUE`.
-#' @param port A number to indicate the server port for listening.
+#' @param port The server port for listening: a number such as 8080 or an
+#' expression like `as.numeric(Sys.getenv("PORT"))` when the port is injected
+#' as an environment variable.
 #'
 #' @return The content of the Dockerfile, invisibly.
 #' @export
@@ -50,7 +52,9 @@ vetiver_write_docker <- function(vetiver_model,
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
-    entrypoint <- glue('ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(\'/opt/ml/plumber.R\'); pr$run(host = \'0.0.0.0\', port = {port})"]')
+    entrypoint <- glue('ENTRYPOINT ["R", "-e", ',
+                       '"pr <- plumber::plumb(\'/opt/ml/plumber.R\'); ',
+                       'pr$run(host = \'0.0.0.0\', port = {port})"]')
 
 
     ret <- compact(list(
@@ -64,7 +68,6 @@ vetiver_write_docker <- function(vetiver_model,
         'RUN Rscript -e "renv::restore()"',
         copy_plumber,
         "",
-        glue("EXPOSE {port}"),
         entrypoint
     ))
 
