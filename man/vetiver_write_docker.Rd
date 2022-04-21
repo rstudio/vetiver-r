@@ -8,7 +8,8 @@ vetiver_write_docker(
   vetiver_model,
   plumber_file = "plumber.R",
   path = ".",
-  rspm = TRUE
+  rspm = TRUE,
+  port = 8000
 )
 }
 \arguments{
@@ -23,6 +24,10 @@ capturing the model's package dependencies. Defaults to the working directory.}
 \item{rspm}{A logical to use the
 \href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
 \code{\link[renv:restore]{renv::restore()}} in the Docker image. Defaults to \code{TRUE}.}
+
+\item{port}{The server port for listening: a number such as 8080 or an
+expression like \code{'as.numeric(Sys.getenv("PORT"))'} when the port is injected
+as an environment variable.}
 }
 \value{
 The content of the Dockerfile, invisibly.
@@ -42,6 +47,11 @@ cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
+
+## default port
 vetiver_write_docker(v, tmp_plumber, tempdir())
+## port from env variable
+vetiver_write_docker(v, tmp_plumber, tempdir(),
+                     port = 'as.numeric(Sys.getenv("PORT"))')
 \dontshow{\}) # examplesIf}
 }
