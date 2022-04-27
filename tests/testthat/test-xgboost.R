@@ -1,5 +1,3 @@
-library(pins)
-library(plumber)
 skip_if_not_installed("xgboost")
 
 set.seed(123)
@@ -37,8 +35,9 @@ test_that("can pin an xgboost model", {
 
 test_that("default endpoint for xgboost", {
     p <- pr() %>% vetiver_api(v)
-    expect_equal(names(p$routes), c("ping", "predict"))
-    expect_equal(map_chr(p$routes, "verbs"),
+    p_routes <- p$routes[-1]
+    expect_equal(names(p_routes), c("ping", "predict"))
+    expect_equal(map_chr(p_routes, "verbs"),
                  c(ping = "GET", predict = "POST"))
 })
 

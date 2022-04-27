@@ -65,12 +65,16 @@ handler_predict.default <- function(vetiver_model, ...)
 #' ## unsuccessful conversion generates an error:
 #' try(vetiver_type_convert(tibble(x = "potato", y = "J", z = "k"), ptype))
 #'
+#' ## error for missing column:
+#' try(vetiver_type_convert(tibble(x = "potato", y = "J"), ptype))
+#'
 #' @inheritParams predict.vetiver_endpoint
 #' @param ptype An input data prototype, such as a 0-row slice of the training
 #' data
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
+    new_data <- hardhat::validate_column_names(new_data, colnames(ptype))
     spec <- readr::as.col_spec(ptype)
     is_character <- vapply(new_data, is.character, logical(1))
     if (any(is_character)) {

@@ -33,4 +33,7 @@ vetiver_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), ptype)
 ## unsuccessful conversion generates an error:
 try(vetiver_type_convert(tibble(x = "potato", y = "J", z = "k"), ptype))
 
+## error for missing column:
+try(vetiver_type_convert(tibble(x = "potato", y = "J"), ptype))
+
 }

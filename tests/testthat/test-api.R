@@ -1,11 +1,7 @@
-library(plumber)
-cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-v <- vetiver_model(cars_lm, "cars1")
-
 test_that("default endpoint", {
   p <- pr() %>% vetiver_api(v)
-  expect_equal(names(p$routes), c("ping", "predict"))
-  expect_equal(map_chr(p$routes, "verbs"),
+  expect_equal(names(p$routes), c("logo", "ping", "predict"))
+  expect_equal(map_chr(p$routes[-1], "verbs"),
                c(ping = "GET", predict = "POST"))
 })
 
@@ -23,8 +19,8 @@ test_that("default endpoint via modular functions", {
 test_that("pin URL endpoint", {
   v$metadata <- list(url = "potato")
   p <- pr() %>% vetiver_api(v)
-  expect_equal(names(p$routes), c("pin-url", "ping", "predict"))
-  expect_equal(map_chr(p$routes, "verbs"),
+  expect_equal(names(p$routes), c("logo", "pin-url", "ping", "predict"))
+  expect_equal(map_chr(p$routes[-1], "verbs"),
                c(`pin-url` = "GET", ping = "GET", predict = "POST"))
 })
 
@@ -57,8 +53,8 @@ test_that("OpenAPI spec is the same for modular functions", {
 
 test_that("OpenAPI spec for check_ptype = FALSE", {
   p <- pr() %>% vetiver_pr_post(v, check_ptype = FALSE) %>% vetiver_pr_docs(v)
-  expect_equal(names(p$routes), c("ping", "predict"))
-  expect_equal(map_chr(p$routes, "verbs"),
+  expect_equal(names(p$routes), c("logo", "ping", "predict"))
+  expect_equal(map_chr(p$routes[-1], "verbs"),
                c(ping = "GET", predict = "POST"))
   car_spec <- p$getApiSpec()
   post_spec <- car_spec$paths$`/predict`$post
@@ -72,8 +68,8 @@ test_that("OpenAPI spec for check_ptype = FALSE", {
 test_that("OpenAPI spec for save_ptype = FALSE", {
   v1 <- vetiver_model(cars_lm, "cars1", save_ptype = FALSE)
   p <- pr() %>% vetiver_api(v1)
-  expect_equal(names(p$routes), c("ping", "predict"))
-  expect_equal(map_chr(p$routes, "verbs"),
+  expect_equal(names(p$routes), c("logo", "ping", "predict"))
+  expect_equal(map_chr(p$routes[-1], "verbs"),
                c(ping = "GET", predict = "POST"))
   car_spec <- p$getApiSpec()
   post_spec <- car_spec$paths$`/predict`$post
@@ -117,7 +113,7 @@ test_that("OpenAPI spec with additional endpoint", {
 
   car_spec <- p$getApiSpec()
   expect_equal(sort(names(car_spec$paths)),
-               sort(paste0("/", names(p$routes))))
+               sort(paste0("/", names(p$routes[-1]))))
 
   post_spec <- car_spec$paths$`/predict`$post
   sum_spec <- car_spec$paths$`/sum`$post

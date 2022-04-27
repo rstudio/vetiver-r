@@ -1,5 +1,3 @@
-library(pins)
-library(plumber)
 skip_if_not_installed("workflows")
 skip_if_not_installed("parsnip")
 skip_if_not_installed("ranger")
@@ -44,8 +42,9 @@ test_that("can pin a tidymodels model", {
 
 test_that("default endpoint for tidymodels", {
     p <- pr() %>% vetiver_api(v)
-    expect_equal(names(p$routes), c("ping", "predict"))
-    expect_equal(map_chr(p$routes, "verbs"),
+    p_routes <- p$routes[-1]
+    expect_equal(names(p_routes), c("ping", "predict"))
+    expect_equal(map_chr(p_routes, "verbs"),
                  c(ping = "GET", predict = "POST"))
 })
 

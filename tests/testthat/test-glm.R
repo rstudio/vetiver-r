@@ -1,6 +1,3 @@
-library(pins)
-library(plumber)
-
 mtcars_glm <- glm(mpg ~ ., data = mtcars)
 v <- vetiver_model(mtcars_glm, "cars_glm")
 
@@ -32,8 +29,9 @@ test_that("can pin a glm model", {
 
 test_that("default endpoint for glm", {
     p <- pr() %>% vetiver_api(v)
-    expect_equal(names(p$routes), c("ping", "predict"))
-    expect_equal(map_chr(p$routes, "verbs"),
+    p_routes <- p$routes[-1]
+    expect_equal(names(p_routes), c("ping", "predict"))
+    expect_equal(map_chr(p_routes, "verbs"),
                  c(ping = "GET", predict = "POST"))
 })
 

@@ -39,15 +39,18 @@ Imports:
     vctrs,
     withr
 Suggests:
+    callr,
     caret,
     covr,
     flexdashboard,
+    httpuv,
     knitr,
     LiblineaR,
     mlr3,
     mlr3learners,
     modeldata,
     parsnip,
+    pingr,
     ranger,
     recipes,
     rmarkdown,
