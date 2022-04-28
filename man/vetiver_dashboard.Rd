@@ -26,9 +26,6 @@ find out which versions are available and when they were created.}
 
 \item{display_pins}{Should the dashboard display a link to the pin(s)?
 Defaults to \code{TRUE}.}
-
-\item{display_api}{Should the dashboard display the OpenAPI documentation
-for the deployed model? Defaults to \code{TRUE}.}
 }
 \description{
 R Markdown format for model monitoring dashboards

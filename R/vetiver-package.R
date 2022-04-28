@@ -3,7 +3,7 @@
 
 
 #' @import purrr
-#' @importFrom utils head
+#' @importFrom utils head modifyList
 #' @importFrom rlang abort warn
 #' @importFrom rlang expr expr_deparse
 #' @importFrom rlang is_null
