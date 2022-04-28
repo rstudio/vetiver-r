@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 4th CRAN release of vetiver. This release removes some code that wrote to the temp directory in the tests and uses ranger conditionally in tests/examples, as instructed by CRAN.
+This is the 5th CRAN release of vetiver. This release improves how Dockerfiles are generated.
 
 ## R CMD check results
 
