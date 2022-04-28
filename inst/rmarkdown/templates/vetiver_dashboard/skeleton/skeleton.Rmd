@@ -1,13 +1,15 @@
 ---
-title: "Untitled"
+title: "Monitor model"
 output: 
   vetiver::vetiver_dashboard:
+    board: 'pins::board_rsconnect()'
+    name: 'julia.silge/hotel_rf'
     storyboard: true
     display_pins: true
     display_api: true
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 library(vetiver)
 ```
 

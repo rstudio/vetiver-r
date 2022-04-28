@@ -4,9 +4,24 @@
 \alias{vetiver_dashboard}
 \title{R Markdown format for model monitoring dashboards}
 \usage{
-vetiver_dashboard(..., display_pins = TRUE, display_api = TRUE)
+vetiver_dashboard(
+  board,
+  name,
+  version = NULL,
+  ...,
+  display_pins = TRUE,
+  display_api = TRUE
+)
 }
 \arguments{
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
+\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
+
+\item{name}{Pin name.}
+
+\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
+find out which versions are available and when they were created.}
+
 \item{...}{Arguments passed to \code{\link[flexdashboard:flex_dashboard]{flexdashboard::flex_dashboard()}}}
 
 \item{display_pins}{Should the dashboard display a link to the pin(s)?

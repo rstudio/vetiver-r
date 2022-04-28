@@ -1,5 +1,6 @@
 #' R Markdown format for model monitoring dashboards
 #'
+#' @inheritParams pins::pin_read
 #' @param ... Arguments passed to [flexdashboard::flex_dashboard()]
 #' @param display_pins Should the dashboard display a link to the pin(s)?
 #' Defaults to `TRUE`.
@@ -12,6 +13,39 @@
 #'  \href{http://rmarkdown.rstudio.com/flexdashboard/}{http://rmarkdown.rstudio.com/flexdashboard/}
 #'
 #' @export
-vetiver_dashboard <- function(..., display_pins = TRUE, display_api = TRUE) {
-    flexdashboard::flex_dashboard(...)
+vetiver_dashboard <- function(board, name, version = NULL,
+                              ...,
+                              display_pins = TRUE, display_api = TRUE) {
+
+    dashboard_dots <- rlang::list2(...)
+
+    if (board$versioned) {
+        if (is_null(version)) {
+            version <- pins::pin_versions(board, name)
+            version <- choose_version(version)
+        }
+        v <- vetiver_pin_read(board, name, version = version)
+    } else {
+        v <- vetiver_pin_read(board, name)
+    }
+
+    if(rlang::has_name(dashboard_dots, "navbar")) {
+        navbar <- dashboard_dots$navbar
+    } else {
+        navbar <- NULL
+    }
+    dashboard_dots <- modifyList(dashboard_dots, list(navbar = NULL))
+
+    if (display_pins) {
+        pin_navbar <- list(
+            title = "Model Pin",
+            icon = "fa-location-dot",
+            href = v$metadata$url,
+            target = "_blank"
+        )
+        navbar <- append(navbar, list(pin_navbar))
+    }
+
+    flexdashboard::flex_dashboard(!!!dashboard_dots, navbar = navbar)
 }
+
