@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.1.4
 
 * Improve how Dockerfiles are generated.
 
