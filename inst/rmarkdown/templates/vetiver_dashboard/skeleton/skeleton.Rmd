@@ -7,16 +7,36 @@ output:
     storyboard: true
     source_code: 'https://vetiver.rstudio.com'
     display_pins: true
+params:
+    board: !r pins::board_rsconnect()
+    name: 'julia.silge/hotel_rf'
+    version: NULL    
 ---
 
 ```{r setup, include = FALSE}
 library(vetiver)
 library(tidyverse)
+library(tidymodels)
+library(pins)
+library(plotly)
+library(lubridate)
+knitr::opts_chunk$set(echo = FALSE)
 
 ## load new validation data, for example from database or API
-hotel_validation <- read_csv('https://tidymodels.org/start/case-study/hotels.csv') %>%
-    filter(arrival_date > "2017-01-01")
+validation_data_url <- 'https://tidymodels.org/start/case-study/hotels.csv'
+validation_df <- read_csv(validation_data_url) %>%
+    mutate_if(is.character, as.factor) %>%
+    filter(arrival_date > "2017-01-01") 
 
+v <- vetiver_pin_read(params$board, params$name, version = params$version)
+v_meta <- pin_meta(params$board, params$name)
+validation_aug <- augment(v, validation_df)
+
+metrics_by_week <- validation_aug %>%
+  mutate_if(is.character, as.factor) %>%
+  mutate(arrival_date = floor_date(as.Date(arrival_date), unit = "week")) %>%
+  group_by(arrival_date) %>%
+  metrics(children, .pred_class, .pred_children)
 
 ```
 
@@ -25,7 +45,17 @@ hotel_validation <- read_csv('https://tidymodels.org/start/case-study/hotels.csv
 ### Model metrics
 
 ```{r}
+p <- metrics_by_week %>%
+  filter(.metric %in% c("accuracy", "roc_auc")) %>%
+  ggplot(aes(arrival_date, .estimate)) +
+  geom_line(aes(color = .metric)) +
+  geom_point(aes(color = .metric), alpha = 0.8) +
+  facet_wrap(vars(.metric), scales = "free_y", ncol = 1) +
+  labs(x = NULL, y = NULL) +
+  scale_size(range = c(0, 5))
 
+p <- ggplotly(p)
+hide_legend(p)
 ```
 
 
@@ -36,24 +66,19 @@ Plot model metrics over time to *monitor* your model.
 ### Explore validation data
 
 ```{r}
+p_validate <-
+    validation_df %>%
+    ggplot(aes(average_daily_rate, after_stat(density), fill = children)) +
+    geom_histogram(alpha = 0.7, position = "identity") +
+    labs(fill = NULL)
 
+ggplotly(p_validate)
 ```
 
 
 ***
 
-Make visualizations or tables with the new validation data.
-
-### New predictions
-
-```{r}
-
-```
-
-
-***
-
-Combine the new validation data with the new predictions for more exploration, for example to display the most mispredicted observations.
+Write your own code to make visualizations or tables with the new validation data, and/or the new predictions.
 
 ### API visual documentation
 
