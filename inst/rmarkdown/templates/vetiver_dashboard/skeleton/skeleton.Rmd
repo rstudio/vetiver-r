@@ -2,15 +2,22 @@
 title: "Monitor model"
 output: 
   vetiver::vetiver_dashboard:
-    board: 'pins::board_rsconnect()'
+    board: !expr pins::board_rsconnect()
     name: 'julia.silge/hotel_rf'
     storyboard: true
+    source_code: 'https://vetiver.rstudio.com'
     display_pins: true
-    display_api: true
 ---
 
 ```{r setup, include = FALSE}
 library(vetiver)
+library(tidyverse)
+
+## load new validation data, for example from database or API
+hotel_validation <- read_csv('https://tidymodels.org/start/case-study/hotels.csv') %>%
+    filter(arrival_date > "2017-01-01")
+
+
 ```
 
 
@@ -47,3 +54,14 @@ Make visualizations or tables with the new validation data.
 ***
 
 Combine the new validation data with the new predictions for more exploration, for example to display the most mispredicted observations.
+
+### API visual documentation
+
+```{r echo=FALSE, out.width="100%"}
+knitr::include_url("https://colorado.rstudio.com/rsc/children-at-hotels/", height = "600px")
+```
+
+***
+
+Interact directly with your model via its visual documentation, and get `curl` examples.
+

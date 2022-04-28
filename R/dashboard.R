@@ -4,8 +4,6 @@
 #' @param ... Arguments passed to [flexdashboard::flex_dashboard()]
 #' @param display_pins Should the dashboard display a link to the pin(s)?
 #' Defaults to `TRUE`.
-#' @param display_api Should the dashboard display the OpenAPI documentation
-#' for the deployed model? Defaults to `TRUE`.
 #'
 #' @details The `vetiver_dashboard()` function is a specialized type of
 #' \pkg{flexdashboard}. See the flexdashboard website for additional
@@ -34,18 +32,24 @@ vetiver_dashboard <- function(board, name, version = NULL,
     } else {
         navbar <- NULL
     }
-    dashboard_dots <- modifyList(dashboard_dots, list(navbar = NULL))
+    dashboard_dots <- utils::modifyList(dashboard_dots, list(navbar = NULL))
 
     if (display_pins) {
         pin_navbar <- list(
             title = "Model Pin",
-            icon = "fa-location-dot",
+            icon = "fa-map-marker",
             href = v$metadata$url,
             target = "_blank"
         )
         navbar <- append(navbar, list(pin_navbar))
+        dashboard_dots <- utils::modifyList(dashboard_dots, list(navbar = navbar))
     }
 
-    flexdashboard::flex_dashboard(!!!dashboard_dots, navbar = navbar)
+    if (is_null(dashboard_dots$favicon)) {
+        vetiver_fav <- system.file("favicon.ico", package = "vetiver")
+        dashboard_dots <- modifyList(dashboard_dots, list(favicon = vetiver_fav))
+    }
+
+    rlang::inject(flexdashboard::flex_dashboard(!!!dashboard_dots))
 }
 
