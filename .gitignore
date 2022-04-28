@@ -6,3 +6,4 @@
 docs
 inst/doc
 *html
+pkgdown*
