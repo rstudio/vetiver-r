@@ -12,8 +12,7 @@
 #'
 #' @export
 vetiver_dashboard <- function(board, name, version = NULL,
-                              ...,
-                              display_pins = TRUE, display_api = TRUE) {
+                              ..., display_pins = TRUE) {
 
     dashboard_dots <- rlang::list2(...)
     v <- pin_read_version(board, name, version)

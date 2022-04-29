@@ -17,3 +17,4 @@
 ^inst/plumber/chicago-rpart/rsconnect$
 ^inst/plumber/netflix-descriptions/rsconnect$
 ^CRAN-SUBMISSION$
+^*\.html$

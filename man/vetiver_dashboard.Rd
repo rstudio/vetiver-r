@@ -4,14 +4,7 @@
 \alias{vetiver_dashboard}
 \title{R Markdown format for model monitoring dashboards}
 \usage{
-vetiver_dashboard(
-  board,
-  name,
-  version = NULL,
-  ...,
-  display_pins = TRUE,
-  display_api = TRUE
-)
+vetiver_dashboard(board, name, version = NULL, ..., display_pins = TRUE)
 }
 \arguments{
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
