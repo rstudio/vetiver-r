@@ -32,11 +32,25 @@ v <- vetiver_pin_read(params$board, params$name, version = params$version)
 v_meta <- pin_meta(params$board, params$name)
 validation_aug <- augment(v, validation_df)
 
+metrics_pin_name <- paste(params$name, "metrics", sep = "_")
+old_metrics <- pin_read(params$board, metrics_pin_name)
+
 metrics_by_week <- validation_aug %>%
   mutate_if(is.character, as.factor) %>%
   mutate(arrival_date = floor_date(as.Date(arrival_date), unit = "week")) %>%
   group_by(arrival_date) %>%
   metrics(children, .pred_class, .pred_children)
+
+totals_by_week <- validation_aug %>% 
+  mutate(arrival_date = floor_date(as.Date(arrival_date), unit = "week")) %>% 
+  count(arrival_date, name = "n_validation")
+
+new_metrics <- old_metrics %>%
+  filter(!arrival_date %in% metrics_by_week$arrival_date) %>%
+  bind_rows(metrics_by_week %>% left_join(totals_by_week)) %>%
+  arrange(.metric, arrival_date)
+
+pin_write(params$board, new_metrics, metrics_pin_name)
 
 ```
 
@@ -45,7 +59,7 @@ metrics_by_week <- validation_aug %>%
 ### Model metrics
 
 ```{r}
-p <- metrics_by_week %>%
+p <- new_metrics %>%
   filter(.metric %in% c("accuracy", "roc_auc")) %>%
   ggplot(aes(arrival_date, .estimate)) +
   geom_line(aes(color = .metric)) +
