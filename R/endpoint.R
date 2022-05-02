@@ -20,20 +20,26 @@ predict.vetiver_endpoint <- function(object, new_data, ...) {
     data_json <- jsonlite::toJSON(new_data)
     ret <- httr::POST(object$url, ..., body = data_json)
     resp <- httr::content(ret, "text", encoding = "UTF-8")
-    ret <- jsonlite::fromJSON(resp)
+    resp <- jsonlite::fromJSON(resp)
 
-    if (has_name(ret, "error")) {
-        if (has_name(ret, "message")) {
-            abort(glue("Failed to predict: {ret$message}"))
+    if (httr::status_code(ret) >= 300) {
+        if (has_name(resp, "message")) {
+            abort(glue("Failed to predict: {resp$message}"))
         } else {
-            abort("Failed to predict")
+            status <- httr::http_status(ret)
+            abort(c("Failed to predict.", status$message))
         }
     }
-    tibble::as_tibble(ret)
+
+    tibble::as_tibble(resp)
 }
 
 
 #' Create a model API endpoint object for prediction
+#'
+#' This function creates a model API endpoint for prediction from a URL. No
+#' HTTP calls are made until you actually
+#' [`predict()`][predict.vetiver_endpoint()] with your endpoint.
 #'
 #' @param url An API endpoint URL
 #' @return A new `vetiver_endpoint` object

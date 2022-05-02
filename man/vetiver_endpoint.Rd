@@ -13,7 +13,9 @@ vetiver_endpoint(url)
 A new \code{vetiver_endpoint} object
 }
 \description{
-Create a model API endpoint object for prediction
+This function creates a model API endpoint for prediction from a URL. No
+HTTP calls are made until you actually
+\code{\link[=predict.vetiver_endpoint]{predict()}} with your endpoint.
 }
 \examples{
 vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
