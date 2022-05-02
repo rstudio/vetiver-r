@@ -10,7 +10,7 @@ output:
 params:
     board: !r pins::board_rsconnect()
     name: 'julia.silge/hotel_rf'
-    version: NULL    
+    version: NULL
 ---
 
 ```{r setup, include = FALSE}
@@ -29,28 +29,68 @@ validation_df <- read_csv(validation_data_url) %>%
     filter(arrival_date > "2017-01-01") 
 
 v <- vetiver_pin_read(params$board, params$name, version = params$version)
+
+## do metrics at training time
 v_meta <- pin_meta(params$board, params$name)
 validation_aug <- augment(v, validation_df)
 
 metrics_pin_name <- paste(params$name, "metrics", sep = "_")
-old_metrics <- pin_read(params$board, metrics_pin_name)
 
-metrics_by_week <- validation_aug %>%
-  mutate_if(is.character, as.factor) %>%
-  mutate(arrival_date = floor_date(as.Date(arrival_date), unit = "week")) %>%
-  group_by(arrival_date) %>%
-  metrics(children, .pred_class, .pred_children)
 
-totals_by_week <- validation_aug %>% 
-  mutate(arrival_date = floor_date(as.Date(arrival_date), unit = "week")) %>% 
-  count(arrival_date, name = "n_validation")
 
-new_metrics <- old_metrics %>%
-  filter(!arrival_date %in% metrics_by_week$arrival_date) %>%
-  bind_rows(metrics_by_week %>% left_join(totals_by_week)) %>%
-  arrange(.metric, arrival_date)
 
-pin_write(params$board, new_metrics, metrics_pin_name)
+
+
+
+vetiver_aggregate_metrics <- function(df, time_var, time_aggregation, 
+                                      truth, estimate, ..., metric_set = yardstick::metrics) {
+    metrics_agg <-
+        df %>%
+        mutate_if(is.character, as.factor) %>%
+        mutate("{{time_var}}" := floor_date(as.Date({{ time_var }}), unit = time_aggregation)) %>%
+        group_by({{ time_var }}) %>%
+        metric_set({{truth}}, {{estimate}}, ...)
+    
+    totals <- 
+        df %>% 
+        mutate("{{time_var}}" := floor_date(as.Date({{ time_var }}), unit = time_aggregation)) %>%
+        count({{ time_var }}, name = "n_validation")
+    
+    metrics_agg %>% left_join(totals)
+}
+
+vetiver_pin_metrics <- function(df_metrics,  time_var, board, 
+                                metrics_pin_name = paste(params$name, "metrics", sep = "_"), 
+                                
+                                initiate = FALSE) {
+    
+    
+    old_metrics <- tibble()
+    
+    if (!initiate) {
+        old_metrics <- pin_read(board, metrics_pin_name)
+    }
+    
+    new_dates <- unique(pull(df_metrics, {{ time_var }}))
+    
+    new_metrics <- old_metrics %>%
+        filter(!{{ time_var }} %in% new_dates) %>%
+        bind_rows(df_metrics) %>%
+        arrange(.metric, {{ time_var }})
+    
+    pin_write(board, new_metrics, basename(metrics_pin_name))
+    
+    new_metrics
+    
+}
+
+
+new_metrics <-
+    validation_aug %>%
+    vetiver_aggregate_metrics(arrival_date, "week",
+                              children, .pred_class, .pred_children) %>%
+    vetiver_pin_metrics(arrival_date, params$board, metrics_pin_name)
+
 
 ```
 
@@ -59,14 +99,19 @@ pin_write(params$board, new_metrics, metrics_pin_name)
 ### Model metrics
 
 ```{r}
+
+plot_vetiver_metrics <- function(df, time_var) {
+    ggplot(df, aes({{ time_var }}, .estimate)) +
+        geom_line(aes(color = .metric)) +
+        geom_point(aes(color = .metric, size = n_validation), alpha = 0.8) +
+        facet_wrap(vars(.metric), scales = "free_y", ncol = 1) +
+        labs(x = NULL, y = NULL)
+}
+
 p <- new_metrics %>%
-  filter(.metric %in% c("accuracy", "roc_auc")) %>%
-  ggplot(aes(arrival_date, .estimate)) +
-  geom_line(aes(color = .metric)) +
-  geom_point(aes(color = .metric), alpha = 0.8) +
-  facet_wrap(vars(.metric), scales = "free_y", ncol = 1) +
-  labs(x = NULL, y = NULL) +
-  scale_size(range = c(0, 5))
+    filter(.metric %in% c("accuracy", "roc_auc")) %>%
+    plot_vetiver_metrics(arrival_date) +
+    scale_size(range = c(0, 5))
 
 p <- ggplotly(p)
 hide_legend(p)
