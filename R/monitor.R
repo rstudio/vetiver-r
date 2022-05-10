@@ -10,7 +10,6 @@
 #' - `vetiver_plot_metrics()` creates a plot of metrics over time
 #'
 #' @inheritParams yardstick::metrics
-#' @inheritParams lubridate::floor_date
 #' @inheritParams pins::pin_read
 #' @inheritParams slider::slide_period
 #' @param date_var The column in `data` containing dates or date-times for
