@@ -12,6 +12,7 @@
 #' @inheritParams yardstick::metrics
 #' @inheritParams lubridate::floor_date
 #' @inheritParams pins::pin_read
+#' @inheritParams slider::slide_period
 #' @param date_var The column in `data` containing dates or date-times for
 #' monitoring, to be aggregated with `unit`
 #' @param metric_set A [yardstick::metric_set()] function for computing metrics.
@@ -43,9 +44,9 @@
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
 #' Chicago <- Chicago %>% select(ridership, date, one_of(stations))
-#' training_data <- Chicago %>% filter(date < "2008-12-31")
-#' testing_data <- Chicago %>% filter(date > "2009-01-01", date < "2010-12-31")
-#' monitoring <- Chicago %>% filter(date > "2011-01-01", date < "2012-12-31")
+#' training_data <- Chicago %>% filter(date < "2009-01-01")
+#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
 #' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
 #'
 #' library(pins)
@@ -55,13 +56,13 @@
 #' ## (for example, with the testing data):
 #' original_metrics <-
 #'     augment(lm_fit, new_data = testing_data) %>%
-#'     vetiver_compute_metrics(date, "month", ridership, .pred) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
 #'     vetiver_pin_metrics(date, b, "lm_fit_metrics", initiate = TRUE)
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
 #'     augment(lm_fit, new_data = monitoring) %>%
-#'     vetiver_compute_metrics(date, "month", ridership, .pred) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
 #'     vetiver_pin_metrics(date, b, "lm_fit_metrics")
 #'
 #' library(ggplot2)
@@ -71,25 +72,35 @@
 #' @export
 vetiver_compute_metrics <- function(data,
                                     date_var,
-                                    unit,
+                                    .period,
                                     truth, estimate, ...,
-                                    metric_set = yardstick::metrics) {
-    rlang::check_installed("dplyr")
+                                    metric_set = yardstick::metrics,
+                                    .every = 1L,
+                                    .origin = NULL,
+                                    .before = 0L,
+                                    .after = 0L,
+                                    .complete = FALSE) {
+
+    rlang::check_installed("slider")
+    metrics_dots <- list2(...)
     date_var <- enquo(date_var)
+    slider::slide_period_dfr(
+        data,
+        .i = data[[quo_name(date_var)]],
+        .period = .period,
 
-    grouped_data <-
-        data %>%
-        dplyr::mutate_if(is.character, as.factor) %>%
-        dplyr::mutate(
-            !!date_var := lubridate::floor_date(as.Date(!!date_var), unit = unit)
-        ) %>%
-        dplyr::group_by(!!date_var)
+        .f = ~ tibble::tibble(
+            !!date_var := min(.x[[quo_name(date_var)]]),
+            n = nrow(.x),
+            metric_set(.x, {{truth}}, {{estimate}}, !!!metrics_dots)
+        ),
+        .every = .every,
+        .origin = .origin,
+        .before = .before,
+        .after = .after,
+        .complete = .complete
+    )
 
-    ## sliding function
-
-    metrics_agg <- metric_set(grouped_data, {{truth}}, {{estimate}}, ...)
-    totals <- dplyr::summarize(grouped_data, n = n())
-    dplyr::left_join(metrics_agg, totals, by = rlang::quo_name(date_var))
 }
 
 #' @rdname vetiver_compute_metrics
@@ -99,18 +110,18 @@ vetiver_pin_metrics <- function(df_metrics,
                                 board,
                                 metrics_pin_name,
                                 initiate = FALSE) {
+    date_var <- quo_name(enquo(date_var))
 
-    rlang::check_installed("dplyr")
     if (initiate) {
-        new_metrics <- dplyr::arrange(df_metrics, .metric, {{ date_var }})
+        new_metrics <- vec_sort(df_metrics)
     } else {
-        new_dates <- unique(dplyr::pull(df_metrics, {{ date_var }}))
-        old_metrics <-
-            pins::pin_read(board, metrics_pin_name) %>%
-            dplyr::filter(!{{ date_var }} %in% new_dates)
-        new_metrics <-
-            dplyr::bind_rows(old_metrics, df_metrics) %>%
-            dplyr::arrange(.metric, {{ date_var }})
+        new_dates <- unique(df_metrics[[date_var]])
+        old_metrics <- pins::pin_read(board, metrics_pin_name)
+        old_metrics <- vec_slice(
+            old_metrics,
+            ! old_metrics[[date_var]] %in% new_dates
+        )
+        new_metrics <- vec_sort(vctrs::vec_rbind(old_metrics, df_metrics))
     }
 
     pins::pin_write(board, new_metrics, basename(metrics_pin_name))

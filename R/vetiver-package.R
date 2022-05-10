@@ -7,7 +7,7 @@
 #' @importFrom purrr transpose compact pluck
 #' @importFrom purrr pmap safely
 #' @importFrom utils head
-#' @importFrom vctrs vec_slice
+#' @importFrom vctrs vec_slice vec_sort
 #' @importFrom magrittr %>%
 #' @importFrom glue glue
 #' @importFrom glue glue_collapse

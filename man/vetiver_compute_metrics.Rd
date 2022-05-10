@@ -9,11 +9,16 @@
 vetiver_compute_metrics(
   data,
   date_var,
-  unit,
+  .period,
   truth,
   estimate,
   ...,
-  metric_set = yardstick::metrics
+  metric_set = yardstick::metrics,
+  .every = 1L,
+  .origin = NULL,
+  .before = 0L,
+  .after = 0L,
+  .complete = FALSE
 )
 
 vetiver_pin_metrics(
@@ -39,12 +44,16 @@ columns and any columns specified by \code{...}.}
 \item{date_var}{The column in \code{data} containing dates or date-times for
 monitoring, to be aggregated with \code{unit}}
 
-\item{unit}{a character string specifying a time unit or a multiple of a unit
-to be rounded to. Valid base units are \code{second}, \code{minute}, \code{hour}, \code{day},
-\code{week}, \code{month}, \code{bimonth}, \code{quarter}, \code{season}, \code{halfyear} and
-\code{year}. Arbitrary unique English abbreviations as in the \code{\link[lubridate:period]{period()}}
-constructor are allowed. Rounding to multiples of units (except weeks) is
-supported.}
+\item{.period}{\verb{[character(1)]}
+
+A string defining the period to group by. Valid inputs can be roughly
+broken into:
+\itemize{
+\item \code{"year"}, \code{"quarter"}, \code{"month"}, \code{"week"}, \code{"day"}
+\item \code{"hour"}, \code{"minute"}, \code{"second"}, \code{"millisecond"}
+\item \code{"yweek"}, \code{"mweek"}
+\item \code{"yday"}, \code{"mday"}
+}}
 
 \item{truth}{The column identifier for the true results (that
 is \code{numeric} or \code{factor}). This should be an unquoted column name
@@ -64,6 +73,34 @@ Otherwise, there should be as many columns as factor levels of \code{truth}.}
 
 \item{metric_set}{A \code{\link[yardstick:metric_set]{yardstick::metric_set()}} function for computing metrics.
 Defaults to \code{\link[yardstick:metrics]{yardstick::metrics()}}.}
+
+\item{.every}{\verb{[positive integer(1)]}
+
+The number of periods to group together.
+
+For example, if the period was set to \code{"year"} with an every value of \code{2},
+then the years 1970 and 1971 would be placed in the same group.}
+
+\item{.origin}{\verb{[Date(1) / POSIXct(1) / POSIXlt(1) / NULL]}
+
+The reference date time value. The default when left as \code{NULL} is the
+epoch time of \verb{1970-01-01 00:00:00}, \emph{in the time zone of the index}.
+
+This is generally used to define the anchor time to count from, which is
+relevant when the every value is \verb{> 1}.}
+
+\item{.before, .after}{\verb{[integer(1) / Inf]}
+
+The number of values before or after the current element to
+include in the sliding window. Set to \code{Inf} to select all elements
+before or after the current element. Negative values are allowed, which
+allows you to "look forward" from the current element if used as the
+\code{.before} value, or "look backwards" if used as \code{.after}.}
+
+\item{.complete}{\verb{[logical(1)]}
+
+Should the function be evaluated on complete windows only? If \code{FALSE},
+the default, then partial computations will be allowed.}
 
 \item{df_metrics}{A tidy dataframe of metrics over time, such as created by
 \code{vetiver_compute_metrics()}.}
@@ -126,13 +163,13 @@ b <- board_temp()
 ## (for example, with the testing data):
 original_metrics <-
     augment(lm_fit, new_data = testing_data) \%>\%
-    vetiver_compute_metrics(date, "month", ridership, .pred) \%>\%
+    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
     vetiver_pin_metrics(date, b, "lm_fit_metrics", initiate = TRUE)
 
 ## to continue monitoring with new data, compute metrics and update pin:
 new_metrics <-
     augment(lm_fit, new_data = monitoring) \%>\%
-    vetiver_compute_metrics(date, "month", ridership, .pred) \%>\%
+    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
     vetiver_pin_metrics(date, b, "lm_fit_metrics")
 
 library(ggplot2)

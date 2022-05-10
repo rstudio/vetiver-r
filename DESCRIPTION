@@ -59,6 +59,7 @@ Suggests:
     rmarkdown,
     rpart,
     rsconnect,
+    slider,
     testthat (>= 3.0.0),
     workflows,
     xgboost,
