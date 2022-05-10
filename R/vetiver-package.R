@@ -2,13 +2,11 @@
 "_PACKAGE"
 
 
-#' @import purrr
+#' @import rlang
+#' @importFrom purrr map map_lgl map_chr
+#' @importFrom purrr transpose compact pluck
+#' @importFrom purrr pmap safely
 #' @importFrom utils head
-#' @importFrom rlang abort warn
-#' @importFrom rlang expr expr_deparse
-#' @importFrom rlang is_null
-#' @importFrom rlang is_interactive
-#' @importFrom rlang has_name
 #' @importFrom vctrs vec_slice
 #' @importFrom glue glue
 #' @importFrom glue glue_collapse
@@ -19,7 +17,7 @@ NULL
 #' @export
 generics::augment
 
-globalVariables(c("pr"))
+globalVariables(c("pr", "n", ".metric"))
 
 ## to avoid NOTE about "All declared Imports should be used."
 rapidoc_function_for_note <- function() {
