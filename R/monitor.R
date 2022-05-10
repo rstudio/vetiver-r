@@ -76,17 +76,19 @@ vetiver_compute_metrics <- function(data,
                                     metric_set = yardstick::metrics) {
     rlang::check_installed("dplyr")
     date_var <- enquo(date_var)
-    data <- dplyr::mutate_if(data, is.character, as.factor)
-    data <- dplyr::mutate(
-        data,
-        !!date_var := lubridate::floor_date(as.Date(!!date_var), unit = unit)
-    )
-    data <- dplyr::group_by(data, !!date_var)
+
+    grouped_data <-
+        data %>%
+        dplyr::mutate_if(is.character, as.factor) %>%
+        dplyr::mutate(
+            !!date_var := lubridate::floor_date(as.Date(!!date_var), unit = unit)
+        ) %>%
+        dplyr::group_by(!!date_var)
 
     ## sliding function
 
-    metrics_agg <- metric_set(data, {{truth}}, {{estimate}}, ...)
-    totals <- dplyr::summarize(data, n = n())
+    metrics_agg <- metric_set(grouped_data, {{truth}}, {{estimate}}, ...)
+    totals <- dplyr::summarize(grouped_data, n = n())
     dplyr::left_join(metrics_agg, totals, by = rlang::quo_name(date_var))
 }
 
@@ -103,10 +105,12 @@ vetiver_pin_metrics <- function(df_metrics,
         new_metrics <- dplyr::arrange(df_metrics, .metric, {{ date_var }})
     } else {
         new_dates <- unique(dplyr::pull(df_metrics, {{ date_var }}))
-        old_metrics <- pins::pin_read(board, metrics_pin_name)
-        old_metrics <- dplyr::filter(old_metrics, !{{ date_var }} %in% new_dates)
-        new_metrics <- dplyr::bind_rows(old_metrics, df_metrics)
-        new_metrics <- dplyr::arrange(new_metrics, .metric, {{ date_var }})
+        old_metrics <-
+            pins::pin_read(board, metrics_pin_name) %>%
+            dplyr::filter(!{{ date_var }} %in% new_dates)
+        new_metrics <-
+            dplyr::bind_rows(old_metrics, df_metrics) %>%
+            dplyr::arrange(.metric, {{ date_var }})
     }
 
     pins::pin_write(board, new_metrics, basename(metrics_pin_name))

@@ -28,6 +28,7 @@ Imports:
     httr,
     jsonlite,
     lifecycle,
+    magrittr,
     pins (>= 1.0.0),
     plumber (>= 1.0.0),
     purrr,
@@ -60,7 +61,8 @@ Suggests:
     rsconnect,
     testthat (>= 3.0.0),
     workflows,
-    xgboost
+    xgboost,
+    yardstick
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate

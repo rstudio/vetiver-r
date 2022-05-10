@@ -8,6 +8,7 @@
 #' @importFrom purrr pmap safely
 #' @importFrom utils head
 #' @importFrom vctrs vec_slice
+#' @importFrom magrittr %>%
 #' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom generics required_pkgs
