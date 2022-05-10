@@ -20,7 +20,6 @@ Depends:
 Imports:
     butcher,
     cli,
-    curl,
     fs,
     generics,
     glue,
@@ -43,6 +42,7 @@ Suggests:
     callr,
     caret,
     covr,
+    curl,
     dplyr,
     ggplot2,
     httpuv,
