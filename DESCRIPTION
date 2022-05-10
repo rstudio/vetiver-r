@@ -48,7 +48,6 @@ Suggests:
     httpuv,
     knitr,
     LiblineaR,
-    lubridate,
     mlr3,
     mlr3learners,
     modeldata,
