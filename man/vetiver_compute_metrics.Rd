@@ -134,7 +134,7 @@ monitoring dashboard):
 \itemize{
 \item \code{vetiver_compute_metrics()} computes metrics (such as accuracy for a
 classification model or RMSE for a regression model) at a chosen time
-aggregation \code{unit}
+aggregation \code{.period}
 \item \code{vetiver_pin_metrics()} updates (or creates) a pin storing model metrics
 over time
 \item \code{vetiver_plot_metrics()} creates a plot of metrics over time

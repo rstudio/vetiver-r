@@ -4,7 +4,7 @@
 #' monitoring dashboard):
 #' - `vetiver_compute_metrics()` computes metrics (such as accuracy for a
 #' classification model or RMSE for a regression model) at a chosen time
-#' aggregation `unit`
+#' aggregation `.period`
 #' - `vetiver_pin_metrics()` updates (or creates) a pin storing model metrics
 #' over time
 #' - `vetiver_plot_metrics()` creates a plot of metrics over time
@@ -87,7 +87,6 @@ vetiver_compute_metrics <- function(data,
         data,
         .i = data[[quo_name(date_var)]],
         .period = .period,
-
         .f = ~ tibble::tibble(
             !!date_var := min(.x[[quo_name(date_var)]]),
             n = nrow(.x),
