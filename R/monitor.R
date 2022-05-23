@@ -42,7 +42,7 @@
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
-#' Chicago <- Chicago %>% select(ridership, date, one_of(stations))
+#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
 #' training_data <- Chicago %>% filter(date < "2009-01-01")
 #' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
 #' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
