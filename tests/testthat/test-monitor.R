@@ -1,3 +1,7 @@
+skip_if_not_installed("modeldata")
+skip_if_not_installed("dplyr")
+skip_if_not_installed("parsnip")
+
 describe("vetiver_compute_metrics()", {
 
     data(Chicago, package = "modeldata")
