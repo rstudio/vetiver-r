@@ -68,14 +68,14 @@
 #' ## (for example, with the testing data):
 #' original_metrics <-
 #'     augment(lm_fit, new_data = testing_data) %>%
-#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
-#'     pin_write(b, ., "lm_fit_metrics")
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+#' pin_write(b, original_metrics, "lm_fit_metrics")
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
 #'     augment(lm_fit, new_data = monitoring) %>%
-#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
-#'     vetiver_pin_metrics(b, "lm_fit_metrics")
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+#' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 #'
 #' library(ggplot2)
 #' vetiver_plot_metrics(new_metrics) +
@@ -124,8 +124,8 @@ vetiver_compute_metrics <- function(data,
 
 #' @rdname vetiver_compute_metrics
 #' @export
-vetiver_pin_metrics <- function(df_metrics,
-                                board,
+vetiver_pin_metrics <- function(board,
+                                df_metrics,
                                 metrics_pin_name,
                                 .index = .index,
                                 overwrite = TRUE) {

@@ -22,8 +22,8 @@ vetiver_compute_metrics(
 )
 
 vetiver_pin_metrics(
-  df_metrics,
   board,
+  df_metrics,
   metrics_pin_name,
   .index = .index,
   overwrite = TRUE
@@ -42,7 +42,7 @@ vetiver_plot_metrics(
 columns and any columns specified by \code{...}.}
 
 \item{date_var}{The column in \code{data} containing dates or date-times for
-monitoring, to be aggregated with \code{unit}}
+monitoring, to be aggregated with \code{.period}}
 
 \item{.period}{\verb{[character(1)]}
 
@@ -102,11 +102,11 @@ allows you to "look forward" from the current element if used as the
 Should the function be evaluated on complete windows only? If \code{FALSE},
 the default, then partial computations will be allowed.}
 
-\item{df_metrics}{A tidy dataframe of metrics over time, such as created by
-\code{vetiver_compute_metrics()}.}
-
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
 \code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
+
+\item{df_metrics}{A tidy dataframe of metrics over time, such as created by
+\code{vetiver_compute_metrics()}.}
 
 \item{metrics_pin_name}{Pin name for where the \emph{metrics} are stored (as
 opposed to where the model object is stored with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}).}
@@ -177,14 +177,14 @@ b <- board_temp()
 ## (for example, with the testing data):
 original_metrics <-
     augment(lm_fit, new_data = testing_data) \%>\%
-    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
-    pin_write(b, ., "lm_fit_metrics")
+    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+pin_write(b, original_metrics, "lm_fit_metrics")
 
 ## to continue monitoring with new data, compute metrics and update pin:
 new_metrics <-
     augment(lm_fit, new_data = monitoring) \%>\%
-    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
-    vetiver_pin_metrics(b, "lm_fit_metrics")
+    vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 
 library(ggplot2)
 vetiver_plot_metrics(new_metrics) +

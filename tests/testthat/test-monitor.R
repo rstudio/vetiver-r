@@ -59,14 +59,14 @@ describe("vetiver_pin_metrics()", {
     it("fails without existing pin", {
         b <- pins::board_temp()
         expect_snapshot_error(
-            vetiver_pin_metrics(df_metrics, b, "metrics1")
+            vetiver_pin_metrics(b, df_metrics, "metrics1")
         )
     })
     it("fails with `overwrite = FALSE`", {
         b <- pins::board_temp()
         pins::pin_write(b, df_metrics, "metrics2")
         expect_snapshot_error(
-            vetiver_pin_metrics(df_metrics, b, "metrics2", overwrite = FALSE)
+            vetiver_pin_metrics(b, df_metrics, "metrics2", overwrite = FALSE)
         )
     })
     it("can update metrics", {
@@ -81,7 +81,7 @@ describe("vetiver_pin_metrics()", {
             .estimate = c(3.0, 0.7, 2.0)
 
         )
-        res2 <- vetiver_pin_metrics(new_metrics, b, "metrics3")
+        res2 <- vetiver_pin_metrics(b, new_metrics, "metrics3")
         expect_equal(
             pins::pin_read(b, "metrics3"),
             dplyr::arrange(vctrs::vec_rbind(df_metrics, new_metrics), .index)
