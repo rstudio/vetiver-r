@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Add functions for model monitoring (#92).
+
 # vetiver 0.1.4
 
 * Improve how Dockerfiles are generated.
