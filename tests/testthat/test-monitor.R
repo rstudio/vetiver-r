@@ -1,13 +1,11 @@
 describe("vetiver_compute_metrics()", {
 
-    library(dplyr)
-    library(parsnip)
     data(Chicago, package = "modeldata")
-    Chicago <- Chicago %>% select(ridership, date, one_of(stations))
-    training_data <- Chicago %>% filter(date < "2009-01-01")
-    testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-    lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
-    lm_aug <- augment(lm_fit, new_data = testing_data)
+    Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))
+    training_data <- dplyr::filter(Chicago, date < "2009-01-01")
+    testing_data <- dplyr::filter(Chicago, date >= "2009-01-01", date < "2011-01-01")
+    lm_fit <- parsnip::fit(parsnip::linear_reg(), ridership ~ ., data = training_data)
+    lm_aug <- parsnip::augment(lm_fit, new_data = testing_data)
 
     it("can compute default metrics", {
         res <- vetiver_compute_metrics(
@@ -48,28 +46,26 @@ describe("vetiver_compute_metrics()", {
 
 describe("vetiver_pin_metrics()", {
 
-    library(dplyr)
-    library(parsnip)
-    library(pins)
     data(Chicago, package = "modeldata")
-    Chicago <- Chicago %>% select(ridership, date, one_of(stations))
-    training_data <- Chicago %>% filter(date < "2009-01-01")
-    testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-    lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+    Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))
+    training_data <- dplyr::filter(Chicago, date < "2009-01-01")
+    testing_data <- dplyr::filter(Chicago, date >= "2009-01-01", date < "2011-01-01")
+    lm_fit <- parsnip::fit(parsnip::linear_reg(), ridership ~ ., data = training_data)
+
     df_metrics <-
-        augment(lm_fit, new_data = testing_data) %>%
+        parsnip::augment(lm_fit, new_data = testing_data) %>%
         vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
 
     it("can initiate metrics", {
-        b <- board_temp()
+        b <- pins::board_temp()
         res <- vetiver_pin_metrics(
             df_metrics, date, b, "metrics1", initiate = TRUE
         )
-        expect_equal(pin_read(b, "metrics1"), res)
+        expect_equal(pins::pin_read(b, "metrics1"), res)
         expect_equal(vctrs::vec_sort(df_metrics), res)
     })
     it("can update metrics", {
-        b <- board_temp()
+        b <- pins::board_temp()
         res1 <- vetiver_pin_metrics(
             df_metrics, date, b, "metrics2", initiate = TRUE
         )
@@ -83,7 +79,7 @@ describe("vetiver_pin_metrics()", {
         )
         res2 <- vetiver_pin_metrics(new_metrics, date, b, "metrics2")
         expect_equal(
-            pin_read(b, "metrics2"),
+            pins::pin_read(b, "metrics2"),
             vctrs::vec_rbind(res1, vctrs::vec_sort(new_metrics))
         )
     })
