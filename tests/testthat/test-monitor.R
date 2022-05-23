@@ -88,16 +88,14 @@ describe("vetiver_pin_metrics()", {
 
 describe("vetiver_compute_metrics()", {
 
-    library(dplyr)
-    library(parsnip)
-    library(ggplot2)
     data(Chicago, package = "modeldata")
-    Chicago <- Chicago %>% select(ridership, date, one_of(stations))
-    training_data <- Chicago %>% filter(date < "2009-01-01")
-    testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-    lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+    Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))
+    training_data <- dplyr::filter(Chicago, date < "2009-01-01")
+    testing_data <- dplyr::filter(Chicago, date >= "2009-01-01", date < "2011-01-01")
+    lm_fit <- parsnip::fit(parsnip::linear_reg(), ridership ~ ., data = training_data)
+
     df_metrics <-
-        augment(lm_fit, new_data = testing_data) %>%
+        parsnip::augment(lm_fit, new_data = testing_data) %>%
         vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
 
     it("can plot monitoring metrics", {
