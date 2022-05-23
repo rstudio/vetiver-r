@@ -13,13 +13,17 @@
 #' @inheritParams pins::pin_read
 #' @inheritParams slider::slide_period
 #' @param date_var The column in `data` containing dates or date-times for
-#' monitoring, to be aggregated with `unit`
+#' monitoring, to be aggregated with `.period`
 #' @param metric_set A [yardstick::metric_set()] function for computing metrics.
 #' Defaults to [yardstick::metrics()].
 #' @param df_metrics A tidy dataframe of metrics over time, such as created by
 #' `vetiver_compute_metrics()`.
 #' @param metrics_pin_name Pin name for where the *metrics* are stored (as
 #' opposed to where the model object is stored with [vetiver_pin_write()]).
+#' @param overwrite If `TRUE` (the default), overwrite any metrics for dates
+#' that exist both in the existing pin and new metrics with the _new_ values.
+#' If `FALSE`, error when the new metrics contain overlapping dates with the
+#' existing pin.
 #' @param .index The variable in `df_metrics` containing the aggregated dates
 #' or date-times (from `time_var` in `data`). Defaults to `.index`.
 #' @param .estimate The variable in `df_metrics` containing the metric estimate.
@@ -33,7 +37,16 @@
 #' a dataframe of metrics. The `vetiver_plot_metrics()` function returns a
 #' `ggplot2` object.
 #'
-#' @details For arguments used more than once in your monitoring dashboard,
+#' @details Sometimes when you monitor a model at a given time aggregation, you
+#' may end up with dates in your new metrics (like `new_metrics` in the example)
+#' that are the same as dates in your existing aggregated metrics (like
+#' `original_metrics` in the example). This can happen if you need to re-run a
+#' monitoring report because something failed. With `overwrite = TRUE` (the
+#' default), `vetiver_pin_metrics()` will replace such metrics with the new
+#' values. With `overwrite = FALSE`, `vetiver_pin_metrics()` will error when
+#' there are overlapping dates.
+#'
+#' For arguments used more than once in your monitoring dashboard,
 #' such as `date_var`, consider using
 #' [R Markdown parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)
 #' to reduce repetition and/or errors.
@@ -114,16 +127,24 @@ vetiver_compute_metrics <- function(data,
 vetiver_pin_metrics <- function(df_metrics,
                                 board,
                                 metrics_pin_name,
-                                .index = .index) {
+                                .index = .index,
+                                overwrite = TRUE) {
     .index <- enquo(.index)
     .index <- eval_select_one(.index, df_metrics, "date_var")
     new_dates <- unique(df_metrics[[.index]])
 
     old_metrics <- pins::pin_read(board, metrics_pin_name)
-    old_metrics <- vec_slice(
-        old_metrics,
-        ! old_metrics[[.index]] %in% new_dates
-    )
+    overlapping_dates <- old_metrics[[.index]] %in% new_dates
+    if (overwrite) {
+        old_metrics <- vec_slice(old_metrics, !overlapping_dates)
+    } else {
+        if (any(overlapping_dates))
+            abort(c(
+                glue("The new metrics overlap with dates \\
+                     already stored in {glue::single_quote(metrics_pin_name)}"),
+                i = "Check the aggregated dates or use `overwrite = TRUE`"
+            ))
+    }
     new_metrics <- vctrs::vec_rbind(old_metrics, df_metrics)
     new_metrics <- vec_slice(
         new_metrics,

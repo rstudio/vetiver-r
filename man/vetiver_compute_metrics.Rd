@@ -21,7 +21,13 @@ vetiver_compute_metrics(
   .complete = FALSE
 )
 
-vetiver_pin_metrics(df_metrics, board, metrics_pin_name, .index = .index)
+vetiver_pin_metrics(
+  df_metrics,
+  board,
+  metrics_pin_name,
+  .index = .index,
+  overwrite = TRUE
+)
 
 vetiver_plot_metrics(
   df_metrics,
@@ -108,6 +114,11 @@ opposed to where the model object is stored with \code{\link[=vetiver_pin_write]
 \item{.index}{The variable in \code{df_metrics} containing the aggregated dates
 or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}
 
+\item{overwrite}{If \code{TRUE} (the default), overwrite any metrics for dates
+that exist both in the existing pin and new metrics with the \emph{new} values.
+If \code{FALSE}, error when the new metrics contain overlapping dates with the
+existing pin.}
+
 \item{.estimate}{The variable in \code{df_metrics} containing the metric estimate.
 Defaults to \code{.estimate}.}
 
@@ -135,6 +146,15 @@ over time
 }
 }
 \details{
+Sometimes when you monitor a model at a given time aggregation, you
+may end up with dates in your new metrics (like \code{new_metrics} in the example)
+that are the same as dates in your existing aggregated metrics (like
+\code{original_metrics} in the example). This can happen if you need to re-run a
+monitoring report because something failed. With \code{overwrite = TRUE} (the
+default), \code{vetiver_pin_metrics()} will replace such metrics with the new
+values. With \code{overwrite = FALSE}, \code{vetiver_pin_metrics()} will error when
+there are overlapping dates.
+
 For arguments used more than once in your monitoring dashboard,
 such as \code{date_var}, consider using
 \href{https://bookdown.org/yihui/rmarkdown/parameterized-reports.html}{R Markdown parameters}

@@ -62,9 +62,16 @@ describe("vetiver_pin_metrics()", {
             vetiver_pin_metrics(df_metrics, b, "metrics1")
         )
     })
-    it("can update metrics", {
+    it("fails with `overwrite = FALSE`", {
         b <- pins::board_temp()
         pins::pin_write(b, df_metrics, "metrics2")
+        expect_snapshot_error(
+            vetiver_pin_metrics(df_metrics, b, "metrics2", overwrite = FALSE)
+        )
+    })
+    it("can update metrics", {
+        b <- pins::board_temp()
+        pins::pin_write(b, df_metrics, "metrics3")
 
         new_metrics <- tibble::tibble(
             .index = as.Date("2011-01-12"),
@@ -74,9 +81,9 @@ describe("vetiver_pin_metrics()", {
             .estimate = c(3.0, 0.7, 2.0)
 
         )
-        res2 <- vetiver_pin_metrics(new_metrics, b, "metrics2")
+        res2 <- vetiver_pin_metrics(new_metrics, b, "metrics3")
         expect_equal(
-            pins::pin_read(b, "metrics2"),
+            pins::pin_read(b, "metrics3"),
             dplyr::arrange(vctrs::vec_rbind(df_metrics, new_metrics), .index)
         )
     })
