@@ -59,7 +59,7 @@ describe("vetiver_pin_metrics()", {
     it("fails without existing pin", {
         b <- pins::board_temp()
         expect_snapshot_error(
-            vetiver_pin_metrics(df_metrics, date, b, "metrics1")
+            vetiver_pin_metrics(df_metrics, b, "metrics1")
         )
     })
     it("can update metrics", {
@@ -67,17 +67,17 @@ describe("vetiver_pin_metrics()", {
         pins::pin_write(b, df_metrics, "metrics2")
 
         new_metrics <- tibble::tibble(
-            date = as.Date("2011-01-12"),
+            .index = as.Date("2011-01-12"),
             n = 30,
             .metric = c("rmse", "rsq", "mae"),
             .estimator = "standard",
             .estimate = c(3.0, 0.7, 2.0)
 
         )
-        res2 <- vetiver_pin_metrics(new_metrics, date, b, "metrics2")
+        res2 <- vetiver_pin_metrics(new_metrics, b, "metrics2")
         expect_equal(
             pins::pin_read(b, "metrics2"),
-            dplyr::arrange(vctrs::vec_rbind(df_metrics, new_metrics), date)
+            dplyr::arrange(vctrs::vec_rbind(df_metrics, new_metrics), .index)
         )
     })
 })
@@ -96,7 +96,7 @@ describe("vetiver_plot_metrics()", {
         vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
 
     it("can plot monitoring metrics", {
-        p <- vetiver_plot_metrics(df_metrics, date)
+        p <- vetiver_plot_metrics(df_metrics)
         expect_s3_class(p, "ggplot")
         vdiffr::expect_doppelganger("default metrics plot", p)
     })

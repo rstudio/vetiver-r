@@ -20,11 +20,13 @@
 #' `vetiver_compute_metrics()`.
 #' @param metrics_pin_name Pin name for where the *metrics* are stored (as
 #' opposed to where the model object is stored with [vetiver_pin_write()]).
+#' @param .index The variable in `df_metrics` containing the aggregated dates
+#' or date-times (from `time_var` in `data`). Defaults to `.index`.
 #' @param .estimate The variable in `df_metrics` containing the metric estimate.
 #' Defaults to `.estimate`.
 #' @param .metric The variable in `df_metrics` containing the metric type.
 #' Defaults to `.metric`.
-#' @param n The variable in `df_metrics` containing the number of observations
+#' @param .n The variable in `df_metrics` containing the number of observations
 #' used for estimating the metric.
 #'
 #' @return Both `vetiver_compute_metrics()` and `vetiver_pin_metrics()` return
@@ -60,10 +62,10 @@
 #' new_metrics <-
 #'     augment(lm_fit, new_data = monitoring) %>%
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
-#'     vetiver_pin_metrics(date, b, "lm_fit_metrics")
+#'     vetiver_pin_metrics(b, "lm_fit_metrics")
 #'
 #' library(ggplot2)
-#' vetiver_plot_metrics(new_metrics, date) +
+#' vetiver_plot_metrics(new_metrics) +
 #'     scale_size(range = c(2, 4))
 #'
 #' @export
@@ -79,17 +81,25 @@ vetiver_compute_metrics <- function(data,
                                     .complete = FALSE) {
 
     rlang::check_installed("slider")
-    metrics_dots <- list2(...)
+    truth_quo <- enquo(truth)
+    estimate_quo <- enquo(estimate)
+
+    # Figure out which column in `data` corresponds to `date_var`
     date_var <- enquo(date_var)
+    date_var <- eval_select_one(date_var, data, "date_var")
+
+    index <- data[[date_var]]
+
     slider::slide_period_dfr(
-        data,
-        .i = data[[quo_name(date_var)]],
+        .x = data,
+        .i = index,
         .period = .period,
-        .f = ~ tibble::tibble(
-            !!date_var := min(.x[[quo_name(date_var)]]),
-            n = nrow(.x),
-            metric_set(.x, {{truth}}, {{estimate}}, !!!metrics_dots)
-        ),
+        .f = compute_metrics,
+        date_var = date_var,
+        metric_set = metric_set,
+        truth_quo = truth_quo,
+        estimate_quo = estimate_quo,
+        ...,
         .every = .every,
         .origin = .origin,
         .before = .before,
@@ -102,21 +112,22 @@ vetiver_compute_metrics <- function(data,
 #' @rdname vetiver_compute_metrics
 #' @export
 vetiver_pin_metrics <- function(df_metrics,
-                                date_var,
                                 board,
-                                metrics_pin_name) {
-    date_var <- quo_name(enquo(date_var))
-    new_dates <- unique(df_metrics[[date_var]])
+                                metrics_pin_name,
+                                .index = .index) {
+    .index <- enquo(.index)
+    .index <- eval_select_one(.index, df_metrics, "date_var")
+    new_dates <- unique(df_metrics[[.index]])
 
     old_metrics <- pins::pin_read(board, metrics_pin_name)
     old_metrics <- vec_slice(
         old_metrics,
-        ! old_metrics[[date_var]] %in% new_dates
+        ! old_metrics[[.index]] %in% new_dates
     )
     new_metrics <- vctrs::vec_rbind(old_metrics, df_metrics)
     new_metrics <- vec_slice(
         new_metrics,
-        vctrs::vec_order(new_metrics[[date_var]])
+        vctrs::vec_order(new_metrics[[.index]])
     )
 
     pins::pin_write(board, new_metrics, basename(metrics_pin_name))
@@ -124,25 +135,71 @@ vetiver_pin_metrics <- function(df_metrics,
 
 }
 
+compute_metrics <- function(data,
+                            date_var,
+                            metric_set,
+                            truth_quo,
+                            estimate_quo,
+                            ...) {
+    index <- data[[date_var]]
+    index <- min(index)
+
+    n <- nrow(data)
+
+    metrics <- metric_set(
+        data = data,
+        truth = !!truth_quo,
+        estimate = !!estimate_quo,
+        ...
+    )
+
+    tibble::tibble(
+        .index = index,
+        .n = n,
+        metrics
+    )
+}
+
+eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
+    rlang::check_installed("tidyselect")
+    check_dots_empty()
+
+    # `col` is a quosure that has its own environment attached
+    env <- empty_env()
+
+    loc <- tidyselect::eval_select(
+        expr = col,
+        data = data,
+        env = env,
+        error_call = call
+    )
+
+    if (length(loc) != 1L) {
+        message <- glue::glue("`{arg}` must specify exactly one column from `data`.")
+        abort(message, call = call)
+    }
+
+    loc
+}
 
 #' @rdname vetiver_compute_metrics
 #' @export
 vetiver_plot_metrics <- function(df_metrics,
-                                 date_var,
+                                 .index = .index,
                                  .estimate = .estimate,
                                  .metric = .metric,
-                                 n = n) {
+                                 .n = .n) {
     rlang::check_installed("ggplot2")
     .metric <- enquo(.metric)
 
     ggplot2::ggplot(data = df_metrics,
-                    ggplot2::aes({{ date_var }}, {{.estimate}})) +
+                    ggplot2::aes({{ .index }}, {{.estimate}})) +
         ggplot2::geom_line(ggplot2::aes(color = !!.metric), alpha = 0.7) +
         ggplot2::geom_point(ggplot2::aes(color = !!.metric,
-                                         size = {{n}}),
+                                         size = {{.n}}),
                             alpha = 0.9) +
         ggplot2::facet_wrap(ggplot2::vars(!!.metric),
                             scales = "free_y", ncol = 1) +
         ggplot2::guides(color = "none") +
-        ggplot2::labs(x = NULL, y = NULL)
+        ggplot2::labs(x = NULL, y = NULL, size = NULL)
 }

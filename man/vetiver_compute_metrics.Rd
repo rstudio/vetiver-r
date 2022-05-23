@@ -21,14 +21,14 @@ vetiver_compute_metrics(
   .complete = FALSE
 )
 
-vetiver_pin_metrics(df_metrics, date_var, board, metrics_pin_name)
+vetiver_pin_metrics(df_metrics, board, metrics_pin_name, .index = .index)
 
 vetiver_plot_metrics(
   df_metrics,
-  date_var,
+  .index = .index,
   .estimate = .estimate,
   .metric = .metric,
-  n = n
+  .n = .n
 )
 }
 \arguments{
@@ -105,13 +105,16 @@ the default, then partial computations will be allowed.}
 \item{metrics_pin_name}{Pin name for where the \emph{metrics} are stored (as
 opposed to where the model object is stored with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}).}
 
+\item{.index}{The variable in \code{df_metrics} containing the aggregated dates
+or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}
+
 \item{.estimate}{The variable in \code{df_metrics} containing the metric estimate.
 Defaults to \code{.estimate}.}
 
 \item{.metric}{The variable in \code{df_metrics} containing the metric type.
 Defaults to \code{.metric}.}
 
-\item{n}{The variable in \code{df_metrics} containing the number of observations
+\item{.n}{The variable in \code{df_metrics} containing the number of observations
 used for estimating the metric.}
 }
 \value{
@@ -161,10 +164,10 @@ original_metrics <-
 new_metrics <-
     augment(lm_fit, new_data = monitoring) \%>\%
     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
-    vetiver_pin_metrics(date, b, "lm_fit_metrics")
+    vetiver_pin_metrics(b, "lm_fit_metrics")
 
 library(ggplot2)
-vetiver_plot_metrics(new_metrics, date) +
+vetiver_plot_metrics(new_metrics) +
     scale_size(range = c(2, 4))
 
 }
