@@ -1,4 +1,5 @@
 skip_on_cran()
+skip_if_not_installed("pingr")
 
 pr <- pr() %>% vetiver_api(v, debug = TRUE)
 rs <- local_plumber_session(pr, port)

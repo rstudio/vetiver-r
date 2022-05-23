@@ -20,7 +20,6 @@ Depends:
 Imports:
     butcher,
     cli,
-    curl,
     fs,
     generics,
     glue,
@@ -28,6 +27,7 @@ Imports:
     httr,
     jsonlite,
     lifecycle,
+    magrittr (>= 2.0.3),
     pins (>= 1.0.0),
     plumber (>= 1.0.0),
     purrr,
@@ -42,6 +42,9 @@ Suggests:
     callr,
     caret,
     covr,
+    curl,
+    dplyr,
+    ggplot2,
     httpuv,
     knitr,
     LiblineaR,
@@ -55,13 +58,17 @@ Suggests:
     rmarkdown,
     rpart,
     rsconnect,
+    slider (>= 0.2.2),
     testthat (>= 3.0.0),
+    tidyselect,
+    vdiffr,
     workflows,
-    xgboost
+    xgboost,
+    yardstick
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2.9000
+RoxygenNote: 7.2.0
