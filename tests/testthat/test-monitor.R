@@ -56,19 +56,16 @@ describe("vetiver_pin_metrics()", {
         parsnip::augment(lm_fit, new_data = testing_data) %>%
         vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
 
-    it("can initiate metrics", {
+    it("fails without existing pin", {
         b <- pins::board_temp()
-        res <- vetiver_pin_metrics(
-            df_metrics, date, b, "metrics1", initiate = TRUE
+        expect_snapshot_error(
+            vetiver_pin_metrics(df_metrics, date, b, "metrics1")
         )
-        expect_equal(pins::pin_read(b, "metrics1"), res)
-        expect_equal(vctrs::vec_sort(df_metrics), res)
     })
     it("can update metrics", {
         b <- pins::board_temp()
-        res1 <- vetiver_pin_metrics(
-            df_metrics, date, b, "metrics2", initiate = TRUE
-        )
+        pins::pin_write(b, df_metrics, "metrics2")
+
         new_metrics <- tibble::tibble(
             date = as.Date("2011-01-12"),
             n = 30,
@@ -80,13 +77,13 @@ describe("vetiver_pin_metrics()", {
         res2 <- vetiver_pin_metrics(new_metrics, date, b, "metrics2")
         expect_equal(
             pins::pin_read(b, "metrics2"),
-            vctrs::vec_rbind(res1, vctrs::vec_sort(new_metrics))
+            dplyr::arrange(vctrs::vec_rbind(df_metrics, new_metrics), date)
         )
     })
 })
 
 
-describe("vetiver_compute_metrics()", {
+describe("vetiver_plot_metrics()", {
 
     data(Chicago, package = "modeldata")
     Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))

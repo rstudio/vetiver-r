@@ -21,13 +21,7 @@ vetiver_compute_metrics(
   .complete = FALSE
 )
 
-vetiver_pin_metrics(
-  df_metrics,
-  date_var,
-  board,
-  metrics_pin_name,
-  initiate = FALSE
-)
+vetiver_pin_metrics(df_metrics, date_var, board, metrics_pin_name)
 
 vetiver_plot_metrics(
   df_metrics,
@@ -111,9 +105,6 @@ the default, then partial computations will be allowed.}
 \item{metrics_pin_name}{Pin name for where the \emph{metrics} are stored (as
 opposed to where the model object is stored with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}).}
 
-\item{initiate}{Are you starting a new set of monitoring metrics to
-pin/store? Defaults to \code{FALSE}.}
-
 \item{.estimate}{The variable in \code{df_metrics} containing the metric estimate.
 Defaults to \code{.estimate}.}
 
@@ -135,7 +126,7 @@ monitoring dashboard):
 \item \code{vetiver_compute_metrics()} computes metrics (such as accuracy for a
 classification model or RMSE for a regression model) at a chosen time
 aggregation \code{.period}
-\item \code{vetiver_pin_metrics()} updates (or creates) a pin storing model metrics
+\item \code{vetiver_pin_metrics()} updates an existing pin storing model metrics
 over time
 \item \code{vetiver_plot_metrics()} creates a plot of metrics over time
 }
@@ -150,7 +141,7 @@ to reduce repetition and/or errors.
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
-Chicago <- Chicago \%>\% select(ridership, date, one_of(stations))
+Chicago <- Chicago \%>\% select(ridership, date, all_of(stations))
 training_data <- Chicago \%>\% filter(date < "2009-01-01")
 testing_data <- Chicago \%>\% filter(date >= "2009-01-01", date < "2011-01-01")
 monitoring <- Chicago \%>\% filter(date >= "2011-01-01", date < "2012-12-31")
@@ -164,7 +155,7 @@ b <- board_temp()
 original_metrics <-
     augment(lm_fit, new_data = testing_data) \%>\%
     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) \%>\%
-    vetiver_pin_metrics(date, b, "lm_fit_metrics", initiate = TRUE)
+    pin_write(b, ., "lm_fit_metrics")
 
 ## to continue monitoring with new data, compute metrics and update pin:
 new_metrics <-

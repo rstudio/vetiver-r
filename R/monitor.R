@@ -5,7 +5,7 @@
 #' - `vetiver_compute_metrics()` computes metrics (such as accuracy for a
 #' classification model or RMSE for a regression model) at a chosen time
 #' aggregation `.period`
-#' - `vetiver_pin_metrics()` updates (or creates) a pin storing model metrics
+#' - `vetiver_pin_metrics()` updates an existing pin storing model metrics
 #' over time
 #' - `vetiver_plot_metrics()` creates a plot of metrics over time
 #'
@@ -20,8 +20,6 @@
 #' `vetiver_compute_metrics()`.
 #' @param metrics_pin_name Pin name for where the *metrics* are stored (as
 #' opposed to where the model object is stored with [vetiver_pin_write()]).
-#' @param initiate Are you starting a new set of monitoring metrics to
-#' pin/store? Defaults to `FALSE`.
 #' @param .estimate The variable in `df_metrics` containing the metric estimate.
 #' Defaults to `.estimate`.
 #' @param .metric The variable in `df_metrics` containing the metric type.
@@ -56,7 +54,7 @@
 #' original_metrics <-
 #'     augment(lm_fit, new_data = testing_data) %>%
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L) %>%
-#'     vetiver_pin_metrics(date, b, "lm_fit_metrics", initiate = TRUE)
+#'     pin_write(b, ., "lm_fit_metrics")
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
@@ -106,21 +104,20 @@ vetiver_compute_metrics <- function(data,
 vetiver_pin_metrics <- function(df_metrics,
                                 date_var,
                                 board,
-                                metrics_pin_name,
-                                initiate = FALSE) {
+                                metrics_pin_name) {
     date_var <- quo_name(enquo(date_var))
+    new_dates <- unique(df_metrics[[date_var]])
 
-    if (initiate) {
-        new_metrics <- vec_sort(df_metrics)
-    } else {
-        new_dates <- unique(df_metrics[[date_var]])
-        old_metrics <- pins::pin_read(board, metrics_pin_name)
-        old_metrics <- vec_slice(
-            old_metrics,
-            ! old_metrics[[date_var]] %in% new_dates
-        )
-        new_metrics <- vec_sort(vctrs::vec_rbind(old_metrics, df_metrics))
-    }
+    old_metrics <- pins::pin_read(board, metrics_pin_name)
+    old_metrics <- vec_slice(
+        old_metrics,
+        ! old_metrics[[date_var]] %in% new_dates
+    )
+    new_metrics <- vctrs::vec_rbind(old_metrics, df_metrics)
+    new_metrics <- vec_slice(
+        new_metrics,
+        vctrs::vec_order(new_metrics[[date_var]])
+    )
 
     pins::pin_write(board, new_metrics, basename(metrics_pin_name))
     new_metrics
