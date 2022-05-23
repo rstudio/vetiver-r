@@ -35,7 +35,7 @@ describe("vetiver_compute_metrics()", {
             lm_aug,
             date, "week",
             ridership, .pred,
-            .every = 6L
+            every = 6L
         )
         expect_s3_class(res, "tbl_df")
         expect_equal(unique(res$.metric), c("rmse", "rsq", "mae"))
@@ -54,7 +54,7 @@ describe("vetiver_pin_metrics()", {
 
     df_metrics <-
         parsnip::augment(lm_fit, new_data = testing_data) %>%
-        vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+        vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 
     it("fails without existing pin", {
         b <- pins::board_temp()
@@ -100,7 +100,7 @@ describe("vetiver_plot_metrics()", {
 
     df_metrics <-
         parsnip::augment(lm_fit, new_data = testing_data) %>%
-        vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+        vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 
     it("can plot monitoring metrics", {
         p <- vetiver_plot_metrics(df_metrics)

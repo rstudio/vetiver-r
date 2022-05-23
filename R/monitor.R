@@ -68,13 +68,13 @@
 #' ## (for example, with the testing data):
 #' original_metrics <-
 #'     augment(lm_fit, new_data = testing_data) %>%
-#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' pin_write(b, original_metrics, "lm_fit_metrics")
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
 #'     augment(lm_fit, new_data = monitoring) %>%
-#'     vetiver_compute_metrics(date, "week", ridership, .pred, .every = 4L)
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 #'
 #' library(ggplot2)
@@ -84,14 +84,14 @@
 #' @export
 vetiver_compute_metrics <- function(data,
                                     date_var,
-                                    .period,
+                                    period,
                                     truth, estimate, ...,
                                     metric_set = yardstick::metrics,
-                                    .every = 1L,
-                                    .origin = NULL,
-                                    .before = 0L,
-                                    .after = 0L,
-                                    .complete = FALSE) {
+                                    every = 1L,
+                                    origin = NULL,
+                                    before = 0L,
+                                    after = 0L,
+                                    complete = FALSE) {
 
     rlang::check_installed("slider")
     truth_quo <- enquo(truth)
@@ -106,18 +106,18 @@ vetiver_compute_metrics <- function(data,
     slider::slide_period_dfr(
         .x = data,
         .i = index,
-        .period = .period,
+        .period = period,
         .f = compute_metrics,
         date_var = date_var,
         metric_set = metric_set,
         truth_quo = truth_quo,
         estimate_quo = estimate_quo,
         ...,
-        .every = .every,
-        .origin = .origin,
-        .before = .before,
-        .after = .after,
-        .complete = .complete
+        .every = every,
+        .origin = origin,
+        .before = before,
+        .after = after,
+        .complete = complete
     )
 
 }
