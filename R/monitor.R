@@ -51,7 +51,7 @@
 #' [R Markdown parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)
 #' to reduce repetition and/or errors.
 #'
-#' @examples
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")

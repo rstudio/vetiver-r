@@ -161,6 +161,7 @@ such as \code{date_var}, consider using
 to reduce repetition and/or errors.
 }
 \examples{
+\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
@@ -189,5 +190,5 @@ vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 library(ggplot2)
 vetiver_plot_metrics(new_metrics) +
     scale_size(range = c(2, 4))
-
+\dontshow{\}) # examplesIf}
 }
