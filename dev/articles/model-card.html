@@ -99,14 +99,14 @@
 <p>Good documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper <a href="https://doi.org/10.1145/3287560.3287596" class="external-link">“Model Cards for Model Reporting” (Mitchell et al. 2019)</a> provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template <strong>automates</strong> extracting some information from the model object, and provides <strong>structure</strong> for the model developer where automation is not possible.</p>
 <p>Model developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/vetiver-r" class="external-link">vetiver</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span>
 <span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span>
-<span class="co">#&gt; Creating new version '20220525T153342Z-88e0b'</span>
+<span class="co">#&gt; Creating new version '20220525T163359Z-88e0b'</span>
 <span class="co">#&gt; Writing to pin 'cars_linear'</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Create a Model Card for your published model</span>
