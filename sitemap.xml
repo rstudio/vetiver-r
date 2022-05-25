@@ -1,96 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vetiver.tidymodels.org/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/CODE_OF_CONDUCT.html</loc>
+    <loc>/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/CONTRIBUTING.html</loc>
+    <loc>/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/LICENSE.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/articles/index.html</loc>
+    <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/articles/model-card.html</loc>
+    <loc>/articles/model-card.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/articles/vetiver.html</loc>
+    <loc>/articles/vetiver.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/news/index.html</loc>
+    <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/api_spec.html</loc>
+    <loc>/reference/api_spec.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/attach_pkgs.html</loc>
+    <loc>/reference/attach_pkgs.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/handler_startup.html</loc>
+    <loc>/reference/handler_startup.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/index.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/map_request_body.html</loc>
+    <loc>/reference/map_request_body.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/predict.vetiver_endpoint.html</loc>
+    <loc>/reference/predict.vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/reexports.html</loc>
+    <loc>/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver-package.html</loc>
+    <loc>/reference/vetiver-package.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_api.html</loc>
+    <loc>/reference/vetiver_api.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_create_description.html</loc>
+    <loc>/reference/vetiver_compute_metrics.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_create_meta.html</loc>
+    <loc>/reference/vetiver_create_description.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_create_ptype.html</loc>
+    <loc>/reference/vetiver_create_meta.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_deploy_rsconnect.html</loc>
+    <loc>/reference/vetiver_create_ptype.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_endpoint.html</loc>
+    <loc>/reference/vetiver_deploy_rsconnect.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_model.html</loc>
+    <loc>/reference/vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_pin_write.html</loc>
+    <loc>/reference/vetiver_model.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_pr_predict.html</loc>
+    <loc>/reference/vetiver_pin_write.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_type_convert.html</loc>
+    <loc>/reference/vetiver_pr_predict.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_write_docker.html</loc>
+    <loc>/reference/vetiver_type_convert.html</loc>
   </url>
   <url>
-    <loc>https://vetiver.tidymodels.org/reference/vetiver_write_plumber.html</loc>
+    <loc>/reference/vetiver_write_docker.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vetiver_write_plumber.html</loc>
   </url>
 </urlset>

@@ -4,8 +4,5 @@ pkgdown_sha: ~
 articles:
   model-card: model-card.html
   vetiver: vetiver.html
-last_built: 2022-04-28T15:36Z
-urls:
-  reference: https://vetiver.tidymodels.org/reference
-  article: https://vetiver.tidymodels.org/articles
+last_built: 2022-05-25T20:11Z
 
