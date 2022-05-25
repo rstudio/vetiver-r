@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.1.5
 
 * Add functions for model monitoring (#92).
 
