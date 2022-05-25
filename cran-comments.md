@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 5th CRAN release of vetiver. This release improves how Dockerfiles are generated.
+This is the 6th CRAN release of vetiver. This release adds functions for model monitoring and updates all URLs in the package for new documentation sites.
 
 ## R CMD check results
 

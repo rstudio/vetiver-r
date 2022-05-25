@@ -2,6 +2,8 @@
 
 * Add functions for model monitoring (#92).
 
+* Update all URLs in package for new documentation sites.
+
 # vetiver 0.1.4
 
 * Improve how Dockerfiles are generated.

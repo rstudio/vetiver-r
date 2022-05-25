@@ -13,8 +13,8 @@ Description: The goal of 'vetiver' is to provide fluent tooling to
     extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
 URL: https://vetiver.rstudio.com,
-    https://rstudio.github.io/vetiver-r,
-    https://github.com/rstudio/vetiver-r
+    https://rstudio.github.io/vetiver-r/,
+    https://github.com/rstudio/vetiver-r/
 BugReports: https://github.com/rstudio/vetiver-r/issues
 Depends: 
     R (>= 3.4)
