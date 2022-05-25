@@ -17,11 +17,11 @@ rf_fit <-
 
 v <- vetiver_model(rf_fit, "cars_rf")
 
-test_that("can print tidymodels model", {
+test_that("can print caret model", {
     expect_snapshot(v)
 })
 
-test_that("can pin a tidymodels model", {
+test_that("can pin a caret model", {
     b <- board_temp()
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "cars_rf")
@@ -35,7 +35,7 @@ test_that("can pin a tidymodels model", {
     )
 })
 
-test_that("default endpoint for tidymodels", {
+test_that("default endpoint for caret", {
     p <- pr() %>% vetiver_api(v)
     p_routes <- p$routes[-1]
     expect_equal(names(p_routes), c("ping", "predict"))

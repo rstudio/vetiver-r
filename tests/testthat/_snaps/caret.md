@@ -1,4 +1,4 @@
-# can print tidymodels model
+# can print caret model
 
     Code
       v
