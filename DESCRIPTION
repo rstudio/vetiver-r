@@ -45,6 +45,7 @@ Suggests:
     covr,
     curl,
     dplyr,
+    flexdashboard,
     ggplot2,
     httpuv,
     knitr,
