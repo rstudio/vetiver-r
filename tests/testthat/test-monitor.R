@@ -1,6 +1,8 @@
 skip_if_not_installed("modeldata")
 skip_if_not_installed("dplyr")
 skip_if_not_installed("parsnip")
+skip_if_not_installed("slider")
+skip_if_not_installed("yardstick")
 
 describe("vetiver_compute_metrics()", {
 
@@ -50,6 +52,7 @@ describe("vetiver_compute_metrics()", {
 
 describe("vetiver_pin_metrics()", {
 
+    skip_if_not_installed("vdiffr")
     data(Chicago, package = "modeldata")
     Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))
     training_data <- dplyr::filter(Chicago, date < "2009-01-01")
