@@ -48,7 +48,19 @@ v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 
 if (FALSE) {
-vetiver_deploy_rsconnect(b, "cars_linear", predict_args = list(debug = TRUE))
+## pass args for predicting:
+vetiver_deploy_rsconnect(
+    b,
+    "user.name/cars_linear",
+    predict_args = list(debug = TRUE)
+)
+
+## specify an account name through `...`:
+vetiver_deploy_rsconnect(
+    b,
+    "user.name/cars_linear",
+    account = "julia.silge"
+)
 }
 
 }
