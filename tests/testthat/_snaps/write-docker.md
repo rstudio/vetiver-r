@@ -18,7 +18,7 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
@@ -44,7 +44,7 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
@@ -70,7 +70,7 @@
         libssl-dev \
         make
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
@@ -97,7 +97,7 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R

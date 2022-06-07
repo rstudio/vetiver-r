@@ -4,14 +4,16 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' Write a Dockerfile for a vetiver model
 #'
 #' After creating a Plumber file with [vetiver_write_plumber()], use
-#' `vetiver_write_docker()` to create a Dockerfile plus an `renv.lock` file
-#' for a pinned [vetiver_model()].
+#' `vetiver_write_docker()` to create a Dockerfile plus a `vetiver_renv.lock`
+#' file for a pinned [vetiver_model()].
 #'
 #' @inheritParams vetiver_api
 #' @param plumber_file A path for your Plumber file, created via
 #' [vetiver_write_plumber()]. Defaults to `plumber.R` in the working directory.
 #' @param path A path to write the Dockerfile and `renv.lock` lockfile,
 #' capturing the model's package dependencies. Defaults to the working directory.
+#' @param lockfile The generated lockfile in `path`. Defaults to
+#' `"vetiver_renv.lock"`.
 #' @param rspm A logical to use the
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
 #' [renv::restore()] in the Docker image. Defaults to `TRUE`.
@@ -41,6 +43,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 vetiver_write_docker <- function(vetiver_model,
                                  plumber_file = "plumber.R",
                                  path = ".",
+                                 lockfile = "vetiver_renv.lock",
                                  rspm = TRUE,
                                  port = 8000) {
 
@@ -52,7 +55,13 @@ vetiver_write_docker <- function(vetiver_model,
     )
 
     pkgs <- unique(c(docker_pkgs, vetiver_model$metadata$required_pkgs))
-    lockfile <- fs::path_rel(write_renv_lockfile(path = path, pkgs = pkgs))
+    renv::snapshot(
+        project = path,
+        lockfile = lockfile,
+        packages = pkgs,
+        prompt = FALSE,
+        force = TRUE
+    )
     plumber_file <- fs::path_rel(plumber_file)
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} renv.lock")
@@ -80,18 +89,6 @@ vetiver_write_docker <- function(vetiver_model,
 }
 
 docker_pkgs <- c("pins", "plumber", "rapidoc", "vetiver", "renv")
-
-write_renv_lockfile <- function(path, pkgs) {
-    lockfile <- renv::paths$lockfile(project = path)
-    renv::snapshot(
-        project = path,
-        lockfile = lockfile,
-        packages = pkgs,
-        prompt = FALSE,
-        force = TRUE
-    )
-    lockfile
-}
 
 glue_sys_reqs <- function(pkgs) {
     rlang::check_installed("curl")
