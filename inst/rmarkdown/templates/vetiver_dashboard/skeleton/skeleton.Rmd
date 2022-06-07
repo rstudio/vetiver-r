@@ -2,18 +2,60 @@
 title: "Monitor model"
 output: 
   vetiver::vetiver_dashboard:
-    board: !expr pins::board_rsconnect()
-    name: 'julia.silge/hotel_rf'
+    board: !expr pins::board_local()
+    name: 'hotel_rf'
     storyboard: true
     source_code: 'https://vetiver.rstudio.com'
     display_pins: true
 params:
-    board: !r pins::board_rsconnect()
-    name: 'julia.silge/hotel_rf'
+    board: !r pins::board_local()
+    name: 'hotel_rf'
     version: NULL
 ---
 
-```{r setup, include = FALSE}
+```{r create-model, include=FALSE}
+## This demo chunk shows training a model for our temporary board
+## For real work, train and pin your model outside the monitoring dashboard
+library(tidyverse)
+library(tidymodels)
+library(vetiver)
+library(pins)
+
+hotels_url <- 'https://tidymodels.org/start/case-study/hotels.csv'
+hotels <- read_csv(hotels_url) %>%
+    mutate_if(is.character, as.factor) %>%
+    arrange(arrival_date) %>%
+    filter(arrival_date >= "2017-01-01") 
+
+set.seed(123)
+hotel_split <- initial_split(hotels, strata = children)
+hotel_train <- training(hotel_split)
+hotel_test  <- testing(hotel_split)
+
+rf_recipe <-
+    recipe(children ~ ., data = hotel_train) %>%
+    step_date(arrival_date) %>%
+    step_holiday(arrival_date, keep_original_cols = FALSE)
+rf_spec <- rand_forest(mode = "classification")
+
+set.seed(234)
+rf_fit <-
+    workflow(rf_recipe, rf_spec) %>%
+    fit(hotel_train)
+
+v <- vetiver_model(rf_fit, params$name)
+vetiver_pin_write(params$board, v)
+
+old_metrics <- 
+    augment(v, hotel_test) %>%
+    vetiver_compute_metrics(arrival_date, "week",
+                            children, .pred_class, .pred_children)
+
+pin_write(params$board, old_metrics, paste(params$name, "metrics", sep = "_"))
+```
+
+
+```{r setup-validation, include = FALSE}
 library(vetiver)
 library(tidyverse)
 library(tidymodels)
