@@ -20,6 +20,8 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' @param port The server port for listening: a number such as 8080 or an
 #' expression like `'as.numeric(Sys.getenv("PORT"))'` when the port is injected
 #' as an environment variable.
+#' @param expose Add `EXPOSE` to the Dockerfile? This is helpful for using
+#' Docker Desktop but does not work with an expression for `port`.
 #'
 #' @return The content of the Dockerfile, invisibly.
 #' @export
@@ -38,14 +40,16 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' vetiver_write_docker(v, tmp_plumber, tempdir())
 #' ## port from env variable
 #' vetiver_write_docker(v, tmp_plumber, tempdir(),
-#'                      port = 'as.numeric(Sys.getenv("PORT"))')
+#'                      port = 'as.numeric(Sys.getenv("PORT"))',
+#'                      expose = FALSE)
 #'
 vetiver_write_docker <- function(vetiver_model,
                                  plumber_file = "plumber.R",
                                  path = ".",
                                  lockfile = "vetiver_renv.lock",
                                  rspm = TRUE,
-                                 port = 8000) {
+                                 port = 8000,
+                                 expose = TRUE) {
 
     from_r_version <- glue::glue("FROM rocker/r-ver:{getRversion()}")
     rspm_env <- ifelse(
@@ -66,6 +70,7 @@ vetiver_write_docker <- function(vetiver_model,
     sys_reqs <- glue_sys_reqs(pkgs)
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
+    expose <- ifelse(expose, glue("EXPOSE {port}"), "")
     entrypoint <- glue('ENTRYPOINT ["R", "-e", ',
                        '"pr <- plumber::plumb(\'/opt/ml/plumber.R\'); ',
                        'pr$run(host = \'0.0.0.0\', port = {port})"]')
@@ -81,7 +86,7 @@ vetiver_write_docker <- function(vetiver_model,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
         copy_plumber,
-        "",
+        expose,
         entrypoint
     ))
 
