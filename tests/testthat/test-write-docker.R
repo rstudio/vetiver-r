@@ -42,7 +42,8 @@ test_that("create Dockerfile with specific port", {
     vetiver_pin_write(b, v)
     vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
     vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"),
-                         tmp_dir, port = 'as.numeric(Sys.getenv("PORT"))')
+                         tmp_dir, port = 'as.numeric(Sys.getenv("PORT"))',
+                         expose = FALSE)
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
         transform = redact_vetiver

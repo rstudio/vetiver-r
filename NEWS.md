@@ -4,6 +4,8 @@
 
 * Switched the default for `overwrite` in `vetiver_pin_metrics()` from `TRUE` to `FALSE`. Using `FALSE` is a better choice for interactive use while `TRUE` is probably the right choice for reports or dashboards that are executed on a schedule (#104).
 
+* Added an optional `EXPOSE PORT` line to the generated Dockerfile, to help out Docker Desktop users (#105).
+
 # vetiver 0.1.5
 
 * Add functions for model monitoring (#92).
