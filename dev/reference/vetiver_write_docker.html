@@ -72,7 +72,8 @@ file for a pinned <code><a href="vetiver_model.html">vetiver_model()</a></code>.
   path <span class="op">=</span> <span class="st">"."</span>,
   lockfile <span class="op">=</span> <span class="st">"vetiver_renv.lock"</span>,
   rspm <span class="op">=</span> <span class="cn">TRUE</span>,
-  port <span class="op">=</span> <span class="fl">8000</span>
+  port <span class="op">=</span> <span class="fl">8000</span>,
+  expose <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -97,6 +98,9 @@ capturing the model's package dependencies. Defaults to the working directory.</
 <dd><p>The server port for listening: a number such as 8080 or an
 expression like <code>'as.numeric(Sys.getenv("PORT"))'</code> when the port is injected
 as an environment variable.</p></dd>
+<dt>expose</dt>
+<dd><p>Add <code>EXPOSE</code> to the Dockerfile? This is helpful for using
+Docker Desktop but does not work with an expression for <code>port</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -112,7 +116,7 @@ as an environment variable.</p></dd>
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220609T004245Z-88e0b'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220609T020000Z-88e0b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span class="fu"><a href="vetiver_write_plumber.html">vetiver_write_plumber</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp_plumber</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -121,7 +125,8 @@ as an environment variable.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to 'vetiver_renv.lock'.</span>
 <span class="r-in"><span class="co">## port from env variable</span></span>
 <span class="r-in"><span class="fu">vetiver_write_docker</span><span class="op">(</span><span class="va">v</span>, <span class="va">tmp_plumber</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                     port <span class="op">=</span> <span class="st">'as.numeric(Sys.getenv("PORT"))'</span><span class="op">)</span></span>
+<span class="r-in">                     port <span class="op">=</span> <span class="st">'as.numeric(Sys.getenv("PORT"))'</span>,</span>
+<span class="r-in">                     expose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to 'vetiver_renv.lock'.</span>
 </code></pre></div>
     </div>
