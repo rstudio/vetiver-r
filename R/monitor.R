@@ -20,10 +20,10 @@
 #' `vetiver_compute_metrics()`.
 #' @param metrics_pin_name Pin name for where the *metrics* are stored (as
 #' opposed to where the model object is stored with [vetiver_pin_write()]).
-#' @param overwrite If `TRUE` (the default), overwrite any metrics for dates
-#' that exist both in the existing pin and new metrics with the _new_ values.
-#' If `FALSE`, error when the new metrics contain overlapping dates with the
-#' existing pin.
+#' @param overwrite If `FALSE` (the default), error when the new metrics contain
+#' overlapping dates with the existing pin.If `TRUE`, overwrite any metrics for
+#' dates that exist both in the existing pin and new metrics with the _new_
+#' values.
 #' @param .index The variable in `df_metrics` containing the aggregated dates
 #' or date-times (from `time_var` in `data`). Defaults to `.index`.
 #' @param .estimate The variable in `df_metrics` containing the metric estimate.
@@ -41,10 +41,11 @@
 #' may end up with dates in your new metrics (like `new_metrics` in the example)
 #' that are the same as dates in your existing aggregated metrics (like
 #' `original_metrics` in the example). This can happen if you need to re-run a
-#' monitoring report because something failed. With `overwrite = TRUE` (the
-#' default), `vetiver_pin_metrics()` will replace such metrics with the new
-#' values. With `overwrite = FALSE`, `vetiver_pin_metrics()` will error when
-#' there are overlapping dates.
+#' monitoring report because something failed. With `overwrite = FALSE` (the
+#' default), `vetiver_pin_metrics()` will error when there are overlapping
+#' dates. With `overwrite = TRUE`, `vetiver_pin_metrics()` will replace such
+#' metrics with the new values. You probably want `FALSE` for interactive use
+#' and `TRUE` for dashboards or reports that run on a schedule.
 #'
 #' For arguments used more than once in your monitoring dashboard,
 #' such as `date_var`, consider using
@@ -128,7 +129,7 @@ vetiver_pin_metrics <- function(board,
                                 df_metrics,
                                 metrics_pin_name,
                                 .index = .index,
-                                overwrite = TRUE) {
+                                overwrite = FALSE) {
     .index <- enquo(.index)
     .index <- eval_select_one(.index, df_metrics, "date_var")
     new_dates <- unique(df_metrics[[.index]])
