@@ -51,6 +51,7 @@ Suggests:
     knitr,
     LiblineaR,
     mlr3,
+    mlr3data,
     mlr3learners,
     modeldata,
     parsnip,
