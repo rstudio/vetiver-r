@@ -40,7 +40,6 @@ vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
     }
 
     rmarkdown::output_format(
-        ,
         knitr = rmarkdown::knitr_options(
             opts_knit = list(vetiver_dashboard.pins = pins),
             # require to keep flexdashboard one
