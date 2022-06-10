@@ -2,86 +2,49 @@
 title: "Monitor model"
 output: 
   vetiver::vetiver_dashboard:
-    board: !expr pins::board_local()
-    name: 'hotel_rf'
+    pins:
+      board: !expr pins::board_temp()
+      name: 'seattle_rf'
+      version: NULL
     storyboard: true
     source_code: 'https://vetiver.rstudio.com'
     display_pins: true
-params:
-    board: !r pins::board_local()
-    name: 'hotel_rf'
-    version: NULL
 ---
 
-```{r create-model, include=FALSE}
-## This demo chunk shows training a model for our temporary board
-## For real work, train and pin your model outside the monitoring dashboard
-library(tidyverse)
-library(tidymodels)
+```{r setup, include = FALSE}
 library(vetiver)
-library(pins)
-
-hotels_url <- 'https://tidymodels.org/start/case-study/hotels.csv'
-hotels <- read_csv(hotels_url) %>%
-    mutate_if(is.character, as.factor) %>%
-    arrange(arrival_date) %>%
-    filter(arrival_date >= "2017-01-01") 
-
-set.seed(123)
-hotel_split <- initial_split(hotels, strata = children)
-hotel_train <- training(hotel_split)
-hotel_test  <- testing(hotel_split)
-
-rf_recipe <-
-    recipe(children ~ ., data = hotel_train) %>%
-    step_date(arrival_date) %>%
-    step_holiday(arrival_date, keep_original_cols = FALSE)
-rf_spec <- rand_forest(mode = "classification")
-
-set.seed(234)
-rf_fit <-
-    workflow(rf_recipe, rf_spec) %>%
-    fit(hotel_train)
-
-v <- vetiver_model(rf_fit, params$name)
-vetiver_pin_write(params$board, v)
-
-old_metrics <- 
-    augment(v, hotel_test) %>%
-    vetiver_compute_metrics(arrival_date, "week",
-                            children, .pred_class, .pred_children)
-
-pin_write(params$board, old_metrics, paste(params$name, "metrics", sep = "_"))
-```
-
-
-```{r setup-validation, include = FALSE}
-library(vetiver)
-library(tidyverse)
 library(tidymodels)
 library(pins)
 library(plotly)
 knitr::opts_chunk$set(echo = FALSE)
+pins <- get_vetiver_dashboard_pins()
+b <- pins$board
+
+## This function creates example modeling artifacts for the purposes of 
+## demonstration. It will:
+##  - fit an example model to training data
+##  - pin the vetiver model to a temp board
+##  - compute metrics from testing data
+##  - pin these metrics to the same temp board
+## These are steps that must be completed before monitoring
+pin_example_kc_housing_model(b, pins$name)
 
 ## load new validation data, for example from database or API
-validation_data_url <- 'https://tidymodels.org/start/case-study/hotels.csv'
-validation_df <- read_csv(validation_data_url) %>%
-    mutate_if(is.character, as.factor) %>%
-    arrange(arrival_date) %>%
-    filter(arrival_date > "2017-01-01") 
+validation_df <- mlr3data::kc_housing %>%
+    arrange(date) %>%
+    filter(date >= "2015-01-01") 
 
-v <- vetiver_pin_read(params$board, params$name, version = params$version)
-v_meta <- pin_meta(params$board, params$name)
+v <- vetiver_pin_read(b, pins$name, version = pins$version)
+v_meta <- pin_meta(b, pins$name)
 validation_aug <- augment(v, validation_df)
 
-metrics_pin_name <- paste(params$name, "metrics", sep = "_")
+metrics_pin_name <- paste(pins$name, "metrics", sep = "_")
 
 new_metrics <-
     validation_aug %>%
-    vetiver_compute_metrics(arrival_date, "week",
-                            children, .pred_class, .pred_children)
+    vetiver_compute_metrics(date, "week", price, .pred)
     
-vetiver_pin_metrics(params$board, new_metrics, metrics_pin_name)
+vetiver_pin_metrics(b, new_metrics, metrics_pin_name)
 
 ```
 
@@ -91,7 +54,7 @@ vetiver_pin_metrics(params$board, new_metrics, metrics_pin_name)
 
 ```{r}
 p1 <- new_metrics %>%
-    filter(.metric %in% c("accuracy", "roc_auc")) %>%
+    filter(.metric %in% c("rmse", "mae")) %>%
     vetiver_plot_metrics() +  
     scale_size(range = c(0, 5))
 
@@ -109,7 +72,7 @@ Plot model metrics over time to *monitor* your model.
 ```{r}
 p2 <-
     validation_df %>%
-    ggplot(aes(average_daily_rate, after_stat(density), fill = children)) +
+    ggplot(aes(price, after_stat(density), fill = waterfront)) +
     geom_histogram(alpha = 0.7, position = "identity") +
     labs(fill = NULL)
 

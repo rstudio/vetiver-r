@@ -27,7 +27,7 @@ describe("vetiver_dashboard()", {
     })
 
     it("can render dashboard", {
-        output_format <- vetiver_dashboard(pins::board_rsconnect(), "julia.silge/hotel_rf")
+        output_format <- vetiver_dashboard(pins = list(board = pins::board_temp(), name = "seattle_rf", version = NULL))
         rmarkdown::render(rmd, output_format = output_format, output_file = html)
         expect_true(file.exists(html))
     })

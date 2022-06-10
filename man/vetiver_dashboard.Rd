@@ -2,23 +2,24 @@
 % Please edit documentation in R/dashboard.R
 \name{vetiver_dashboard}
 \alias{vetiver_dashboard}
+\alias{get_vetiver_dashboard_pins}
+\alias{pin_example_kc_housing_model}
 \title{R Markdown format for model monitoring dashboards}
 \usage{
-vetiver_dashboard(board, name, version = NULL, ..., display_pins = TRUE)
+vetiver_dashboard(pins, display_pins = TRUE, ...)
+
+get_vetiver_dashboard_pins()
+
+pin_example_kc_housing_model(board = pins::board_temp(), name = "seattle_rf")
 }
 \arguments{
-\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
-\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
-
-\item{name}{Pin name.}
-
-\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
-find out which versions are available and when they were created.}
-
-\item{...}{Arguments passed to \code{\link[flexdashboard:flex_dashboard]{flexdashboard::flex_dashboard()}}}
+\item{pins}{A list containing \code{board}, \code{name}, and \code{version}, as in
+\code{\link[pins:pin_read]{pins::pin_read()}}}
 
 \item{display_pins}{Should the dashboard display a link to the pin(s)?
 Defaults to \code{TRUE}.}
+
+\item{...}{Arguments passed to \code{\link[flexdashboard:flex_dashboard]{flexdashboard::flex_dashboard()}}}
 }
 \description{
 R Markdown format for model monitoring dashboards
