@@ -3,7 +3,7 @@ title: "Monitor model"
 output: 
   vetiver::vetiver_dashboard:
     pins:
-      board: !expr pins::board_temp()
+      board: !expr pins::board_local()
       name: 'seattle_rf'
       version: NULL
     storyboard: true
@@ -18,24 +18,21 @@ library(pins)
 library(plotly)
 knitr::opts_chunk$set(echo = FALSE)
 pins <- get_vetiver_dashboard_pins()
-b <- pins$board
 
-## This function creates example modeling artifacts for the purposes of 
-## demonstration. It will:
-##  - fit an example model to training data
-##  - pin the vetiver model to a temp board
-##  - compute metrics from testing data
-##  - pin these metrics to the same temp board
-## These are steps that must be completed before monitoring
-pin_example_kc_housing_model(b, pins$name)
+## Before knitting this example monitoring dashboard, execute:
+## `pin_example_kc_housing_model()`
+## This function will set up demo model and metric pins
 
 ## load new validation data, for example from database or API
 validation_df <- mlr3data::kc_housing %>%
     arrange(date) %>%
     filter(date >= "2015-01-01") 
 
-v <- vetiver_pin_read(b, pins$name, version = pins$version)
-v_meta <- pin_meta(b, pins$name)
+v <- vetiver_pin_read(pins$board, pins$name, version = pins$version)
+
+## TODO: figure out original metrics in metadata vs. pin
+v_meta <- pin_meta(pins$board, pins$name)
+
 validation_aug <- augment(v, validation_df)
 
 metrics_pin_name <- paste(pins$name, "metrics", sep = "_")
@@ -44,7 +41,7 @@ new_metrics <-
     validation_aug %>%
     vetiver_compute_metrics(date, "week", price, .pred)
     
-vetiver_pin_metrics(b, new_metrics, metrics_pin_name)
+vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name)
 
 ```
 
@@ -54,9 +51,11 @@ vetiver_pin_metrics(b, new_metrics, metrics_pin_name)
 
 ```{r}
 p1 <- new_metrics %>%
-    filter(.metric %in% c("rmse", "mae")) %>%
-    vetiver_plot_metrics() +  
-    scale_size(range = c(0, 5))
+    ## you can operate on your metrics as needed:
+    filter(.metric %in% c("rmse", "mae"), .n > 20) %>%
+    vetiver_plot_metrics() + 
+    ## you can also operate on the ggplot:
+    scale_size(range = c(2, 5))
 
 p1 <- ggplotly(p1)
 hide_legend(p1)
@@ -73,8 +72,7 @@ Plot model metrics over time to *monitor* your model.
 p2 <-
     validation_df %>%
     ggplot(aes(price, after_stat(density), fill = waterfront)) +
-    geom_histogram(alpha = 0.7, position = "identity") +
-    labs(fill = NULL)
+    geom_histogram(alpha = 0.7, position = "identity")
 
 ggplotly(p2)
 ```

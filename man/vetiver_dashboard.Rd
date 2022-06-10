@@ -10,7 +10,7 @@ vetiver_dashboard(pins, display_pins = TRUE, ...)
 
 get_vetiver_dashboard_pins()
 
-pin_example_kc_housing_model(board = pins::board_temp(), name = "seattle_rf")
+pin_example_kc_housing_model(board = pins::board_local(), name = "seattle_rf")
 }
 \arguments{
 \item{pins}{A list containing \code{board}, \code{name}, and \code{version}, as in
@@ -20,6 +20,11 @@ pin_example_kc_housing_model(board = pins::board_temp(), name = "seattle_rf")
 Defaults to \code{TRUE}.}
 
 \item{...}{Arguments passed to \code{\link[flexdashboard:flex_dashboard]{flexdashboard::flex_dashboard()}}}
+
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
+\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
+
+\item{name}{Pin name.}
 }
 \description{
 R Markdown format for model monitoring dashboards
@@ -29,4 +34,17 @@ The \code{vetiver_dashboard()} function is a specialized type of
 \pkg{flexdashboard}. See the flexdashboard website for additional
 documentation:
 \href{http://rmarkdown.rstudio.com/flexdashboard/}{http://rmarkdown.rstudio.com/flexdashboard/}
+
+Before knitting the example \code{vetiver_dashboard()} template, execute the
+helper function \code{pin_example_kc_housing_model()} to set up demonstration
+model and metric pins needed for the monitoring demo. This function will:
+\itemize{
+\item fit an example model to training data
+\item pin the vetiver model to your own \code{\link[pins:board_folder]{pins::board_local()}}
+\item compute metrics from testing data
+\item pin these metrics to the same local board
+}
+
+These are the steps you need to complete before setting up monitoring your
+real model.
 }

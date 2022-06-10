@@ -27,7 +27,9 @@ describe("vetiver_dashboard()", {
     })
 
     it("can render dashboard", {
-        output_format <- vetiver_dashboard(pins = list(board = pins::board_temp(), name = "seattle_rf", version = NULL))
+        b <- pins::board_temp()
+        pin_example_kc_housing_model(b)
+        output_format <- vetiver_dashboard(pins = list(board = b, name = "seattle_rf", version = NULL))
         rmarkdown::render(rmd, output_format = output_format, output_file = html)
         expect_true(file.exists(html))
     })

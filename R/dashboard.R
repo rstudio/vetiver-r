@@ -1,5 +1,6 @@
 #' R Markdown format for model monitoring dashboards
 #'
+#' @inheritParams pins::pin_write
 #' @param pins A list containing `board`, `name`, and `version`, as in
 #' [pins::pin_read()]
 #' @param display_pins Should the dashboard display a link to the pin(s)?
@@ -10,6 +11,18 @@
 #' \pkg{flexdashboard}. See the flexdashboard website for additional
 #' documentation:
 #'  \href{http://rmarkdown.rstudio.com/flexdashboard/}{http://rmarkdown.rstudio.com/flexdashboard/}
+#'
+#' Before knitting the example `vetiver_dashboard()` template, execute the
+#' helper function `pin_example_kc_housing_model()` to set up demonstration
+#' model and metric pins needed for the monitoring demo. This function will:
+#'
+#' - fit an example model to training data
+#' - pin the vetiver model to your own [pins::board_local()]
+#' - compute metrics from testing data
+#' - pin these metrics to the same local board
+#'
+#' These are the steps you need to complete before setting up monitoring your
+#' real model.
 #'
 #' @export
 vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
@@ -80,7 +93,8 @@ get_vetiver_dashboard_pins <- function() {
 
 #' @rdname vetiver_dashboard
 #' @export
-pin_example_kc_housing_model <- function(board, name = "seattle_rf") {
+pin_example_kc_housing_model <- function(board = pins::board_local(),
+                                         name = "seattle_rf") {
 
     df <- mlr3data::kc_housing
     df_train <- dplyr::filter(df, date < "2014-11-01")
@@ -99,7 +113,7 @@ pin_example_kc_housing_model <- function(board, name = "seattle_rf") {
         parsnip::augment(v, df_test %>% dplyr::arrange(date)) %>%
         vetiver_compute_metrics(date, "week", price, .pred)
 
-    pin_write(board, old_metrics, paste(name, "metrics", sep = "_"))
+    pins::pin_write(board, old_metrics, paste(name, "metrics", sep = "_"))
 
 }
 
