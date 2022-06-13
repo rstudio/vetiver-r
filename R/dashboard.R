@@ -121,7 +121,6 @@ pin_example_kc_housing_model <- function(board = pins::board_local(),
         parsnip::fit(df_train)
 
     v <- vetiver_model(rf_fit, name)
-    v$metadata$url <- "https://vetiver.rstudio.com/"
     vetiver_pin_write(board, v)
 
     old_metrics <-
