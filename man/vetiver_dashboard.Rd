@@ -17,7 +17,8 @@ pin_example_kc_housing_model(board = pins::board_local(), name = "seattle_rf")
 \code{\link[pins:pin_read]{pins::pin_read()}}}
 
 \item{display_pins}{Should the dashboard display a link to the pin(s)?
-Defaults to \code{TRUE}.}
+Defaults to \code{TRUE}, but only creates a link if the pin contains a URL in
+its metadata.}
 
 \item{...}{Arguments passed to \code{\link[flexdashboard:flex_dashboard]{flexdashboard::flex_dashboard()}}}
 

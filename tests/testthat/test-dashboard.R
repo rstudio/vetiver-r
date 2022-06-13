@@ -26,6 +26,13 @@ describe("vetiver_dashboard()", {
         expect_true(file.exists(rmd))
     })
 
+    it("errors without pin", {
+        b <- pins::board_temp()
+        expect_snapshot_error(
+            vetiver_dashboard(pins = list(board = b, name = "seattle_rf", version = NULL))
+        )
+    })
+
     it("can render dashboard", {
         b <- pins::board_temp()
         pin_example_kc_housing_model(b)

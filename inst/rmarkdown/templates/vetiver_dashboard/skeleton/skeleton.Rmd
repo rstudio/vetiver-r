@@ -24,9 +24,10 @@ library(workflows)
 knitr::opts_chunk$set(echo = FALSE)
 pins <- get_vetiver_dashboard_pins()
 
-# Before knitting this example monitoring dashboard, execute:
+# Before knitting this example monitoring dashboard, execute (in the console):
 # `pin_example_kc_housing_model()`
-# This function will set up demo model and metric pins
+# This function will set up demo model and metrics pins 
+# (instead of real pin URLs, you will see only demo links)
 
 # load new validation data, for example from database or API
 validation_df <- mlr3data::kc_housing %>%

@@ -38,8 +38,8 @@ vetiver_plot_metrics(
 )
 }
 \arguments{
-\item{data}{A \code{data.frame} containing the columns specified by \code{truth},
-\code{estimate}, and \code{...}.}
+\item{data}{A \code{data.frame} containing the \code{truth} and \code{estimate}
+columns and any columns specified by \code{...}.}
 
 \item{date_var}{The column in \code{data} containing dates or date-times for
 monitoring, to be aggregated with \code{.period}}
@@ -58,7 +58,7 @@ broken into:
 \item{truth}{The column identifier for the true results (that
 is \code{numeric} or \code{factor}). This should be an unquoted column name
 although this argument is passed by expression and support
-\link[rlang:topic-inject]{quasiquotation} (you can unquote column
+\link[rlang:nse-force]{quasiquotation} (you can unquote column
 names).}
 
 \item{estimate}{The column identifier for the predicted results

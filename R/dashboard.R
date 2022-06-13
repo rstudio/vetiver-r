@@ -4,7 +4,8 @@
 #' @param pins A list containing `board`, `name`, and `version`, as in
 #' [pins::pin_read()]
 #' @param display_pins Should the dashboard display a link to the pin(s)?
-#' Defaults to `TRUE`.
+#' Defaults to `TRUE`, but only creates a link if the pin contains a URL in
+#' its metadata.
 #' @param ... Arguments passed to [flexdashboard::flex_dashboard()]
 #'
 #' @details The `vetiver_dashboard()` function is a specialized type of
@@ -29,9 +30,14 @@ vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
 
     rlang::check_installed("flexdashboard")
     dashboard_dots <- rlang::list2(...)
+    v <- dashboard_read_version(
+        pins$board,
+        pins$name,
+        pins$version,
+        call = caller_env()
+    )
 
-    if (display_pins) {
-        v <- pin_read_version(pins$board, pins$name, pins$version)
+    if (display_pins && !is_null(v$metadata$url)) {
         dashboard_dots <- vetiver_modify_navbar(dashboard_dots, v$metadata$url)
     }
     if (is_null(dashboard_dots$favicon)) {
@@ -54,7 +60,16 @@ vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
 }
 
 
-pin_read_version <- function(board, name, version) {
+dashboard_read_version <- function(board, name, version, call) {
+    if (!pins::pin_exists(board, name)) {
+        rlang::abort(c(
+            glue("The pin {glue::double_quote(name)} does not exist on your board"),
+            "*" = "Check the `pins` params in your dashboard YAML",
+            "i" = glue("To knit the example vetiver monitoring dashboard, \\
+                       execute `vetiver::pin_example_kc_housing_model()` to \\
+                       set up demo model and metrics pins")
+        ))
+    }
     if (board$versioned) {
         if (is_null(version)) {
             version <- pins::pin_versions(board, name)
@@ -106,6 +121,7 @@ pin_example_kc_housing_model <- function(board = pins::board_local(),
         parsnip::fit(df_train)
 
     v <- vetiver_model(rf_fit, name)
+    v$metadata$url <- "https://vetiver.rstudio.com/"
     vetiver_pin_write(board, v)
 
     old_metrics <-
