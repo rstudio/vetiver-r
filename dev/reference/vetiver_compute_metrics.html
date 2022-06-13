@@ -121,9 +121,13 @@ over time</p></li>
     <dl><dt>data</dt>
 <dd><p>A <code>data.frame</code> containing the columns specified by <code>truth</code>,
 <code>estimate</code>, and <code>...</code>.</p></dd>
+
+
 <dt>date_var</dt>
 <dd><p>The column in <code>data</code> containing dates or date-times for
 monitoring, to be aggregated with <code>.period</code></p></dd>
+
+
 <dt>period</dt>
 <dd><p><code>[character(1)]</code></p>
 <p>A string defining the period to group by. Valid inputs can be roughly
@@ -132,36 +136,50 @@ broken into:</p><ul><li><p><code>"year"</code>, <code>"quarter"</code>, <code>"m
 <li><p><code>"yweek"</code>, <code>"mweek"</code></p></li>
 <li><p><code>"yday"</code>, <code>"mday"</code></p></li>
 </ul></dd>
+
+
 <dt>truth</dt>
 <dd><p>The column identifier for the true results (that
 is <code>numeric</code> or <code>factor</code>). This should be an unquoted column name
 although this argument is passed by expression and support
 <a href="https://rlang.r-lib.org/reference/topic-inject.html" class="external-link">quasiquotation</a> (you can unquote column
 names).</p></dd>
+
+
 <dt>estimate</dt>
 <dd><p>The column identifier for the predicted results
 (that is also <code>numeric</code> or <code>factor</code>). As with <code>truth</code> this can be
 specified different ways but the primary method is to use an
 unquoted variable name.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>A set of unquoted column names or one or more
 <code>dplyr</code> selector functions to choose which variables contain the
 class probabilities. If <code>truth</code> is binary, only 1 column should be selected.
 Otherwise, there should be as many columns as factor levels of <code>truth</code>.</p></dd>
+
+
 <dt>metric_set</dt>
 <dd><p>A <code><a href="https://yardstick.tidymodels.org/reference/metric_set.html" class="external-link">yardstick::metric_set()</a></code> function for computing metrics.
 Defaults to <code><a href="https://yardstick.tidymodels.org/reference/metrics.html" class="external-link">yardstick::metrics()</a></code>.</p></dd>
+
+
 <dt>every</dt>
 <dd><p><code>[positive integer(1)]</code></p>
 <p>The number of periods to group together.</p>
 <p>For example, if the period was set to <code>"year"</code> with an every value of <code>2</code>,
 then the years 1970 and 1971 would be placed in the same group.</p></dd>
+
+
 <dt>origin</dt>
 <dd><p><code>[Date(1) / POSIXct(1) / POSIXlt(1) / NULL]</code></p>
 <p>The reference date time value. The default when left as <code>NULL</code> is the
 epoch time of <code>1970-01-01 00:00:00</code>, <em>in the time zone of the index</em>.</p>
 <p>This is generally used to define the anchor time to count from, which is
 relevant when the every value is <code>&gt; 1</code>.</p></dd>
+
+
 <dt>before, after</dt>
 <dd><p><code>[integer(1) / Inf]</code></p>
 <p>The number of values before or after the current element to
@@ -169,40 +187,61 @@ include in the sliding window. Set to <code>Inf</code> to select all elements
 before or after the current element. Negative values are allowed, which
 allows you to "look forward" from the current element if used as the
 <code>.before</code> value, or "look backwards" if used as <code>.after</code>.</p></dd>
+
+
 <dt>complete</dt>
 <dd><p><code>[logical(1)]</code></p>
 <p>Should the function be evaluated on complete windows only? If <code>FALSE</code>,
 the default, then partial computations will be allowed.</p></dd>
+
+
 <dt>board</dt>
 <dd><p>A pin board, created by <code><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://pins.rstudio.com/reference/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
 <code><a href="https://pins.rstudio.com/reference/board_url.html" class="external-link">board_url()</a></code> or another <code>board_</code> function.</p></dd>
+
+
 <dt>df_metrics</dt>
 <dd><p>A tidy dataframe of metrics over time, such as created by
 <code>vetiver_compute_metrics()</code>.</p></dd>
+
+
 <dt>metrics_pin_name</dt>
 <dd><p>Pin name for where the <em>metrics</em> are stored (as
 opposed to where the model object is stored with <code><a href="vetiver_pin_write.html">vetiver_pin_write()</a></code>).</p></dd>
+
+
 <dt>.index</dt>
 <dd><p>The variable in <code>df_metrics</code> containing the aggregated dates
 or date-times (from <code>time_var</code> in <code>data</code>). Defaults to <code>.index</code>.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>If <code>FALSE</code> (the default), error when the new metrics contain
 overlapping dates with the existing pin.If <code>TRUE</code>, overwrite any metrics for
 dates that exist both in the existing pin and new metrics with the <em>new</em>
 values.</p></dd>
+
+
 <dt>.estimate</dt>
 <dd><p>The variable in <code>df_metrics</code> containing the metric estimate.
 Defaults to <code>.estimate</code>.</p></dd>
+
+
 <dt>.metric</dt>
 <dd><p>The variable in <code>df_metrics</code> containing the metric type.
 Defaults to <code>.metric</code>.</p></dd>
+
+
 <dt>.n</dt>
 <dd><p>The variable in <code>df_metrics</code> containing the number of observations
 used for estimating the metric.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Both <code>vetiver_compute_metrics()</code> and <code>vetiver_pin_metrics()</code> return
+    
+
+<p>Both <code>vetiver_compute_metrics()</code> and <code>vetiver_pin_metrics()</code> return
 a dataframe of metrics. The <code>vetiver_plot_metrics()</code> function returns a
 <code>ggplot2</code> object.</p>
     </div>
@@ -252,7 +291,7 @@ to reduce repetition and/or errors.</p>
 <span class="r-in">    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://pins.rstudio.com/reference/pin_read.html" class="external-link">pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">original_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Guessing `type = 'rds'`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220610T170402Z-07d76'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220613T225246Z-07d76'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'lm_fit_metrics'</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## to continue monitoring with new data, compute metrics and update pin:</span></span>
@@ -261,7 +300,7 @@ to reduce repetition and/or errors.</p>
 <span class="r-in">    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">vetiver_pin_metrics</span><span class="op">(</span><span class="va">b</span>, <span class="va">new_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Guessing `type = 'rds'`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20220610T170402Z-07d76' with '20220610T170402Z-8839b'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20220613T225246Z-07d76' with '20220613T225247Z-8839b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'lm_fit_metrics'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 162 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .index        .n .metric .estimator .estimate</span>
@@ -295,7 +334,7 @@ to reduce repetition and/or errors.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
   </div></footer></body></html>

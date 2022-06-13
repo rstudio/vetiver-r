@@ -412,7 +412,7 @@
     },
     "hardhat": {
       "Package": "hardhat",
-      "Version": "1.0.0",
+      "Version": "1.1.0",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -420,8 +420,8 @@
       "RemoteRef": "hardhat",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.0",
-      "Hash": "73742a53bdbc1911bfbb2b67ac5518a1",
+      "RemoteSha": "1.1.0",
+      "Hash": "b513a8bb3985a2367a0f8014962c6c34",
       "Requirements": [
         "glue",
         "rlang",
@@ -898,7 +898,7 @@
     },
     "sodium": {
       "Package": "sodium",
-      "Version": "1.2.0",
+      "Version": "1.2.1",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -906,8 +906,8 @@
       "RemoteRef": "sodium",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.2.0",
-      "Hash": "07060494360a48fc8a2e282f0dc8f2cf",
+      "RemoteSha": "1.2.1",
+      "Hash": "3606bb09e0914edd4fc8313b500dcd5e",
       "Requirements": []
     },
     "stringi": {
@@ -1083,7 +1083,7 @@
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "bea45e069689382daa150912b3b4d8fa",
+      "Hash": "5219b8ebb1235d7ce073e0ea89d600b4",
       "Requirements": [
         "butcher",
         "cli",
