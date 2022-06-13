@@ -8,8 +8,10 @@ vetiver_write_docker(
   vetiver_model,
   plumber_file = "plumber.R",
   path = ".",
+  lockfile = "vetiver_renv.lock",
   rspm = TRUE,
-  port = 8000
+  port = 8000,
+  expose = TRUE
 )
 }
 \arguments{
@@ -21,6 +23,9 @@ vetiver_write_docker(
 \item{path}{A path to write the Dockerfile and \code{renv.lock} lockfile,
 capturing the model's package dependencies. Defaults to the working directory.}
 
+\item{lockfile}{The generated lockfile in \code{path}. Defaults to
+\code{"vetiver_renv.lock"}.}
+
 \item{rspm}{A logical to use the
 \href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
 \code{\link[renv:restore]{renv::restore()}} in the Docker image. Defaults to \code{TRUE}.}
@@ -28,14 +33,17 @@ capturing the model's package dependencies. Defaults to the working directory.}
 \item{port}{The server port for listening: a number such as 8080 or an
 expression like \code{'as.numeric(Sys.getenv("PORT"))'} when the port is injected
 as an environment variable.}
+
+\item{expose}{Add \code{EXPOSE} to the Dockerfile? This is helpful for using
+Docker Desktop but does not work with an expression for \code{port}.}
 }
 \value{
 The content of the Dockerfile, invisibly.
 }
 \description{
 After creating a Plumber file with \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}, use
-\code{vetiver_write_docker()} to create a Dockerfile plus an \code{renv.lock} file
-for a pinned \code{\link[=vetiver_model]{vetiver_model()}}.
+\code{vetiver_write_docker()} to create a Dockerfile plus a \code{vetiver_renv.lock}
+file for a pinned \code{\link[=vetiver_model]{vetiver_model()}}.
 }
 \examples{
 \dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -52,6 +60,7 @@ vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
 vetiver_write_docker(v, tmp_plumber, tempdir())
 ## port from env variable
 vetiver_write_docker(v, tmp_plumber, tempdir(),
-                     port = 'as.numeric(Sys.getenv("PORT"))')
+                     port = 'as.numeric(Sys.getenv("PORT"))',
+                     expose = FALSE)
 \dontshow{\}) # examplesIf}
 }

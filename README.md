@@ -22,8 +22,10 @@ deploy, and monitor a trained model. Functions handle both recording and
 checking the model’s input data prototype, and predicting from a remote
 API endpoint. The vetiver package is extensible, with generics that can
 support many kinds of models, and available for both R and Python. To
-learn more about vetiver, see the documentation at
-<https://vetiver.rstudio.com/>
+learn more about vetiver, see:
+
+-   the documentation at <https://vetiver.rstudio.com/>
+-   the Python package at <https://rstudio.github.io/vetiver-python/>
 
 You can use vetiver with:
 

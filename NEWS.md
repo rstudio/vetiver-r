@@ -1,6 +1,12 @@
 # vetiver (development version)
 
-* Add model monitoring dashboard template (#98). To knit the example vetiver monitoring dashboard, execute `vetiver::pin_example_kc_housing_model()` to set up demo model and metrics pins.
+* The lockfile created by `vetiver_write_docker()` can now be named via the argument `lockfile`, and its default is `vetiver_renv.lock` (#100).
+
+* Switched the default for `overwrite` in `vetiver_pin_metrics()` from `TRUE` to `FALSE`. Using `FALSE` is a better choice for interactive use while `TRUE` is probably the right choice for reports or dashboards that are executed on a schedule (#104).
+
+* Added an optional `EXPOSE PORT` line to the generated Dockerfile, to help out Docker Desktop users (#105).
+
+* Added model monitoring dashboard template (#98). To knit the example vetiver monitoring dashboard, execute `vetiver::pin_example_kc_housing_model()` to set up demo model and metrics pins.
 
 # vetiver 0.1.5
 

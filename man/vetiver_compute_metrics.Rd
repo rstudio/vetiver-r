@@ -26,7 +26,7 @@ vetiver_pin_metrics(
   df_metrics,
   metrics_pin_name,
   .index = .index,
-  overwrite = TRUE
+  overwrite = FALSE
 )
 
 vetiver_plot_metrics(
@@ -38,8 +38,8 @@ vetiver_plot_metrics(
 )
 }
 \arguments{
-\item{data}{A \code{data.frame} containing the \code{truth} and \code{estimate}
-columns and any columns specified by \code{...}.}
+\item{data}{A \code{data.frame} containing the columns specified by \code{truth},
+\code{estimate}, and \code{...}.}
 
 \item{date_var}{The column in \code{data} containing dates or date-times for
 monitoring, to be aggregated with \code{.period}}
@@ -58,7 +58,7 @@ broken into:
 \item{truth}{The column identifier for the true results (that
 is \code{numeric} or \code{factor}). This should be an unquoted column name
 although this argument is passed by expression and support
-\link[rlang:nse-force]{quasiquotation} (you can unquote column
+\link[rlang:topic-inject]{quasiquotation} (you can unquote column
 names).}
 
 \item{estimate}{The column identifier for the predicted results
@@ -114,10 +114,10 @@ opposed to where the model object is stored with \code{\link[=vetiver_pin_write]
 \item{.index}{The variable in \code{df_metrics} containing the aggregated dates
 or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}
 
-\item{overwrite}{If \code{TRUE} (the default), overwrite any metrics for dates
-that exist both in the existing pin and new metrics with the \emph{new} values.
-If \code{FALSE}, error when the new metrics contain overlapping dates with the
-existing pin.}
+\item{overwrite}{If \code{FALSE} (the default), error when the new metrics contain
+overlapping dates with the existing pin.If \code{TRUE}, overwrite any metrics for
+dates that exist both in the existing pin and new metrics with the \emph{new}
+values.}
 
 \item{.estimate}{The variable in \code{df_metrics} containing the metric estimate.
 Defaults to \code{.estimate}.}
@@ -150,10 +150,11 @@ Sometimes when you monitor a model at a given time aggregation, you
 may end up with dates in your new metrics (like \code{new_metrics} in the example)
 that are the same as dates in your existing aggregated metrics (like
 \code{original_metrics} in the example). This can happen if you need to re-run a
-monitoring report because something failed. With \code{overwrite = TRUE} (the
-default), \code{vetiver_pin_metrics()} will replace such metrics with the new
-values. With \code{overwrite = FALSE}, \code{vetiver_pin_metrics()} will error when
-there are overlapping dates.
+monitoring report because something failed. With \code{overwrite = FALSE} (the
+default), \code{vetiver_pin_metrics()} will error when there are overlapping
+dates. With \code{overwrite = TRUE}, \code{vetiver_pin_metrics()} will replace such
+metrics with the new values. You probably want \code{FALSE} for interactive use
+and \code{TRUE} for dashboards or reports that run on a schedule.
 
 For arguments used more than once in your monitoring dashboard,
 such as \code{date_var}, consider using

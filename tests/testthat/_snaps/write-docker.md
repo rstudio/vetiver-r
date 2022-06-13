@@ -18,11 +18,11 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
-      
+      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with no RSPM
@@ -44,11 +44,11 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
-      
+      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with no packages
@@ -70,11 +70,11 @@
         libssl-dev \
         make
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
-      
+      EXPOSE 8000
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]
 
 # create Dockerfile with specific port
@@ -97,7 +97,7 @@
         make \
         zlib1g-dev
       
-      COPY <redacted>/renv.lock renv.lock
+      COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
       COPY <redacted>/plumber.R /opt/ml/plumber.R
