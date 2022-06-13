@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Add model monitoring dashboard template (#98). To knit the example vetiver monitoring dashboard, execute `vetiver::pin_example_kc_housing_model()` to set up demo model and metrics pins.
+
 # vetiver 0.1.5
 
 * Add functions for model monitoring (#92).

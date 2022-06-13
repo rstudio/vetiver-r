@@ -38,7 +38,7 @@ documentation:
 
 Before knitting the example \code{vetiver_dashboard()} template, execute the
 helper function \code{pin_example_kc_housing_model()} to set up demonstration
-model and metric pins needed for the monitoring demo. This function will:
+model and metrics pins needed for the monitoring demo. This function will:
 \itemize{
 \item fit an example model to training data
 \item pin the vetiver model to your own \code{\link[pins:board_folder]{pins::board_local()}}

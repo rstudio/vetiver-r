@@ -91,6 +91,7 @@ Write your own code to make visualizations or tables with the new validation dat
 ### API visual documentation
 
 ```{r echo=FALSE, out.width="100%"}
+## use your own vetiver model API URL here:
 knitr::include_url("https://colorado.rstudio.com/rsc/children-at-hotels/", height = "600px")
 ```
 

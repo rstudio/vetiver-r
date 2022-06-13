@@ -15,7 +15,7 @@
 #'
 #' Before knitting the example `vetiver_dashboard()` template, execute the
 #' helper function `pin_example_kc_housing_model()` to set up demonstration
-#' model and metric pins needed for the monitoring demo. This function will:
+#' model and metrics pins needed for the monitoring demo. This function will:
 #'
 #' - fit an example model to training data
 #' - pin the vetiver model to your own [pins::board_local()]
