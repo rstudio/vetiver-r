@@ -1,0 +1,101 @@
+---
+title: "Monitor model"
+output: 
+  vetiver::vetiver_dashboard:
+    pins:
+      board: !expr pins::board_local()
+      name: 'seattle_rf'
+      version: NULL
+    storyboard: true
+    source_code: 'https://vetiver.rstudio.com'
+    display_pins: true
+---
+
+```{r setup, include = FALSE}
+# packages needed for monitoring
+library(vetiver)
+library(pins)
+library(plotly)
+
+# packages needed for prediction
+library(parsnip)
+library(workflows)
+
+knitr::opts_chunk$set(echo = FALSE)
+pins <- get_vetiver_dashboard_pins()
+
+# Before knitting this example monitoring dashboard, execute (in the console):
+# `pin_example_kc_housing_model()`
+# This function will set up demo model and metrics pins 
+# (instead of real pin URLs, you will see only demo links)
+
+# load new validation data, for example from database or API
+validation_df <- mlr3data::kc_housing %>%
+    arrange(date) %>%
+    filter(date >= "2015-01-01") 
+
+v <- vetiver_pin_read(pins$board, pins$name, version = pins$version)
+
+## TODO: figure out original metrics in metadata vs. pin
+v_meta <- pin_meta(pins$board, pins$name)
+
+validation_aug <- augment(v, validation_df)
+
+metrics_pin_name <- paste(pins$name, "metrics", sep = "_")
+
+new_metrics <-
+    validation_aug %>%
+    vetiver_compute_metrics(date, "week", price, .pred)
+    
+vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name)
+
+```
+
+
+
+### Model metrics
+
+```{r}
+p1 <- new_metrics %>%
+    ## you can operate on your metrics as needed:
+    filter(.metric %in% c("rmse", "mae"), .n > 20) %>%
+    vetiver_plot_metrics() + 
+    ## you can also operate on the ggplot:
+    scale_size(range = c(2, 5))
+
+p1 <- ggplotly(p1)
+hide_legend(p1)
+```
+
+
+***
+
+Plot model metrics over time to *monitor* your model.
+
+### Explore validation data
+
+```{r}
+p2 <-
+    validation_df %>%
+    ggplot(aes(price, after_stat(density), fill = waterfront)) +
+    geom_histogram(alpha = 0.7, position = "identity")
+
+ggplotly(p2)
+```
+
+
+***
+
+Write your own code to make visualizations or tables with the new validation data, and/or the new predictions.
+
+### API visual documentation
+
+```{r echo=FALSE, out.width="100%"}
+## use your own vetiver model API URL here:
+knitr::include_url("https://colorado.rstudio.com/rsc/children-at-hotels/", height = "600px")
+```
+
+***
+
+Interact directly with your model via its visual documentation, and get `curl` examples.
+

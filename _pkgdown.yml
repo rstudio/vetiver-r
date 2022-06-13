@@ -25,6 +25,7 @@ reference:
     Monitor a deployed `vetiver_model()` with a dashboard.
   contents:
   - vetiver_compute_metrics
+  - vetiver_dashboard
 
 - title: Developer functions
   desc: >

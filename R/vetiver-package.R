@@ -6,7 +6,7 @@
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom purrr transpose compact pluck
 #' @importFrom purrr pmap safely
-#' @importFrom utils head
+#' @importFrom utils head modifyList
 #' @importFrom vctrs vec_slice vec_sort
 #' @importFrom magrittr %>%
 #' @importFrom glue glue
@@ -18,7 +18,7 @@ NULL
 #' @export
 generics::augment
 
-globalVariables(c("pr", ".metric"))
+globalVariables(c("pr", ".metric", ".pred", "price"))
 
 ## to avoid NOTE about "All declared Imports should be used."
 rapidoc_function_for_note <- function() {
