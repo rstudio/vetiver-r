@@ -28,8 +28,9 @@ describe("vetiver_dashboard()", {
 
     it("errors without pin", {
         b <- pins::board_temp()
-        expect_snapshot_error(
-            vetiver_dashboard(pins = list(board = b, name = "seattle_rf", version = NULL))
+        expect_snapshot(
+            vetiver_dashboard(pins = list(board = b, name = "seattle_rf", version = NULL)),
+            error = TRUE
         )
     })
 
