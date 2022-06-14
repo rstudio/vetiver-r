@@ -11,8 +11,9 @@
 
     Code
       predict(endpoint, mtcars[, 2:4])
-    Error <rlang_error>
-      Failed to predict: Error in `hardhat::scream()`:
+    Condition
+      Error in `predict()`:
+      ! Failed to predict: Error in `hardhat::scream()`:
       ! Can't convert from `data` <tbl_df<
         cyl : integer
         disp: double
@@ -26,7 +27,8 @@
 
     Code
       predict(endpoint, mtcars[, 3:5])
-    Error <rlang_error>
-      Failed to predict: Error in `glubort()`:
+    Condition
+      Error in `predict()`:
+      ! Failed to predict: Error in `glubort()`:
       ! The following required columns are missing: 'cyl'.
 
