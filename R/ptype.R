@@ -63,11 +63,12 @@ vetiver_create_ptype <- function(model, save_ptype, ...) {
     ptype
 }
 
-check_ptype_data <- function(dots) {
+check_ptype_data <- function(dots, call = rlang::caller_env()) {
     if (!rlang::has_name(dots, "ptype_data")) {
         abort(c("No `ptype_data` available to create an input data prototype",
                 "Pass at least one row of training features as `ptype_data`",
-                "See the documentation for `vetiver_ptype()`"))
+                "See the documentation for `vetiver_ptype()`"),
+              call = call)
     }
 }
 

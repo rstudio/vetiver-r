@@ -35,7 +35,7 @@ Imports:
     rapidoc,
     readr (>= 1.4.0),
     renv,
-    rlang,
+    rlang (>= 1.0.0),
     tibble,
     vctrs,
     withr

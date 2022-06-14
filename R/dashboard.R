@@ -33,8 +33,7 @@ vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
     v <- dashboard_read_version(
         pins$board,
         pins$name,
-        pins$version,
-        call = caller_env()
+        pins$version
     )
 
     if (display_pins && !is_null(v$metadata$url)) {
@@ -60,15 +59,17 @@ vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
 }
 
 
-dashboard_read_version <- function(board, name, version, call) {
+dashboard_read_version <- function(board, name, version, call = rlang::caller_env()) {
     if (!pins::pin_exists(board, name)) {
-        rlang::abort(c(
-            glue("The pin {glue::double_quote(name)} does not exist on your board"),
-            "*" = "Check the `pins` params in your dashboard YAML",
-            "i" = glue("To knit the example vetiver monitoring dashboard, \\
+        rlang::abort(
+            c(
+                glue("The pin {glue::double_quote(name)} does not exist on your board"),
+                "*" = "Check the `pins` params in your dashboard YAML",
+                "i" = glue("To knit the example vetiver monitoring dashboard, \\
                        execute `vetiver::pin_example_kc_housing_model()` to \\
                        set up demo model and metrics pins")
-        ))
+            ),
+            call = call)
     }
     if (board$versioned) {
         if (is_null(version)) {

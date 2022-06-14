@@ -11,8 +11,9 @@
 
     Code
       vetiver_model(cars_rf, "cars3")
-    Error <rlang_error>
-      No `ptype_data` available to create an input data prototype
+    Condition
+      Error in `vetiver_ptype()`:
+      ! No `ptype_data` available to create an input data prototype
       * Pass at least one row of training features as `ptype_data`
       * See the documentation for `vetiver_ptype()`
 
