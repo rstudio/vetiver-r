@@ -126,23 +126,23 @@
     },
     "butcher": {
       "Package": "butcher",
-      "Version": "0.1.5",
+      "Version": "0.2.0",
       "Source": "CRAN",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "RemoteType": "standard",
       "RemotePkgRef": "butcher",
       "RemoteRef": "butcher",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+      "RemoteRepos": "https://cloud.r-project.org",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.1.5",
-      "Hash": "47c3d6eac8256c88c0be7bd5c1cbc5d4",
+      "RemoteSha": "0.2.0",
+      "Hash": "c83247fdebe67ddfb166bc68eb5101e9",
       "Requirements": [
-        "fs",
+        "cli",
         "lobstr",
         "purrr",
         "rlang",
         "tibble",
-        "usethis"
+        "vctrs"
       ]
     },
     "cli": {
@@ -203,26 +203,6 @@
       "Hash": "8dc45fd8a1ee067a92b85ef274e66d6a",
       "Requirements": []
     },
-    "credentials": {
-      "Package": "credentials",
-      "Version": "1.3.2",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "credentials",
-      "RemoteRef": "credentials",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "1.3.2",
-      "Hash": "93762d0a34d78e6a025efdbfb5c6bb41",
-      "Requirements": [
-        "askpass",
-        "curl",
-        "jsonlite",
-        "openssl",
-        "sys"
-      ]
-    },
     "curl": {
       "Package": "curl",
       "Version": "4.3.2",
@@ -236,24 +216,6 @@
       "RemoteSha": "4.3.2",
       "Hash": "022c42d49c28e95d69ca60446dbabf88",
       "Requirements": []
-    },
-    "desc": {
-      "Package": "desc",
-      "Version": "1.4.1",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "desc",
-      "RemoteRef": "desc",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "1.4.1",
-      "Hash": "eebd27ee58fcc58714eedb7aa07d8ad1",
-      "Requirements": [
-        "R6",
-        "cli",
-        "rprojroot"
-      ]
     },
     "digest": {
       "Package": "digest",
@@ -339,61 +301,6 @@
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.1.2",
       "Hash": "177475892cf4a55865868527654a7741",
-      "Requirements": []
-    },
-    "gert": {
-      "Package": "gert",
-      "Version": "1.6.0",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "gert",
-      "RemoteRef": "gert",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "1.6.0",
-      "Hash": "98c014c4c933f23ea5a0321a4d0b588b",
-      "Requirements": [
-        "askpass",
-        "credentials",
-        "openssl",
-        "rstudioapi",
-        "sys",
-        "zip"
-      ]
-    },
-    "gh": {
-      "Package": "gh",
-      "Version": "1.3.0",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "gh",
-      "RemoteRef": "gh",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "1.3.0",
-      "Hash": "38c2580abbda249bd6afeec00d14f531",
-      "Requirements": [
-        "cli",
-        "gitcreds",
-        "httr",
-        "ini",
-        "jsonlite"
-      ]
-    },
-    "gitcreds": {
-      "Package": "gitcreds",
-      "Version": "0.1.1",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "gitcreds",
-      "RemoteRef": "gitcreds",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "0.1.1",
-      "Hash": "f3aefccc1cc50de6338146b62f115de8",
       "Requirements": []
     },
     "glue": {
@@ -487,20 +394,6 @@
         "mime",
         "openssl"
       ]
-    },
-    "ini": {
-      "Package": "ini",
-      "Version": "0.3.1",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "ini",
-      "RemoteRef": "ini",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "0.3.1",
-      "Hash": "6154ec2223172bce8162d4153cda21f7",
-      "Requirements": []
     },
     "jsonlite": {
       "Package": "jsonlite",
@@ -868,34 +761,6 @@
       "Hash": "04884d9a75d778aca22c7154b8333ec9",
       "Requirements": []
     },
-    "rprojroot": {
-      "Package": "rprojroot",
-      "Version": "2.0.3",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "rprojroot",
-      "RemoteRef": "rprojroot",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "2.0.3",
-      "Hash": "1de7ab598047a87bba48434ba35d497d",
-      "Requirements": []
-    },
-    "rstudioapi": {
-      "Package": "rstudioapi",
-      "Version": "0.13",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "rstudioapi",
-      "RemoteRef": "rstudioapi",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "0.13",
-      "Hash": "06c85365a03fdaf699966cc1d3cf53ea",
-      "Requirements": []
-    },
     "sodium": {
       "Package": "sodium",
       "Version": "1.2.1",
@@ -1011,40 +876,6 @@
         "cpp11"
       ]
     },
-    "usethis": {
-      "Package": "usethis",
-      "Version": "2.1.6",
-      "Source": "CRAN",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "usethis",
-      "RemoteRef": "usethis",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "2.1.6",
-      "Hash": "a67a22c201832b12c036cc059f1d137d",
-      "Requirements": [
-        "cli",
-        "clipr",
-        "crayon",
-        "curl",
-        "desc",
-        "fs",
-        "gert",
-        "gh",
-        "glue",
-        "jsonlite",
-        "lifecycle",
-        "purrr",
-        "rappdirs",
-        "rlang",
-        "rprojroot",
-        "rstudioapi",
-        "whisker",
-        "withr",
-        "yaml"
-      ]
-    },
     "utf8": {
       "Package": "utf8",
       "Version": "1.2.2",
@@ -1083,7 +914,7 @@
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "5219b8ebb1235d7ce073e0ea89d600b4",
+      "Hash": "d0fc09b9321a85b425b4378ace8c8695",
       "Requirements": [
         "butcher",
         "cli",
