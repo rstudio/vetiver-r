@@ -66,7 +66,14 @@ vetiver_pin_write()."><meta property="og:image" content="/logo.png"><meta name="
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">board</span>, <span class="va">name</span>, version <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, file <span class="op">=</span> <span class="st">"plumber.R"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_write_plumber</span><span class="op">(</span>
+  <span class="va">board</span>,
+  <span class="va">name</span>,
+  version <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">...</span>,
+  file <span class="op">=</span> <span class="st">"plumber.R"</span>,
+  rsconnect <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,6 +101,10 @@ find out which versions are available and when they were created.</p></dd>
 <dd><p>A path to write the Plumber file. Defaults to <code>plumber.R</code> in the
 working directory. See <code><a href="https://www.rplumber.io/reference/plumb.html" class="external-link">plumber::plumb()</a></code> for naming precedence rules.</p></dd>
 
+
+<dt>rsconnect</dt>
+<dd><p>Create a Plumber file with features needed for <a href="https://www.rstudio.com/products/connect/" class="external-link">RStudio Connect</a>? Defaults to <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -117,7 +128,7 @@ version. You can override this default behavior by choosing a specific
 <span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220621T175627Z-88e0b'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220621T232935Z-88e0b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
