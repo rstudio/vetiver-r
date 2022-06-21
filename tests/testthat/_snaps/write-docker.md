@@ -9,9 +9,7 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
-        git \
         libcurl4-openssl-dev \
-        libgit2-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
@@ -35,9 +33,7 @@
       FROM rocker/r-ver:<r_version>
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
-        git \
         libcurl4-openssl-dev \
-        libgit2-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
@@ -62,9 +58,7 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
-        git \
         libcurl4-openssl-dev \
-        libgit2-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
@@ -88,9 +82,7 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
-        git \
         libcurl4-openssl-dev \
-        libgit2-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
