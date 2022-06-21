@@ -9,6 +9,8 @@
 #' `path` or prediction `type`.
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
 #' working directory. See [plumber::plumb()] for naming precedence rules.
+#' @param rsconnect Create a Plumber file with features needed for [RStudio
+#' Connect](https://www.rstudio.com/products/connect/)? Defaults to `TRUE`.
 #'
 #' @details
 #' By default, this function will find and use the latest version of your
@@ -33,7 +35,8 @@
 #'
 vetiver_write_plumber <- function(board, name, version = NULL,
                                   ...,
-                                  file = "plumber.R") {
+                                  file = "plumber.R",
+                                  rsconnect = TRUE) {
 
     plumber_dots <- rlang::list2(...)
 
@@ -50,7 +53,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     }
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
-    load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs)
+    load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
 
     board <- rlang::expr_deparse(pins::board_deparse(board))
     board <- glue('b <- {board}')
@@ -83,8 +86,8 @@ vetiver_write_plumber <- function(board, name, version = NULL,
 infra_pkgs <- c("pins", "plumber", "rapidoc", "vetiver")
 
 
-glue_required_pkgs <- function(required_pkgs) {
-    if (!is_null(required_pkgs)) {
+glue_required_pkgs <- function(required_pkgs, rsconnect) {
+    if (!is_null(required_pkgs) && rsconnect) {
         required_pkgs <- sort(required_pkgs)
         required_pkgs <- glue_collapse(glue("    library({required_pkgs})"),
                                        sep = "\n")
