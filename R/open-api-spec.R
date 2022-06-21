@@ -133,6 +133,7 @@ map_request_body.array <- function(ptype) {
 api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     spec$info$title <- glue("{vetiver_model$model_name} model API")
     spec$info$description <- vetiver_model$description
+    spec$info$version <- vetiver_model$metadata$version
     if ("/pin-url" %in% names(spec$paths)) {
         spec$paths$`/pin-url`$get$summary <- "Get URL of pinned vetiver model"
     }
