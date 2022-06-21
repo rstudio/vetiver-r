@@ -59,6 +59,7 @@
 <li><p>Switched the default for <code>overwrite</code> in <code><a href="../reference/vetiver_compute_metrics.html">vetiver_pin_metrics()</a></code> from <code>TRUE</code> to <code>FALSE</code>. Using <code>FALSE</code> is a better choice for interactive use while <code>TRUE</code> is probably the right choice for reports or dashboards that are executed on a schedule (<a href="https://github.com/rstudio/vetiver-r/issues/104" class="external-link">#104</a>).</p></li>
 <li><p>Added an optional <code>EXPOSE PORT</code> line to the generated Dockerfile, to help out Docker Desktop users (<a href="https://github.com/rstudio/vetiver-r/issues/105" class="external-link">#105</a>).</p></li>
 <li><p>Added model monitoring dashboard template (<a href="https://github.com/rstudio/vetiver-r/issues/98" class="external-link">#98</a>). To knit the example vetiver monitoring dashboard, execute <code><a href="../reference/vetiver_dashboard.html">vetiver::pin_example_kc_housing_model()</a></code> to set up demo model and metrics pins.</p></li>
+<li><p>The OpenAPI spec generated for a vetiver model now includes the model <em>version</em> when applicable.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.5" id="vetiver-015">vetiver 0.1.5<a class="anchor" aria-label="anchor" href="#vetiver-015"></a></h2><p class="text-muted">CRAN release: 2022-05-25</p>
