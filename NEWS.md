@@ -10,6 +10,8 @@
 
 * The OpenAPI spec generated for a vetiver model now includes the model _version_ when applicable.
 
+* Added option to write a Plumber file without packages listed for RStudio Connect purposes (#112).
+
 # vetiver 0.1.5
 
 * Add functions for model monitoring (#92).

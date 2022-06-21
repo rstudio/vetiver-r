@@ -4,7 +4,14 @@
 \alias{vetiver_write_plumber}
 \title{Write a deployable Plumber file for a vetiver model}
 \usage{
-vetiver_write_plumber(board, name, version = NULL, ..., file = "plumber.R")
+vetiver_write_plumber(
+  board,
+  name,
+  version = NULL,
+  ...,
+  file = "plumber.R",
+  rsconnect = TRUE
+)
 }
 \arguments{
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
@@ -20,6 +27,8 @@ find out which versions are available and when they were created.}
 
 \item{file}{A path to write the Plumber file. Defaults to \code{plumber.R} in the
 working directory. See \code{\link[plumber:plumb]{plumber::plumb()}} for naming precedence rules.}
+
+\item{rsconnect}{Create a Plumber file with features needed for \href{https://www.rstudio.com/products/connect/}{RStudio Connect}? Defaults to \code{TRUE}.}
 }
 \value{
 The content of the \code{plumber.R} file, invisibly.
