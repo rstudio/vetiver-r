@@ -17,6 +17,7 @@ reference:
   - vetiver_write_plumber
   - vetiver_write_docker
   - vetiver_deploy_rsconnect
+  - vetiver_create_rsconnect_bundle
   - vetiver_endpoint
   - predict.vetiver_endpoint
 
