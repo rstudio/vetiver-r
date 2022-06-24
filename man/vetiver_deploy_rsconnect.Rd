@@ -45,6 +45,7 @@ The two functions \code{vetiver_deploy_rsconnect()} and
 different strategies for deploying a vetiver model API to RStudio Connect.
 }
 \examples{
+\dontshow{if (rlang::is_installed("rsconnect")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(pins)
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
@@ -66,7 +67,7 @@ vetiver_deploy_rsconnect(
     account = "julia.silge"
 )
 }
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}, \code{\link[=vetiver_create_rsconnect_bundle]{vetiver_create_rsconnect_bundle()}}

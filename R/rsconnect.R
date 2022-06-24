@@ -22,7 +22,7 @@
 #' @seealso [vetiver_write_plumber()], [vetiver_create_rsconnect_bundle()]
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("rsconnect")
 #' library(pins)
 #' b <- board_temp(versioned = TRUE)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
