@@ -41,7 +41,7 @@
 #' vetiver_deploy_rsconnect(
 #'     b,
 #'     "user.name/cars_linear",
-#'     account = "julia.silge"
+#'     account = "user.name"
 #' )
 #' }
 #'
