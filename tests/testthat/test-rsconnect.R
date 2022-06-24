@@ -1,3 +1,5 @@
+skip_if_not_installed("rsconnect")
+
 describe("create rsconnect bundle", {
     tar_file <- fs::file_temp(pattern = "bundle", tmp_dir = tmp_dir, ext = ".tar.gz")
 
