@@ -84,7 +84,7 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 #' [vetiver_deploy_rsconnect()] are alternatives to each other, providing
 #' different strategies for deploying a vetiver model API to RStudio Connect.
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("rsconnect")
 #' library(pins)
 #' b <- board_temp(versioned = TRUE)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
