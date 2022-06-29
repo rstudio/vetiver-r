@@ -12,45 +12,45 @@ output:
 ---
 
 ```{r setup, include = FALSE}
-# packages needed for monitoring
 library(vetiver)
 library(pins)
 library(plotly)
 
-# packages needed for prediction
-library(parsnip)
-library(workflows)
-
 knitr::opts_chunk$set(echo = FALSE)
 pins <- get_vetiver_dashboard_pins()
+metrics_pin_name <- paste(pins$name, "metrics", sep = "_")
+```
 
-# Before knitting this example monitoring dashboard, execute (in the console):
-# `pin_example_kc_housing_model()`
+```{r set-up-demo-pins, include = FALSE, eval = FALSE}
+# Before knitting this example monitoring dashboard, execute:
+pin_example_kc_housing_model()
+
 # This function will set up demo model and metrics pins 
-# (instead of real pin URLs, you will see only demo links)
+# Instead of real pin URLs, you will see only demo links
+```
 
-# load new validation data, for example from database or API
+```{r load-vetiver-model, include = FALSE}
+# Load deployed model from pin:
+v <- vetiver_pin_read(pins$board, pins$name, version = pins$version)
+
+# Attaches packages needed for prediction:
+handler_startup(v)
+```
+
+```{r validation, include = FALSE}
+# Load new validation data, for example from database or API:
 validation_df <- mlr3data::kc_housing %>%
     arrange(date) %>%
     filter(date >= "2015-01-01") 
 
-v <- vetiver_pin_read(pins$board, pins$name, version = pins$version)
-
-## TODO: figure out original metrics in metadata vs. pin
-v_meta <- pin_meta(pins$board, pins$name)
-
 validation_aug <- augment(v, validation_df)
-
-metrics_pin_name <- paste(pins$name, "metrics", sep = "_")
 
 new_metrics <-
     validation_aug %>%
     vetiver_compute_metrics(date, "week", price, .pred)
     
-vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name)
-
+vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name, overwrite = TRUE)
 ```
-
 
 
 ### Model metrics
@@ -92,7 +92,7 @@ Write your own code to make visualizations or tables with the new validation dat
 
 ```{r echo=FALSE, out.width="100%"}
 ## use your own vetiver model API URL here:
-knitr::include_url("https://colorado.rstudio.com/rsc/children-at-hotels/", height = "600px")
+knitr::include_url("https://colorado.rstudio.com/rsc/seattle-housing/", height = "600px")
 ```
 
 ***
