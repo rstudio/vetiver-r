@@ -84,36 +84,36 @@ over time</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_compute_metrics</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">date_var</span>,
-  <span class="va">period</span>,
-  <span class="va">truth</span>,
-  <span class="va">estimate</span>,
-  <span class="va">...</span>,
-  metric_set <span class="op">=</span> <span class="fu">yardstick</span><span class="fu">::</span><span class="va"><a href="https://yardstick.tidymodels.org/reference/metrics.html" class="external-link">metrics</a></span>,
-  every <span class="op">=</span> <span class="fl">1L</span>,
-  origin <span class="op">=</span> <span class="cn">NULL</span>,
-  before <span class="op">=</span> <span class="fl">0L</span>,
-  after <span class="op">=</span> <span class="fl">0L</span>,
-  complete <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">vetiver_pin_metrics</span><span class="op">(</span>
-  <span class="va">board</span>,
-  <span class="va">df_metrics</span>,
-  <span class="va">metrics_pin_name</span>,
-  .index <span class="op">=</span> <span class="va">.index</span>,
-  overwrite <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">vetiver_plot_metrics</span><span class="op">(</span>
-  <span class="va">df_metrics</span>,
-  .index <span class="op">=</span> <span class="va">.index</span>,
-  .estimate <span class="op">=</span> <span class="va">.estimate</span>,
-  .metric <span class="op">=</span> <span class="va">.metric</span>,
-  .n <span class="op">=</span> <span class="va">.n</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vetiver_compute_metrics</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">date_var</span>,</span>
+<span>  <span class="va">period</span>,</span>
+<span>  <span class="va">truth</span>,</span>
+<span>  <span class="va">estimate</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  metric_set <span class="op">=</span> <span class="fu">yardstick</span><span class="fu">::</span><span class="va"><a href="https://yardstick.tidymodels.org/reference/metrics.html" class="external-link">metrics</a></span>,</span>
+<span>  every <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  origin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  after <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  complete <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_pin_metrics</span><span class="op">(</span></span>
+<span>  <span class="va">board</span>,</span>
+<span>  <span class="va">df_metrics</span>,</span>
+<span>  <span class="va">metrics_pin_name</span>,</span>
+<span>  .index <span class="op">=</span> <span class="va">.index</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_plot_metrics</span><span class="op">(</span></span>
+<span>  <span class="va">df_metrics</span>,</span>
+<span>  .index <span class="op">=</span> <span class="va">.index</span>,</span>
+<span>  .estimate <span class="op">=</span> <span class="va">.estimate</span>,</span>
+<span>  .metric <span class="op">=</span> <span class="va">.metric</span>,</span>
+<span>  .n <span class="op">=</span> <span class="va">.n</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -264,7 +264,7 @@ to reduce repetition and/or errors.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
@@ -273,34 +273,34 @@ to reduce repetition and/or errors.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Chicago</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ridership</span>, <span class="va">date</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">training_data</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2009-01-01"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">testing_data</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="st">"2009-01-01"</span>, <span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2011-01-01"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">monitoring</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="st">"2011-01-01"</span>, <span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2012-12-31"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html" class="external-link">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">training_data</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## before starting monitoring, initiate the metrics and pin</span></span>
-<span class="r-in"><span class="co">## (for example, with the testing data):</span></span>
-<span class="r-in"><span class="va">original_metrics</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">testing_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://pins.rstudio.com/reference/pin_read.html" class="external-link">pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">original_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Chicago</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ridership</span>, <span class="va">date</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">training_data</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2009-01-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">testing_data</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="st">"2009-01-01"</span>, <span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2011-01-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">monitoring</span> <span class="op">&lt;-</span> <span class="va">Chicago</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">&gt;=</span> <span class="st">"2011-01-01"</span>, <span class="va">date</span> <span class="op">&lt;</span> <span class="st">"2012-12-31"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html" class="external-link">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">training_data</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## before starting monitoring, initiate the metrics and pin</span></span></span>
+<span class="r-in"><span><span class="co">## (for example, with the testing data):</span></span></span>
+<span class="r-in"><span><span class="va">original_metrics</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">testing_data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://pins.rstudio.com/reference/pin_read.html" class="external-link">pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">original_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Guessing `type = 'rds'`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220621T232921Z-07d76'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220629T224814Z-07d76'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'lm_fit_metrics'</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## to continue monitoring with new data, compute metrics and update pin:</span></span>
-<span class="r-in"><span class="va">new_metrics</span> <span class="op">&lt;-</span></span>
-<span class="r-in">    <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">monitoring</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">vetiver_pin_metrics</span><span class="op">(</span><span class="va">b</span>, <span class="va">new_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## to continue monitoring with new data, compute metrics and update pin:</span></span></span>
+<span class="r-in"><span><span class="va">new_metrics</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">augment</a></span><span class="op">(</span><span class="va">lm_fit</span>, new_data <span class="op">=</span> <span class="va">monitoring</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">vetiver_compute_metrics</span><span class="op">(</span><span class="va">date</span>, <span class="st">"week"</span>, <span class="va">ridership</span>, <span class="va">.pred</span>, every <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_pin_metrics</span><span class="op">(</span><span class="va">b</span>, <span class="va">new_metrics</span>, <span class="st">"lm_fit_metrics"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Guessing `type = 'rds'`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20220621T232921Z-07d76' with '20220621T232921Z-8839b'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20220629T224814Z-07d76' with '20220629T224814Z-8839b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'lm_fit_metrics'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 162 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .index        .n .metric .estimator .estimate</span>
@@ -316,10 +316,10 @@ to reduce repetition and/or errors.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2009-02-05    28 mae     standard       1.17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2009-03-05    28 rmse    standard       1.24 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 152 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">vetiver_plot_metrics</span><span class="op">(</span><span class="va">new_metrics</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html" class="external-link">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_plot_metrics</span><span class="op">(</span><span class="va">new_metrics</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html" class="external-link">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="vetiver_compute_metrics-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -334,7 +334,7 @@ to reduce repetition and/or errors.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

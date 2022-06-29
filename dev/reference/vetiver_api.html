@@ -63,24 +63,24 @@ trained <code><a href="vetiver_model.html">vetiver_model()</a></code> to a Plumb
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_api</span><span class="op">(</span>
-  <span class="va">pr</span>,
-  <span class="va">vetiver_model</span>,
-  path <span class="op">=</span> <span class="st">"/predict"</span>,
-  debug <span class="op">=</span> <span class="fu">is_interactive</span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">vetiver_pr_post</span><span class="op">(</span>
-  <span class="va">pr</span>,
-  <span class="va">vetiver_model</span>,
-  path <span class="op">=</span> <span class="st">"/predict"</span>,
-  debug <span class="op">=</span> <span class="fu">is_interactive</span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">...</span>,
-  check_ptype <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">pr</span>, <span class="va">vetiver_model</span>, path <span class="op">=</span> <span class="st">"/predict"</span>, all_docs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vetiver_api</span><span class="op">(</span></span>
+<span>  <span class="va">pr</span>,</span>
+<span>  <span class="va">vetiver_model</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"/predict"</span>,</span>
+<span>  debug <span class="op">=</span> <span class="fu">is_interactive</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_pr_post</span><span class="op">(</span></span>
+<span>  <span class="va">pr</span>,</span>
+<span>  <span class="va">vetiver_model</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"/predict"</span>,</span>
+<span>  debug <span class="op">=</span> <span class="fu">is_interactive</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  check_ptype <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">pr</span>, <span class="va">vetiver_model</span>, path <span class="op">=</span> <span class="st">"/predict"</span>, all_docs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -140,12 +140,12 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_api</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_api</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
@@ -157,8 +157,8 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## is the same as:</span></span>
-<span class="r-in"><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_post</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## is the same as:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_post</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
@@ -170,8 +170,8 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## for either, next, pipe to `pr_run()`</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co">## for either, next, pipe to `pr_run()`</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -185,7 +185,7 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

@@ -445,7 +445,7 @@
     },
     "lobstr": {
       "Package": "lobstr",
-      "Version": "1.1.1",
+      "Version": "1.1.2",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -453,11 +453,12 @@
       "RemoteRef": "lobstr",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.1.1",
-      "Hash": "3354c874f6008f7f1e418526df8ecd8a",
+      "RemoteSha": "1.1.2",
+      "Hash": "f2a94f8fc9db382a642e965339635ad6",
       "Requirements": [
-        "Rcpp",
+        "cpp11",
         "crayon",
+        "prettyunits",
         "rlang"
       ]
     },
@@ -749,7 +750,7 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.2",
+      "Version": "1.0.3",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -757,8 +758,8 @@
       "RemoteRef": "rlang",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.2",
-      "Hash": "04884d9a75d778aca22c7154b8333ec9",
+      "RemoteSha": "1.0.3",
+      "Hash": "9103a8f74b2114a5ed1136b471d8feca",
       "Requirements": []
     },
     "sodium": {
