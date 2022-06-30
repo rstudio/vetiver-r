@@ -46,7 +46,8 @@ test_that("default metadata for model", {
     v <- vetiver_model(cars_lm, "cars2")
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars2")
-    expect_equal(meta$user, list())
+    expect_equal(meta$user, list(ptype = list(cyl = 'numeric',
+                                              disp = 'numeric')))
     expect_equal(meta$description, "An OLS linear regression model")
 })
 
@@ -57,8 +58,18 @@ test_that("user can supply metadata for model", {
                        metadata = list(metrics = 1:10))
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars3")
-    expect_equal(meta$user, list(metrics = 1:10))
+    expect_equal(meta$user, list(metrics = 1:10,
+                                 ptype = list(cyl = 'numeric',
+                                              disp = 'numeric')))
     expect_equal(meta$description, "lm model for mtcars")
+})
+
+test_that("user cannot use reserved ptype name for metadata", {
+    b <- board_temp()
+    expect_error(vetiver_model(cars_lm, "cars3",
+                               description = "lm model for mtcars",
+                               metadata = list(ptype = T)),
+                 "ptype is a reserved metadata name, used for ptype metadata, please use a different name")
 })
 
 test_that("can read a pinned model", {

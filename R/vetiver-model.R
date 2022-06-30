@@ -55,6 +55,12 @@ vetiver_model <- function(model,
     }
     ptype <- vetiver_create_ptype(model, save_ptype, ...)
     metadata <- vetiver_create_meta(model, metadata)
+    if (!is.null(ptype)) {
+      if ("ptype" %in% names(metadata$user)) {
+        abort("ptype is a reserved metadata name, used for ptype metadata, please use a different name")
+      }
+      metadata$user$ptype <- lapply(ptype, class)
+    }
     model <- vetiver_prepare_model(model)
 
     new_vetiver_model(
