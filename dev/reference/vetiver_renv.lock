@@ -319,7 +319,7 @@
     },
     "hardhat": {
       "Package": "hardhat",
-      "Version": "1.1.0",
+      "Version": "1.2.0",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -327,8 +327,8 @@
       "RemoteRef": "hardhat",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.1.0",
-      "Hash": "b513a8bb3985a2367a0f8014962c6c34",
+      "RemoteSha": "1.2.0",
+      "Hash": "7cd2660e174e555b05aaeac979dee22b",
       "Requirements": [
         "glue",
         "rlang",

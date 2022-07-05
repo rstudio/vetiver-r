@@ -121,7 +121,7 @@ data</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## error for missing column:</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">vetiver_type_convert</span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"potato"</span>, y <span class="op">=</span> <span class="st">"J"</span><span class="op">)</span>, <span class="va">ptype</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in glubort("The following required columns are missing: {missing_names}.") : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in hardhat::validate_column_names(new_data, colnames(ptype)) : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   The following required columns are missing: 'z'.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
