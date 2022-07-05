@@ -12,6 +12,8 @@
 
 * Added option to write a Plumber file without packages listed for RStudio Connect purposes (#112).
 
+* Added new function `vetiver_create_rsconnect_bundle()` as an alternative deployment strategy (#113).
+
 # vetiver 0.1.5
 
 * Add functions for model monitoring (#92).

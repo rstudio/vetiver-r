@@ -31,7 +31,7 @@ These two functions will attempt either to:
 the namespace of the \code{pkgs} vector of package names, preserving the current
 random seed.
 
-To learn more about load vs. attach, read the \href{https://r-pkgs.org/namespace.html}{NAMESPACE chapter of \emph{R Packages}}. For deploying a model, it
+To learn more about load vs. attach, read the \href{https://r-pkgs.org/dependencies.html}{"Dependencies" chapter of \emph{R Packages}}. For deploying a model, it
 is likely safer to fully attach needed packages but that comes with the risk
 of naming conflicts between packages.
 }

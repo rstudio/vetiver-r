@@ -1,4 +1,4 @@
-#' Aggregate, store, and plot model metrics over time for monitoring
+#' Aggregate, update, and plot model metrics over time for monitoring
 #'
 #' These three functions can be used for model monitoring (such as in a
 #' monitoring dashboard):

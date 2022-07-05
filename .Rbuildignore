@@ -16,4 +16,5 @@
 ^rsconnect$
 ^inst/plumber/chicago-rpart/rsconnect$
 ^inst/plumber/netflix-descriptions/rsconnect$
+^inst/rmarkdown/templates/vetiver_dashboard/skeleton/rsconnect$
 ^CRAN-SUBMISSION$

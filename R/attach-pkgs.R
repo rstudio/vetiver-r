@@ -13,8 +13,8 @@
 #' the namespace of the `pkgs` vector of package names, preserving the current
 #' random seed.
 #'
-#' To learn more about load vs. attach, read the [NAMESPACE chapter of
-#' *R Packages*](https://r-pkgs.org/namespace.html). For deploying a model, it
+#' To learn more about load vs. attach, read the ["Dependencies" chapter of
+#' *R Packages*](https://r-pkgs.org/dependencies.html). For deploying a model, it
 #' is likely safer to fully attach needed packages but that comes with the risk
 #' of naming conflicts between packages.
 #'

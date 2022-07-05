@@ -11,7 +11,7 @@
 #' @details The `vetiver_dashboard()` function is a specialized type of
 #' \pkg{flexdashboard}. See the flexdashboard website for additional
 #' documentation:
-#'  \href{http://rmarkdown.rstudio.com/flexdashboard/}{http://rmarkdown.rstudio.com/flexdashboard/}
+#'  \href{https://pkgs.rstudio.com/flexdashboard/}{https://pkgs.rstudio.com/flexdashboard/}
 #'
 #' Before knitting the example `vetiver_dashboard()` template, execute the
 #' helper function `pin_example_kc_housing_model()` to set up demonstration

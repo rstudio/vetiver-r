@@ -4,7 +4,7 @@
 \alias{vetiver_compute_metrics}
 \alias{vetiver_pin_metrics}
 \alias{vetiver_plot_metrics}
-\title{Aggregate, store, and plot model metrics over time for monitoring}
+\title{Aggregate, update, and plot model metrics over time for monitoring}
 \usage{
 vetiver_compute_metrics(
   data,
