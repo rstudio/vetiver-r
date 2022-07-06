@@ -291,7 +291,7 @@
     },
     "generics": {
       "Package": "generics",
-      "Version": "0.1.2",
+      "Version": "0.1.3",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -299,8 +299,8 @@
       "RemoteRef": "generics",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.1.2",
-      "Hash": "177475892cf4a55865868527654a7741",
+      "RemoteSha": "0.1.3",
+      "Hash": "15e9634c0fcd294799e9b2e929ed1b86",
       "Requirements": []
     },
     "glue": {
