@@ -1,3 +1,5 @@
+skip_if_not_installed("rmarkdown", minimum_version = "2.12")
+
 test_that("templates exist", {
     expect_equal(
         rmarkdown::available_templates("vetiver"),
