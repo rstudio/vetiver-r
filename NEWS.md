@@ -1,3 +1,5 @@
+# vetiver (development version)
+
 # vetiver 0.1.6
 
 * The lockfile created by `vetiver_write_docker()` can now be named via the argument `lockfile`, and its default is `vetiver_renv.lock` (#100).
