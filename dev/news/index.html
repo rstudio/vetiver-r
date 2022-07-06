@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.5.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.6.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,8 +53,9 @@
       <small>Source: <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="pkg-version" data-toc-text="development version" id="vetiver-development-version">vetiver (development version)<a class="anchor" aria-label="anchor" href="#vetiver-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="vetiver-development-version">vetiver (development version)<a class="anchor" aria-label="anchor" href="#vetiver-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.6" id="vetiver-016">vetiver 0.1.6<a class="anchor" aria-label="anchor" href="#vetiver-016"></a></h2><p class="text-muted">CRAN release: 2022-07-06</p>
 <ul><li><p>The lockfile created by <code><a href="../reference/vetiver_write_docker.html">vetiver_write_docker()</a></code> can now be named via the argument <code>lockfile</code>, and its default is <code>vetiver_renv.lock</code> (<a href="https://github.com/rstudio/vetiver-r/issues/100" class="external-link">#100</a>).</p></li>
 <li><p>Switched the default for <code>overwrite</code> in <code><a href="../reference/vetiver_compute_metrics.html">vetiver_pin_metrics()</a></code> from <code>TRUE</code> to <code>FALSE</code>. Using <code>FALSE</code> is a better choice for interactive use while <code>TRUE</code> is probably the right choice for reports or dashboards that are executed on a schedule (<a href="https://github.com/rstudio/vetiver-r/issues/104" class="external-link">#104</a>).</p></li>
 <li><p>Added an optional <code>EXPOSE PORT</code> line to the generated Dockerfile, to help out Docker Desktop users (<a href="https://github.com/rstudio/vetiver-r/issues/105" class="external-link">#105</a>).</p></li>

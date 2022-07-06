@@ -911,11 +911,11 @@
     },
     "vetiver": {
       "Package": "vetiver",
-      "Version": "0.1.5.9000",
+      "Version": "0.1.6.9000",
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "d0fc09b9321a85b425b4378ace8c8695",
+      "Hash": "f4a7aa9987466e723f063d37bdd62957",
       "Requirements": [
         "butcher",
         "cli",
