@@ -30,7 +30,7 @@ at each API call.
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,63 +87,68 @@ at each API call.</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for train</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for train</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for glm</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for lm</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Learner</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for Learner</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ranger</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for ranger</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for workflow</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for workflow</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span>
-
-<span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for train</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for train</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for glm</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Learner</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Learner</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ranger</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ranger</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for workflow</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for workflow</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>vetiver_model</dt>
 <dd><p>A deployable <code><a href="vetiver_model.html">vetiver_model()</a></code> object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>, such as prediction <code>type</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>handler_startup</code> function should return invisibly, while a
+    
+
+<p>A <code>handler_startup</code> function should return invisibly, while a
 <code>handler_predict</code> function should return a function with the signature
 <code>function(req)</code>. The request body (<code>req$body</code>) consists of the new data
 at prediction time; this function should return predictions either as a
@@ -157,11 +162,11 @@ for dispatch.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">handler_startup</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">handler_predict</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (req) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     newdata &lt;- req$body</span>
@@ -172,9 +177,9 @@ for dispatch.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     list(.pred = ret)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555ff315c858&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555ff315ac80&gt;</span>
-<span class="r-in"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55f637d61678&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55f637d605d8&gt;</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -188,7 +193,7 @@ for dispatch.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

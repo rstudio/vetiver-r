@@ -14,7 +14,7 @@ vetiver_pin_write()."><meta property="og:image" content="/logo.png"><!-- mathjax
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,14 @@ vetiver_pin_write()."><meta property="og:image" content="/logo.png"><!-- mathjax
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">board</span>, <span class="va">name</span>, version <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, file <span class="op">=</span> <span class="st">"plumber.R"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vetiver_write_plumber</span><span class="op">(</span></span>
+<span>  <span class="va">board</span>,</span>
+<span>  <span class="va">name</span>,</span>
+<span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"plumber.R"</span>,</span>
+<span>  rsconnect <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,21 +81,36 @@ vetiver_pin_write()."><meta property="og:image" content="/logo.png"><!-- mathjax
     <dl><dt>board</dt>
 <dd><p>A pin board, created by <code><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder()</a></code>, <code><a href="https://pins.rstudio.com/reference/board_rsconnect.html" class="external-link">board_rsconnect()</a></code>,
 <code><a href="https://pins.rstudio.com/reference/board_url.html" class="external-link">board_url()</a></code> or another <code>board_</code> function.</p></dd>
+
+
 <dt>name</dt>
 <dd><p>Pin name.</p></dd>
+
+
 <dt>version</dt>
 <dd><p>Retrieve a specific version of a pin. Use <code><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions()</a></code> to
 find out which versions are available and when they were created.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="vetiver_api.html">vetiver_api()</a></code> such as the endpoint
 <code>path</code> or prediction <code>type</code>.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>A path to write the Plumber file. Defaults to <code>plumber.R</code> in the
 working directory. See <code><a href="https://www.rplumber.io/reference/plumb.html" class="external-link">plumber::plumb()</a></code> for naming precedence rules.</p></dd>
+
+
+<dt>rsconnect</dt>
+<dd><p>Create a Plumber file with features needed for <a href="https://www.rstudio.com/products/connect/" class="external-link">RStudio Connect</a>? Defaults to <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The content of the <code>plumber.R</code> file, invisibly.</p>
+    
+
+<p>The content of the <code>plumber.R</code> file, invisibly.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -100,17 +122,17 @@ version. You can override this default behavior by choosing a specific
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220525T201131Z-88e0b'</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220706T142043Z-88e0b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_write_plumber</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -124,7 +146,7 @@ version. You can override this default behavior by choosing a specific
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,33 +60,33 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for train</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for glm</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for lm</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Learner</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_ptype</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ranger</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for workflow</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for xgb.Booster</span>
-<span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for train</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for glm</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Learner</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_ptype</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ranger</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for workflow</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xgb.Booster</span></span>
+<span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,20 +94,27 @@
     <dl><dt>model</dt>
 <dd><p>A trained model, such as an <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> model or a tidymodels
 <code><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflows::workflow()</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other method-specific arguments passed to <code>vetiver_ptype()</code>
 to compute an input data prototype, such as <code>ptype_data</code> (a sample of
 training features).</p></dd>
+
+
 <dt>save_ptype</dt>
 <dd><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
 training data), <code>FALSE</code> (no input data prototype for visual documentation or
 checking), or a dataframe to be used for both checking at prediction time
 <em>and</em> examples in API visual documentation.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>vetiver_ptype</code> method returns a zero-row dataframe, and
+    
+
+<p>A <code>vetiver_ptype</code> method returns a zero-row dataframe, and
 <code>vetiver_create_ptype()</code> returns either such a zero-row dataframe, <code>NULL</code>,
 or the dataframe passed to <code>save_ptype</code>.</p>
     </div>
@@ -120,29 +127,29 @@ zero-row slice of the training data) via <code>vetiver_ptype()</code>.</p></li>
 <li><p><code>save_ptype = FALSE</code> opts out of storing any input data prototype.</p></li>
 <li><p>You may pass your own data to <code>save_ptype</code>, but be sure to check that it
 has the same structure as your training data, perhaps with
-<code><a href="https://rdrr.io/pkg/hardhat/man/scream.html" class="external-link">hardhat::scream()</a></code>.</p></li>
+<code><a href="https://hardhat.tidymodels.org/reference/scream.html" class="external-link">hardhat::scream()</a></code>.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">disp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## calls the right method for `model` via:</span></span>
-<span class="r-in"><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_lm</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## calls the right method for `model` via:</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_lm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## can also turn off `ptype`</span></span>
-<span class="r-in"><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## can also turn off `ptype`</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
-<span class="r-in"><span class="co">## some models require that you pass in training features</span></span>
-<span class="r-in"><span class="va">cars_rf</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, ptype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## some models require that you pass in training features</span></span></span>
+<span class="r-in"><span><span class="va">cars_rf</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, ptype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;, drat &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wt &lt;dbl&gt;, qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;, carb &lt;dbl&gt;</span></span>
@@ -159,7 +166,7 @@ has the same structure as your training data, perhaps with
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer></body></html>

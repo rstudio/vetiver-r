@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,13 @@
 </div>
 <!-- badges: start -->
 <blockquote><p><em>Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.</em></p></blockquote>
-<p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models, and available for both R and Python. To learn more about vetiver, see the documentation at <a href="https://vetiver.rstudio.com/" class="external-link uri">https://vetiver.rstudio.com/</a></p>
+<p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models, and available for both R and Python. To learn more about vetiver, see:</p>
+<ul>
+<li>the documentation at <a href="https://vetiver.rstudio.com/" class="external-link uri">https://vetiver.rstudio.com/</a>
+</li>
+<li>the Python package at <a href="https://rstudio.github.io/vetiver-python/" class="external-link uri">https://rstudio.github.io/vetiver-python/</a>
+</li>
+</ul>
 <p>You can use vetiver with:</p>
 <ul>
 <li>a <a href="https://www.tidymodels.org/" class="external-link">tidymodels</a> workflow</li>
@@ -111,84 +117,84 @@
 </h2>
 <p>You can install the released version of vetiver from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"vetiver"</span><span class="op">)</span></span></code></pre></div>
 <p>And the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rstudio/vetiver-r"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rstudio/vetiver-r"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>A <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> object collects the information needed to store, version, and deploy a trained model.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Sacramento</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span>
-
-<span class="va">rf_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html" class="external-link">rand_forest</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span>
-<span class="va">rf_form</span> <span class="op">&lt;-</span> <span class="va">price</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">sqft</span> <span class="op">+</span> <span class="va">beds</span> <span class="op">+</span> <span class="va">baths</span>
-
-<span class="va">rf_fit</span> <span class="op">&lt;-</span> 
-    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Sacramento</span><span class="op">)</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span>
-<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">rf_fit</span>, <span class="st">"sacramento_rf"</span><span class="op">)</span>
-<span class="va">v</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── sacramento_rf ─ &lt;butchered_workflow&gt; model for deployment </span>
-<span class="co">#&gt; A ranger regression modeling workflow using 4 features</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Sacramento</span>, package <span class="op">=</span> <span class="st">"modeldata"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">rf_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/rand_forest.html" class="external-link">rand_forest</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span></span>
+<span><span class="va">rf_form</span> <span class="op">&lt;-</span> <span class="va">price</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">sqft</span> <span class="op">+</span> <span class="va">beds</span> <span class="op">+</span> <span class="va">baths</span></span>
+<span></span>
+<span><span class="va">rf_fit</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Sacramento</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">rf_fit</span>, <span class="st">"sacramento_rf"</span><span class="op">)</span></span>
+<span><span class="va">v</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── sacramento_rf ─ &lt;butchered_workflow&gt; model for deployment </span></span>
+<span><span class="co">#&gt; A ranger regression modeling workflow using 4 features</span></span></code></pre></div>
 <p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span>
-<span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
+<span><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/" class="external-link">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html" class="external-link">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span>
-<span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></span></code></pre></div>
 <p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://solutions.rstudio.com/r/jobs/" class="external-link">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span>
-<span class="va">endpoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_endpoint.html">vetiver_endpoint</a></span><span class="op">(</span><span class="st">"http://127.0.0.1:8088/predict"</span><span class="op">)</span>
-<span class="va">endpoint</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── A model API endpoint for prediction: </span>
-<span class="co">#&gt; http://127.0.0.1:8088/predict</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span></span>
+<span><span class="va">endpoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_endpoint.html">vetiver_endpoint</a></span><span class="op">(</span><span class="st">"http://127.0.0.1:8088/predict"</span><span class="op">)</span></span>
+<span><span class="va">endpoint</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── A model API endpoint for prediction: </span></span>
+<span><span class="co">#&gt; http://127.0.0.1:8088/predict</span></span></code></pre></div>
 <p>Such a model API endpoint deployed with vetiver will return predictions for appropriate new data.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="va">new_sac</span> <span class="op">&lt;-</span> <span class="va">Sacramento</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://www.rplumber.io/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu">select</span><span class="op">(</span><span class="va">type</span>, <span class="va">sqft</span>, <span class="va">beds</span>, <span class="va">baths</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">new_sac</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 20 x 1</span>
-<span class="co">#&gt;      .pred</span>
-<span class="co">#&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 165042.</span>
-<span class="co">#&gt;  2 212461.</span>
-<span class="co">#&gt;  3 119008.</span>
-<span class="co">#&gt;  4 201752.</span>
-<span class="co">#&gt;  5 223096.</span>
-<span class="co">#&gt;  6 115696.</span>
-<span class="co">#&gt;  7 191262.</span>
-<span class="co">#&gt;  8 211706.</span>
-<span class="co">#&gt;  9 259336.</span>
-<span class="co">#&gt; 10 206826.</span>
-<span class="co">#&gt; 11 234952.</span>
-<span class="co">#&gt; 12 221993.</span>
-<span class="co">#&gt; 13 204983.</span>
-<span class="co">#&gt; 14 548052.</span>
-<span class="co">#&gt; 15 151186.</span>
-<span class="co">#&gt; 16 299365.</span>
-<span class="co">#&gt; 17 213439.</span>
-<span class="co">#&gt; 18 287993.</span>
-<span class="co">#&gt; 19 272017.</span>
-<span class="co">#&gt; 20 226629.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="va">new_sac</span> <span class="op">&lt;-</span> <span class="va">Sacramento</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">select</span><span class="op">(</span><span class="va">type</span>, <span class="va">sqft</span>, <span class="va">beds</span>, <span class="va">baths</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">new_sac</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 20 x 1</span></span>
+<span><span class="co">#&gt;      .pred</span></span>
+<span><span class="co">#&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 165042.</span></span>
+<span><span class="co">#&gt;  2 212461.</span></span>
+<span><span class="co">#&gt;  3 119008.</span></span>
+<span><span class="co">#&gt;  4 201752.</span></span>
+<span><span class="co">#&gt;  5 223096.</span></span>
+<span><span class="co">#&gt;  6 115696.</span></span>
+<span><span class="co">#&gt;  7 191262.</span></span>
+<span><span class="co">#&gt;  8 211706.</span></span>
+<span><span class="co">#&gt;  9 259336.</span></span>
+<span><span class="co">#&gt; 10 206826.</span></span>
+<span><span class="co">#&gt; 11 234952.</span></span>
+<span><span class="co">#&gt; 12 221993.</span></span>
+<span><span class="co">#&gt; 13 204983.</span></span>
+<span><span class="co">#&gt; 14 548052.</span></span>
+<span><span class="co">#&gt; 15 151186.</span></span>
+<span><span class="co">#&gt; 16 299365.</span></span>
+<span><span class="co">#&gt; 17 213439.</span></span>
+<span><span class="co">#&gt; 18 287993.</span></span>
+<span><span class="co">#&gt; 19 272017.</span></span>
+<span><span class="co">#&gt; 20 226629.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -243,15 +249,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/rstudio/vetiver-r/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rstudio/vetiver-r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://CRAN.R-project.org/package=vetiver" class="external-link"><img src="https://www.r-pkg.org/badges/version/vetiver" alt="CRAN status"></a></li>
-<li><a href="https://app.codecov.io/gh/rstudio/vetiver-r?branch=main" class="external-link"><img src="https://codecov.io/gh/rstudio/vetiver-r/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
@@ -266,7 +264,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
   </div></footer>
