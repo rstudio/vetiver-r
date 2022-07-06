@@ -1,6 +1,6 @@
 Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
-Version: 0.1.5.9000
+Version: 0.1.6
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
@@ -71,7 +71,7 @@ Suggests:
     yardstick
 VignetteBuilder: 
     knitr
-Config/Needs/website: tidyverse/tidytemplate
+Config/Needs/website: tidyverse/tidytemplate, rstudio/connectapi
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
