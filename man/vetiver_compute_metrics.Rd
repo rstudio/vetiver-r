@@ -89,7 +89,15 @@ epoch time of \verb{1970-01-01 00:00:00}, \emph{in the time zone of the index}.
 This is generally used to define the anchor time to count from, which is
 relevant when the every value is \verb{> 1}.}
 
-\item{before, after}{\verb{[integer(1) / Inf]}
+\item{before}{\verb{[integer(1) / Inf]}
+
+The number of values before or after the current element to
+include in the sliding window. Set to \code{Inf} to select all elements
+before or after the current element. Negative values are allowed, which
+allows you to "look forward" from the current element if used as the
+\code{.before} value, or "look backwards" if used as \code{.after}.}
+
+\item{after}{\verb{[integer(1) / Inf]}
 
 The number of values before or after the current element to
 include in the sliding window. Set to \code{Inf} to select all elements
@@ -160,36 +168,4 @@ For arguments used more than once in your monitoring dashboard,
 such as \code{date_var}, consider using
 \href{https://bookdown.org/yihui/rmarkdown/parameterized-reports.html}{R Markdown parameters}
 to reduce repetition and/or errors.
-}
-\examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-library(dplyr)
-library(parsnip)
-data(Chicago, package = "modeldata")
-Chicago <- Chicago \%>\% select(ridership, date, all_of(stations))
-training_data <- Chicago \%>\% filter(date < "2009-01-01")
-testing_data <- Chicago \%>\% filter(date >= "2009-01-01", date < "2011-01-01")
-monitoring <- Chicago \%>\% filter(date >= "2011-01-01", date < "2012-12-31")
-lm_fit <- linear_reg() \%>\% fit(ridership ~ ., data = training_data)
-
-library(pins)
-b <- board_temp()
-
-## before starting monitoring, initiate the metrics and pin
-## (for example, with the testing data):
-original_metrics <-
-    augment(lm_fit, new_data = testing_data) \%>\%
-    vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-pin_write(b, original_metrics, "lm_fit_metrics")
-
-## to continue monitoring with new data, compute metrics and update pin:
-new_metrics <-
-    augment(lm_fit, new_data = monitoring) \%>\%
-    vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
-
-library(ggplot2)
-vetiver_plot_metrics(new_metrics) +
-    scale_size(range = c(2, 4))
-\dontshow{\}) # examplesIf}
 }
