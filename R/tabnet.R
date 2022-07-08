@@ -1,8 +1,8 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.tabnet_fit <- function(model) {
-    cli::cat_line(
-        "A tabnet  `nn_module` containing ",
+    paste0(
+        "A tabnet `nn_module` containing ",
         format(sum(sapply(model$fit$network$parameters, function(x) prod(x$shape))), nsmall = 0, big.mark = ",", scientific = FALSE),
         " parameters."
   )

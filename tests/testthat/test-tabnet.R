@@ -49,7 +49,7 @@ test_that("default OpenAPI spec", {
     p <- pr() %>% vetiver_api(v)
     car_spec <- p$getApiSpec()
     expect_equal(car_spec$info$description,
-                 "A tabnet regression model")
+                 "A tabnet `nn_module` containing 6,301 parameters.")
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
     expect_equal(as.character(post_spec$summary),

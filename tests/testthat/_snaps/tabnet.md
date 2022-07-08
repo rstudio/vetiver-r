@@ -5,7 +5,7 @@
     Output
       
       -- cars3 - <tabnet_fit> model for deployment 
-      using 10 features
+      A tabnet `nn_module` containing 6,301 parameters. using 10 features
 
 # error for no ptype_data with tabnet
 
