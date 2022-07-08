@@ -1,58 +1,30 @@
-#' Aggregate, update, and plot model metrics over time for monitoring
+#' Aggregate model metrics over time for monitoring
 #'
 #' These three functions can be used for model monitoring (such as in a
 #' monitoring dashboard):
 #' - `vetiver_compute_metrics()` computes metrics (such as accuracy for a
 #' classification model or RMSE for a regression model) at a chosen time
-#' aggregation `.period`
-#' - `vetiver_pin_metrics()` updates an existing pin storing model metrics
+#' aggregation `period`
+#' - [vetiver_pin_metrics()] updates an existing pin storing model metrics
 #' over time
-#' - `vetiver_plot_metrics()` creates a plot of metrics over time
+#' - [vetiver_plot_metrics()] creates a plot of metrics over time
 #'
 #' @inheritParams yardstick::metrics
-#' @inheritParams pins::pin_read
 #' @inheritParams slider::slide_period
 #' @param date_var The column in `data` containing dates or date-times for
 #' monitoring, to be aggregated with `.period`
 #' @param metric_set A [yardstick::metric_set()] function for computing metrics.
 #' Defaults to [yardstick::metrics()].
-#' @param df_metrics A tidy dataframe of metrics over time, such as created by
-#' `vetiver_compute_metrics()`.
-#' @param metrics_pin_name Pin name for where the *metrics* are stored (as
-#' opposed to where the model object is stored with [vetiver_pin_write()]).
-#' @param overwrite If `FALSE` (the default), error when the new metrics contain
-#' overlapping dates with the existing pin.If `TRUE`, overwrite any metrics for
-#' dates that exist both in the existing pin and new metrics with the _new_
-#' values.
-#' @param .index The variable in `df_metrics` containing the aggregated dates
-#' or date-times (from `time_var` in `data`). Defaults to `.index`.
-#' @param .estimate The variable in `df_metrics` containing the metric estimate.
-#' Defaults to `.estimate`.
-#' @param .metric The variable in `df_metrics` containing the metric type.
-#' Defaults to `.metric`.
-#' @param .n The variable in `df_metrics` containing the number of observations
-#' used for estimating the metric.
 #'
-#' @return Both `vetiver_compute_metrics()` and `vetiver_pin_metrics()` return
-#' a dataframe of metrics. The `vetiver_plot_metrics()` function returns a
-#' `ggplot2` object.
+#' @return A dataframe of metrics.
 #'
-#' @details Sometimes when you monitor a model at a given time aggregation, you
-#' may end up with dates in your new metrics (like `new_metrics` in the example)
-#' that are the same as dates in your existing aggregated metrics (like
-#' `original_metrics` in the example). This can happen if you need to re-run a
-#' monitoring report because something failed. With `overwrite = FALSE` (the
-#' default), `vetiver_pin_metrics()` will error when there are overlapping
-#' dates. With `overwrite = TRUE`, `vetiver_pin_metrics()` will replace such
-#' metrics with the new values. You probably want `FALSE` for interactive use
-#' and `TRUE` for dashboards or reports that run on a schedule.
-#'
+#' @details
 #' For arguments used more than once in your monitoring dashboard,
 #' such as `date_var`, consider using
 #' [R Markdown parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)
 #' to reduce repetition and/or errors.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata"))
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
@@ -65,23 +37,15 @@
 #' library(pins)
 #' b <- board_temp()
 #'
-#' ## before starting monitoring, initiate the metrics and pin
-#' ## (for example, with the testing data):
 #' original_metrics <-
 #'     augment(lm_fit, new_data = testing_data) %>%
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-#' pin_write(b, original_metrics, "lm_fit_metrics")
 #'
-#' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
 #'     augment(lm_fit, new_data = monitoring) %>%
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-#' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 #'
-#' library(ggplot2)
-#' vetiver_plot_metrics(new_metrics) +
-#'     scale_size(range = c(2, 4))
-#'
+#' @seealso [vetiver_pin_metrics()], [vetiver_plot_metrics()]
 #' @export
 vetiver_compute_metrics <- function(data,
                                     date_var,
@@ -123,13 +87,93 @@ vetiver_compute_metrics <- function(data,
 
 }
 
-#' @rdname vetiver_compute_metrics
+
+#' Update model metrics over time for monitoring
+#'
+#' These three functions can be used for model monitoring (such as in a
+#' monitoring dashboard):
+#' - [vetiver_compute_metrics()] computes metrics (such as accuracy for a
+#' classification model or RMSE for a regression model) at a chosen time
+#' aggregation `period`
+#' - `vetiver_pin_metrics()` updates an existing pin storing model metrics
+#' over time
+#' - [vetiver_plot_metrics()] creates a plot of metrics over time
+#'
+#' @inheritParams pins::pin_read
+#' @param df_metrics A tidy dataframe of metrics over time, such as created by
+#' @param metrics_pin_name Pin name for where the *metrics* are stored (as
+#' opposed to where the model object is stored with [vetiver_pin_write()]).
+#' @param .index The variable in `df_metrics` containing the aggregated dates
+#' or date-times (from `time_var` in `data`). Defaults to `.index`.
+#' @param overwrite If `FALSE` (the default), error when the new metrics contain
+#' overlapping dates with the existing pin.If `TRUE`, overwrite any metrics for
+#' dates that exist both in the existing pin and new metrics with the _new_
+#' values.
+#' @param type File type used to save metrics to disk. With the default `NULL`,
+#' uses the `type` of the existing pin. Options are "rds" and "arrow".
+#'
+#' @return A dataframe of metrics.
+#'
+#' @details Sometimes when you monitor a model at a given time aggregation, you
+#' may end up with dates in your new metrics (like `new_metrics` in the example)
+#' that are the same as dates in your existing aggregated metrics (like
+#' `original_metrics` in the example). This can happen if you need to re-run a
+#' monitoring report because something failed. With `overwrite = FALSE` (the
+#' default), `vetiver_pin_metrics()` will error when there are overlapping
+#' dates. With `overwrite = TRUE`, `vetiver_pin_metrics()` will replace such
+#' metrics with the new values. You probably want `FALSE` for interactive use
+#' and `TRUE` for dashboards or reports that run on a schedule.
+#'
+#' You can initially create your pin with `type = "arrow"` or the default
+#' (`type = "rds"`). `vetiver_pin_metrics()` will update the pin using the
+#' same `type` by default.
+#'
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata"))
+#' library(dplyr)
+#' library(parsnip)
+#' data(Chicago, package = "modeldata")
+#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
+#' training_data <- Chicago %>% filter(date < "2009-01-01")
+#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
+#' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+#'
+#' library(pins)
+#' b <- board_temp()
+#'
+#' ## before starting monitoring, initiate the metrics and pin
+#' ## (for example, with the testing data):
+#' original_metrics <-
+#'     augment(lm_fit, new_data = testing_data) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
+#' pin_write(b, original_metrics, "lm_fit_metrics", type = "arrow")
+#'
+#' ## to continue monitoring with new data, compute metrics and update pin:
+#' new_metrics <-
+#'     augment(lm_fit, new_data = monitoring) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
+#' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
+#'
+#' @seealso [vetiver_compute_metrics()], [vetiver_plot_metrics()]
 #' @export
 vetiver_pin_metrics <- function(board,
                                 df_metrics,
                                 metrics_pin_name,
                                 .index = .index,
-                                overwrite = FALSE) {
+                                overwrite = FALSE,
+                                type = NULL,
+                                ...) {
+
+    pin_type <- ifelse(
+        is.null(type),
+        pins::pin_meta(board, metrics_pin_name)$type,
+        type
+    )
+
+    if (! pin_type %in% c("arrow", "rds")) {
+        abort(glue('Metrics must be pinned as "arrow" or "rds", not "{pin_type}"'))
+    }
+
     .index <- enquo(.index)
     .index <- eval_select_one(.index, df_metrics, "date_var")
     new_dates <- unique(df_metrics[[.index]])
@@ -152,7 +196,13 @@ vetiver_pin_metrics <- function(board,
         vctrs::vec_order(new_metrics[[.index]])
     )
 
-    pins::pin_write(board, new_metrics, basename(metrics_pin_name))
+    pins::pin_write(
+        board,
+        new_metrics,
+        basename(metrics_pin_name),
+        type = pin_type,
+        ...
+    )
     new_metrics
 
 }
@@ -204,7 +254,59 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
     loc
 }
 
-#' @rdname vetiver_compute_metrics
+
+#' Plot model metrics over time for monitoring
+#'
+#' These three functions can be used for model monitoring (such as in a
+#' monitoring dashboard):
+#' - [vetiver_compute_metrics()] computes metrics (such as accuracy for a
+#' classification model or RMSE for a regression model) at a chosen time
+#' aggregation `period`
+#' - [vetiver_pin_metrics()] updates an existing pin storing model metrics
+#' over time
+#' - `vetiver_plot_metrics()` creates a plot of metrics over time
+#'
+#' @inheritParams vetiver_pin_metrics
+#' @param .estimate The variable in `df_metrics` containing the metric estimate.
+#' Defaults to `.estimate`.
+#' @param .metric The variable in `df_metrics` containing the metric type.
+#' Defaults to `.metric`.
+#' @param .n The variable in `df_metrics` containing the number of observations
+#' used for estimating the metric.
+#'
+#' @return A `ggplot2` object.
+#'
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))
+#' library(dplyr)
+#' library(parsnip)
+#' data(Chicago, package = "modeldata")
+#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
+#' training_data <- Chicago %>% filter(date < "2009-01-01")
+#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
+#' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+#'
+#' library(pins)
+#' b <- board_temp()
+#'
+#' ## before starting monitoring, initiate the metrics and pin
+#' ## (for example, with the testing data):
+#' original_metrics <-
+#'     augment(lm_fit, new_data = testing_data) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
+#' pin_write(b, original_metrics, "lm_fit_metrics", type = "arrow")
+#'
+#' ## to continue monitoring with new data, compute metrics and update pin:
+#' new_metrics <-
+#'     augment(lm_fit, new_data = monitoring) %>%
+#'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
+#' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
+#'
+#' library(ggplot2)
+#' vetiver_plot_metrics(new_metrics) +
+#'     scale_size(range = c(2, 4))
+#'
+#' @seealso [vetiver_compute_metrics()], [vetiver_pin_metrics()]
 #' @export
 vetiver_plot_metrics <- function(df_metrics,
                                  .index = .index,

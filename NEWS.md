@@ -1,6 +1,8 @@
 # vetiver (development version)
 
-* Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121).
+* Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121, #122).
+
+* `vetiver_pin_metrics()` now finds the `type` of the existing pin and updates with the same type (#122).
 
 # vetiver 0.1.6
 
