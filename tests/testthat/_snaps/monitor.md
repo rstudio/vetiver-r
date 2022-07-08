@@ -8,3 +8,11 @@
     The new metrics overlap with dates already stored in 'metrics2'
     ℹ Check the aggregated dates or use `overwrite = TRUE`
 
+# vetiver_pin_metrics(): fails with type = csv
+
+    Metrics must be pinned as "arrow" or "rds", not "csv"
+
+---
+
+    Metrics must be pinned as "arrow" or "rds", not "csv"
+
