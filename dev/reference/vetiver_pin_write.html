@@ -66,7 +66,7 @@ along with an input prototype for new data and other model metadata. Use
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">board</span>, <span class="va">vetiver_model</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">board</span>, <span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">vetiver_pin_read</span><span class="op">(</span><span class="va">board</span>, <span class="va">name</span>, version <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -80,6 +80,10 @@ along with an input prototype for new data and other model metadata. Use
 
 <dt>vetiver_model</dt>
 <dd><p>A deployable <code><a href="vetiver_model.html">vetiver_model()</a></code> object</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional arguments passed on to methods for a specific board.</p></dd>
 
 
 <dt>name</dt>
@@ -118,11 +122,11 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220706T234757Z-88e0b'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20220708T031755Z-88e0b'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span><span class="va">model_board</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Pin board</span> &lt;pins_board_folder&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpUoW5He/pins-2a0071fc6676'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpFd6S9i/pins-288f48d2469c'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cache size: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pins [1]: 'cars_linear'</span>
 <span class="r-in"><span></span></span>
@@ -136,7 +140,7 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   version                created             hash </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20220706T234757Z-88e0b 2022-07-06 <span style="color: #949494;">23:47:00</span> 88e0b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20220708T031755Z-88e0b 2022-07-08 <span style="color: #949494;">03:17:00</span> 88e0b</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
