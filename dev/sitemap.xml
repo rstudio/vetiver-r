@@ -85,7 +85,13 @@
     <loc>/dev/reference/vetiver_model.html</loc>
   </url>
   <url>
+    <loc>/dev/reference/vetiver_pin_metrics.html</loc>
+  </url>
+  <url>
     <loc>/dev/reference/vetiver_pin_write.html</loc>
+  </url>
+  <url>
+    <loc>/dev/reference/vetiver_plot_metrics.html</loc>
   </url>
   <url>
     <loc>/dev/reference/vetiver_pr_predict.html</loc>
