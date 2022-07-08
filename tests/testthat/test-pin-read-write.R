@@ -106,3 +106,41 @@ test_that("can read a versioned model with metadata", {
     expect_equal(v4$ptype, v$ptype)
     expect_equal(v4$versioned, TRUE)
 })
+
+test_that("can package a model", {
+    model_package.lm <- function(model) {
+      p <- list(file = model) # we're pretending we've loaded it from file
+      structure(p, class = "lm")
+    }
+    .S3method("model_package", "lm")
+
+    b <- board_temp()
+    v <- vetiver_model(cars_lm, "cars1")
+    vetiver_pin_write(b, v)
+    expect_equal(pin_read(b, "cars1")$model, 
+                 structure(list(file = butcher::butcher(cars_lm)), class = 'lm'))
+    # FIXME: is there a better way to deregister a S3 method?
+    .S3method("model_package", "lm", model_package.default)
+})
+
+test_that("can unpackage a model", {
+    model_package.lm <- function(model) {
+      p <- list(file = model) # we're pretending we've loaded it from file
+      structure(p, class = "lm")
+    }
+    .S3method("model_package", "lm")
+    model_unpackage.lm <- function(pinned) {
+      pinned$file # we're pretending we've unloaded it to file
+    }
+    .S3method("model_unpackage", "lm")
+
+    b <- board_temp()
+    v <- vetiver_model(cars_lm, "cars1")
+    vetiver_pin_write(b, v)
+    v1 <- vetiver_pin_read(b, "cars1")
+    expect_equal(v1$model, butcher::butcher(cars_lm))
+
+    # FIXME: is there a better way to deregister a S3 method?
+    .S3method("model_package", "lm", model_package.default)
+    .S3method("model_unpackage", "lm", model_unpackage.default)
+})

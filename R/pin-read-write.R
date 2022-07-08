@@ -33,9 +33,10 @@
 #'
 #' @export
 vetiver_pin_write <- function(board, vetiver_model) {
+    packaged_model <- model_package(vetiver_model$model)
     pins::pin_write(
         board = board,
-        x = list(model = vetiver_model$model,
+        x = list(model = packaged_model,
                  ptype = vetiver_model$ptype,
                  required_pkgs = vetiver_model$metadata$required_pkgs),
         name = vetiver_model$model_name,
@@ -63,8 +64,9 @@ vetiver_pin_read <- function(board, name, version = NULL) {
 
     ## TODO: add subset of renv hash checking
 
+    unpackaged_model <- model_unpackage(pinned$model)
     new_vetiver_model(
-        model = pinned$model,
+        model = unpackaged_model,
         model_name = name,
         description = meta$description,
         metadata = vetiver_meta(
