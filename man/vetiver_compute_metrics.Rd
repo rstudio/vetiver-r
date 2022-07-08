@@ -2,9 +2,7 @@
 % Please edit documentation in R/monitor.R
 \name{vetiver_compute_metrics}
 \alias{vetiver_compute_metrics}
-\alias{vetiver_pin_metrics}
-\alias{vetiver_plot_metrics}
-\title{Aggregate, update, and plot model metrics over time for monitoring}
+\title{Aggregate model metrics over time for monitoring}
 \usage{
 vetiver_compute_metrics(
   data,
@@ -19,22 +17,6 @@ vetiver_compute_metrics(
   before = 0L,
   after = 0L,
   complete = FALSE
-)
-
-vetiver_pin_metrics(
-  board,
-  df_metrics,
-  metrics_pin_name,
-  .index = .index,
-  overwrite = FALSE
-)
-
-vetiver_plot_metrics(
-  df_metrics,
-  .index = .index,
-  .estimate = .estimate,
-  .metric = .metric,
-  .n = .n
 )
 }
 \arguments{
@@ -101,37 +83,9 @@ allows you to "look forward" from the current element if used as the
 
 Should the function be evaluated on complete windows only? If \code{FALSE},
 the default, then partial computations will be allowed.}
-
-\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
-\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
-
-\item{df_metrics}{A tidy dataframe of metrics over time, such as created by
-\code{vetiver_compute_metrics()}.}
-
-\item{metrics_pin_name}{Pin name for where the \emph{metrics} are stored (as
-opposed to where the model object is stored with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}).}
-
-\item{.index}{The variable in \code{df_metrics} containing the aggregated dates
-or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}
-
-\item{overwrite}{If \code{FALSE} (the default), error when the new metrics contain
-overlapping dates with the existing pin.If \code{TRUE}, overwrite any metrics for
-dates that exist both in the existing pin and new metrics with the \emph{new}
-values.}
-
-\item{.estimate}{The variable in \code{df_metrics} containing the metric estimate.
-Defaults to \code{.estimate}.}
-
-\item{.metric}{The variable in \code{df_metrics} containing the metric type.
-Defaults to \code{.metric}.}
-
-\item{.n}{The variable in \code{df_metrics} containing the number of observations
-used for estimating the metric.}
 }
 \value{
-Both \code{vetiver_compute_metrics()} and \code{vetiver_pin_metrics()} return
-a dataframe of metrics. The \code{vetiver_plot_metrics()} function returns a
-\code{ggplot2} object.
+A dataframe of metrics.
 }
 \description{
 These three functions can be used for model monitoring (such as in a
@@ -139,30 +93,20 @@ monitoring dashboard):
 \itemize{
 \item \code{vetiver_compute_metrics()} computes metrics (such as accuracy for a
 classification model or RMSE for a regression model) at a chosen time
-aggregation \code{.period}
-\item \code{vetiver_pin_metrics()} updates an existing pin storing model metrics
+aggregation \code{period}
+\item \code{\link[=vetiver_pin_metrics]{vetiver_pin_metrics()}} updates an existing pin storing model metrics
 over time
-\item \code{vetiver_plot_metrics()} creates a plot of metrics over time
+\item \code{\link[=vetiver_plot_metrics]{vetiver_plot_metrics()}} creates a plot of metrics over time
 }
 }
 \details{
-Sometimes when you monitor a model at a given time aggregation, you
-may end up with dates in your new metrics (like \code{new_metrics} in the example)
-that are the same as dates in your existing aggregated metrics (like
-\code{original_metrics} in the example). This can happen if you need to re-run a
-monitoring report because something failed. With \code{overwrite = FALSE} (the
-default), \code{vetiver_pin_metrics()} will error when there are overlapping
-dates. With \code{overwrite = TRUE}, \code{vetiver_pin_metrics()} will replace such
-metrics with the new values. You probably want \code{FALSE} for interactive use
-and \code{TRUE} for dashboards or reports that run on a schedule.
-
 For arguments used more than once in your monitoring dashboard,
 such as \code{date_var}, consider using
 \href{https://bookdown.org/yihui/rmarkdown/parameterized-reports.html}{R Markdown parameters}
 to reduce repetition and/or errors.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
@@ -175,21 +119,15 @@ lm_fit <- linear_reg() \%>\% fit(ridership ~ ., data = training_data)
 library(pins)
 b <- board_temp()
 
-## before starting monitoring, initiate the metrics and pin
-## (for example, with the testing data):
 original_metrics <-
     augment(lm_fit, new_data = testing_data) \%>\%
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-pin_write(b, original_metrics, "lm_fit_metrics")
 
-## to continue monitoring with new data, compute metrics and update pin:
 new_metrics <-
     augment(lm_fit, new_data = monitoring) \%>\%
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
-vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
-
-library(ggplot2)
-vetiver_plot_metrics(new_metrics) +
-    scale_size(range = c(2, 4))
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=vetiver_pin_metrics]{vetiver_pin_metrics()}}, \code{\link[=vetiver_plot_metrics]{vetiver_plot_metrics()}}
 }
