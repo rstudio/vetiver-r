@@ -24,7 +24,7 @@ vetiver_pr_predict(
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\verb{r lifecycle::badge("deprecated")}
 
 This function was deprecated to use \link{vetiver_api} directly instead.
 }

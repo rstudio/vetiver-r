@@ -45,22 +45,3 @@ After creating a Plumber file with \code{\link[=vetiver_write_plumber]{vetiver_w
 \code{vetiver_write_docker()} to create a Dockerfile plus a \code{vetiver_renv.lock}
 file for a pinned \code{\link[=vetiver_model]{vetiver_model()}}.
 }
-\examples{
-\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-
-library(pins)
-tmp_plumber <- tempfile()
-b <- board_temp(versioned = TRUE)
-cars_lm <- lm(mpg ~ ., data = mtcars)
-v <- vetiver_model(cars_lm, "cars_linear")
-vetiver_pin_write(b, v)
-vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
-
-## default port
-vetiver_write_docker(v, tmp_plumber, tempdir())
-## port from env variable
-vetiver_write_docker(v, tmp_plumber, tempdir(),
-                     port = 'as.numeric(Sys.getenv("PORT"))',
-                     expose = FALSE)
-\dontshow{\}) # examplesIf}
-}
