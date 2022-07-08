@@ -3,7 +3,7 @@
 vetiver_create_description.tabnet_fit <- function(model) {
     cli::cat_line(
         "A tabnet  `nn_module` containing ",
-        comma(get_parameter_count(model$fit$network)),
+        format(sum(sapply(model$fit$network$parameters, function(x) prod(x$shape))), nsmall = 0, big.mark = ",", scientific = FALSE),
         " parameters."
   )
 }
