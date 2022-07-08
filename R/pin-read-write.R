@@ -4,8 +4,8 @@
 #' along with an input prototype for new data and other model metadata. Use
 #' `vetiver_pin_read()` to retrieve that pinned object.
 #'
-#' @inheritParams vetiver_api
 #' @inheritParams pins::pin_read
+#' @inheritParams vetiver_api
 #'
 #' @details These functions read and write a [vetiver_model()] pin on the
 #' specified `board` containing the model object itself and other elements
@@ -32,7 +32,7 @@
 #' pin_versions(model_board, "cars_linear")
 #'
 #' @export
-vetiver_pin_write <- function(board, vetiver_model) {
+vetiver_pin_write <- function(board, vetiver_model, ...) {
     pins::pin_write(
         board = board,
         x = list(model = vetiver_model$model,
@@ -42,7 +42,8 @@ vetiver_pin_write <- function(board, vetiver_model) {
         type = "rds",
         description = vetiver_model$description,
         metadata = vetiver_model$metadata$user,
-        versioned = vetiver_model$versioned
+        versioned = vetiver_model$versioned,
+        ...
     )
     rlang::inform(
         c("\nCreate a Model Card for your published model",
