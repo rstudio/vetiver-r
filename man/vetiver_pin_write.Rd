@@ -5,7 +5,7 @@
 \alias{vetiver_pin_read}
 \title{Read and write a trained model to a board of models}
 \usage{
-vetiver_pin_write(board, vetiver_model)
+vetiver_pin_write(board, vetiver_model, ...)
 
 vetiver_pin_read(board, name, version = NULL)
 }
@@ -14,6 +14,8 @@ vetiver_pin_read(board, name, version = NULL)
 \code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
+
+\item{...}{Additional arguments passed on to methods for a specific board.}
 
 \item{name}{Pin name.}
 

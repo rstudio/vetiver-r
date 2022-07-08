@@ -1,6 +1,12 @@
 # vetiver (development version)
 
+<<<<<<< HEAD
 * Added support for tabnet models (#124 @cregouby)
+=======
+* Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121, #122).
+
+* `vetiver_pin_metrics()` now finds the `type` of the existing pin and updates with the same type (#122).
+>>>>>>> 3d242c5814889295931ceaed1774c117a857e4c2
 
 # vetiver 0.1.6
 
