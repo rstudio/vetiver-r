@@ -17,7 +17,7 @@ test_that("error for no ptype_data with tabnet", {
 test_that("can predict tabnet model", {
     preds <- predict(v, mtcars[,-1])
     expect_equal(length(preds$.pred), 32)
-    expect_equal(mean(preds$.pred), 20.1, tolerance = 6)
+    expect_equal(mean(preds$.pred), 44, tolerance = 0.1)
 })
 
 
