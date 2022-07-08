@@ -109,6 +109,8 @@ vetiver_compute_metrics <- function(data,
 #' overlapping dates with the existing pin.If `TRUE`, overwrite any metrics for
 #' dates that exist both in the existing pin and new metrics with the _new_
 #' values.
+#' @param type File type used to save metrics to disk. With the default `NULL`,
+#' uses the `type` of the existing pin. Options are "rds" and "arrow".
 #'
 #' @return A dataframe of metrics.
 #'
@@ -124,7 +126,7 @@ vetiver_compute_metrics <- function(data,
 #'
 #' You can initially create your pin with `type = "arrow"` or the default
 #' (`type = "rds"`). `vetiver_pin_metrics()` will update the pin using the
-#' same `type`.
+#' same `type` by default.
 #'
 #' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata"))
 #' library(dplyr)
@@ -159,16 +161,22 @@ vetiver_pin_metrics <- function(board,
                                 metrics_pin_name,
                                 .index = .index,
                                 overwrite = FALSE,
+                                type = NULL,
                                 ...) {
+
+    pin_type <- ifelse(
+        is.null(type),
+        pins::pin_meta(board, metrics_pin_name)$type,
+        type
+    )
+
+    if (! pin_type %in% c("arrow", "rds")) {
+        abort(glue('Metrics must be pinned as "arrow" or "rds", not "{pin_type}"'))
+    }
+
     .index <- enquo(.index)
     .index <- eval_select_one(.index, df_metrics, "date_var")
     new_dates <- unique(df_metrics[[.index]])
-
-    old_type <- pins::pin_meta(board, metrics_pin_name)$type
-    if (! old_type %in% c("arrow", "rds")) {
-        abort('Metrics must be pinned as "arrow" or "rds"',
-              i = glue('These metrics were pinned with `type = "{old_type}"`'))
-    }
 
     old_metrics <- pins::pin_read(board, metrics_pin_name)
     overlapping_dates <- old_metrics[[.index]] %in% new_dates
@@ -192,7 +200,7 @@ vetiver_pin_metrics <- function(board,
         board,
         new_metrics,
         basename(metrics_pin_name),
-        type = old_type,
+        type = pin_type,
         ...
     )
     new_metrics

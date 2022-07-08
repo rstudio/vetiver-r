@@ -10,6 +10,7 @@ vetiver_pin_metrics(
   metrics_pin_name,
   .index = .index,
   overwrite = FALSE,
+  type = NULL,
   ...
 )
 }
@@ -29,6 +30,9 @@ or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}
 overlapping dates with the existing pin.If \code{TRUE}, overwrite any metrics for
 dates that exist both in the existing pin and new metrics with the \emph{new}
 values.}
+
+\item{type}{File type used to save metrics to disk. With the default \code{NULL},
+uses the \code{type} of the existing pin. Options are "rds" and "arrow".}
 
 \item{...}{Additional arguments passed on to methods for a specific board.}
 }
@@ -60,7 +64,7 @@ and \code{TRUE} for dashboards or reports that run on a schedule.
 
 You can initially create your pin with \code{type = "arrow"} or the default
 (\code{type = "rds"}). \code{vetiver_pin_metrics()} will update the pin using the
-same \code{type}.
+same \code{type} by default.
 }
 \examples{
 \dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
