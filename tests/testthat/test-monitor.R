@@ -82,6 +82,11 @@ describe("vetiver_pin_metrics()", {
         expect_snapshot_error(
             vetiver_pin_metrics(b, df_metrics, "metrics2")
         )
+
+        pins::pin_write(b, df_metrics, "metrics2", type = "rds")
+        expect_snapshot_error(
+            vetiver_pin_metrics(b, df_metrics, "metrics2", type = "csv")
+        )
     })
     it("can update metrics", {
         b <- pins::board_temp()
