@@ -156,9 +156,9 @@ This project is released with a [Contributor Code of
 Conduct](https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
--   For questions and discussions about modeling packages, modeling, and
-    machine learning, please [post on RStudio
-    Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
+-   For questions and discussions about modeling, machine learning, and
+    MLOps please [post on RStudio
+    Community](https://community.rstudio.com/new-topic?category_id=15&tags=vetiver,question).
 
 -   If you think you have encountered a bug, please [submit an
     issue](https://github.com/rstudio/vetiver-r/issues).
