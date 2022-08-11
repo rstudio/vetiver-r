@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 7th CRAN release of vetiver. This release improves how Dockerfiles and APIs are generated, as well as adding a new model monitoring dashboard template.
+This is the 8th CRAN release of vetiver. This release improves versioning for models and metrics.
 
 ## R CMD check results
 
