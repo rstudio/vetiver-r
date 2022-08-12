@@ -7,7 +7,9 @@ output:
       name: 'seattle_rf'
       version: NULL
     storyboard: true
-    source_code: 'https://vetiver.rstudio.com'
+    theme: 
+      version: 4
+      bootswatch: cosmo
     display_pins: true
 ---
 
@@ -32,6 +34,8 @@ pin_example_kc_housing_model()
 ```{r load-vetiver-model, include = FALSE}
 # Load deployed model from pin:
 v <- vetiver_pin_read(pins$board, pins$name, version = pins$version)
+meta <- pin_meta(pins$board, pins$name, version = pins$version)
+days_old <- difftime(Sys.Date(), as.Date(meta$created), units = "days")
 
 # Attaches packages needed for prediction:
 handler_startup(v)
@@ -67,8 +71,9 @@ p1 <- ggplotly(p1)
 hide_legend(p1)
 ```
 
-
 ***
+
+This model was published `r as.numeric(days_old)` days ago.
 
 Plot model metrics over time to *monitor* your model.
 
