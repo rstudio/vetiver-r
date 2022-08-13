@@ -185,8 +185,8 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220812T210025Z-4dd70 2022-08-12 <span style="color: #949494;">21:00:00</span> 4dd70</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220812T210025Z-799f0 2022-08-12 <span style="color: #949494;">21:00:00</span> 799f0</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220813T004837Z-6b0a4 2022-08-13 <span style="color: #949494;">00:48:00</span> 6b0a4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220813T004838Z-666c4 2022-08-13 <span style="color: #949494;">00:48:00</span> 666c4</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your collaborators.</p>
 </div>
 <div class="section level2">
@@ -225,8 +225,8 @@
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/Rtmp8YbRTr/pins-30014d14c8d"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220812T210025Z-4dd70"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/Rtmp9Jmji9/pins-303f483b7ab0"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220813T004837Z-6b0a4"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
