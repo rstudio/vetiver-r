@@ -18,6 +18,6 @@ HTTP calls are made until you actually
 \code{\link[=predict.vetiver_endpoint]{predict()}} with your endpoint.
 }
 \examples{
-vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
+vetiver_endpoint("https://colorado.rstudio.com/rsc/seattle-housing/predict")
 
 }

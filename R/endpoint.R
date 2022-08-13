@@ -45,11 +45,12 @@ predict.vetiver_endpoint <- function(object, new_data, ...) {
 #' @return A new `vetiver_endpoint` object
 #'
 #' @examples
-#' vetiver_endpoint("https://colorado.rstudio.com/rsc/biv_svm_api/predict")
+#' vetiver_endpoint("https://colorado.rstudio.com/rsc/seattle-housing/predict")
 #'
 #' @export
 vetiver_endpoint <- function(url) {
     url <- as.character(url)
+    url <- gsub("/$", "", url)
     new_vetiver_endpoint(url)
 }
 
