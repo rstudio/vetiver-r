@@ -71,7 +71,15 @@ epoch time of \verb{1970-01-01 00:00:00}, \emph{in the time zone of the index}.
 This is generally used to define the anchor time to count from, which is
 relevant when the every value is \verb{> 1}.}
 
-\item{before, after}{\verb{[integer(1) / Inf]}
+\item{before}{\verb{[integer(1) / Inf]}
+
+The number of values before or after the current element to
+include in the sliding window. Set to \code{Inf} to select all elements
+before or after the current element. Negative values are allowed, which
+allows you to "look forward" from the current element if used as the
+\code{.before} value, or "look backwards" if used as \code{.after}.}
+
+\item{after}{\verb{[integer(1) / Inf]}
 
 The number of values before or after the current element to
 include in the sliding window. Set to \code{Inf} to select all elements

@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Added support for tabnet models (#124 @cregouby)
+
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
 
 # vetiver 0.1.7
