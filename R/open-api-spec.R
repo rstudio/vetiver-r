@@ -120,7 +120,7 @@ map_request_body.array <- function(ptype) {
 #' character string.
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("plumber")
 #' library(plumber)
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' v <- vetiver_model(cars_lm, "cars_linear")
