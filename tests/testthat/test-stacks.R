@@ -1,5 +1,4 @@
 skip_if_not_installed("stacks")
-skip_if_not_installed("ranger")
 skip_on_cran()
 
 library(stacks)
