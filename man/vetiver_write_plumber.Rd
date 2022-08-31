@@ -45,6 +45,7 @@ version. You can override this default behavior by choosing a specific
 \code{version}.
 }
 \examples{
+\dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(pins)
 tmp <- tempfile()
 b <- board_temp(versioned = TRUE)
@@ -53,5 +54,5 @@ v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 
 vetiver_write_plumber(b, "cars_linear", file = tmp)
-
+\dontshow{\}) # examplesIf}
 }
