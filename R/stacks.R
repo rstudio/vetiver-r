@@ -13,7 +13,7 @@ vetiver_create_description.model_stack <- function(model) {
 vetiver_create_meta.model_stack <- function(model, metadata) {
     reqs <- map(model$member_fits, required_pkgs)
     reqs <- purrr::flatten_chr(reqs)
-    reqs <- sort(unique(c(reqs, "workflows", "stacks")))
+    reqs <- sort(unique(c(reqs, required_pkgs(model$coefs), "workflows", "stacks")))
     vetiver_meta(metadata, required_pkgs = reqs)
 }
 
