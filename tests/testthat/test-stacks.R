@@ -35,7 +35,7 @@ test_that("can pin a stacks model", {
         list(
             model = butcher::butcher(frog_reg),
             ptype = vctrs::vec_ptype(tree_test),
-            required_pkgs = c("parsnip", "recipes", "stacks", "stats", "workflows")
+            required_pkgs = c("glmnet", "parsnip", "recipes", "stacks", "stats", "workflows")
         )
     )
 })
@@ -45,7 +45,7 @@ test_that("default OpenAPI spec", {
     p <- pr() %>% vetiver_api(v)
     frog_spec <- p$getApiSpec()
     expect_equal(frog_spec$info$description,
-                 "A regression stacked ensemble with 4 members")
+                 "A regression stacked ensemble with 3 members")
     post_spec <- frog_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
     expect_equal(as.character(post_spec$summary),

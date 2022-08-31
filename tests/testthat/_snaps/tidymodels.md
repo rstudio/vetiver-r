@@ -7,7 +7,7 @@
       -- cars_wf - <butchered_workflow> model for deployment 
       A ranger regression modeling workflow using 10 features
 
-# create plumber.R for xgboost
+# create plumber.R for tidymodels
 
     Code
       cat(readr::read_lines(tmp), sep = "\n")

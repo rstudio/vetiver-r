@@ -21,6 +21,7 @@
       
       # Packages needed to generate model predictions
       if (FALSE) {
+          library(glmnet)
           library(parsnip)
           library(recipes)
           library(stacks)
