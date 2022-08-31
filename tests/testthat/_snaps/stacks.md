@@ -5,7 +5,7 @@
     Output
       
       -- frog-stack - <butchered_linear_stack> model for deployment 
-      A regression stacked ensemble with 4 members using 4 features
+      A regression stacked ensemble with 3 members using 4 features
 
 # create plumber.R for stacks
 

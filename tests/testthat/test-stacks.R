@@ -12,7 +12,7 @@ frog_reg <-
     stacks() %>%
     add_candidates(reg_res_lr) %>%
     add_candidates(reg_res_sp) %>%
-    blend_predictions() %>%
+    blend_predictions(penalty = 20) %>%
     fit_members()
 
 v <- vetiver_model(frog_reg, "frog-stack")
