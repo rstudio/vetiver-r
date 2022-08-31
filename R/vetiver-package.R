@@ -18,7 +18,7 @@ NULL
 #' @export
 generics::augment
 
-globalVariables(c("pr", ".metric", ".pred", "price"))
+globalVariables(c("pr", ".metric", ".pred", "price", "tidy", "term", "estimate"))
 
 ## to avoid NOTE about "All declared Imports should be used."
 rapidoc_function_for_note <- function() {

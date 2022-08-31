@@ -1,5 +1,6 @@
 ^renv$
 ^renv\.lock$
+^vetiver_renv\.lock$
 ^vetiver-r\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
