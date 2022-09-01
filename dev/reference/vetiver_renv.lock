@@ -748,7 +748,7 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.4",
+      "Version": "1.0.5",
       "Source": "CRAN",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -756,8 +756,8 @@
       "RemoteRef": "rlang",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.4",
-      "Hash": "6539dd8c651e67e3b55b5ffea106362b",
+      "RemoteSha": "1.0.5",
+      "Hash": "971c3d698fc06dabdac6bc4bcda72dc4",
       "Requirements": []
     },
     "sodium": {
@@ -912,7 +912,7 @@
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "064928e2e70696a966b564a2055f0cb5",
+      "Hash": "45ebbbb22a137b32317a5e777326da54",
       "Requirements": [
         "butcher",
         "cli",
