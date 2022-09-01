@@ -50,6 +50,7 @@ Suggests:
     httpuv,
     knitr,
     LiblineaR,
+    mgcv,
     mlr3,
     mlr3data,
     mlr3learners,

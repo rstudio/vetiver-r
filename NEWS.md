@@ -2,7 +2,7 @@
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
 
-* Added support for stacks (#138).
+* Added support for GAMs from mgcv (#135) and stacks (#138).
 
 # vetiver 0.1.7
 
