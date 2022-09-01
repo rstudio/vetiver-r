@@ -1,13 +1,13 @@
-# can print tidymodels model
+# can print stacks model
 
     Code
       v
     Output
       
-      -- cars_wf - <butchered_workflow> model for deployment 
-      A ranger regression modeling workflow using 10 features
+      -- frog-stack - <butchered_linear_stack> model for deployment 
+      A regression stacked ensemble with 3 members using 4 features
 
-# create plumber.R for tidymodels
+# create plumber.R for stacks
 
     Code
       cat(readr::read_lines(tmp), sep = "\n")
@@ -21,12 +21,15 @@
       
       # Packages needed to generate model predictions
       if (FALSE) {
+          library(glmnet)
           library(parsnip)
-          library(ranger)
+          library(recipes)
+          library(stacks)
+          library(stats)
           library(workflows)
       }
       b <- board_folder(path = "<redacted>")
-      v <- vetiver_pin_read(b, "cars_wf")
+      v <- vetiver_pin_read(b, "frog-stack")
       
       #* @plumber
       function(pr) {

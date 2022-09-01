@@ -64,7 +64,7 @@ test_that("default OpenAPI spec", {
 
 })
 
-test_that("create plumber.R for xgboost", {
+test_that("create plumber.R for tidymodels", {
     skip_on_cran()
     b <- board_folder(path = tmp_dir)
     vetiver_pin_write(b, v)

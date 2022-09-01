@@ -64,6 +64,7 @@ Suggests:
     rpart,
     rsconnect,
     slider (>= 0.2.2),
+    stacks,
     testthat (>= 3.0.0),
     tidyselect,
     vdiffr,
