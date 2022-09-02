@@ -4,6 +4,8 @@
 
 * Added support for GAMs from mgcv (#135) and stacks (#138).
 
+* Added `augment` method for vetiver endpoint (#141).
+
 # vetiver 0.1.7
 
 * Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121, #122).

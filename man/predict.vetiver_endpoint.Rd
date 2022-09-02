@@ -28,3 +28,6 @@ predict(endpoint, mtcars[4:7, -1])
 
 
 }
+\seealso{
+\code{\link[=augment.vetiver_endpoint]{augment.vetiver_endpoint()}}
+}
