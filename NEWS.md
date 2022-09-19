@@ -6,6 +6,10 @@
 
 * Added `augment` method for vetiver endpoint (#141).
 
+* Added `apt-get clean` to Dockerfile to reduce container size (#142).
+
+* Bug: Not all system requirements were added to the Dockerfile (#142).
+
 # vetiver 0.1.7
 
 * Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121, #122).

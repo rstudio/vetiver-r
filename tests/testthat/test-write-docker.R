@@ -49,3 +49,10 @@ test_that("create Dockerfile with specific port", {
         transform = redact_vetiver
     )
 })
+
+test_that("No sys deps", {
+    skip_on_cran()
+    # Data package; should always have 0 sys reqs
+    reqs <- glue_sys_reqs("ggplot2movies")
+    expect_length(reqs, 0)
+})
