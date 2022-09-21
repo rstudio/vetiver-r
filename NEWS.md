@@ -6,9 +6,9 @@
 
 * Added `augment` method for vetiver endpoint (#141).
 
-* Added `apt-get clean` to Dockerfile to reduce container size (#142).
+* Added `apt-get clean` to Dockerfile to reduce container size (#142, thanks to @csgillespie).
 
-* Bug: Not all system requirements were added to the Dockerfile (#142).
+* Fixed bug where not all system requirements were added to the Dockerfile (#142, thanks to @csgillespie).
 
 # vetiver 0.1.7
 
