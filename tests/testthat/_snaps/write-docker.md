@@ -14,8 +14,9 @@
         libsodium-dev \
         libssl-dev \
         make \
-        zlib1g-dev \ && 
-        apt-get clean
+        zlib1g-dev \
+        && apt-get clean
+      
       COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
@@ -38,8 +39,9 @@
         libsodium-dev \
         libssl-dev \
         make \
-        zlib1g-dev \ && 
-        apt-get clean
+        zlib1g-dev \
+        && apt-get clean
+      
       COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
@@ -63,8 +65,9 @@
         libsodium-dev \
         libssl-dev \
         make \
-        zlib1g-dev \ && 
-        apt-get clean
+        zlib1g-dev \
+        && apt-get clean
+      
       COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"
@@ -88,8 +91,9 @@
         libsodium-dev \
         libssl-dev \
         make \
-        zlib1g-dev \ && 
-        apt-get clean
+        zlib1g-dev \
+        && apt-get clean
+      
       COPY vetiver_renv.lock renv.lock
       RUN Rscript -e "install.packages('renv')"
       RUN Rscript -e "renv::restore()"

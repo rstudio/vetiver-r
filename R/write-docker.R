@@ -82,6 +82,7 @@ vetiver_write_docker <- function(vetiver_model,
         from_r_version,
         rspm_env,
         sys_reqs,
+        "",
         copy_renv,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
@@ -119,8 +120,7 @@ glue_sys_reqs <- function(pkgs) {
         "RUN apt-get update -qq && ",
         "apt-get install -y --no-install-recommends \\\n  ",
         sys_reqs,
-        " \\ && \n",
-        "  apt-get clean",
+        " \\\n  && apt-get clean",
         .trim = FALSE
     )
 }
