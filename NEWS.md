@@ -10,6 +10,8 @@
 
 * Fixed bug where not all system requirements were added to the Dockerfile (#142, thanks to @csgillespie).
 
+* Added bundle support for relevant models (#145).
+
 # vetiver 0.1.7
 
 * Now pass the dots for writing a pin through to vetiver allowing, for example, `vetiver_pin_write(b, v, access_type = "all")` on RStudio Connect (#121, #122).
