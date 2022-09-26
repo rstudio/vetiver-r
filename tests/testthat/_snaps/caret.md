@@ -4,7 +4,7 @@
       v
     Output
       
-      -- cars_rf - <butchered_train> model for deployment 
+      -- cars_rf - <bundled_train> model for deployment 
       A random forest regression model using 3 features
 
 # create plumber.R for xgboost
