@@ -12,8 +12,7 @@ Description: The goal of 'vetiver' is to provide fluent tooling to
     predicting from a remote API endpoint. The 'vetiver' package is
     extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
-URL: https://vetiver.rstudio.com,
-    https://rstudio.github.io/vetiver-r/,
+URL: https://vetiver.rstudio.com, https://rstudio.github.io/vetiver-r/,
     https://github.com/rstudio/vetiver-r/
 BugReports: https://github.com/rstudio/vetiver-r/issues
 Depends: 
@@ -26,8 +25,6 @@ Imports:
     generics,
     glue,
     hardhat,
-    httr,
-    jsonlite,
     lifecycle,
     magrittr (>= 2.0.3),
     pins (>= 1.0.0),
@@ -49,6 +46,8 @@ Suggests:
     flexdashboard,
     ggplot2,
     httpuv,
+    httr,
+    jsonlite,
     knitr,
     LiblineaR,
     mgcv,

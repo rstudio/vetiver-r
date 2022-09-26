@@ -97,7 +97,7 @@ vetiver_write_docker <- function(vetiver_model,
 docker_pkgs <- c("pins", "plumber", "rapidoc", "vetiver", "renv")
 
 glue_sys_reqs <- function(pkgs) {
-    rlang::check_installed("curl")
+    rlang::check_installed(c("curl", "jsonlite"))
     rspm <- Sys.getenv("RSPM_ROOT", DEFAULT_RSPM)
     rspm_repo_id <- Sys.getenv("RSPM_REPO_ID", DEFAULT_RSPM_REPO_ID)
     rspm_repo_url <- glue("{rspm}/__api__/repos/{rspm_repo_id}")
