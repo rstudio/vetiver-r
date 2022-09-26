@@ -37,6 +37,7 @@ You can use vetiver with:
 -   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
     and
     [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+-   GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
 
 ## Installation
 
