@@ -87,6 +87,25 @@
         "bit"
       ]
     },
+    "bundle": {
+      "Package": "bundle",
+      "Version": "0.1.0",
+      "Source": "CRAN",
+      "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "bundle",
+      "RemoteRef": "bundle",
+      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "0.1.0",
+      "Hash": "eddb272b43e01d3d667b1304aeafed5a",
+      "Requirements": [
+        "glue",
+        "purrr",
+        "rlang",
+        "withr"
+      ]
+    },
     "butcher": {
       "Package": "butcher",
       "Version": "0.3.0",
@@ -872,16 +891,15 @@
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "42857b86f1408fd3fcf36332531f87e3",
+      "Hash": "c29c00929148ff157dfdf067acc89c86",
       "Requirements": [
+        "bundle",
         "butcher",
         "cli",
         "fs",
         "generics",
         "glue",
         "hardhat",
-        "httr",
-        "jsonlite",
         "lifecycle",
         "magrittr",
         "pins",
