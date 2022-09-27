@@ -2,7 +2,7 @@ b <- board_folder(path = tmp_dir)
 
 test_that("create Dockerfile with packages", {
     skip_on_cran()
-    v$metadata$required_pkgs <- c("beepr", "caret")
+    v$metadata$required_pkgs <- c("beepr", "caret", "stats")
     vetiver_pin_write(b, v)
     vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
     vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir)
