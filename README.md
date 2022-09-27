@@ -76,7 +76,7 @@ library(vetiver)
 v <- vetiver_model(rf_fit, "sacramento_rf")
 v
 #> 
-#> ── sacramento_rf ─ <butchered_workflow> model for deployment 
+#> ── sacramento_rf ─ <bundled_workflow> model for deployment 
 #> A ranger regression modeling workflow using 4 features
 ```
 
