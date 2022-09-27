@@ -108,8 +108,18 @@ print.vetiver_model <- function(x, ...) {
 }
 
 #' @export
-predict.vetiver_model <- function(object, ...) predict(object$model, ...)
+predict.vetiver_model <- function(object, ...) {
+    model <- bundle::unbundle(object$model)
+    predict(model, ...)
+}
+
+
 
 #' @export
-augment.vetiver_model <- function(x, ...) augment(x$model, ...)
+augment.vetiver_model <- function(x, ...) {
+    model <- bundle::unbundle(x$model)
+    augment(model, ...)
+}
+
+
 

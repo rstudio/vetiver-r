@@ -23,6 +23,7 @@
 \alias{vetiver_create_description.workflow}
 \alias{vetiver_prepare_model.workflow}
 \alias{vetiver_create_description.xgb.Booster}
+\alias{vetiver_prepare_model.xgb.Booster}
 \title{Model constructor methods}
 \usage{
 \method{vetiver_create_description}{train}(model)
@@ -66,6 +67,8 @@ vetiver_prepare_model(model)
 \method{vetiver_prepare_model}{workflow}(model)
 
 \method{vetiver_create_description}{xgb.Booster}(model)
+
+\method{vetiver_prepare_model}{xgb.Booster}(model)
 }
 \arguments{
 \item{model}{A trained model, such as an \code{lm()} model or a tidymodels

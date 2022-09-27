@@ -27,7 +27,9 @@ vetiver_ptype.model_stack <- function(model, ...) {
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model.model_stack <- function(model) {
-    butcher::butcher(model)
+    ret <- butcher::butcher(model)
+    ret <- bundle::bundle(ret)
+    ret
 }
 
 #' @rdname handler_startup

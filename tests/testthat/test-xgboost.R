@@ -21,15 +21,13 @@ test_that("can pin an xgboost model", {
     b <- board_temp()
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "cars2")
-    ## NOT EQUAL because of serialization issues
-    ## expect_equal(pinned$model, cars_xgb)
     expect_equal(
-        pinned$ptype,
-        vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0)
-    )
-    expect_equal(
-        pinned$required_pkgs,
-        "xgboost"
+        pinned,
+        list(
+            model = bundle::bundle(cars_xgb),
+            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
+            required_pkgs = c("xgboost")
+        )
     )
 })
 

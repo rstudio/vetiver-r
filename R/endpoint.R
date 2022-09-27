@@ -18,6 +18,7 @@
 #'
 #'
 predict.vetiver_endpoint <- function(object, new_data, ...) {
+    rlang::check_installed(c("jsonlite", "httr"))
     data_json <- jsonlite::toJSON(new_data)
     ret <- httr::POST(object$url, ..., body = data_json)
     resp <- httr::content(ret, "text", encoding = "UTF-8")

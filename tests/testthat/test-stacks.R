@@ -33,7 +33,7 @@ test_that("can pin a stacks model", {
     expect_equal(
         pinned,
         list(
-            model = butcher::butcher(frog_reg),
+            model = bundle::bundle(butcher::butcher(frog_reg)),
             ptype = vctrs::vec_ptype(tree_test),
             required_pkgs = c("glmnet", "parsnip", "recipes", "stacks", "stats", "workflows")
         )

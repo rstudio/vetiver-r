@@ -4,7 +4,7 @@
       v
     Output
       
-      -- cars_wf - <butchered_workflow> model for deployment 
+      -- cars_wf - <bundled_workflow> model for deployment 
       A ranger regression modeling workflow using 10 features
 
 # create plumber.R for tidymodels

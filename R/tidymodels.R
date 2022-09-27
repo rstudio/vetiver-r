@@ -26,7 +26,9 @@ vetiver_prepare_model.workflow <- function(model) {
     if (!workflows::is_trained_workflow(model)) {
         rlang::abort("Your `model` object is not a trained workflow.")
     }
-    butcher::butcher(model)
+    ret <- butcher::butcher(model)
+    ret <- bundle::bundle(ret)
+    ret
 }
 
 #' @rdname handler_startup

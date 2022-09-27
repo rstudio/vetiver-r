@@ -24,6 +24,12 @@ vetiver_ptype.xgb.Booster <- function(model, ...) {
     tibble::as_tibble(ptype)
 }
 
+#' @rdname vetiver_create_description
+#' @export
+vetiver_prepare_model.xgb.Booster <- function(model) {
+    bundle::bundle(model)
+}
+
 #' @rdname handler_startup
 #' @export
 handler_startup.xgb.Booster <- function(vetiver_model) {
