@@ -47,7 +47,7 @@ The two functions \code{vetiver_create_rsconnect_bundle()} and
 different strategies for deploying a vetiver model API to RStudio Connect.
 }
 \examples{
-\dontshow{if (rlang::is_installed("connectapi")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("connectapi") && identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(pins)
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
