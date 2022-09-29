@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
 
