@@ -128,7 +128,7 @@ vetiver_compute_metrics <- function(data,
 #' (`type = "rds"`). `vetiver_pin_metrics()` will update the pin using the
 #' same `type` by default.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow"))
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow")) && identical(Sys.getenv("NOT_CRAN"), "true")
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
