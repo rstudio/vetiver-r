@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,6 +111,8 @@
 <li>
 <a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html" class="external-link"><code>lm()</code></a> and <a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html" class="external-link"><code>glm()</code></a>
 </li>
+<li>GAMS fit with <a href="https://CRAN.R-project.org/package=mgcv" class="external-link">mgcv</a>
+</li>
 </ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -143,7 +145,7 @@
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">rf_fit</span>, <span class="st">"sacramento_rf"</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── sacramento_rf ─ &lt;butchered_workflow&gt; model for deployment </span></span>
+<span><span class="co">#&gt; ── sacramento_rf ─ &lt;bundled_workflow&gt; model for deployment </span></span>
 <span><span class="co">#&gt; A ranger regression modeling workflow using 4 features</span></span></code></pre></div>
 <p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -201,7 +203,7 @@
 </h2>
 <p>This project is released with a <a href="https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <ul>
-<li><p>For questions and discussions about modeling packages, modeling, and machine learning, please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=tidymodels,question" class="external-link">post on RStudio Community</a>.</p></li>
+<li><p>For questions and discussions about modeling, machine learning, and MLOps please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=vetiver,question" class="external-link">post on RStudio Community</a>.</p></li>
 <li><p>If you think you have encountered a bug, please <a href="https://github.com/rstudio/vetiver-r/issues" class="external-link">submit an issue</a>.</p></li>
 <li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html" class="external-link">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
 </ul>

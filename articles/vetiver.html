@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +137,6 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  985.  62.0 Two  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  893.  56.8 Two  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 999 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span>
 <span></span>
 <span><span class="va">biv_rec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">bivariate_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -157,7 +156,7 @@
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">svm_fit</span>, <span class="st">"biv_svm"</span><span class="op">)</span></span>
 <span><span class="va">v</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-style: italic;">biv_svm</span> ─ <span style="color: #0000BB;">&lt;butchered_workflow&gt;</span> model for deployment </span></span>
+<span><span class="co">#&gt; ── <span style="font-style: italic;">biv_svm</span> ─ <span style="color: #0000BB;">&lt;bundled_workflow&gt;</span> model for deployment </span></span>
 <span><span class="co">#&gt; A LiblineaR classification modeling workflow using 2 features</span></span></code></pre></div>
 <p>Think of this <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> as a deployable model object.</p>
 </div>
@@ -184,8 +183,8 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220811T175631Z-34383 2022-08-11 <span style="color: #949494;">17:56:00</span> 34383</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220811T175631Z-abff9 2022-08-11 <span style="color: #949494;">17:56:00</span> abff9</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20220929T181244Z-9b979 2022-09-29 <span style="color: #949494;">18:12:44</span> 9b979</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20220929T181244Z-b7310 2022-09-29 <span style="color: #949494;">18:12:44</span> b7310</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your collaborators.</p>
 </div>
 <div class="section level2">
@@ -224,8 +223,8 @@
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpxMoYiq/pins-3c0a57dc3105"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220811T175631Z-34383"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpbygS8f/pins-33183791e91f"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20220929T181244Z-9b979"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
