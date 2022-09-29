@@ -887,11 +887,11 @@
     },
     "vetiver": {
       "Package": "vetiver",
-      "Version": "0.1.7.9001",
+      "Version": "0.1.8.9000",
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "c29c00929148ff157dfdf067acc89c86",
+      "Hash": "4bb43c09fc125d49d9e237059e3204f8",
       "Requirements": [
         "bundle",
         "butcher",
