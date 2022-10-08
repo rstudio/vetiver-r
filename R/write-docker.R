@@ -60,15 +60,16 @@ vetiver_write_docker <- function(vetiver_model,
 
     pkgs <- unique(c(docker_pkgs, vetiver_model$metadata$required_pkgs))
     pkgs <- setdiff(pkgs, drop_pkgs)
-    renv::snapshot(
-        project = path,
-        lockfile = lockfile,
-        packages = pkgs,
-        prompt = FALSE,
-        force = TRUE
-    )
+    lockfile_pkgs <-
+        renv::snapshot(
+            project = path,
+            lockfile = lockfile,
+            packages = pkgs,
+            prompt = FALSE,
+            force = TRUE
+        )
     plumber_file <- fs::path_rel(plumber_file)
-    sys_reqs <- glue_sys_reqs(pkgs)
+    sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
     expose <- ifelse(expose, glue("EXPOSE {port}"), "")
