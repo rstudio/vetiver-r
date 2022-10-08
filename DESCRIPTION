@@ -38,6 +38,7 @@ Imports:
     vctrs,
     withr
 Suggests:
+    arrow,
     callr,
     caret,
     covr,
