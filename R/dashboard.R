@@ -26,7 +26,7 @@
 #' real model.
 #'
 #' @export
-vetiver_dashboard <- function(pins, display_pins = TRUE, ...) {
+vetiver_dashboard <- function(pins = list(), display_pins = TRUE, ...) {
 
     rlang::check_installed("flexdashboard")
     dashboard_dots <- rlang::list2(...)
