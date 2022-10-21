@@ -157,7 +157,7 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.4.2",
+      "Version": "0.4.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -165,8 +165,8 @@
       "RemoteRef": "cpp11",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.4.2",
-      "Hash": "fa53ce256cd280f468c080a58ea5ba8c",
+      "RemoteSha": "0.4.3",
+      "Hash": "ed588261931ee3be2c700d22e94a29ab",
       "Requirements": []
     },
     "crayon": {
@@ -199,7 +199,7 @@
     },
     "digest": {
       "Package": "digest",
-      "Version": "0.6.29",
+      "Version": "0.6.30",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -207,8 +207,8 @@
       "RemoteRef": "digest",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.6.29",
-      "Hash": "cf6b206a045a684728c3267ef7596190",
+      "RemoteSha": "0.6.30",
+      "Hash": "bf1cd206a5d170d132ef75c7537b9bdb",
       "Requirements": []
     },
     "ellipsis": {
@@ -408,7 +408,7 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "1.0.2",
+      "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -416,9 +416,10 @@
       "RemoteRef": "lifecycle",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.2",
-      "Hash": "25f74670fa7d3277fe3ad8c1712a699f",
+      "RemoteSha": "1.0.3",
+      "Hash": "001cecbeac1cff9301bdc3775ee46a86",
       "Requirements": [
+        "cli",
         "glue",
         "rlang"
       ]
@@ -472,7 +473,7 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.0.3",
+      "Version": "2.0.4",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -480,8 +481,8 @@
       "RemoteRef": "openssl",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.0.3",
-      "Hash": "b9621e75c0652041002a19609fb23c5a",
+      "RemoteSha": "2.0.4",
+      "Hash": "e86c5ffeb8474a9e03d75f5d2919683e",
       "Requirements": [
         "askpass"
       ]
@@ -783,7 +784,7 @@
     },
     "sys": {
       "Package": "sys",
-      "Version": "3.4",
+      "Version": "3.4.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -791,8 +792,8 @@
       "RemoteRef": "sys",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "3.4",
-      "Hash": "b227d13e29222b4574486cfcbde077fa",
+      "RemoteSha": "3.4.1",
+      "Hash": "34c16f1ef796057bfa06d3f4ff818a5d",
       "Requirements": []
     },
     "tibble": {
@@ -819,7 +820,7 @@
     },
     "tidyselect": {
       "Package": "tidyselect",
-      "Version": "1.1.2",
+      "Version": "1.2.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -827,14 +828,15 @@
       "RemoteRef": "tidyselect",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.1.2",
-      "Hash": "17f6da8cfd7002760a859915ce7eef8f",
+      "RemoteSha": "1.2.0",
+      "Hash": "79540e5fcd9e0435af547d885f184fd5",
       "Requirements": [
-        "ellipsis",
+        "cli",
         "glue",
-        "purrr",
+        "lifecycle",
         "rlang",
-        "vctrs"
+        "vctrs",
+        "withr"
       ]
     },
     "tzdb": {
@@ -990,7 +992,7 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.3.5",
+      "Version": "2.3.6",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -998,8 +1000,8 @@
       "RemoteRef": "yaml",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.3.5",
-      "Hash": "458bb38374d73bf83b1bb85e353da200",
+      "RemoteSha": "2.3.6",
+      "Hash": "9b570515751dcbae610f29885e025b41",
       "Requirements": []
     },
     "zip": {
