@@ -14,6 +14,7 @@ output:
 ---
 
 ```{r setup, include = FALSE}
+library(flexdashboard)
 library(vetiver)
 library(pins)
 library(plotly)
@@ -38,7 +39,7 @@ meta <- pin_meta(pins$board, pins$name, version = pins$version)
 days_old <- difftime(Sys.Date(), as.Date(meta$created), units = "days")
 
 # Attaches packages needed for prediction:
-handler_startup(v)
+attach_pkgs(v$metadata$required_pkgs)
 ```
 
 ```{r validation, include = FALSE}
