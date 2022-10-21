@@ -5,5 +5,5 @@
     Condition
       Warning:
       `vetiver_pr_predict()` was deprecated in vetiver 0.1.2.
-      Please use `vetiver_api()` instead.
+      i Please use `vetiver_api()` instead.
 
