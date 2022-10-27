@@ -1,4 +1,5 @@
-skip_if_not_installed(c("mgcv", "plumber"))
+skip_if_not_installed("mgcv")
+skip_if_not_installed("plumber")
 
 library(plumber)
 mtcars_gam <- mgcv::gam(mpg ~ s(disp, k = 3) + s(wt), data = mtcars)

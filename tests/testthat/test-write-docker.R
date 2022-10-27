@@ -1,3 +1,4 @@
+skip_if_not_installed("plumber")
 b <- board_folder(path = tmp_dir)
 
 test_that("create Dockerfile with packages", {
