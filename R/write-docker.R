@@ -59,15 +59,17 @@ vetiver_write_docker <- function(vetiver_model,
     )
 
     pkgs <- unique(c(docker_pkgs, vetiver_model$metadata$required_pkgs))
-    renv::snapshot(
-        project = path,
-        lockfile = lockfile,
-        packages = pkgs,
-        prompt = FALSE,
-        force = TRUE
-    )
+    pkgs <- setdiff(pkgs, drop_pkgs)
+    lockfile_pkgs <-
+        renv::snapshot(
+            project = path,
+            lockfile = lockfile,
+            packages = pkgs,
+            prompt = FALSE,
+            force = TRUE
+        )
     plumber_file <- fs::path_rel(plumber_file)
-    sys_reqs <- glue_sys_reqs(pkgs)
+    sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
     expose <- ifelse(expose, glue("EXPOSE {port}"), "")
@@ -82,6 +84,7 @@ vetiver_write_docker <- function(vetiver_model,
         from_r_version,
         rspm_env,
         sys_reqs,
+        "",
         copy_renv,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
@@ -94,9 +97,10 @@ vetiver_write_docker <- function(vetiver_model,
 }
 
 docker_pkgs <- c("pins", "plumber", "rapidoc", "vetiver", "renv")
+drop_pkgs <- "stats"
 
 glue_sys_reqs <- function(pkgs) {
-    rlang::check_installed("curl")
+    rlang::check_installed(c("curl", "jsonlite"))
     rspm <- Sys.getenv("RSPM_ROOT", DEFAULT_RSPM)
     rspm_repo_id <- Sys.getenv("RSPM_REPO_ID", DEFAULT_RSPM_REPO_ID)
     rspm_repo_url <- glue("{rspm}/__api__/repos/{rspm_repo_id}")
@@ -113,13 +117,13 @@ glue_sys_reqs <- function(pkgs) {
         rlang::abort(sys_reqs$error)
     }
     sys_reqs <- map(sys_reqs$requirements, pluck, "requirements", "packages")
-    sys_reqs <- sort(unique(map_chr(sys_reqs, 1L)))
+    sys_reqs <- sort(unique(unlist(sys_reqs)))
     sys_reqs <- glue_collapse(sys_reqs, sep = " \\\n  ")
     glue(
         "RUN apt-get update -qq && ",
         "apt-get install -y --no-install-recommends \\\n  ",
         sys_reqs,
-        "\n",
+        " \\\n  && apt-get clean",
         .trim = FALSE
     )
 }

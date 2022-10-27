@@ -1,8 +1,20 @@
 # vetiver (development version)
 
+# vetiver 0.1.8
+
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
 
-* Added support for stacks (#138).
+* Added support for GAMs from mgcv (#135) and stacks (#138).
+
+* Added `augment` method for vetiver endpoint (#141).
+
+* Added `apt-get clean` to Dockerfile to reduce container size (#142, thanks to @csgillespie).
+
+* Fixed bug where not all system requirements were added to the Dockerfile (#142, thanks to @csgillespie).
+
+* Added bundle support for relevant models (#145).
+
+* Fixed bug in generating Dockerfiles when explicitly requiring the stats package (#147).
 
 # vetiver 0.1.7
 

@@ -1,11 +1,11 @@
-# can print xgboost model
+# can print gam model
 
     Code
       v
     Output
       
-      -- cars2 - <bundled_xgb.Booster> model for deployment 
-      An xgboost reg:squarederror model using 10 features
+      -- cars_gam - <butchered_gam> model for deployment 
+      A generalized additive model (gaussian family, identity link) using 2 features
 
 # create plumber.R for xgboost
 
@@ -21,10 +21,10 @@
       
       # Packages needed to generate model predictions
       if (FALSE) {
-          library(xgboost)
+          library(mgcv)
       }
       b <- board_folder(path = "<redacted>")
-      v <- vetiver_pin_read(b, "cars2")
+      v <- vetiver_pin_read(b, "cars_gam")
       
       #* @plumber
       function(pr) {

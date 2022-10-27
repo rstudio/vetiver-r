@@ -6,7 +6,7 @@
 \alias{pin_example_kc_housing_model}
 \title{R Markdown format for model monitoring dashboards}
 \usage{
-vetiver_dashboard(pins, display_pins = TRUE, ...)
+vetiver_dashboard(pins = list(), display_pins = TRUE, ...)
 
 get_vetiver_dashboard_pins()
 

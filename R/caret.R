@@ -21,7 +21,9 @@ vetiver_ptype.train <- function(model, ...) {
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model.train <- function(model) {
-    butcher::butcher(model)
+    ret <- butcher::butcher(model)
+    ret <- bundle::bundle(ret)
+    ret
 }
 
 #' @rdname handler_startup

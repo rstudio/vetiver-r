@@ -1,6 +1,5 @@
 skip_on_cran()
-skip_if_not_installed("pingr")
-skip_if_not_installed("httpuv")
+skip_if_not_installed(c("pingr", "httr", "httpuv"))
 
 port <- httpuv::randomPort()
 pr <- pr() %>% vetiver_api(v, debug = TRUE)
@@ -25,6 +24,12 @@ test_that("can predict on basic vetiver router", {
     preds <- predict(endpoint, mtcars[10:17, 2:3])
     expect_s3_class(preds, "tbl_df")
     expect_equal(nrow(preds), 8)
+    expect_equal(ncol(preds), 1)
+
+    aug <- augment(endpoint, mtcars[10:17, 2:3])
+    expect_s3_class(aug, "tbl_df")
+    expect_equal(nrow(aug), 8)
+    expect_equal(ncol(aug), 3)
 })
 
 test_that("get correct errors", {

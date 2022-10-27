@@ -128,7 +128,7 @@ vetiver_compute_metrics <- function(data,
 #' (`type = "rds"`). `vetiver_pin_metrics()` will update the pin using the
 #' same `type` by default.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata"))
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow")) && identical(Sys.getenv("NOT_CRAN"), "true")
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
@@ -276,7 +276,7 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #'
 #' @return A `ggplot2` object.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "ggplot2"))
+#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")

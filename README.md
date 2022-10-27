@@ -37,6 +37,7 @@ You can use vetiver with:
 -   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
     and
     [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+-   GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
 
 ## Installation
 
@@ -75,7 +76,7 @@ library(vetiver)
 v <- vetiver_model(rf_fit, "sacramento_rf")
 v
 #> 
-#> ── sacramento_rf ─ <butchered_workflow> model for deployment 
+#> ── sacramento_rf ─ <bundled_workflow> model for deployment 
 #> A ranger regression modeling workflow using 4 features
 ```
 
