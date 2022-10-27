@@ -1,3 +1,5 @@
+skip_if_not_installed("plumber")
+
 test_that("create plumber.R with packages", {
     skip_on_cran()
     b <- board_folder(path = tmp_dir)

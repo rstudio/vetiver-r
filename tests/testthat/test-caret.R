@@ -1,7 +1,9 @@
 skip_if_not_installed("caret")
 skip_if_not_installed("ranger")
+skip_if_not_installed("plumber")
 
 library(caret)
+library(plumber)
 
 predictors <- mtcars[, c("cyl", "disp", "hp")]
 

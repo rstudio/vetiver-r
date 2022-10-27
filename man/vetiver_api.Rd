@@ -72,6 +72,7 @@ The function \code{vetiver_api()} uses:
 These modular functions are available for more advanced use cases.
 }
 \examples{
+\dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
@@ -81,5 +82,5 @@ pr() \%>\% vetiver_api(v)
 ## is the same as:
 pr() \%>\% vetiver_pr_post(v) \%>\% vetiver_pr_docs(v)
 ## for either, next, pipe to `pr_run()`
-
+\dontshow{\}) # examplesIf}
 }

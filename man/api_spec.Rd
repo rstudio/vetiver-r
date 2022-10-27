@@ -44,6 +44,7 @@ character string.
 Update the OpenAPI specification using model metadata
 }
 \examples{
+\dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(plumber)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
@@ -52,5 +53,5 @@ glue_spec_summary(v$ptype)
 
 modify_spec <- function(spec) api_spec(spec, v, "/predict")
 pr() \%>\% pr_set_api_spec(api = modify_spec)
-
+\dontshow{\}) # examplesIf}
 }

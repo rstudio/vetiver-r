@@ -23,7 +23,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("plumber")
 #' library(pins)
 #' tmp <- tempfile()
 #' b <- board_temp(versioned = TRUE)
@@ -38,6 +38,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
                                   file = "plumber.R",
                                   rsconnect = TRUE) {
 
+    rlang::check_installed("plumber")
     plumber_dots <- rlang::list2(...)
 
     if (board$versioned) {

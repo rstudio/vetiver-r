@@ -1,6 +1,8 @@
-skip_if_not_installed("stacks")
 skip_on_cran()
+skip_if_not_installed("stacks")
+skip_if_not_installed("plumber")
 
+library(plumber)
 library(stacks)
 
 data("tree_frogs", package = "stacks")

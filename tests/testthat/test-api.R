@@ -1,3 +1,6 @@
+skip_if_not_installed("plumber")
+library(plumber)
+
 test_that("default endpoint", {
   p <- pr() %>% vetiver_api(v)
   expect_equal(names(p$routes), c("logo", "ping", "predict"))
@@ -6,7 +9,7 @@ test_that("default endpoint", {
 })
 
 test_that("old function is deprecated", {
-  expect_snapshot(p <- pr() %>% vetiver_pr_predict(v))
+  expect_snapshot_error(p <- pr() %>% vetiver_pr_predict(v))
 })
 
 test_that("default endpoint via modular functions", {

@@ -34,7 +34,7 @@
 #'
 #' @return A Plumber router with the prediction endpoint added.
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("plumber")
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' v <- vetiver_model(cars_lm, "cars_linear")
@@ -75,6 +75,7 @@ vetiver_pr_post <- function(pr,
                             debug = is_interactive(),
                             ...,
                             check_ptype = TRUE) {
+    rlang::check_installed("plumber")
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
     handler_startup(vetiver_model)
@@ -108,6 +109,7 @@ vetiver_pr_docs <- function(pr,
                             vetiver_model,
                             path = "/predict",
                             all_docs = TRUE) {
+    rlang::check_installed("plumber")
     loadNamespace("rapidoc")
     modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
     pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
@@ -141,21 +143,23 @@ vetiver_pr_predict <- function(pr,
                                path = "/predict",
                                debug = is_interactive(),
                                ...) {
-
-    lifecycle::deprecate_warn(
+    lifecycle::deprecate_stop(
         "0.1.2",
         "vetiver_pr_predict()",
         "vetiver_api()"
     )
+}
 
-    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
-    rlang::list2(...)
-    vetiver_api(
-        pr = pr,
-        vetiver_model = vetiver_model,
-        path = path,
-        debug = debug,
-        ...,
-        docs = TRUE
+
+local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) {
+    rlang::check_installed("plumber")
+    rs <- callr::r_session$new()
+    rs$call(
+        function(pr, port, docs) {
+            plumber::pr_run(pr = pr, port = port, docs = docs)
+        },
+        args = list(pr = pr, port = port, docs = docs)
     )
+    withr::defer(rs$close(), envir = env)
+    rs
 }

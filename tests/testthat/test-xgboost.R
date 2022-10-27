@@ -1,5 +1,7 @@
 skip_if_not_installed("xgboost")
+skip_if_not_installed("plumber")
 
+library(plumber)
 set.seed(123)
 cars_xgb <- xgboost::xgboost(as.matrix(mtcars[,-1]),
                              mtcars$mpg, nrounds = 3,
