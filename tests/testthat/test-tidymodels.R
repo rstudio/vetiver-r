@@ -1,7 +1,9 @@
 skip_if_not_installed("workflows")
 skip_if_not_installed("parsnip")
 skip_if_not_installed("ranger")
+skip_if_not_installed("plumber")
 
+library(plumber)
 library(workflows)
 library(parsnip)
 

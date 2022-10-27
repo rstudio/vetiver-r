@@ -1,5 +1,3 @@
-library(pins)
-
 b <- board_temp()
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 

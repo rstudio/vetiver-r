@@ -1,6 +1,8 @@
 skip_on_cran()
 skip_if_not_installed("pingr")
+skip_if_not_installed("httpuv")
 
+port <- httpuv::randomPort()
 pr <- pr() %>% vetiver_api(v, debug = TRUE)
 rs <- local_plumber_session(pr, port)
 

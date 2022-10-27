@@ -1,3 +1,6 @@
+skip_if_not_installed("plumber")
+library(plumber)
+
 mtcars_glm <- glm(mpg ~ ., data = mtcars)
 v <- vetiver_model(mtcars_glm, "cars_glm")
 

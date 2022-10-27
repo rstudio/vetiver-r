@@ -1,3 +1,6 @@
+skip_if_not_installed("plumber")
+library(plumber)
+
 test_that("default endpoint", {
   p <- pr() %>% vetiver_api(v)
   expect_equal(names(p$routes), c("logo", "ping", "predict"))
