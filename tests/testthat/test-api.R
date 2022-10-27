@@ -9,7 +9,7 @@ test_that("default endpoint", {
 })
 
 test_that("old function is deprecated", {
-  expect_snapshot(p <- pr() %>% vetiver_pr_predict(v))
+  expect_snapshot_error(p <- pr() %>% vetiver_pr_predict(v))
 })
 
 test_that("default endpoint via modular functions", {

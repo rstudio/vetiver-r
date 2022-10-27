@@ -4,9 +4,9 @@ cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 v <- vetiver_model(cars_lm, "cars1")
 
 root_path <- "http://localhost"
-
 tmp_dir <- fs::path_real(withr::local_tempdir())
 rel_dir <- fs::path_rel(tmp_dir)
+port <- httpuv::randomPort()
 
 redact_vetiver <- function(snapshot) {
     snapshot <- gsub(rel_dir, "<redacted>", snapshot, fixed = TRUE)
