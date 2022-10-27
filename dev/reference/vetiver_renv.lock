@@ -377,7 +377,7 @@
     },
     "jsonlite": {
       "Package": "jsonlite",
-      "Version": "1.8.2",
+      "Version": "1.8.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -385,8 +385,8 @@
       "RemoteRef": "jsonlite",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.8.2",
-      "Hash": "2e7ed071fd6bd047fe2366d3adf4fe46",
+      "RemoteSha": "1.8.3",
+      "Hash": "8b1bd0be62956f2a6b91ce84fac79a45",
       "Requirements": []
     },
     "later": {
@@ -871,7 +871,7 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.4.2",
+      "Version": "0.5.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -879,11 +879,12 @@
       "RemoteRef": "vctrs",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.4.2",
-      "Hash": "0e3dfc070b2a8f0478fcdf86fb33355d",
+      "RemoteSha": "0.5.0",
+      "Hash": "001fd6a5ebfff8316baf9fb2b5516dc9",
       "Requirements": [
         "cli",
         "glue",
+        "lifecycle",
         "rlang"
       ]
     },
@@ -893,7 +894,7 @@
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
-      "Hash": "fb2e4ee65007929bbf3f5053b1f03482",
+      "Hash": "28caf516a75da6bf9f3b83a466a2e28c",
       "Requirements": [
         "bundle",
         "butcher",
@@ -905,7 +906,6 @@
         "lifecycle",
         "magrittr",
         "pins",
-        "plumber",
         "purrr",
         "rapidoc",
         "readr",
@@ -1006,7 +1006,7 @@
     },
     "zip": {
       "Package": "zip",
-      "Version": "2.2.1",
+      "Version": "2.2.2",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -1014,8 +1014,8 @@
       "RemoteRef": "zip",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.2.1",
-      "Hash": "a7e91189fa51d9029a30eba3831ce53f",
+      "RemoteSha": "2.2.2",
+      "Hash": "c42bfcec3fa6a0cce17ce1f8bc684f88",
       "Requirements": []
     }
   }

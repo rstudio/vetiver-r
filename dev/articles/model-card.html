@@ -96,8 +96,21 @@
 <div class="section level2">
 <h2 id="what-is-a-model-card">What is a “Model Card”?<a class="anchor" aria-label="anchor" href="#what-is-a-model-card"></a>
 </h2>
-<p>Good documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper <a href="https://doi.org/10.1145/3287560.3287596" class="external-link">“Model Cards for Model Reporting” (Mitchell et al. 2019)</a> provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template <strong>automates</strong> extracting some information from the model object, and provides <strong>structure</strong> for the model developer where automation is not possible.</p>
-<p>Model developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.</p>
+<p>Good documentation helps us make sense of software, know when and how
+to use it, and understand its purpose. The same can be true of
+documentation or reporting for a deployed model, but it can be hard to
+know where to start. The paper <a href="https://doi.org/10.1145/3287560.3287596" class="external-link">“Model Cards for Model
+Reporting” (Mitchell et al. 2019)</a> provides a suggested framework for
+organizing and presenting the essential facts about a deployed machine
+learning model. The vetiver package provides an R Markdown template for
+creating a “Model Card” for a published vetiver model. The template
+<strong>automates</strong> extracting some information from the model
+object, and provides <strong>structure</strong> for the model developer
+where automation is not possible.</p>
+<p>Model developers see a nudge to create a model card when they publish
+a model; we recommend that you create a model card when you deploy a
+model for the first time and refresh that model card as needed when new
+versions are deployed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
@@ -106,22 +119,26 @@
 <span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Creating new version '20221021T195707Z-2bb55'</span></span>
+<span><span class="co">#&gt; Creating new version '20221027T214427Z-2bb55'</span></span>
 <span><span class="co">#&gt; Writing to pin 'cars_linear'</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Create a Model Card for your published model</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Model Cards provide a framework for transparent, responsible reporting</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Use the vetiver `.Rmd` template as a place to start</span></span></code></pre></div>
-<p>(Learn more <a href="https://rlang.r-lib.org/reference/abort.html#muffling-and-silencing-conditions" class="external-link">about silencing messages like this if desired.</a>)</p>
+<p>(Learn more <a href="https://rlang.r-lib.org/reference/abort.html#muffling-and-silencing-conditions" class="external-link">about
+silencing messages like this if desired.</a>)</p>
 </div>
 <div class="section level2">
 <h2 id="accessing-the-template">Accessing the template<a class="anchor" aria-label="anchor" href="#accessing-the-template"></a>
 </h2>
-<p>To use the vetiver model card template from RStudio, access through <code>File -&gt; New File -&gt; R Markdown</code>. This will open the dialog box where you can select from one of the available templates:</p>
+<p>To use the vetiver model card template from RStudio, access through
+<code>File -&gt; New File -&gt; R Markdown</code>. This will open the
+dialog box where you can select from one of the available templates:</p>
 <div class="figure">
 <img src="vetiver-templates.png" alt=""><p class="caption">Create a new Model Card</p>
 </div>
-<p>If you are not using RStudio, you’ll also need to install <a href="https://pandoc.org" class="external-link">Pandoc</a>. Then, use the <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/draft.html" class="external-link">rmarkdown::draft()</a></code> function to create the model card:</p>
+<p>If you are not using RStudio, you’ll also need to install <a href="https://pandoc.org" class="external-link">Pandoc</a>. Then, use the
+<code><a href="https://pkgs.rstudio.com/rmarkdown/reference/draft.html" class="external-link">rmarkdown::draft()</a></code> function to create the model card:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/draft.html" class="external-link">draft</a></span><span class="op">(</span></span>
 <span>    <span class="st">"my_model_card.Rmd"</span>, </span>
@@ -134,23 +151,63 @@
 </h2>
 <p>There are several sections in the model card framework used here.</p>
 <ul>
-<li><p><strong>Model details:</strong> Some details about your model can be determined from the model object itself, but some (like who developed the model and license or citation information) need to be provided by you.</p></li>
-<li><p><strong>Intended use:</strong> Outline the intended use and users of the model, and perhaps also what types of use would be out of scope.</p></li>
-<li><p><strong>Important aspects/factors:</strong> What are the demographic, environmental, technical, or other aspects that are relevant to the context of the model?</p></li>
-<li><p><strong>Performance metrics:</strong> Communicate which metrics are being used to evaluate the model, and why these are a good fit for the model’s context and domain.</p></li>
-<li><p><strong>Training data &amp; evaluation data:</strong> Some specific dataset was used to train the model, so be sure to share basic details about its characteristics. (Some information about the training data can be extracted from the model object itself.) Some (probably different) specific dataset is used to <em>evaluate</em> the model in the context of the model card, so also explain what the evaluation data is like.</p></li>
-<li><p><strong>Quantitative analyses:</strong> Provide the results of evaluating the model using your chosen metrics and the evaluation data. Be sure to present both overall results (for the dataset as a whole) and disaggregated results, especially with any aspects (demographic, environmental, or other) in mind that have been identified as important for this model. You can use both tables and visualization to present these quantitative analyses.</p></li>
-<li><p><strong>Ethical considerations:</strong> Share ethical considerations and any possible solutions considered. Some specific aspects to note are any sensitive data used, impact on human life, possible risks and harms, and important use cases.</p></li>
-<li><p><strong>Caveats &amp; recommendations:</strong> As the model developer, you likely have the most domain knowledge of what the model can and cannot do. This section is a good place to share any additional thoughts, perhaps including how your own identity may or may not come into play in the model’s context.</p></li>
+<li><p><strong>Model details:</strong> Some details about your model can
+be determined from the model object itself, but some (like who developed
+the model and license or citation information) need to be provided by
+you.</p></li>
+<li><p><strong>Intended use:</strong> Outline the intended use and users
+of the model, and perhaps also what types of use would be out of
+scope.</p></li>
+<li><p><strong>Important aspects/factors:</strong> What are the
+demographic, environmental, technical, or other aspects that are
+relevant to the context of the model?</p></li>
+<li><p><strong>Performance metrics:</strong> Communicate which metrics
+are being used to evaluate the model, and why these are a good fit for
+the model’s context and domain.</p></li>
+<li><p><strong>Training data &amp; evaluation data:</strong> Some
+specific dataset was used to train the model, so be sure to share basic
+details about its characteristics. (Some information about the training
+data can be extracted from the model object itself.) Some (probably
+different) specific dataset is used to <em>evaluate</em> the model in
+the context of the model card, so also explain what the evaluation data
+is like.</p></li>
+<li><p><strong>Quantitative analyses:</strong> Provide the results of
+evaluating the model using your chosen metrics and the evaluation data.
+Be sure to present both overall results (for the dataset as a whole) and
+disaggregated results, especially with any aspects (demographic,
+environmental, or other) in mind that have been identified as important
+for this model. You can use both tables and visualization to present
+these quantitative analyses.</p></li>
+<li><p><strong>Ethical considerations:</strong> Share ethical
+considerations and any possible solutions considered. Some specific
+aspects to note are any sensitive data used, impact on human life,
+possible risks and harms, and important use cases.</p></li>
+<li><p><strong>Caveats &amp; recommendations:</strong> As the model
+developer, you likely have the most domain knowledge of what the model
+can and cannot do. This section is a good place to share any additional
+thoughts, perhaps including how your own identity may or may not come
+into play in the model’s context.</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="cant-i-just-delete-the-section-on-ethical-considerations">Can’t I just delete the section on ethical considerations?<a class="anchor" aria-label="anchor" href="#cant-i-just-delete-the-section-on-ethical-considerations"></a>
 </h2>
-<p>It’s possible that a given machine learning model may not have obvious caveats, ethical challenges, or demographic aspects, or that they are largely unknown. However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations. Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.</p>
-<p>The process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting. A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you. From Mitchell et al. (2019):</p>
+<p>It’s possible that a given machine learning model may not have
+obvious caveats, ethical challenges, or demographic aspects, or that
+they are largely unknown. However, we strongly advise that instead of
+deleting any such section because you have incomplete or imprecise
+information, you note your own process and considerations. Also,
+consider the possibility of gathering feedback from those impacted by
+the machine learning system, especially those with marginalized
+identities.</p>
+<p>The process of documenting the extent and limits of a machine
+learning system is part of transparent, responsible reporting. A model
+card framework such as this is a helpful tool and some parts of a model
+card can be automated, but ultimately the extent of its value depends on
+you. From Mitchell et al. (2019):</p>
 <blockquote>
-<p>Therefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself.</p>
+<p>Therefore the usefulness and accuracy of a model card relies on the
+integrity of the creator(s) of the card itself.</p>
 </blockquote>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
