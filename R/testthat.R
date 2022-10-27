@@ -1,11 +1,3 @@
-library(pins)
-library(plumber)
-cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
-v <- vetiver_model(cars_lm, "cars1")
-
-root_path <- "http://localhost"
-port <- httpuv::randomPort()
-
 local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) {
     rs <- callr::r_session$new()
     rs$call(
@@ -17,8 +9,3 @@ local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) 
     withr::defer(rs$close(), envir = env)
     rs
 }
-
-redact_port <- function(snapshot) {
-    snapshot <- gsub(port, "<port>", snapshot, fixed = TRUE)
-}
-
