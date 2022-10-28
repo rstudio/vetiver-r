@@ -33,11 +33,24 @@
 #'
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ...) {
+
+    pkgs <- vetiver_required_pkgs(vetiver_model$metadata$required_pkgs)
+    lockfile_pkgs <-
+        renv::snapshot(
+            lockfile = NULL,
+            packages = pkgs,
+            prompt = FALSE,
+            force = TRUE
+        )
+
     pins::pin_write(
         board = board,
-        x = list(model = vetiver_model$model,
-                 ptype = vetiver_model$ptype,
-                 required_pkgs = vetiver_model$metadata$required_pkgs),
+        x = list(
+            model = vetiver_model$model,
+            ptype = vetiver_model$ptype,
+            required_pkgs = vetiver_model$metadata$required_pkgs,
+            renv_pkgs = lockfile_pkgs
+        ),
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
@@ -62,7 +75,15 @@ vetiver_pin_read <- function(board, name, version = NULL) {
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
-    ## TODO: add subset of renv hash checking
+    lockfile_pkgs <-
+        renv::snapshot(
+            lockfile = NULL,
+            packages = vetiver_required_pkgs(pinned$required_pkgs),
+            prompt = FALSE,
+            force = TRUE
+        )
+
+    ## TODO: compare pinned$renv_pkgs to new lockfile_pkgs
 
     new_vetiver_model(
         model = pinned$model,
