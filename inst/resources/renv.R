@@ -4934,7 +4934,7 @@ renv_dcf_read <- function(file, text = NULL, ...) {
 
   # compute substring indices
   starts <- matches
-  ends   <- c(tail(matches, n = -1L), nchar(contents))
+  ends   <- c(utils::tail(matches, n = -1L), nchar(contents))
   parts <- substring(contents, starts, ends)
 
   # read as property list
@@ -8320,7 +8320,7 @@ renv_embed_r <- function(path, ..., lockfile = NULL, project = NULL) {
   contents <- c(
     head(contents, n = start - 1L),
     embed,
-    tail(contents, n = n - end)
+    utils::tail(contents, n = n - end)
   )
 
   writeLines(contents, con = path)
@@ -8385,7 +8385,7 @@ renv_embed_rmd <- function(path,
         "",
         embed,
         "",
-        tail(contents, n = length(contents) - index)
+        utils::tail(contents, n = length(contents) - index)
       )
     } else {
       c(embed, "", contents)
@@ -8403,7 +8403,7 @@ renv_embed_rmd <- function(path,
   contents <- c(
     head(contents, n = start - 1L),
     embed,
-    tail(contents, n = length(contents) - end)
+    utils::tail(contents, n = length(contents) - end)
   )
 
   writeLines(contents, con = path)
@@ -20162,7 +20162,7 @@ renv_remotes_parse_finalize_github <- function(remote) {
 
   # form subdir from tail of repo
   remote$repo   <- paste(head(parts, n = 1L),  collapse = "/")
-  remote$subdir <- paste(tail(parts, n = -1L), collapse = "/")
+  remote$subdir <- paste(utils::tail(parts, n = -1L), collapse = "/")
 
   # return modified remote
   remote
@@ -22027,7 +22027,7 @@ renv_retrieve_bioconductor_version <- function(record) {
     return(NULL)
 
   # we have a version; use it
-  paste(tail(parts, n = -1L), collapse = ".")
+  paste(utils::tail(parts, n = -1L), collapse = ".")
 
 }
 
@@ -23756,7 +23756,7 @@ renv_sandbox_task <- function(...) {
   if (!enabled)
     return(FALSE)
 
-  sandbox <- tail(.libPaths(), n = 1L)
+  sandbox <- utils::tail(.libPaths(), n = 1L)
   if (!file.exists(sandbox)) {
     warning("the renv sandbox was deleted; it will be re-generated", call. = FALSE)
     renv_sandbox_generate(sandbox)
@@ -26508,7 +26508,7 @@ renv_system_exec <- function(command,
 
     # truncate output (avoid overwhelming console)
     body <- if (length(output) > 200L)
-      c(head(output, n = 100L), "< ... >", tail(output, n = 100L))
+      c(head(output, n = 100L), "< ... >", utils::tail(output, n = 100L))
     else
       output
 
@@ -28995,7 +28995,7 @@ inject <- function(contents,
     contents <- c(
       head(contents, n = index),
       replacement,
-      tail(contents, n = -index)
+      utils::tail(contents, n = -index)
     )
     return(contents)
   }
