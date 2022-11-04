@@ -1,4 +1,4 @@
-renv <- new.env()
+renv <- rlang::env()
 
 load_renv_env <- function() {
     script <- system.file("resources/renv.R", package = "vetiver")
