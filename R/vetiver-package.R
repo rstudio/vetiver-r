@@ -12,6 +12,7 @@
 #' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom generics required_pkgs
+#' @importFrom utils tail
 NULL
 
 #' @importFrom generics augment
