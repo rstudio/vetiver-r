@@ -1,6 +1,6 @@
 #
-# renv 0.16.0-35: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2022-11-08 13:11:59.
+# renv 0.16.0-37: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2022-11-08 16:15:55.
 #
 
 # aaa.R ======================================================================
@@ -1857,8 +1857,11 @@ renv_bootstrap_repos <- function() {
     return(repos)
 
   # if we're testing, re-use the test repositories
-  if (renv_bootstrap_tests_running())
-    return(getOption("renv.tests.repos"))
+  if (renv_bootstrap_tests_running()) {
+    repos <- getOption("renv.tests.repos")
+    if (!is.null(repos))
+      return(repos)
+  }
 
   # retrieve current repos
   repos <- getOption("repos")
@@ -17294,6 +17297,10 @@ renv_patch_methods_table_impl <- function() {
 # this helps renv survive CRAN revdep checks (e.g. jetpack)
 renv_patch_repos <- function() {
 
+  # nothing to do in embedded mode
+  if (renv_metadata_embedded())
+    return()
+
   # nothing to do if we're not running tests
   checking <- renv_package_checking()
   if (!checking)
@@ -17316,6 +17323,8 @@ renv_patch_repos <- function() {
 
   # use package-local repository path
   repopath <- system.file("repos", package = "renv")
+  if (!file.exists(repopath))
+    return()
 
   # update our repos option
   fmt <- if (renv_platform_windows()) "file:///%s" else "file://%s"
@@ -30429,8 +30438,6 @@ renv_yaml_load <- function(text) {
 
 # zzz.R ======================================================================
 
-
-`_renv_spec` <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
   renv_zzz_load()
