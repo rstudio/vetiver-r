@@ -20,8 +20,8 @@ vetiver_write_docker(
 \item{plumber_file}{A path for your Plumber file, created via
 \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}. Defaults to \code{plumber.R} in the working directory.}
 
-\item{path}{A path to write the Dockerfile and \code{renv.lock} lockfile,
-capturing the model's package dependencies. Defaults to the working directory.}
+\item{path}{A path to write the Dockerfile and \code{lockfile}, capturing the
+model's package dependencies. Defaults to the working directory.}
 
 \item{lockfile}{The generated lockfile in \code{path}. Defaults to
 \code{"vetiver_renv.lock"}.}

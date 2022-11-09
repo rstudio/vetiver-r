@@ -24,3 +24,10 @@ globalVariables(c("pr", ".metric", ".pred", "price", "tidy", "term", "estimate")
 rapidoc_function_for_note <- function() {
     rapidoc::rapidoc_spec()
 }
+
+release_bullets <- function() {
+    c(
+        'Update renv with `renv:::vendor()`'
+    )
+}
+
