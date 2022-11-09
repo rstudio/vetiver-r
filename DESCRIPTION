@@ -27,7 +27,7 @@ Imports:
     hardhat,
     lifecycle,
     magrittr (>= 2.0.3),
-    pins (>= 1.0.0),
+    pins (>= 1.0.3.9000),
     purrr,
     rapidoc,
     readr (>= 1.4.0),
@@ -73,7 +73,9 @@ Suggests:
     yardstick
 VignetteBuilder: 
     knitr
-Config/Needs/website: tidyverse/tidytemplate, rstudio/connectapi
+Remotes: 
+    rstudio/pins-r
+Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
