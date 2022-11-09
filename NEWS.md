@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Now vendor renv directly in package (#157).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
