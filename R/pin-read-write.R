@@ -64,9 +64,9 @@ vetiver_pin_write <- function(board, vetiver_model, ...) {
 #' @export
 vetiver_pin_read <- function(board, name, version = NULL) {
 
+    rlang::check_installed(required_pkgs(board))
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
-    rlang::check_installed(pinned$required_pkgs)
 
     ## TODO: add subset of renv hash checking
 
