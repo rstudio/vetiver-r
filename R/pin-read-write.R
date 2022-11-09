@@ -33,11 +33,15 @@
 #'
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ...) {
+
+    reqs <- c(required_pkgs(board), vetiver_model$metadata$required_pkgs)
+    reqs <- sort(unique(reqs))
+
     pins::pin_write(
         board = board,
         x = list(model = vetiver_model$model,
                  ptype = vetiver_model$ptype,
-                 required_pkgs = vetiver_model$metadata$required_pkgs),
+                 required_pkgs = reqs),
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
@@ -45,6 +49,7 @@ vetiver_pin_write <- function(board, vetiver_model, ...) {
         versioned = vetiver_model$versioned,
         ...
     )
+
     rlang::inform(
         c("\nCreate a Model Card for your published model",
           "Model Cards provide a framework for transparent, responsible reporting",
@@ -61,6 +66,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
 
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
+    rlang::check_installed(pinned$required_pkgs)
 
     ## TODO: add subset of renv hash checking
 
