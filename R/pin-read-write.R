@@ -37,7 +37,7 @@ vetiver_pin_write <- function(board, vetiver_model, ...) {
         board = board,
         x = list(model = vetiver_model$model,
                  ptype = vetiver_model$ptype,
-                 required_pkgs = reqs),
+                 required_pkgs = vetiver_model$metadata$required_pkgs),
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
