@@ -18,6 +18,10 @@ NULL
 #' @export
 generics::augment
 
+#' @importFrom generics required_pkgs
+#' @export
+generics::required_pkgs
+
 globalVariables(c("pr", ".metric", ".pred", "price", "tidy", "term", "estimate"))
 
 ## to avoid NOTE about "All declared Imports should be used."
