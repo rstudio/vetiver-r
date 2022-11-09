@@ -2,6 +2,8 @@
 
 * Now vendor renv directly in package (#157).
 
+* New argument added to `vetiver_write_docker()` to pass in additional packages to be installed, such as `required_pkgs(board)` (#159).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
