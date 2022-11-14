@@ -979,6 +979,7 @@
       "Package": "vetiver",
       "Version": "0.1.8.9000",
       "Source": "Local",
+      "Remotes": "rstudio/pins-r",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -1001,7 +1002,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "d20d65399c1b23943791d2c9ee2e788e"
+      "Hash": "75db86d7327516c3ce09631d9a6fa264"
     },
     "vroom": {
       "Package": "vroom",
