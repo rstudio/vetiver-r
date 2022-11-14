@@ -8,7 +8,8 @@ test_that("can pin a model", {
         list(
             model = butcher::butcher(cars_lm),
             ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
-            required_pkgs = NULL
+            required_pkgs = NULL,
+            lockfile = character(0)
         )
     )
 })
@@ -22,7 +23,8 @@ test_that("can pin a model with no ptype", {
         list(
             model = butcher::butcher(cars_lm),
             ptype = NULL,
-            required_pkgs = NULL
+            required_pkgs = NULL,
+            lockfile = character(0)
         )
     )
 })
@@ -36,7 +38,8 @@ test_that("can pin a model with custom ptype", {
         list(
             model = butcher::butcher(cars_lm),
             ptype = mtcars[3:10, 2:3],
-            required_pkgs = NULL
+            required_pkgs = NULL,
+            lockfile = character(0)
         )
     )
 })

@@ -23,7 +23,8 @@ test_that("can pin a glm model", {
         list(
             model = butcher::butcher(mtcars_glm),
             ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
-            required_pkgs = NULL
+            required_pkgs = NULL,
+            lockfile = character(0)
         ),
         ignore_function_env = TRUE,
         ignore_formula_env = TRUE
