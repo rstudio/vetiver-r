@@ -22,6 +22,9 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' as an environment variable.
 #' @param expose Add `EXPOSE` to the Dockerfile? This is helpful for using
 #' Docker Desktop but does not work with an expression for `port`.
+#' @param additional_pkgs A character vector of additional package names to add
+#' to the Docker image. For example, some boards like [pins::board_s3()] require
+#' additional software; you can use `required_pkgs(board)` here.
 #'
 #' @return The content of the Dockerfile, invisibly.
 #' @export
@@ -38,6 +41,9 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #'
 #' ## default port
 #' vetiver_write_docker(v, tmp_plumber, tempdir())
+#' ## install more pkgs, like those required to access board
+#' vetiver_write_docker(v, tmp_plumber, tempdir(),
+#'                      additional_pkgs = required_pkgs(b))
 #' ## port from env variable
 #' vetiver_write_docker(v, tmp_plumber, tempdir(),
 #'                      port = 'as.numeric(Sys.getenv("PORT"))',
@@ -49,7 +55,8 @@ vetiver_write_docker <- function(vetiver_model,
                                  lockfile = "vetiver_renv.lock",
                                  rspm = TRUE,
                                  port = 8000,
-                                 expose = TRUE) {
+                                 expose = TRUE,
+                                 additional_pkgs = character(0)) {
 
     from_r_version <- glue::glue("FROM rocker/r-ver:{getRversion()}")
     rspm_env <- ifelse(
@@ -58,7 +65,8 @@ vetiver_write_docker <- function(vetiver_model,
         ""
     )
 
-    pkgs <- unique(c(docker_pkgs, vetiver_model$metadata$required_pkgs))
+    pkgs <- unique(c(additional_pkgs, docker_pkgs,
+                     vetiver_model$metadata$required_pkgs))
     pkgs <- setdiff(pkgs, drop_pkgs)
     lockfile_pkgs <-
         renv$snapshot(

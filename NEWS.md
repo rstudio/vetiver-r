@@ -4,6 +4,8 @@
 
 * Fixed how `vetiver_ptype()` finds predictors for models (`lm()` and `glm()`) with interactions (#160).
 
+* New argument added to `vetiver_write_docker()` to pass in additional packages to be installed, such as `required_pkgs(board)` (#159).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
