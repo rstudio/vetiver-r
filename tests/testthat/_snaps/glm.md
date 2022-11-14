@@ -7,7 +7,7 @@
       -- cars_glm - <butchered_glm> model for deployment 
       A generalized linear model (gaussian family, identity link) using 10 features
 
-# create plumber.R for xgboost
+# create plumber.R for glm
 
     Code
       cat(readr::read_lines(tmp), sep = "\n")
