@@ -33,18 +33,18 @@
 #'
 #' # can use `version` argument to read a specific version:
 #' pin_versions(model_board, "cars_linear")
-#'
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' # can store an renv lockfile as part of the pin:
 #' vetiver_pin_write(model_board, v, check_renv = TRUE)
 #'
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 
-    lockfile_pkgs <- character(0)
+    lockfile <- character(0)
 
     if (check_renv) {
         pkgs <- vetiver_required_pkgs(vetiver_model$metadata$required_pkgs)
-        lockfile_pkgs <-
+        lockfile <-
             renv$snapshot(
                 lockfile = NULL,
                 packages = pkgs,
@@ -59,7 +59,7 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
             model = vetiver_model$model,
             ptype = vetiver_model$ptype,
             required_pkgs = vetiver_model$metadata$required_pkgs,
-            renv_pkgs = lockfile_pkgs
+            lockfile = lockfile
         ),
         name = vetiver_model$model_name,
         type = "rds",
@@ -85,15 +85,16 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
-    lockfile_pkgs <-
-        renv::snapshot(
-            lockfile = NULL,
-            packages = vetiver_required_pkgs(pinned$required_pkgs),
-            prompt = FALSE,
-            force = TRUE
-        )
-
-    ## TODO: compare pinned$renv_pkgs to new lockfile_pkgs
+    if (check_renv) {
+        if (length(pinned$lockfile) > 0) {
+            renv_report_actions(pinned$required_pkgs, pinned$lockfile)
+        } else {
+            cli::cli_inform(c(
+                "There is no lockfile stored with {.val {name}}:",
+                "i" = "Use {.arg check_renv = TRUE} when you save your model to your board"
+            ))
+        }
+    }
 
     new_vetiver_model(
         model = pinned$model,
@@ -108,5 +109,30 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
         ptype = pinned$ptype,
         versioned = board$versioned
     )
+}
+
+
+renv_report_actions <- function(required_pkgs, lockfile) {
+    pkgs <- vetiver_required_pkgs(required_pkgs)
+    lockfile_pkgs <-
+        renv$snapshot(
+            lockfile = NULL,
+            packages = pkgs,
+            prompt = FALSE,
+            force = TRUE
+        )
+    diff <- renv$renv_lockfile_diff_packages(lockfile_pkgs, lockfile)
+
+    if (renv$empty(diff))
+        return(invisible(NULL))
+
+    lhs <- renv$renv_records(lockfile_pkgs)
+    rhs <- renv$renv_records(lockfile)
+    renv$renv_pretty_print_records_pair(
+        lhs[names(lhs) %in% names(diff)],
+        rhs[names(rhs) %in% names(diff)],
+        "The following package(s) do not match your model::"
+    )
+
 }
 
