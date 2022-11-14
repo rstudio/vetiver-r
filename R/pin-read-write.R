@@ -6,6 +6,9 @@
 #'
 #' @inheritParams pins::pin_read
 #' @inheritParams vetiver_api
+#' @param check_renv Use [renv](https://rstudio.github.io/renv/) to record the
+#' packages used at training time with `vetiver_pin_write()` and check for
+#' differences with `vetiver_pin_read()`. Defaults to `FALSE`.
 #'
 #' @details These functions read and write a [vetiver_model()] pin on the
 #' specified `board` containing the model object itself and other elements
@@ -31,17 +34,24 @@
 #' # can use `version` argument to read a specific version:
 #' pin_versions(model_board, "cars_linear")
 #'
+#' # can store an renv lockfile as part of the pin:
+#' vetiver_pin_write(model_board, v, check_renv = TRUE)
+#'
 #' @export
-vetiver_pin_write <- function(board, vetiver_model, ...) {
+vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 
-    pkgs <- vetiver_required_pkgs(vetiver_model$metadata$required_pkgs)
-    lockfile_pkgs <-
-        renv::snapshot(
-            lockfile = NULL,
-            packages = pkgs,
-            prompt = FALSE,
-            force = TRUE
-        )
+    lockfile_pkgs <- character(0)
+
+    if (check_renv) {
+        pkgs <- vetiver_required_pkgs(vetiver_model$metadata$required_pkgs)
+        lockfile_pkgs <-
+            renv$snapshot(
+                lockfile = NULL,
+                packages = pkgs,
+                prompt = FALSE,
+                force = TRUE
+            )
+    }
 
     pins::pin_write(
         board = board,
@@ -70,7 +80,7 @@ vetiver_pin_write <- function(board, vetiver_model, ...) {
 
 #' @rdname vetiver_pin_write
 #' @export
-vetiver_pin_read <- function(board, name, version = NULL) {
+vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
 
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
