@@ -2,6 +2,8 @@
 
 * Now vendor renv directly in package (#157).
 
+* Fixed how `vetiver_ptype()` finds predictors for models (`lm()` and `glm()`) with interactions (#160).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
