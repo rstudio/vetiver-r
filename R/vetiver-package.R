@@ -18,9 +18,21 @@ NULL
 #' @export
 generics::augment
 
-globalVariables(c("pr", ".metric", ".pred", "price", "tidy", "term", "estimate"))
+#' @importFrom generics required_pkgs
+#' @export
+generics::required_pkgs
+
+globalVariables(c("pr", ".metric", ".pred", "price", "tidy",
+                  "term", "estimate", "terms"))
 
 ## to avoid NOTE about "All declared Imports should be used."
 rapidoc_function_for_note <- function() {
     rapidoc::rapidoc_spec()
 }
+
+release_bullets <- function() {
+    c(
+        'Update renv with `renv:::vendor()`'
+    )
+}
+

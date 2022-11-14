@@ -72,3 +72,32 @@ check_ptype_data <- function(dots, call = rlang::caller_env()) {
     }
 }
 
+
+preds_lm_ish <- function(model) {
+    .terms <- terms(model)
+    terms_matrix <- attr(.terms, "factors")
+    terms_names <- colnames(terms_matrix)
+    terms_exprs <- parse_exprs(terms_names)
+    has_interactions <- map_lgl(terms_exprs, expr_contains, what = as.name(":"))
+    terms_names[!has_interactions]
+}
+
+expr_contains <- function(expr, what) {
+    switch(typeof(expr),
+           symbol = identical(expr, what),
+           call = call_contains(expr, what),
+           language = call_contains(expr, what),
+           FALSE
+    )
+}
+
+call_contains <- function(expr, what) {
+    if (length(expr) == 0L) {
+        abort("Internal error, `expr` should be at least length 1.")
+    }
+
+    # Recurse into elements
+    contains <- map_lgl(expr, expr_contains, what = what)
+    any(contains)
+}
+

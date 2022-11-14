@@ -7,7 +7,7 @@
       -- cars_gam - <butchered_gam> model for deployment 
       A generalized additive model (gaussian family, identity link) using 2 features
 
-# create plumber.R for xgboost
+# create plumber.R for gam
 
     Code
       cat(readr::read_lines(tmp), sep = "\n")

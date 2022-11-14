@@ -11,7 +11,8 @@ vetiver_write_docker(
   lockfile = "vetiver_renv.lock",
   rspm = TRUE,
   port = 8000,
-  expose = TRUE
+  expose = TRUE,
+  additional_pkgs = character(0)
 )
 }
 \arguments{
@@ -20,8 +21,8 @@ vetiver_write_docker(
 \item{plumber_file}{A path for your Plumber file, created via
 \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}. Defaults to \code{plumber.R} in the working directory.}
 
-\item{path}{A path to write the Dockerfile and \code{renv.lock} lockfile,
-capturing the model's package dependencies. Defaults to the working directory.}
+\item{path}{A path to write the Dockerfile and \code{lockfile}, capturing the
+model's package dependencies. Defaults to the working directory.}
 
 \item{lockfile}{The generated lockfile in \code{path}. Defaults to
 \code{"vetiver_renv.lock"}.}
@@ -36,6 +37,10 @@ as an environment variable.}
 
 \item{expose}{Add \code{EXPOSE} to the Dockerfile? This is helpful for using
 Docker Desktop but does not work with an expression for \code{port}.}
+
+\item{additional_pkgs}{A character vector of additional package names to add
+to the Docker image. For example, some boards like \code{\link[pins:board_s3]{pins::board_s3()}} require
+additional software; you can use \code{required_pkgs(board)} here.}
 }
 \value{
 The content of the Dockerfile, invisibly.
@@ -58,6 +63,9 @@ vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
 
 ## default port
 vetiver_write_docker(v, tmp_plumber, tempdir())
+## install more pkgs, like those required to access board
+vetiver_write_docker(v, tmp_plumber, tempdir(),
+                     additional_pkgs = required_pkgs(b))
 ## port from env variable
 vetiver_write_docker(v, tmp_plumber, tempdir(),
                      port = 'as.numeric(Sys.getenv("PORT"))',
