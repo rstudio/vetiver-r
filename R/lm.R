@@ -13,7 +13,7 @@ vetiver_prepare_model.lm <- function(model) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.lm <- function(model, ...) {
-    pred_names <- attr(model$terms, "term.labels")
+    pred_names <- preds_lm_ish(model)
     ptype <- vctrs::vec_ptype(model$model[pred_names])
     tibble::as_tibble(ptype)
 }
