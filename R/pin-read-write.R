@@ -113,6 +113,9 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
 
 
 renv_report_actions <- function(required_pkgs, lockfile) {
+    withr::local_options(
+        list(renv.pretty.print.emitter = function(text, ...) {cli::cli_inform(text)})
+    )
     pkgs <- vetiver_required_pkgs(required_pkgs)
     lockfile_pkgs <-
         renv$snapshot(
