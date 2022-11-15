@@ -109,3 +109,33 @@ test_that("can read a versioned model with metadata", {
     expect_equal(v4$ptype, v$ptype)
     expect_equal(v4$versioned, TRUE)
 })
+
+test_that("right message for reading with `check_renv`", {
+    skip_on_cran()
+    b <- board_temp()
+    v <- vetiver_model(cars_lm, "cars5")
+    vetiver_pin_write(b, v)
+    expect_snapshot(vetiver_pin_read(b, "cars5", check_renv = TRUE))
+
+    vetiver_pin_write(b, v, check_renv = TRUE)
+    v1 <- vetiver_pin_read(b, "cars5")
+    v2 <- vetiver_pin_read(b, "cars5", check_renv = TRUE)
+    expect_equal(v1, v2)
+
+    pins::pin_write(
+        board = b,
+        x = list(
+            model = v$model,
+            ptype = v$ptype,
+            required_pkgs = v$metadata$required_pkgs,
+            lockfile = renv$renv_lockfile_init(project = NULL)
+        ),
+        name = v$model_name,
+        type = "rds",
+        description = v$description,
+        metadata = v$metadata$user,
+        versioned = v$versioned
+    )
+
+    expect_message(vetiver_pin_read(b, "cars5", check_renv = TRUE))
+})
