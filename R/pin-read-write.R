@@ -131,7 +131,8 @@ renv_report_actions <- function(required_pkgs, lockfile) {
     renv$renv_pretty_print_records_pair(
         lhs[names(lhs) %in% names(diff)],
         rhs[names(rhs) %in% names(diff)],
-        "The following package(s) do not match your model::"
+        "The following package(s) do not match your model:",
+        "Consider installing the same versions that your model was trained with."
     )
 
 }
