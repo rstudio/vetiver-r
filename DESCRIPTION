@@ -60,6 +60,7 @@ Suggests:
     plumber (>= 1.0.0),
     ranger,
     recipes,
+    renv,
     rmarkdown,
     rpart,
     rsconnect,
