@@ -137,5 +137,9 @@ test_that("right message for reading with `check_renv`", {
         versioned = v$versioned
     )
 
-    expect_message(vetiver_pin_read(b, "cars5", check_renv = TRUE))
+    expect_message(
+        vetiver_pin_read(b, "cars5", check_renv = TRUE),
+        regexp = "do not match your model"
+    )
+
 })
