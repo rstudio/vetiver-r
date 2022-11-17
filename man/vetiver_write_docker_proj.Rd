@@ -29,7 +29,9 @@ capturing the model's dependencies. Defaults to the working directory.}
 such as the endpoint \code{path} or prediction \code{type}.}
 
 \item{docker_args}{A list of optional arguments passed to
-\code{\link[=vetiver_write_docker]{vetiver_write_docker()}} such as the \code{lockfile} name or whether to use \code{rspm}.}
+\code{\link[=vetiver_write_docker]{vetiver_write_docker()}} such as the \code{lockfile} name or whether to use
+\code{rspm}. Do not pass \code{additional_pkgs} here, as this function uses
+\code{additional_pkgs = required_pkgs(board)}.}
 }
 \value{
 An invisible \code{TRUE}.

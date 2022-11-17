@@ -75,9 +75,17 @@ test_that("create all files needed for Docker", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret")
     vetiver_pin_write(b, v)
-    vetiver_write_docker_proj(b, "cars1", path = tmp_dir,
-                              predict_args = list(path = "cars"),
-                              docker_args = list(rspm = FALSE))
+    expect_snapshot_error(
+        vetiver_write_docker_proj(
+            b, "cars1", path = tmp_dir,
+            docker_args = list(additional_pkgs = c("potato"))
+        )
+    )
+    vetiver_write_docker_proj(
+        b, "cars1", path = tmp_dir,
+        predict_args = list(path = "cars"),
+        docker_args = list(rspm = FALSE)
+    )
 
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "plumber.R")), sep = "\n"),

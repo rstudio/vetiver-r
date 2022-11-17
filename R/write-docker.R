@@ -146,7 +146,9 @@ glue_sys_reqs <- function(pkgs) {
 #' @param path A path to write the Plumber file, Dockerfile, and lockfile,
 #' capturing the model's dependencies. Defaults to the working directory.
 #' @param docker_args A list of optional arguments passed to
-#' [vetiver_write_docker()] such as the `lockfile` name or whether to use `rspm`.
+#' [vetiver_write_docker()] such as the `lockfile` name or whether to use
+#' `rspm`. Do not pass `additional_pkgs` here, as this function uses
+#' `additional_pkgs = required_pkgs(board)`.
 #' @details
 #' The function `vetiver_write_docker_proj()` uses:
 #' - [vetiver_write_plumber()] to create a Plumber file and
@@ -171,6 +173,13 @@ vetiver_write_docker_proj <- function(board, name, version = NULL,
                                       predict_args = list(),
                                       docker_args = list()) {
     withr::local_dir(path)
+    if (has_name(docker_args, "additional_pkgs")) {
+        abort(c(
+            "Do not pass `additional_pkgs` to `docker_args`",
+            "This function uses `additional_pkgs = required_pkgs(board)`",
+            "For more complex use cases, call `vetiver_write_docker` itself"
+        ))
+    }
     vetiver_write_plumber(
         board = board,
         name = name,
@@ -179,6 +188,10 @@ vetiver_write_docker_proj <- function(board, name, version = NULL,
         rsconnect = FALSE
     )
     v <- vetiver_pin_read(board = board, name = name, version = version)
-    inject(vetiver_write_docker(v, !!!docker_args))
+    inject(vetiver_write_docker(
+        v,
+        !!!docker_args,
+        additional_pkgs = required_pkgs(board))
+    )
     invisible(TRUE)
 }

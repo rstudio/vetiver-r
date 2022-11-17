@@ -129,6 +129,12 @@
 
 # create all files needed for Docker
 
+    Do not pass `additional_pkgs` to `docker_args`
+    * This function uses `additional_pkgs = required_pkgs(board)`
+    * For more complex use cases, call `vetiver_write_docker` itself
+
+---
+
     Code
       cat(readr::read_lines(file.path(tmp_dir, "plumber.R")), sep = "\n")
     Output
