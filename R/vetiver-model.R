@@ -39,7 +39,7 @@
 #' @examples
 #'
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
-#' vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+#' vetiver_model(cars_lm, "cars-linear")
 #'
 #' @export
 vetiver_model <- function(model,
@@ -97,7 +97,11 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
+        if (is.null(x$ptype)) {
+            cli::cli_text("{x$description}")
+        } else {
+            cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
+        }
     })
 }
 
