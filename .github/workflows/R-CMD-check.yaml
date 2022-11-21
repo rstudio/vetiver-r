@@ -53,7 +53,7 @@ jobs:
           extra-packages: any::rcmdcheck, any::cpp11, any::progress
           needs: check
 
-    - name: Install Miniconda & Tensorflow
+      - name: Install Miniconda & Tensorflow
         # conda can fail at downgrading python, so we specify python version in advance
         env:
           RETICULATE_MINICONDA_PYTHON_VERSION: "3.8"
