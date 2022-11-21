@@ -69,6 +69,6 @@ data to avoid leaking PII via your deployed model.
 \examples{
 
 cars_lm <- lm(mpg ~ ., data = mtcars)
-vetiver_model(cars_lm, "cars_linear", pins::board_temp())
+vetiver_model(cars_lm, "cars-linear")
 
 }
