@@ -74,11 +74,13 @@ handler_predict.default <- function(vetiver_model, ...)
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
-    new_data <- hardhat::validate_column_names(new_data, colnames(ptype))
-    spec <- readr::as.col_spec(ptype)
-    is_character <- vapply(new_data, is.character, logical(1))
-    if (any(is_character)) {
-        new_data <- type_convert_strict(new_data, col_types = spec)
+    if (!is.null(ptype)) {
+        new_data <- hardhat::validate_column_names(new_data, colnames(ptype))
+        spec <- readr::as.col_spec(ptype)
+        is_character <- vapply(new_data, is.character, logical(1))
+        if (any(is_character)) {
+            new_data <- type_convert_strict(new_data, col_types = spec)
+        }
     }
     new_data
 }
