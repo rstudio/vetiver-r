@@ -5,8 +5,11 @@ test_that("create Dockerfile with packages", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret", "stats")
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
-    vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir)
+    vetiver_write_docker(b, "cars1", path = tmp_dir)
+    expect_snapshot(
+        cat(readr::read_lines(file.path(tmp_dir, "plumber.R")), sep = "\n"),
+        transform = redact_vetiver
+    )
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
         transform = redact_vetiver
@@ -17,8 +20,7 @@ test_that("create Dockerfile with 'additional' packages", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret", "stats")
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
-    vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir,
+    vetiver_write_docker(b, "cars1", path = tmp_dir,
                          additional_pkgs = c("caret", "ggplot2"))
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
@@ -30,9 +32,7 @@ test_that("create Dockerfile with no RSPM", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret")
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
-    vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"),
-                         tmp_dir, rspm = FALSE)
+    vetiver_write_docker(b, "cars1", path = tmp_dir, rspm = FALSE)
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
         transform = redact_vetiver
@@ -42,8 +42,7 @@ test_that("create Dockerfile with no RSPM", {
 test_that("create Dockerfile with no packages", {
     skip_on_cran()
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
-    vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir)
+    vetiver_write_docker(b, "cars1", path = tmp_dir)
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
         transform = redact_vetiver
@@ -54,9 +53,8 @@ test_that("create Dockerfile with specific port", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret")
     vetiver_pin_write(b, v)
-    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
-    vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"),
-                         tmp_dir, port = 'as.numeric(Sys.getenv("PORT"))',
+    vetiver_write_docker(b, "cars1", path = tmp_dir,
+                         port = 'as.numeric(Sys.getenv("PORT"))',
                          expose = FALSE)
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
@@ -71,28 +69,3 @@ test_that("No sys deps", {
     expect_length(reqs, 0)
 })
 
-test_that("create all files needed for Docker", {
-    skip_on_cran()
-    v$metadata$required_pkgs <- c("pingr", "caret")
-    vetiver_pin_write(b, v)
-    expect_snapshot_error(
-        vetiver_write_docker_proj(
-            b, "cars1", path = tmp_dir,
-            docker_args = list(additional_pkgs = c("potato"))
-        )
-    )
-    vetiver_write_docker_proj(
-        b, "cars1", path = tmp_dir,
-        predict_args = list(path = "cars"),
-        docker_args = list(rspm = FALSE)
-    )
-
-    expect_snapshot(
-        cat(readr::read_lines(file.path(tmp_dir, "plumber.R")), sep = "\n"),
-        transform = redact_vetiver
-    )
-    expect_snapshot(
-        cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
-        transform = redact_vetiver
-    )
-})
