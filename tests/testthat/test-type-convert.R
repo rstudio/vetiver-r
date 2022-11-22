@@ -7,8 +7,8 @@ test_that("all numeric", {
 
 test_that("NULL ptype, for save_ptype = FALSE", {
     expect_equal(
-        vetiver_type_convert(mtcars, NULL),
-        tibble::tibble(mtcars)
+        vetiver_type_convert(chickwts, NULL),
+        chickwts
     )
 })
 
