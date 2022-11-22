@@ -1,6 +1,15 @@
 skip_if_not_installed("plumber")
 b <- board_folder(path = tmp_dir)
 
+test_that("correct error for old interface", {
+    skip_on_cran()
+    vetiver_pin_write(b, v)
+    vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
+    expect_snapshot_error(
+        vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir)
+    )
+})
+
 test_that("create Dockerfile with packages", {
     skip_on_cran()
     v$metadata$required_pkgs <- c("pingr", "caret", "stats")

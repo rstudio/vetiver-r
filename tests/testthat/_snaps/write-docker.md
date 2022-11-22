@@ -1,3 +1,9 @@
+# correct error for old interface
+
+    The `vetiver_model` argument of `vetiver_write_docker()` was deprecated in vetiver 0.2.0 and is now defunct.
+    x This function no longer uses your model object directly.
+    i Instead, use the `board` and `name` where your model is stored.
+
 # create Dockerfile with packages
 
     Code
