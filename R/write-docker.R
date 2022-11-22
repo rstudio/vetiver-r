@@ -8,12 +8,8 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #'
 #' @inheritParams vetiver_write_plumber
 #' @inheritParams vetiver_deploy_rsconnect
-#' @param path A path to write the Plumber file, Dockerfile, and lockfile,
+#' @param path A path to write the Plumber file, Dockerfile, and `lockfile`,
 #' capturing the model's dependencies. Defaults to the working directory.
-#' @param plumber_file A path for your Plumber file, created via
-#' [vetiver_write_plumber()]. Defaults to `plumber.R` in the working directory.
-#' @param path A path to write the Dockerfile and `lockfile`, capturing the
-#' model's package dependencies. Defaults to the working directory.
 #' @param lockfile The generated lockfile in `path`. Defaults to
 #' `"vetiver_renv.lock"`.
 #' @param rspm A logical to use the

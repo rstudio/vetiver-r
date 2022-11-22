@@ -26,8 +26,8 @@ vetiver_write_docker(
 \item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
 find out which versions are available and when they were created.}
 
-\item{path}{A path to write the Dockerfile and \code{lockfile}, capturing the
-model's package dependencies. Defaults to the working directory.}
+\item{path}{A path to write the Plumber file, Dockerfile, and \code{lockfile},
+capturing the model's dependencies. Defaults to the working directory.}
 
 \item{lockfile}{The generated lockfile in \code{path}. Defaults to
 \code{"vetiver_renv.lock"}.}
@@ -49,9 +49,6 @@ additional software; you can use \code{required_pkgs(board)} here.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
 such as the endpoint \code{path} or prediction \code{type}.}
-
-\item{plumber_file}{A path for your Plumber file, created via
-\code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}. Defaults to \code{plumber.R} in the working directory.}
 }
 \value{
 This function is called mainly for its side effects. It returns
