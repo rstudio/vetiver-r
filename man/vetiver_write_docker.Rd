@@ -2,24 +2,29 @@
 % Please edit documentation in R/write-docker.R
 \name{vetiver_write_docker}
 \alias{vetiver_write_docker}
-\title{Write a Dockerfile for a vetiver model}
+\title{Generate files necessary to build a Docker container for a vetiver model}
 \usage{
 vetiver_write_docker(
-  vetiver_model,
-  plumber_file = "plumber.R",
+  board,
+  name,
+  version = NULL,
   path = ".",
   lockfile = "vetiver_renv.lock",
   rspm = TRUE,
   port = 8000,
   expose = TRUE,
-  additional_pkgs = character(0)
+  additional_pkgs = required_pkgs(board),
+  predict_args = list()
 )
 }
 \arguments{
-\item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
+\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
-\item{plumber_file}{A path for your Plumber file, created via
-\code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}. Defaults to \code{plumber.R} in the working directory.}
+\item{name}{Pin name.}
+
+\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
+find out which versions are available and when they were created.}
 
 \item{path}{A path to write the Dockerfile and \code{lockfile}, capturing the
 model's package dependencies. Defaults to the working directory.}
@@ -41,14 +46,24 @@ Docker Desktop but does not work with an expression for \code{port}.}
 \item{additional_pkgs}{A character vector of additional package names to add
 to the Docker image. For example, some boards like \code{\link[pins:board_s3]{pins::board_s3()}} require
 additional software; you can use \code{required_pkgs(board)} here.}
+
+\item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
+such as the endpoint \code{path} or prediction \code{type}.}
+
+\item{plumber_file}{A path for your Plumber file, created via
+\code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}. Defaults to \code{plumber.R} in the working directory.}
 }
 \value{
-The content of the Dockerfile, invisibly.
+This function is called mainly for its side effects. It returns
+the \code{path} invisibly.
 }
 \description{
-After creating a Plumber file with \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}, use
-\code{vetiver_write_docker()} to create a Dockerfile plus a \code{vetiver_renv.lock}
-file for a pinned \code{\link[=vetiver_model]{vetiver_model()}}.
+Deploying a vetiver model via Docker requires several files. Use this
+function to create these needed files in the directory located at \code{path}.
+}
+\details{
+This function uses \code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}} to create a Plumber file
+appropriate for Docker, along with a Dockerfile and renv \code{lockfile}.
 }
 \examples{
 \dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -62,12 +77,12 @@ vetiver_pin_write(b, v)
 vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
 
 ## default port
-vetiver_write_docker(v, tmp_plumber, tempdir())
-## install more pkgs, like those required to access board
-vetiver_write_docker(v, tmp_plumber, tempdir(),
-                     additional_pkgs = required_pkgs(b))
+vetiver_write_docker(b, "cars_linear", tempdir())
+## pass args for predicting:
+vetiver_write_docker(b, "cars_linear", tempdir(),
+                     predict_args = list(debug = TRUE))
 ## port from env variable
-vetiver_write_docker(v, tmp_plumber, tempdir(),
+vetiver_write_docker(b, "cars_linear", tempdir(),
                      port = 'as.numeric(Sys.getenv("PORT"))',
                      expose = FALSE)
 \dontshow{\}) # examplesIf}

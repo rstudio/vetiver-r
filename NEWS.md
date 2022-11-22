@@ -1,10 +1,16 @@
-# vetiver (development version)
+# vetiver (development version, to be released as 0.2.0)
+
+## Breaking change
+
+* The function signature for `vetiver_write_docker()` has changed (#159). Instead of calling `vetiver_write_docker(vetiver_model, ...)`, now call `vetiver_model(board, name, ...)`. This function also now: 
+    * ensures the system dependencies for your model board are installed into Docker correctly
+    * creates a plumber file appropriate for Docker (you no longer need to call `vetiver_write_plumber()` separately)
+
+## Other improvements
 
 * Now vendor renv directly in package (#157).
 
 * Fixed how `vetiver_ptype()` finds predictors for models (`lm()` and `glm()`) with interactions (#160).
-
-* New argument added to `vetiver_write_docker()` to pass in additional packages to be installed, such as `required_pkgs(board)` (#159).
 
 # vetiver 0.1.8
 
