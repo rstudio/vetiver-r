@@ -39,6 +39,7 @@ Suggests:
     arrow,
     callr,
     caret,
+    clustMixType,
     covr,
     curl,
     dplyr,
