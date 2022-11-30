@@ -4,8 +4,8 @@
       v
     Output
       
-      -- kproto_example - <kproto> model for deployment 
-      A k-prototypes clustering model using 4 features
+      -- kproto-example - <butchered_kproto> model for deployment 
+      A k-prototypes clustering model (3 clusters) using 3 features
 
 # create plumber.R for kproto
 
@@ -24,7 +24,7 @@
           library(clustMixType)
       }
       b <- board_folder(path = "<redacted>")
-      v <- vetiver_pin_read(b, "kproto_example")
+      v <- vetiver_pin_read(b, "kproto-example")
       
       #* @plumber
       function(pr) {
