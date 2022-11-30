@@ -1,7 +1,7 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.kproto <- function(model) {
-    "A k-prototypes clustering model"
+    glue("A k-prototypes clustering model ({length(model$size)} clusters)")
 }
 
 #' @rdname vetiver_create_meta
@@ -38,6 +38,6 @@ handler_predict.kproto <- function(vetiver_model, ...) {
         newdata <- as.data.frame(newdata)
         # clustMixType:::predict.kproto()
         ret <- predict(vetiver_model$model, newdata = newdata, ...)
-        list(.pred = ret)
+        list(.pred = ret$cluster)
     }
 }
