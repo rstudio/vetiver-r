@@ -16,7 +16,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' `"vetiver_renv.lock"`.
 #' @param rspm A logical to use the
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
-#' [renv::restore()] in the Docker image. Defaults to `TRUE`.
+#' `renv::restore()` in the Docker image. Defaults to `TRUE`.
 #' @param port The server port for listening: a number such as 8080 or an
 #' expression like `'as.numeric(Sys.getenv("PORT"))'` when the port is injected
 #' as an environment variable.
