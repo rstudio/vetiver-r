@@ -29,7 +29,7 @@ model's package dependencies. Defaults to the working directory.}
 
 \item{rspm}{A logical to use the
 \href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
-\code{\link[renv:restore]{renv::restore()}} in the Docker image. Defaults to \code{TRUE}.}
+\code{renv::restore()} in the Docker image. Defaults to \code{TRUE}.}
 
 \item{port}{The server port for listening: a number such as 8080 or an
 expression like \code{'as.numeric(Sys.getenv("PORT"))'} when the port is injected
