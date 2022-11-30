@@ -70,3 +70,21 @@ test_that("No sys deps", {
     reqs <- glue_sys_reqs("ggplot2movies")
     expect_length(reqs, 0)
 })
+
+test_that("create all files needed for Docker", {
+    skip_on_cran()
+    v$metadata$required_pkgs <- c("pingr", "caret")
+    vetiver_pin_write(b, v)
+    vetiver_setup_docker(b, "cars1", path = tmp_dir,
+                         predict_args = list(path = "cars"),
+                         docker_args = list(rspm = FALSE))
+
+    expect_snapshot(
+        cat(readr::read_lines(file.path(tmp_dir, "plumber.R")), sep = "\n"),
+        transform = redact_vetiver
+    )
+    expect_snapshot(
+        cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
+        transform = redact_vetiver
+    )
+})
