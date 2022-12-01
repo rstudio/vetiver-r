@@ -6,6 +6,8 @@
 
 * New argument added to `vetiver_write_docker()` to pass in additional packages to be installed, such as `required_pkgs(board)` (#159).
 
+* New function `vetiver_prepare_docker()` creates all necessary files to deploy a basic vetiver model via Docker (#165).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
