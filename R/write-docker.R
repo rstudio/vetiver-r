@@ -150,7 +150,7 @@ glue_sys_reqs <- function(pkgs) {
 #' `rspm`. Do not pass `additional_pkgs` here, as this function uses
 #' `additional_pkgs = required_pkgs(board)`.
 #' @details
-#' The function `vetiver_setup_docker()` uses:
+#' The function `vetiver_prepare_docker()` uses:
 #' - [vetiver_write_plumber()] to create a Plumber file and
 #' - [vetiver_write_docker()] to create a Dockerfile and renv lockfile
 #'
@@ -165,13 +165,13 @@ glue_sys_reqs <- function(pkgs) {
 #' v <- vetiver_model(cars_lm, "cars_linear")
 #' vetiver_pin_write(b, v)
 #'
-#' vetiver_setup_docker(b, "cars_linear", path = tempdir())
+#' vetiver_prepare_docker(b, "cars_linear", path = tempdir())
 #'
 #' @export
-vetiver_setup_docker <- function(board, name, version = NULL,
-                                 path = ".",
-                                 predict_args = list(),
-                                 docker_args = list()) {
+vetiver_prepare_docker <- function(board, name, version = NULL,
+                                   path = ".",
+                                   predict_args = list(),
+                                   docker_args = list()) {
     withr::local_dir(path)
     if (has_name(docker_args, "additional_pkgs")) {
         abort(c(
