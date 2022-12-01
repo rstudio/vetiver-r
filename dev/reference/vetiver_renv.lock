@@ -64,7 +64,7 @@
     },
     "bit": {
       "Package": "bit",
-      "Version": "4.0.4",
+      "Version": "4.0.5",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -72,11 +72,11 @@
       "RemoteRef": "bit",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "4.0.4",
+      "RemoteSha": "4.0.5",
       "Requirements": [
         "R"
       ],
-      "Hash": "f36715f14d94678eea9933af927bc15d"
+      "Hash": "d242abec29412ce988848d0294b208fd"
     },
     "bit64": {
       "Package": "bit64",
@@ -665,11 +665,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "Repository",
+      "Source": "any",
       "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "progress",
-      "RemoteRef": "progress",
+      "RemoteType": "any",
+      "RemotePkgRef": "any::progress",
+      "RemoteRef": "any::progress",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -679,7 +679,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+      "Hash": "c497d15177fec0f93e5f33769b0adb38"
     },
     "promises": {
       "Package": "promises",
@@ -780,22 +780,6 @@
         "vroom"
       ],
       "Hash": "2dfbfc673ccb3de3d8836b4b3bd23d14"
-    },
-    "renv": {
-      "Package": "renv",
-      "Version": "0.16.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "renv",
-      "RemoteRef": "renv",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "0.16.0",
-      "Requirements": [
-        "utils"
-      ],
-      "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7"
     },
     "rlang": {
       "Package": "rlang",
@@ -957,7 +941,7 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.5.0",
+      "Version": "0.5.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -965,7 +949,7 @@
       "RemoteRef": "vctrs",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.5.0",
+      "RemoteSha": "0.5.1",
       "Requirements": [
         "R",
         "cli",
@@ -973,7 +957,7 @@
         "lifecycle",
         "rlang"
       ],
-      "Hash": "001fd6a5ebfff8316baf9fb2b5516dc9"
+      "Hash": "970324f6572b4fd81db507b5d4062cb0"
     },
     "vetiver": {
       "Package": "vetiver",
