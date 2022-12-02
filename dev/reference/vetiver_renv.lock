@@ -120,15 +120,15 @@
     },
     "butcher": {
       "Package": "butcher",
-      "Version": "0.3.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "butcher",
-      "RemoteRef": "butcher",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "0.3.0",
+      "Version": "0.3.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "butcher",
+      "RemoteUsername": "tidymodels",
+      "RemotePkgRef": "tidymodels/butcher",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "4e8360d0d0135eb85f7626d8566014e57198676a",
       "Requirements": [
         "R",
         "cli",
@@ -140,7 +140,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "8f520b5eb33dc2de3cf0a36f0b7db7f8"
+      "Hash": "1c296194e1979216dab4d3b4a5b75289"
     },
     "cli": {
       "Package": "cli",
@@ -569,15 +569,15 @@
     },
     "pins": {
       "Package": "pins",
-      "Version": "1.0.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "pins",
-      "RemoteRef": "pins",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-      "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.3",
+      "Version": "1.0.3.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "pins-r",
+      "RemoteUsername": "rstudio",
+      "RemotePkgRef": "pins=rstudio/pins-r",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "5dec8da719be63fb260d81e447c54a3fc463df03",
       "Requirements": [
         "R",
         "cli",
@@ -585,6 +585,7 @@
         "ellipsis",
         "filelock",
         "fs",
+        "generics",
         "glue",
         "httr",
         "jsonlite",
@@ -600,7 +601,7 @@
         "yaml",
         "zip"
       ],
-      "Hash": "0abcf051f8919126c54b92ec99c957ee"
+      "Hash": "c3d763d0b231f0842160ebebb773543b"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -963,7 +964,7 @@
       "Package": "vetiver",
       "Version": "0.1.8.9000",
       "Source": "Local",
-      "Remotes": "rstudio/pins-r",
+      "Remotes": "pins=rstudio/pins-r, tidymodels/butcher",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -986,7 +987,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "75db86d7327516c3ce09631d9a6fa264"
+      "Hash": "7b360cf635ac33494560e7fff54b5f05"
     },
     "vroom": {
       "Package": "vroom",
