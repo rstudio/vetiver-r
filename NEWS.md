@@ -1,6 +1,6 @@
 # vetiver (development version)
 
-* Added support for k-Prototypes clustering from clustMixType (#163, @galen-ft).
+* Added support for k-Prototypes clustering from clustMixType (#163, thanks to @galen-ft).
 
 * Now vendor renv directly in package (#157).
 
