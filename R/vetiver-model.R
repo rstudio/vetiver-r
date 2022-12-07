@@ -54,7 +54,7 @@ vetiver_model <- function(model,
 
     if (lifecycle::is_present(save_ptype)) {
         lifecycle::deprecate_soft(
-            "1.0.0",
+            "0.2.0",
             "vetiver_model(save_ptype)",
             "vetiver_model(save_prototype)"
         )
