@@ -15,7 +15,10 @@ test_that("can pin a model", {
 
 test_that("can pin a model with no ptype", {
     b <- board_temp()
-    v <- vetiver_model(cars_lm, "cars_null", save_ptype = FALSE)
+    expect_snapshot_warning(
+        v <- vetiver_model(cars_lm, "cars_null", save_ptype = FALSE)
+    )
+    v <- vetiver_model(cars_lm, "cars_null", save_prototype = FALSE)
     vetiver_pin_write(b, v)
     expect_equal(
         pin_read(b, "cars_null"),
@@ -29,7 +32,7 @@ test_that("can pin a model with no ptype", {
 
 test_that("can pin a model with custom ptype", {
     b <- board_temp()
-    v <- vetiver_model(cars_lm, "cars_custom", save_ptype = mtcars[3:10, 2:3])
+    v <- vetiver_model(cars_lm, "cars_custom", save_prototype = mtcars[3:10, 2:3])
     vetiver_pin_write(b, v)
     expect_equal(
         pin_read(b, "cars_custom"),
