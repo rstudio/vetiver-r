@@ -530,19 +530,19 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.0.4",
+      "Version": "2.0.5",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "RemoteType": "standard",
       "RemotePkgRef": "openssl",
       "RemoteRef": "openssl",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+      "RemoteRepos": "https://cloud.r-project.org",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.0.4",
+      "RemoteSha": "2.0.5",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "e86c5ffeb8474a9e03d75f5d2919683e"
+      "Hash": "b04c27110bf367b4daa93f34f3d58e75"
     },
     "pillar": {
       "Package": "pillar",
@@ -577,7 +577,7 @@
       "RemoteUsername": "rstudio",
       "RemotePkgRef": "pins=rstudio/pins-r",
       "RemoteRef": "HEAD",
-      "RemoteSha": "5dec8da719be63fb260d81e447c54a3fc463df03",
+      "RemoteSha": "95af5586bed14607caaea5610d438ad653793d7a",
       "Requirements": [
         "R",
         "cli",
@@ -601,7 +601,7 @@
         "yaml",
         "zip"
       ],
-      "Hash": "c3d763d0b231f0842160ebebb773543b"
+      "Hash": "f627b560a5fb0d845e08b074aad01976"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -987,7 +987,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "7b360cf635ac33494560e7fff54b5f05"
+      "Hash": "69900a5f628ec38623e6220ab12a2c04"
     },
     "vroom": {
       "Package": "vroom",
@@ -1040,7 +1040,7 @@
     },
     "whisker": {
       "Package": "whisker",
-      "Version": "0.4",
+      "Version": "0.4.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -1048,9 +1048,9 @@
       "RemoteRef": "whisker",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.4",
+      "RemoteSha": "0.4.1",
       "Requirements": [],
-      "Hash": "ca970b96d894e90397ed20637a0c1bbe"
+      "Hash": "c6abfa47a46d281a7d5159d0a8891e88"
     },
     "withr": {
       "Package": "withr",

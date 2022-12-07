@@ -1,8 +1,8 @@
 pandoc: 2.19.2
 pkgdown: 2.0.6.9000
-pkgdown_sha: 977a429ed34c4b76e0982dfc2d656bcae159d81f
+pkgdown_sha: 03f912fc18522c6e41a66c0094acc68845b0147a
 articles:
   model-card: model-card.html
   vetiver: vetiver.html
-last_built: 2022-12-02T23:42Z
+last_built: 2022-12-07T17:50Z
 
