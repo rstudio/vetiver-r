@@ -22,7 +22,7 @@ vetiver_ptype.ranger <- function(model, ...) {
     rlang::check_dots_used()
     dots <- list(...)
     check_ptype_data(dots)
-    ptype <- vctrs::vec_ptype(dots$ptype_data)
+    ptype <- vctrs::vec_ptype(dots$prototype_data)
     tibble::as_tibble(ptype)
 }
 

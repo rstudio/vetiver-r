@@ -4,13 +4,13 @@ skip_if_not_installed("plumber")
 library(plumber)
 set.seed(123)
 cars_rf <- ranger::ranger(mpg ~ ., data = mtcars, quantreg = TRUE)
-v <- vetiver_model(cars_rf, "cars3", ptype_data = mtcars[,-1])
+v <- vetiver_model(cars_rf, "cars3", prototype_data = mtcars[,-1])
 
 test_that("can print ranger model", {
     expect_snapshot(v)
 })
 
-test_that("error for no ptype_data with ranger", {
+test_that("error for no prototype_data with ranger", {
     expect_snapshot(vetiver_model(cars_rf, "cars3"), error = TRUE)
 })
 
