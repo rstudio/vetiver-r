@@ -10,6 +10,8 @@
 
 * New function `vetiver_prepare_docker()` creates all necessary files to deploy a basic vetiver model via Docker (#165).
 
+* Fixed a bug in handling all-`NA` columns when predicting on a `vetiver_endpoint()` (#169).
+
 # vetiver 0.1.8
 
 * Trailing slashes are now removed from `vetiver_endpoint()` (#134).
