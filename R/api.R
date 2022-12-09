@@ -6,9 +6,10 @@
 #' @param pr A Plumber router, such as from [plumber::pr()].
 #' @param vetiver_model A deployable [vetiver_model()] object
 #' @param ... Other arguments passed to `predict()`, such as prediction `type`
-#' @param check_ptype Should the `ptype` stored in `vetiver_model` (used for
-#' visual API documentation) also be used to check new data at prediction time?
-#' Defaults to `TRUE`.
+#' @param check_prototype Should the input data prototype stored in
+#' `vetiver_model` (used for visual API documentation) also be used to check
+#' new data at prediction time? Defaults to `TRUE`.
+#' @param check_ptype `r lifecycle::badge("deprecated")`
 #' @param all_docs Should the interactive visual API documentation be created
 #' for _all_ POST endpoints in the router `pr`? This defaults to `TRUE`, and
 #' assumes that all POST endpoints use the `vetiver_model$ptype` input data
@@ -74,10 +75,21 @@ vetiver_pr_post <- function(pr,
                             path = "/predict",
                             debug = is_interactive(),
                             ...,
-                            check_ptype = TRUE) {
+                            check_prototype = TRUE,
+                            check_ptype = deprecated()) {
     rlang::check_installed("plumber")
     # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
     rlang::list2(...)
+
+    if (lifecycle::is_present(check_ptype)) {
+        lifecycle::deprecate_soft(
+            "0.2.0",
+            "vetiver_pr_post(check_ptype)",
+            "vetiver_pr_post(check_prototype)"
+        )
+        check_prototype <- check_ptype
+    }
+
     handler_startup(vetiver_model)
     pr <- plumber::pr_set_debug(pr, debug = debug)
     pr <- plumber::pr_get(
@@ -92,7 +104,7 @@ vetiver_pr_post <- function(pr,
             function() vetiver_model$metadata$url
         )
     }
-    if (!check_ptype) {
+    if (!check_prototype) {
         vetiver_model$ptype <- NULL
     }
     pr <- plumber::pr_post(

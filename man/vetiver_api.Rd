@@ -20,7 +20,8 @@ vetiver_pr_post(
   path = "/predict",
   debug = is_interactive(),
   ...,
-  check_ptype = TRUE
+  check_prototype = TRUE,
+  check_ptype = deprecated()
 )
 
 vetiver_pr_docs(pr, vetiver_model, path = "/predict", all_docs = TRUE)
@@ -36,9 +37,11 @@ vetiver_pr_docs(pr, vetiver_model, path = "/predict", all_docs = TRUE)
 
 \item{...}{Other arguments passed to \code{predict()}, such as prediction \code{type}}
 
-\item{check_ptype}{Should the \code{ptype} stored in \code{vetiver_model} (used for
-visual API documentation) also be used to check new data at prediction time?
-Defaults to \code{TRUE}.}
+\item{check_prototype}{Should the input data prototype stored in
+\code{vetiver_model} (used for visual API documentation) also be used to check
+new data at prediction time? Defaults to \code{TRUE}.}
+
+\item{check_ptype}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{all_docs}{Should the interactive visual API documentation be created
 for \emph{all} POST endpoints in the router \code{pr}? This defaults to \code{TRUE}, and
