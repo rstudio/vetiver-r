@@ -2,7 +2,9 @@
 
 ## Breaking changes
 
-* When creating a `vetiver_model()`, the argument for saving input data prototype has changed to `save_prototype`, from `save_ptype` (#166).
+* The arguments for dealing with a model's input data prototype have changed from using `ptype` to using `prototype` (#166): 
+    * In `vetiver_model()`, now use `save_prototype`.
+    * In `vetiver_api()`, now use `check_prototype`.
 
 ## Other improvements
 
