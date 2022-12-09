@@ -74,7 +74,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
             url = meta$local$url,
             required_pkgs = pinned$required_pkgs
         ),
-        ptype = pinned$ptype,
+        ptype = pinned$prototype %||% pinned$ptype,
         versioned = board$versioned
     )
 }
