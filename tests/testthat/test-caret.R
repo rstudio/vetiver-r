@@ -31,7 +31,7 @@ test_that("can pin a caret model", {
         pin_read(b, "cars_rf"),
         list(
             model = bundle::bundle(butcher::butcher(rf_fit)),
-            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:4]), 0),
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:4]), 0),
             required_pkgs = c("caret", "dplyr", "e1071", "ranger")
         )
     )

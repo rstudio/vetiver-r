@@ -111,7 +111,7 @@ test_that("OpenAPI spec with additional endpoint", {
 
     another_handler <- function(req) {
         newdata <- req$body
-        sum(newdata[names(v$ptype)])
+        sum(newdata[names(v$prototype)])
     }
 
     p <- pr() %>%

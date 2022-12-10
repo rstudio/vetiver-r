@@ -27,7 +27,7 @@ test_that("can pin an ranger model", {
     pinned <- pin_read(b, "cars3")
     expect_equal(pinned$model, butcher::butcher(cars_rf))
     expect_equal(
-        pinned$ptype,
+        pinned$prototype,
         vctrs::vec_slice(tibble::as_tibble(mtcars[,-1]), 0)
     )
     expect_equal(
