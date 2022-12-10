@@ -18,7 +18,7 @@
 #' checking), or a dataframe to be used for both checking at prediction time
 #' *and* examples in API visual documentation.
 #' @param save_ptype `r lifecycle::badge("deprecated")`
-#' @param ptype An input data prototype. If `NULL`, there is no checking of
+#' @param prototype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned when stored with
 #' [vetiver_pin_write()]? The default, `NULL`, will use the default for the
@@ -63,7 +63,7 @@ vetiver_model <- function(model,
     if (is_null(description)) {
         description <- vetiver_create_description(model)
     }
-    ptype <- vetiver_create_ptype(model, save_prototype, ...)
+    prototype <- vetiver_create_ptype(model, save_prototype, ...)
     metadata <- vetiver_create_meta(model, metadata)
     model <- vetiver_prepare_model(model)
 
@@ -72,7 +72,7 @@ vetiver_model <- function(model,
         model_name = model_name,
         description = as.character(description),
         metadata = metadata,
-        ptype = ptype,
+        prototype = prototype,
         versioned = versioned
     )
 }
@@ -83,7 +83,7 @@ new_vetiver_model <- function(model,
                               model_name,
                               description,
                               metadata,
-                              ptype,
+                              prototype,
                               versioned) {
 
     data <- list(
@@ -91,7 +91,7 @@ new_vetiver_model <- function(model,
         model_name = model_name,
         description = description,
         metadata = metadata,
-        ptype = ptype,
+        prototype = prototype,
         versioned = versioned
     )
 
@@ -107,7 +107,7 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
+        cli::cli_text("{x$description} using {ncol(x$prototype)} feature{?s}")
     })
 }
 

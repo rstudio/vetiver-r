@@ -36,7 +36,7 @@ handler_startup.ranger <- function(vetiver_model) {
 #' @export
 handler_predict.ranger <- function(vetiver_model, ...) {
 
-    ptype <- vetiver_model$ptype
+    ptype <- vetiver_model$prototype
 
     function(req) {
         new_data <- req$body

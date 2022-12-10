@@ -12,7 +12,7 @@
 #' @param check_ptype `r lifecycle::badge("deprecated")`
 #' @param all_docs Should the interactive visual API documentation be created
 #' for _all_ POST endpoints in the router `pr`? This defaults to `TRUE`, and
-#' assumes that all POST endpoints use the `vetiver_model$ptype` input data
+#' assumes that all POST endpoints use the [vetiver_model()] input data
 #' prototype.
 #' @inheritParams plumber::pr_post
 #' @inheritParams plumber::pr_set_debug
@@ -105,7 +105,7 @@ vetiver_pr_post <- function(pr,
         )
     }
     if (!check_prototype) {
-        vetiver_model$ptype <- NULL
+        vetiver_model$prototype <- NULL
     }
     pr <- plumber::pr_post(
         pr,

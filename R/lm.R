@@ -14,15 +14,15 @@ vetiver_prepare_model.lm <- function(model) {
 #' @export
 vetiver_ptype.lm <- function(model, ...) {
     pred_names <- preds_lm_ish(model)
-    ptype <- vctrs::vec_ptype(model$model[pred_names])
-    tibble::as_tibble(ptype)
+    prototype <- vctrs::vec_ptype(model$model[pred_names])
+    tibble::as_tibble(prototype)
 }
 
 #' @rdname handler_startup
 #' @export
 handler_predict.lm <- function(vetiver_model, ...) {
 
-    ptype <- vetiver_model$ptype
+    ptype <- vetiver_model$prototype
 
     function(req) {
         newdata <- req$body
