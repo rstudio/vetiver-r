@@ -16,7 +16,14 @@ vetiver_model(
   versioned = NULL
 )
 
-new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
+new_vetiver_model(
+  model,
+  model_name,
+  description,
+  metadata,
+  prototype,
+  versioned
+)
 }
 \arguments{
 \item{model}{A trained model, such as an \code{lm()} model or a tidymodels
@@ -47,7 +54,7 @@ checking), or a dataframe to be used for both checking at prediction time
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}? The default, \code{NULL}, will use the default for the
 \code{board} where you store the model.}
 
-\item{ptype}{An input data prototype. If \code{NULL}, there is no checking of
+\item{prototype}{An input data prototype. If \code{NULL}, there is no checking of
 new data at prediction time.}
 }
 \value{

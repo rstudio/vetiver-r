@@ -45,7 +45,7 @@ new data at prediction time? Defaults to \code{TRUE}.}
 
 \item{all_docs}{Should the interactive visual API documentation be created
 for \emph{all} POST endpoints in the router \code{pr}? This defaults to \code{TRUE}, and
-assumes that all POST endpoints use the \code{vetiver_model$ptype} input data
+assumes that all POST endpoints use the \code{\link[=vetiver_model]{vetiver_model()}} input data
 prototype.}
 }
 \value{

@@ -27,13 +27,13 @@ training_df <- tibble(x = as.Date("2021-01-01") + 0:9,
                       y = LETTERS[1:10], z = letters[11:20])
 training_df
 
-ptype <- vctrs::vec_slice(training_df, 0)
-vetiver_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), ptype)
+prototype <- vctrs::vec_slice(training_df, 0)
+vetiver_type_convert(tibble(x = "2021-02-01", y = "J", z = "k"), prototype)
 
 ## unsuccessful conversion generates an error:
-try(vetiver_type_convert(tibble(x = "potato", y = "J", z = "k"), ptype))
+try(vetiver_type_convert(tibble(x = "potato", y = "J", z = "k"), prototype))
 
 ## error for missing column:
-try(vetiver_type_convert(tibble(x = "potato", y = "J"), ptype))
+try(vetiver_type_convert(tibble(x = "potato", y = "J"), prototype))
 
 }
