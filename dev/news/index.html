@@ -54,15 +54,6 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="vetiver-development-version">vetiver (development version)<a class="anchor" aria-label="anchor" href="#vetiver-development-version"></a></h2>
-<ul><li><p>Added support for k-Prototypes clustering from clustMixType (<a href="https://github.com/rstudio/vetiver-r/issues/163" class="external-link">#163</a>, thanks to <a href="https://github.com/galen-ft" class="external-link">@galen-ft</a>).</p></li>
-<li><p>Now vendor renv directly in package (<a href="https://github.com/rstudio/vetiver-r/issues/157" class="external-link">#157</a>).</p></li>
-<li><p>Fixed how <code><a href="../reference/vetiver_create_ptype.html">vetiver_ptype()</a></code> finds predictors for models (<code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> and <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>) with interactions (<a href="https://github.com/rstudio/vetiver-r/issues/160" class="external-link">#160</a>).</p></li>
-<li><p>New argument added to <code><a href="../reference/vetiver_write_docker.html">vetiver_write_docker()</a></code> to pass in additional packages to be installed, such as <code>required_pkgs(board)</code> (<a href="https://github.com/rstudio/vetiver-r/issues/159" class="external-link">#159</a>).</p></li>
-<li><p>New function <code><a href="../reference/vetiver_prepare_docker.html">vetiver_prepare_docker()</a></code> creates all necessary files to deploy a basic vetiver model via Docker (<a href="https://github.com/rstudio/vetiver-r/issues/165" class="external-link">#165</a>).</p></li>
-<li><p>Fixed a bug in handling all-<code>NA</code> columns when predicting on a <code><a href="../reference/vetiver_endpoint.html">vetiver_endpoint()</a></code> (<a href="https://github.com/rstudio/vetiver-r/issues/169" class="external-link">#169</a>).</p></li>
-</ul></div>
-    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.8" id="vetiver-018">vetiver 0.1.8<a class="anchor" aria-label="anchor" href="#vetiver-018"></a></h2><p class="text-muted">CRAN release: 2022-09-29</p>
 <ul><li><p>Trailing slashes are now removed from <code><a href="../reference/vetiver_endpoint.html">vetiver_endpoint()</a></code> (<a href="https://github.com/rstudio/vetiver-r/issues/134" class="external-link">#134</a>).</p></li>
 <li><p>Added support for GAMs from mgcv (<a href="https://github.com/rstudio/vetiver-r/issues/135" class="external-link">#135</a>) and stacks (<a href="https://github.com/rstudio/vetiver-r/issues/138" class="external-link">#138</a>).</p></li>

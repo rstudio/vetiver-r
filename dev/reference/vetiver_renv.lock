@@ -225,7 +225,7 @@
     },
     "digest": {
       "Package": "digest",
-      "Version": "0.6.30",
+      "Version": "0.6.31",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -233,12 +233,12 @@
       "RemoteRef": "digest",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.6.30",
+      "RemoteSha": "0.6.31",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "bf1cd206a5d170d132ef75c7537b9bdb"
+      "Hash": "8b708f296afd9ae69f450f9640be8990"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -577,7 +577,7 @@
       "RemoteUsername": "rstudio",
       "RemotePkgRef": "pins=rstudio/pins-r",
       "RemoteRef": "HEAD",
-      "RemoteSha": "95af5586bed14607caaea5610d438ad653793d7a",
+      "RemoteSha": "18e9ba83868c02418e73ad9763183a82648be86c",
       "Requirements": [
         "R",
         "cli",
@@ -601,7 +601,7 @@
         "yaml",
         "zip"
       ],
-      "Hash": "f627b560a5fb0d845e08b074aad01976"
+      "Hash": "b4e57b2df9e917a76f89f64158cff392"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -666,11 +666,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "Repository",
+      "Source": "any",
       "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "progress",
-      "RemoteRef": "progress",
+      "RemoteType": "any",
+      "RemotePkgRef": "any::progress",
+      "RemoteRef": "any::progress",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -680,7 +680,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+      "Hash": "19dd27c830113b0f5d92ac92306fa5f8"
     },
     "promises": {
       "Package": "promises",

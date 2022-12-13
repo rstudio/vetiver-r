@@ -81,11 +81,19 @@ created, you can:</p><ul><li><p>store and version it as a pin with <code><a href
 <span>  <span class="va">...</span>,</span>
 <span>  description <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  save_ptype <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  save_prototype <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  save_ptype <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  versioned <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">new_vetiver_model</span><span class="op">(</span><span class="va">model</span>, <span class="va">model_name</span>, <span class="va">description</span>, <span class="va">metadata</span>, <span class="va">ptype</span>, <span class="va">versioned</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">new_vetiver_model</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  <span class="va">model_name</span>,</span>
+<span>  <span class="va">description</span>,</span>
+<span>  <span class="va">metadata</span>,</span>
+<span>  <span class="va">prototype</span>,</span>
+<span>  <span class="va">versioned</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -101,7 +109,7 @@ created, you can:</p><ul><li><p>store and version it as a pin with <code><a href
 
 <dt>...</dt>
 <dd><p>Other method-specific arguments passed to <code><a href="vetiver_create_ptype.html">vetiver_ptype()</a></code>
-to compute an input data prototype, such as <code>ptype_data</code> (a sample of
+to compute an input data prototype, such as <code>prototype_data</code> (a sample of
 training features).</p></dd>
 
 
@@ -116,12 +124,16 @@ When retrieving the pin, this will be stored in the <code>user</code> key, to
 avoid potential clashes with the metadata that pins itself uses.</p></dd>
 
 
-<dt>save_ptype</dt>
+<dt>save_prototype</dt>
 <dd><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
 training data), <code>FALSE</code> (no input data prototype for visual documentation or
 checking), or a dataframe to be used for both checking at prediction time
 <em>and</em> examples in API visual documentation.</p></dd>
+
+
+<dt>save_ptype</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p></dd>
 
 
 <dt>versioned</dt>
@@ -130,7 +142,7 @@ checking), or a dataframe to be used for both checking at prediction time
 <code>board</code> where you store the model.</p></dd>
 
 
-<dt>ptype</dt>
+<dt>prototype</dt>
 <dd><p>An input data prototype. If <code>NULL</code>, there is no checking of
 new data at prediction time.</p></dd>
 
@@ -143,7 +155,7 @@ new data at prediction time.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>You can provide your own data to <code>save_ptype</code> to use as examples in the
+    <p>You can provide your own data to <code>save_prototype</code> to use as examples in the
 visual documentation created by <code><a href="vetiver_api.html">vetiver_api()</a></code>. If you do this,
 consider checking that your input data prototype has the same structure
 as your training data (perhaps with <code><a href="https://hardhat.tidymodels.org/reference/scream.html" class="external-link">hardhat::scream()</a></code>) and/or simulating

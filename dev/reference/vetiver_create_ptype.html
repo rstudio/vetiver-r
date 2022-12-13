@@ -83,7 +83,7 @@
 <span><span class="co"># S3 method for default</span></span>
 <span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_ptype</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">save_prototype</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for ranger</span></span>
 <span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -107,11 +107,11 @@
 
 <dt>...</dt>
 <dd><p>Other method-specific arguments passed to <code>vetiver_ptype()</code>
-to compute an input data prototype, such as <code>ptype_data</code> (a sample of
+to compute an input data prototype, such as <code>prototype_data</code> (a sample of
 training features).</p></dd>
 
 
-<dt>save_ptype</dt>
+<dt>save_prototype</dt>
 <dd><p>Should an input data prototype be stored with the model?
 The options are <code>TRUE</code> (the default, which stores a zero-row slice of the
 training data), <code>FALSE</code> (no input data prototype for visual documentation or
@@ -125,16 +125,16 @@ checking), or a dataframe to be used for both checking at prediction time
 
 <p>A <code>vetiver_ptype</code> method returns a zero-row dataframe, and
 <code>vetiver_create_ptype()</code> returns either such a zero-row dataframe, <code>NULL</code>,
-or the dataframe passed to <code>save_ptype</code>.</p>
+or the dataframe passed to <code>save_prototype</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>These are developer-facing functions, useful for supporting new model types.
 A <code><a href="vetiver_model.html">vetiver_model()</a></code> object optionally stores an input data prototype for
-checking at prediction time.</p><ul><li><p>The default for <code>save_ptype</code>, <code>TRUE</code>, finds an input data prototype (a
+checking at prediction time.</p><ul><li><p>The default for <code>save_prototype</code>, <code>TRUE</code>, finds an input data prototype (a
 zero-row slice of the training data) via <code>vetiver_ptype()</code>.</p></li>
-<li><p><code>save_ptype = FALSE</code> opts out of storing any input data prototype.</p></li>
-<li><p>You may pass your own data to <code>save_ptype</code>, but be sure to check that it
+<li><p><code>save_prototype = FALSE</code> opts out of storing any input data prototype.</p></li>
+<li><p>You may pass your own data to <code>save_prototype</code>, but be sure to check that it
 has the same structure as your training data, perhaps with
 <code><a href="https://hardhat.tidymodels.org/reference/scream.html" class="external-link">hardhat::scream()</a></code>.</p></li>
 </ul></div>
@@ -153,12 +153,12 @@ has the same structure as your training data, perhaps with
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## can also turn off `ptype`</span></span></span>
+<span class="r-in"><span><span class="co">## can also turn off prototype</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="co">## some models require that you pass in training features</span></span></span>
 <span class="r-in"><span><span class="va">cars_rf</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, ptype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, prototype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;, drat &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wt &lt;dbl&gt;, qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;, carb &lt;dbl&gt;</span></span>
