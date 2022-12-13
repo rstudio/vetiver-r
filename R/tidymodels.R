@@ -43,7 +43,7 @@ handler_predict.workflow <- function(vetiver_model, ...) {
 
     function(req) {
         new_data <- req$body
-        new_data <-  vetiver_type_convert(new_data, vetiver_model$ptype)
+        new_data <-  vetiver_type_convert(new_data, vetiver_model$prototype)
         predict(vetiver_model$model, new_data = new_data, ...)
     }
 }

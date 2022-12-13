@@ -22,7 +22,7 @@ test_that("can pin a glm model", {
         pinned,
         list(
             model = butcher::butcher(mtcars_glm),
-            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
             required_pkgs = NULL
         ),
         ignore_function_env = TRUE,
@@ -67,7 +67,7 @@ test_that("create plumber.R for glm", {
 })
 
 
-test_that("ptype for glm with interactions", {
+test_that("prototype for glm with interactions", {
     cars_interaction <- glm(mpg ~ cyl * vs + disp, data = mtcars)
     expect_equal(
         vetiver_create_ptype(cars_interaction, TRUE),

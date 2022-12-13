@@ -1,4 +1,12 @@
-# vetiver (development version)
+# vetiver (development version, to be released as 0.2.0)
+
+## Breaking changes
+
+* The arguments for dealing with a model's input data prototype have changed from using `ptype` to using `prototype` (#166): 
+    * In `vetiver_model()`, now use `save_prototype`.
+    * In `vetiver_api()`, now use `check_prototype`.
+
+## Other improvements
 
 * Added support for k-Prototypes clustering from clustMixType (#163, thanks to @galen-ft).
 

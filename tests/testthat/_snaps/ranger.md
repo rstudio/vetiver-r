@@ -7,14 +7,14 @@
       -- cars3 - <ranger> model for deployment 
       A ranger regression model using 10 features
 
-# error for no ptype_data with ranger
+# error for no prototype_data with ranger
 
     Code
       vetiver_model(cars_rf, "cars3")
     Condition
       Error in `vetiver_ptype()`:
-      ! No `ptype_data` available to create an input data prototype
-      * Pass at least one row of training features as `ptype_data`
+      ! No `prototype_data` available to create an input data prototype
+      * Pass at least one row of training features as `prototype_data`
       * See the documentation for `vetiver_ptype()`
 
 # create plumber.R for ranger

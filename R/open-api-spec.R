@@ -7,7 +7,7 @@
 #' types. For example, factors in R will be documented as strings in the
 #' OpenAPI specification.
 #'
-#' @param ptype An input data prototype from a model
+#' @param prototype An input data prototype from a model
 #'
 #' @return A list to be used within [plumber::pr_set_api_spec()]
 #'
@@ -19,20 +19,20 @@
 #' map_request_body(vctrs::vec_slice(chickwts, 0))
 #'
 #' @export
-map_request_body <- function(ptype) {
+map_request_body <- function(prototype) {
     UseMethod("map_request_body")
 }
 
 #' @export
-map_request_body.default <- function(ptype) {
-    abort("There is no method available to create visual documentation for `ptype`.")
+map_request_body.default <- function(prototype) {
+    abort("There is no method available to create visual documentation for `prototype`.")
 }
 
 #' @export
-map_request_body.data.frame <- function(ptype) {
-    ptype_prop <- map_ptype(ptype)
+map_request_body.data.frame <- function(prototype) {
+    ptype_prop <- map_ptype(prototype)
 
-    if (nrow(ptype) > 0) {
+    if (nrow(prototype) > 0) {
         schema_list <- list(
             type = "array",
             minItems = 1,
@@ -40,7 +40,7 @@ map_request_body.data.frame <- function(ptype) {
                 type = "object",
                 properties = ptype_prop
             ),
-            example = purrr::pmap(ptype, list)
+            example = purrr::pmap(prototype, list)
         )
     } else {
         schema_list <- list(
@@ -73,9 +73,9 @@ map_ptype <- function(ptype) {
 
 
 #' @export
-map_request_body.array <- function(ptype) {
+map_request_body.array <- function(prototype) {
 
-    dims <- dim(ptype)
+    dims <- dim(prototype)
     ptype_prop <- map(dims, ~ list(type = "array",
                                    minItems = .x,
                                    maxItems = .x,
@@ -90,7 +90,7 @@ map_request_body.array <- function(ptype) {
                 type = "object",
                 properties = ptype_prop
             ),
-            example = ptype
+            example = prototype
         )
     } else {
         schema_list <- list(
@@ -125,7 +125,7 @@ map_request_body.array <- function(ptype) {
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' v <- vetiver_model(cars_lm, "cars_linear")
 #'
-#' glue_spec_summary(v$ptype)
+#' glue_spec_summary(v$prototype)
 #'
 #' modify_spec <- function(spec) api_spec(spec, v, "/predict")
 #' pr() %>% pr_set_api_spec(api = modify_spec)
@@ -142,7 +142,7 @@ api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     }
 
 
-    ptype <- vetiver_model$ptype
+    ptype <- vetiver_model$prototype
     if (is_null(ptype)) {
         request_body <- map_request_body(tibble::tibble(NULL))
         summary <- "Return predictions from model"
@@ -178,25 +178,25 @@ update_spec <- function(spec, endpoint, summary, request_body) {
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary <- function(ptype, return_type) {
+glue_spec_summary <- function(prototype, return_type) {
     UseMethod("glue_spec_summary")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.default <- function(ptype, return_type = NULL) {
+glue_spec_summary.default <- function(prototype, return_type = NULL) {
     abort("There is no method available to create a spec summary for `ptype`.")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.data.frame <- function(ptype, return_type = "predictions") {
-    cli::pluralize("Return {return_type} from model using {ncol(ptype)} feature{?s}")
+glue_spec_summary.data.frame <- function(prototype, return_type = "predictions") {
+    cli::pluralize("Return {return_type} from model using {ncol(prototype)} feature{?s}")
 }
 
 #' @rdname api_spec
 #' @export
-glue_spec_summary.array <- function(ptype, return_type = "predictions") {
+glue_spec_summary.array <- function(prototype, return_type = "predictions") {
     "Return {return_type} from model using multidimensional array"
 }
 

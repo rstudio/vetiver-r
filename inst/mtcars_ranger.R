@@ -3,7 +3,7 @@ library(pins)
 library(plumber)
 
 cars_rf <- ranger::ranger(mpg ~ ., data = mtcars, quantreg = TRUE)
-v <- vetiver_model(cars_rf, "cars_ranger", ptype_data = mtcars[,-1])
+v <- vetiver_model(cars_rf, "cars_ranger", prototype_data = mtcars[,-1])
 
 model_board <- board_folder(path = "/tmp/test")
 vetiver_pin_write(model_board, v)

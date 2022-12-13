@@ -38,7 +38,7 @@ handler_startup.Learner <- function(vetiver_model) {
 handler_predict.Learner <- function(vetiver_model, ...) {
     function(req) {
         new_data <- req$body
-        new_data <-  vetiver_type_convert(new_data, vetiver_model$ptype)
+        new_data <-  vetiver_type_convert(new_data, vetiver_model$prototype)
         pred <- vetiver_model$model$predict_newdata(newdata = new_data)
         stats::setNames(list(pred$response), vetiver_model$model$state$train_task$target_names)
     }

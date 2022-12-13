@@ -4,10 +4,10 @@
 \alias{map_request_body}
 \title{Identify data types for each column in an input data prototype}
 \usage{
-map_request_body(ptype)
+map_request_body(prototype)
 }
 \arguments{
-\item{ptype}{An input data prototype from a model}
+\item{prototype}{An input data prototype from a model}
 }
 \value{
 A list to be used within \code{\link[plumber:pr_set_api_spec]{plumber::pr_set_api_spec()}}
