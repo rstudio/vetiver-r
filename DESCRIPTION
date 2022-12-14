@@ -19,7 +19,7 @@ Depends:
     R (>= 3.4)
 Imports:
     bundle,
-    butcher,
+    butcher (>= 0.3.1),
     cli,
     fs,
     generics,
