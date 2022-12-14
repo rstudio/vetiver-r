@@ -120,15 +120,15 @@
     },
     "butcher": {
       "Package": "butcher",
-      "Version": "0.3.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "butcher",
-      "RemoteUsername": "tidymodels",
-      "RemotePkgRef": "tidymodels/butcher",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "4e8360d0d0135eb85f7626d8566014e57198676a",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "butcher",
+      "RemoteRef": "butcher",
+      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "0.3.0",
       "Requirements": [
         "R",
         "cli",
@@ -140,7 +140,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "1c296194e1979216dab4d3b4a5b75289"
+      "Hash": "8f520b5eb33dc2de3cf0a36f0b7db7f8"
     },
     "cli": {
       "Package": "cli",
@@ -964,7 +964,7 @@
       "Package": "vetiver",
       "Version": "0.1.8.9000",
       "Source": "Local",
-      "Remotes": "pins=rstudio/pins-r, tidymodels/butcher",
+      "Remotes": "pins=rstudio/pins-r",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -987,7 +987,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "69900a5f628ec38623e6220ab12a2c04"
+      "Hash": "5e8a5ed0cbf846af99d83b70163b92ab"
     },
     "vroom": {
       "Package": "vroom",
