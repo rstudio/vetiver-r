@@ -120,15 +120,15 @@
     },
     "butcher": {
       "Package": "butcher",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "RemoteType": "standard",
       "RemotePkgRef": "butcher",
       "RemoteRef": "butcher",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://cloud.r-project.org",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.3.0",
+      "RemoteSha": "0.3.1",
       "Requirements": [
         "R",
         "cli",
@@ -140,7 +140,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "8f520b5eb33dc2de3cf0a36f0b7db7f8"
+      "Hash": "30aee833901f64898b9f9a6b248bac04"
     },
     "cli": {
       "Package": "cli",
@@ -987,7 +987,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "5e8a5ed0cbf846af99d83b70163b92ab"
+      "Hash": "b69fc41a620adc0f1beb2d8ad5f8fa83"
     },
     "vroom": {
       "Package": "vroom",
