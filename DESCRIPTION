@@ -27,7 +27,7 @@ Imports:
     hardhat,
     lifecycle,
     magrittr (>= 2.0.3),
-    pins (>= 1.0.3),
+    pins (>= 1.0.3.9000),
     purrr,
     rapidoc,
     readr (>= 1.4.0),
@@ -39,6 +39,7 @@ Suggests:
     arrow,
     callr,
     caret,
+    clustMixType,
     covr,
     curl,
     dplyr,
@@ -75,9 +76,10 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes: 
-    rstudio/pins-r
+    pins=rstudio/pins-r,
+    tidymodels/butcher
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2

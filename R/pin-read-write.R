@@ -43,7 +43,7 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
     lockfile <- character(0)
 
     if (check_renv) {
-        pkgs <- vetiver_required_pkgs(vetiver_model$metadata$required_pkgs)
+        pkgs <- c(vetiver_model$metadata$required_pkgs, "vetiver")
         lockfile <-
             renv$snapshot(
                 lockfile = NULL,
@@ -55,12 +55,9 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 
     pins::pin_write(
         board = board,
-        x = list(
-            model = vetiver_model$model,
-            ptype = vetiver_model$ptype,
-            required_pkgs = vetiver_model$metadata$required_pkgs,
-            lockfile = lockfile
-        ),
+        x = list(model = vetiver_model$model,
+                 prototype = vetiver_model$prototype,
+                 required_pkgs = vetiver_model$metadata$required_pkgs),
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
@@ -106,7 +103,7 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
             url = meta$local$url,
             required_pkgs = pinned$required_pkgs
         ),
-        ptype = pinned$ptype,
+        prototype = pinned$prototype %||% pinned$ptype,
         versioned = board$versioned
     )
 }

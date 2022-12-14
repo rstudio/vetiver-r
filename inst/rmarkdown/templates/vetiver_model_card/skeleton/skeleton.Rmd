@@ -5,7 +5,7 @@ output:
   html_document
 params:
     board: !r pins::board_rsconnect()
-    name: julia.silge/sacramento_rf
+    name: julia.silge/sacramento-rf
     version: NULL
 ---
 
@@ -25,7 +25,7 @@ A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transpar
 ## Model details
 
 - Developed by PERSON AND/OR TEAM
-- `r cli::pluralize("{v$description} using {ncol(v$ptype)} feature{?s}")`
+- `r cli::pluralize("{v$description} using {ncol(v$prototype)} feature{?s}")`
 - More details about how model was developed and what it is predicting
 - More details on feature engineering and/or data preprocessing for model
 - Version `r v$metadata$version` of this model was published at `r v_meta$created`
@@ -55,7 +55,7 @@ A [model card](https://doi.org/10.1145/3287560.3287596) provides brief, transpar
 - The training dataset for this model has the "prototype" or signature:
 
     ```{r}
-    glimpse(v$ptype)
+    glimpse(v$prototype)
     ```
 
 - The evaluation dataset used in this model card is ...
@@ -75,8 +75,9 @@ data(Sacramento, package = "modeldata")
 
 ```{r}
 ## compute predictions for your evaluation data
-## `handler_startup` is designed to get the R process ready to make predictions
-suppressPackageStartupMessages(handler_startup(v))
+## load packages needed for prediction:
+library(parsnip)
+library(workflows)
 preds <- augment(v, Sacramento)
 ```
 

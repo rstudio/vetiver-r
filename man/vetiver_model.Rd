@@ -11,11 +11,19 @@ vetiver_model(
   ...,
   description = NULL,
   metadata = list(),
-  save_ptype = TRUE,
+  save_prototype = TRUE,
+  save_ptype = deprecated(),
   versioned = NULL
 )
 
-new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
+new_vetiver_model(
+  model,
+  model_name,
+  description,
+  metadata,
+  prototype,
+  versioned
+)
 }
 \arguments{
 \item{model}{A trained model, such as an \code{lm()} model or a tidymodels
@@ -24,7 +32,7 @@ new_vetiver_model(model, model_name, description, metadata, ptype, versioned)
 \item{model_name}{Model name or ID.}
 
 \item{...}{Other method-specific arguments passed to \code{\link[=vetiver_ptype]{vetiver_ptype()}}
-to compute an input data prototype, such as \code{ptype_data} (a sample of
+to compute an input data prototype, such as \code{prototype_data} (a sample of
 training features).}
 
 \item{description}{A detailed description of the model. If omitted, a brief
@@ -34,17 +42,19 @@ description of the model will be generated.}
 When retrieving the pin, this will be stored in the \code{user} key, to
 avoid potential clashes with the metadata that pins itself uses.}
 
-\item{save_ptype}{Should an input data prototype be stored with the model?
+\item{save_prototype}{Should an input data prototype be stored with the model?
 The options are \code{TRUE} (the default, which stores a zero-row slice of the
 training data), \code{FALSE} (no input data prototype for visual documentation or
 checking), or a dataframe to be used for both checking at prediction time
 \emph{and} examples in API visual documentation.}
 
+\item{save_ptype}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
+
 \item{versioned}{Should the model object be versioned when stored with
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}? The default, \code{NULL}, will use the default for the
 \code{board} where you store the model.}
 
-\item{ptype}{An input data prototype. If \code{NULL}, there is no checking of
+\item{prototype}{An input data prototype. If \code{NULL}, there is no checking of
 new data at prediction time.}
 }
 \value{
@@ -60,7 +70,7 @@ created, you can:
 }
 }
 \details{
-You can provide your own data to \code{save_ptype} to use as examples in the
+You can provide your own data to \code{save_prototype} to use as examples in the
 visual documentation created by \code{\link[=vetiver_api]{vetiver_api()}}. If you do this,
 consider checking that your input data prototype has the same structure
 as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}) and/or simulating

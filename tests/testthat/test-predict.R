@@ -33,6 +33,21 @@ test_that("can predict on basic vetiver router", {
     expect_equal(ncol(aug), 3)
 })
 
+test_that("can predict with single or NA values", {
+    endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
+
+    preds1 <- predict(endpoint, mtcars[10, 2:3])
+    expect_s3_class(preds1, "tbl_df")
+    expect_equal(nrow(preds1), 1)
+    expect_equal(ncol(preds1), 1)
+
+    preds2 <- predict(endpoint, data.frame(cyl = c(NA_real_, NA_real_),
+                                          disp = c(100, 200)))
+    expect_s3_class(preds2, "tbl_df")
+    expect_equal(nrow(preds2), 2)
+    expect_equal(ncol(preds2), 1)
+})
+
 test_that("get correct errors", {
     endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
     expect_snapshot(predict(endpoint, mtcars[, 2:4]), error = TRUE)

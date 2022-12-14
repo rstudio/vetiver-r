@@ -23,9 +23,8 @@ test_that("can pin a gam model", {
         pinned,
         list(
             model = butcher::butcher(mtcars_gam),
-            ptype = vctrs::vec_ptype(tibble::as_tibble(mtcars[, c(3, 6)])),
-            required_pkgs = "mgcv",
-            lockfile = character(0)
+            prototype = vctrs::vec_ptype(tibble::as_tibble(mtcars[, c(3, 6)])),
+            required_pkgs = "mgcv"
         ),
         ignore_function_env = TRUE,
         ignore_formula_env = TRUE

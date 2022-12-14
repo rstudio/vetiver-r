@@ -7,39 +7,57 @@ test_that("can pin a model", {
         pin_read(b, "cars1"),
         list(
             model = butcher::butcher(cars_lm),
+<<<<<<< HEAD
             ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
             required_pkgs = NULL,
             lockfile = character(0)
+=======
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
+            required_pkgs = NULL
+>>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
 
-test_that("can pin a model with no ptype", {
+test_that("can pin a model with no prototype", {
     b <- board_temp()
-    v <- vetiver_model(cars_lm, "cars_null", save_ptype = FALSE)
+    expect_snapshot_warning(
+        v <- vetiver_model(cars_lm, "cars_null", save_ptype = FALSE)
+    )
+    v <- vetiver_model(cars_lm, "cars_null", save_prototype = FALSE)
     vetiver_pin_write(b, v)
     expect_equal(
         pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
+<<<<<<< HEAD
             ptype = NULL,
             required_pkgs = NULL,
             lockfile = character(0)
+=======
+            prototype = NULL,
+            required_pkgs = NULL
+>>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
 
-test_that("can pin a model with custom ptype", {
+test_that("can pin a model with custom prototype", {
     b <- board_temp()
-    v <- vetiver_model(cars_lm, "cars_custom", save_ptype = mtcars[3:10, 2:3])
+    v <- vetiver_model(cars_lm, "cars_custom", save_prototype = mtcars[3:10, 2:3])
     vetiver_pin_write(b, v)
     expect_equal(
         pin_read(b, "cars_custom"),
         list(
             model = butcher::butcher(cars_lm),
+<<<<<<< HEAD
             ptype = mtcars[3:10, 2:3],
             required_pkgs = NULL,
             lockfile = character(0)
+=======
+            prototype = mtcars[3:10, 2:3],
+            required_pkgs = NULL
+>>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
@@ -82,7 +100,7 @@ test_that("can read a pinned model", {
              url = meta$local$url,
              required_pkgs = v$metadata$required_pkgs)
     )
-    expect_equal(v1$ptype, v$ptype)
+    expect_equal(v1$prototype, v$prototype)
     expect_equal(v1$versioned, FALSE)
 })
 
@@ -106,7 +124,7 @@ test_that("can read a versioned model with metadata", {
              url = meta$local$url,
              required_pkgs = v$metadata$required_pkgs)
     )
-    expect_equal(v4$ptype, v$ptype)
+    expect_equal(v4$prototype, v$prototype)
     expect_equal(v4$versioned, TRUE)
 })
 

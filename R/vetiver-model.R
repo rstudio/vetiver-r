@@ -12,23 +12,24 @@
 #' @param model_name Model name or ID.
 #' @param description A detailed description of the model. If omitted, a brief
 #' description of the model will be generated.
-#' @param save_ptype Should an input data prototype be stored with the model?
+#' @param save_prototype Should an input data prototype be stored with the model?
 #' The options are `TRUE` (the default, which stores a zero-row slice of the
 #' training data), `FALSE` (no input data prototype for visual documentation or
 #' checking), or a dataframe to be used for both checking at prediction time
 #' *and* examples in API visual documentation.
-#' @param ptype An input data prototype. If `NULL`, there is no checking of
+#' @param save_ptype `r lifecycle::badge("deprecated")`
+#' @param prototype An input data prototype. If `NULL`, there is no checking of
 #' new data at prediction time.
 #' @param versioned Should the model object be versioned when stored with
 #' [vetiver_pin_write()]? The default, `NULL`, will use the default for the
 #' `board` where you store the model.
 #' @param ... Other method-specific arguments passed to [vetiver_ptype()]
-#' to compute an input data prototype, such as `ptype_data` (a sample of
+#' to compute an input data prototype, such as `prototype_data` (a sample of
 #' training features).
 #' @inheritParams pins::pin_write
 #'
 #' @details
-#' You can provide your own data to `save_ptype` to use as examples in the
+#' You can provide your own data to `save_prototype` to use as examples in the
 #' visual documentation created by [vetiver_api()]. If you do this,
 #' consider checking that your input data prototype has the same structure
 #' as your training data (perhaps with [hardhat::scream()]) and/or simulating
@@ -47,13 +48,22 @@ vetiver_model <- function(model,
                           ...,
                           description = NULL,
                           metadata = list(),
-                          save_ptype = TRUE,
+                          save_prototype = TRUE,
+                          save_ptype = deprecated(),
                           versioned = NULL) {
 
+    if (lifecycle::is_present(save_ptype)) {
+        lifecycle::deprecate_soft(
+            "0.2.0",
+            "vetiver_model(save_ptype)",
+            "vetiver_model(save_prototype)"
+        )
+        save_prototype <- save_ptype
+    }
     if (is_null(description)) {
         description <- vetiver_create_description(model)
     }
-    ptype <- vetiver_create_ptype(model, save_ptype, ...)
+    prototype <- vetiver_create_ptype(model, save_prototype, ...)
     metadata <- vetiver_create_meta(model, metadata)
     model <- vetiver_prepare_model(model)
 
@@ -62,7 +72,7 @@ vetiver_model <- function(model,
         model_name = model_name,
         description = as.character(description),
         metadata = metadata,
-        ptype = ptype,
+        prototype = prototype,
         versioned = versioned
     )
 }
@@ -73,7 +83,7 @@ new_vetiver_model <- function(model,
                               model_name,
                               description,
                               metadata,
-                              ptype,
+                              prototype,
                               versioned) {
 
     data <- list(
@@ -81,7 +91,7 @@ new_vetiver_model <- function(model,
         model_name = model_name,
         description = description,
         metadata = metadata,
-        ptype = ptype,
+        prototype = prototype,
         versioned = versioned
     )
 
@@ -97,7 +107,7 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
+        cli::cli_text("{x$description} using {ncol(x$prototype)} feature{?s}")
     })
 }
 
