@@ -7,14 +7,8 @@ test_that("can pin a model", {
         pin_read(b, "cars1"),
         list(
             model = butcher::butcher(cars_lm),
-<<<<<<< HEAD
-            ptype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
-            required_pkgs = NULL,
-            lockfile = character(0)
-=======
             prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
             required_pkgs = NULL
->>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
@@ -30,14 +24,8 @@ test_that("can pin a model with no prototype", {
         pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
-<<<<<<< HEAD
-            ptype = NULL,
-            required_pkgs = NULL,
-            lockfile = character(0)
-=======
             prototype = NULL,
             required_pkgs = NULL
->>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
@@ -50,14 +38,8 @@ test_that("can pin a model with custom prototype", {
         pin_read(b, "cars_custom"),
         list(
             model = butcher::butcher(cars_lm),
-<<<<<<< HEAD
-            ptype = mtcars[3:10, 2:3],
-            required_pkgs = NULL,
-            lockfile = character(0)
-=======
             prototype = mtcars[3:10, 2:3],
             required_pkgs = NULL
->>>>>>> 8b8c602f83989acdeb8caca9c163d151c124c453
         )
     )
 })
@@ -132,8 +114,9 @@ test_that("right message for reading with `check_renv`", {
     skip_on_cran()
     b <- board_temp()
     v <- vetiver_model(cars_lm, "cars5")
+    v$metadata$required_pkgs <- "janeaustenr"
     vetiver_pin_write(b, v)
-    expect_snapshot(vetiver_pin_read(b, "cars5", check_renv = TRUE))
+    expect_snapshot_warning(vetiver_pin_read(b, "cars5", check_renv = TRUE))
 
     vetiver_pin_write(b, v, check_renv = TRUE)
     v1 <- vetiver_pin_read(b, "cars5")

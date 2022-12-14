@@ -40,11 +40,11 @@
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 
-    lockfile <- NULL
+    renv_lock <- NULL
 
     if (check_renv) {
         pkgs <- c(vetiver_model$metadata$required_pkgs, "vetiver")
-        lockfile <-
+        renv_lock <-
             renv$snapshot(
                 lockfile = NULL,
                 packages = pkgs,
@@ -63,7 +63,7 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
         description = vetiver_model$description,
         metadata = modifyList(
             vetiver_model$metadata$user,
-            list(lockfile = lockfile)
+            list(renv_lock = renv_lock)
         ),
         versioned = vetiver_model$versioned,
         ...
@@ -86,7 +86,7 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
     if (check_renv) {
-        if (length(meta$user$lockfile) > 0) {
+        if (length(meta$user$renv_lock) > 0) {
             local_lockfile <-
                 renv$snapshot(
                     lockfile = NULL,
@@ -94,9 +94,9 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
                     prompt = FALSE,
                     force = TRUE
                 )
-            renv_report_actions(local_lockfile, meta$user$lockfile)
+            renv_report_actions(local_lockfile, meta$user$renv_lock)
         } else {
-            cli::cli_inform(c(
+            cli::cli_warn(c(
                 "There is no lockfile stored with {.val {name}}:",
                 "i" = "Use {.arg check_renv = TRUE} when you save your model to your board"
             ))
@@ -119,17 +119,17 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
 }
 
 
-renv_report_actions <- function(new, old) {
+renv_report_actions <- function(current, model) {
     withr::local_options(
         list(renv.pretty.print.emitter = function(text, ...) {cli::cli_inform(text)})
     )
-    diff <- renv$renv_lockfile_diff_packages(new, old)
+    diff <- renv$renv_lockfile_diff_packages(current, model)
 
     if (renv$empty(diff))
         return(invisible(NULL))
 
-    lhs <- renv$renv_records(new)
-    rhs <- renv$renv_records(old)
+    lhs <- renv$renv_records(current)
+    rhs <- renv$renv_records(model)
     renv$renv_pretty_print_records_pair(
         lhs[names(lhs) %in% names(diff)],
         rhs[names(rhs) %in% names(diff)],
