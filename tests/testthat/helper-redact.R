@@ -28,6 +28,7 @@ clean_python_tmp_dir <- function(variables) {
         unlink(list.files(
             python_temp_dir,
             pattern = "__autograph_generated_file|__pycache__",
+            recursive = TRUE,
             full.names = TRUE
         ))
     }
