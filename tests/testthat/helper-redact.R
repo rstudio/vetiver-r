@@ -25,12 +25,11 @@ clean_python_tmp_dir <- function(variables) {
             "import tempfile; x=tempfile.NamedTemporaryFile().name",
             local = TRUE
         )$x)
-        unlink(list.files(
+        detritus <- fs::dir_ls(
             python_temp_dir,
-            pattern = "__autograph_generated_file|__pycache__",
-            recursive = TRUE,
-            full.names = TRUE
-        ))
+            regexp = "__autograph_generated_file|__pycache__"
+        )
+        fs::file_delete(detritus)
     }
 }
 
