@@ -17,3 +17,17 @@ redact_vetiver <- function(snapshot) {
 redact_port <- function(snapshot) {
     snapshot <- gsub(port, "<port>", snapshot, fixed = TRUE)
 }
+
+
+clean_python_tmp_dir <- function(variables) {
+    python_temp_dir <- dirname(reticulate::py_run_string(
+        "import tempfile; x=tempfile.NamedTemporaryFile().name",
+        local = TRUE
+    )$x)
+    unlink(list.files(
+        python_temp_dir, pattern = "__autograph_generated_file",
+        full.names = TRUE
+    ))
+}
+
+withr::defer(clean_python_tmp_dir(), teardown_env())
