@@ -97,7 +97,7 @@ call_contains <- function(expr, what) {
     }
 
     # Recurse into elements
-    contains <- map_lgl(expr, expr_contains, what = what)
+    contains <- map_lgl(as.list(expr), expr_contains, what = what)
     any(contains)
 }
 
