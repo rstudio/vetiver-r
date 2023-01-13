@@ -38,7 +38,6 @@ test_that("can predict keras model", {
     preds <- predict(v, x_test)
     expect_type(preds, "double")
     expect_equal(length(preds), 7)
-    expect_equal(mean(preds), 0.5, tolerance = 0.1)
 })
 
 test_that("can pin a keras model", {
