@@ -122,11 +122,11 @@
       "Package": "butcher",
       "Version": "0.3.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "butcher",
       "RemoteRef": "butcher",
-      "RemoteRepos": "https://cloud.r-project.org",
+      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.3.1",
       "Requirements": [
@@ -144,7 +144,7 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.4.1",
+      "Version": "3.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -152,12 +152,12 @@
       "RemoteRef": "cli",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "3.4.1",
+      "RemoteSha": "3.6.0",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "0d297d01734d2bcea40197bd4971a764"
+      "Hash": "3177a5a16c243adc199ba33117bd9657"
     },
     "clipr": {
       "Package": "clipr",
@@ -209,7 +209,7 @@
     },
     "curl": {
       "Package": "curl",
-      "Version": "4.3.3",
+      "Version": "5.0.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -217,11 +217,11 @@
       "RemoteRef": "curl",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "4.3.3",
+      "RemoteSha": "5.0.0",
       "Requirements": [
         "R"
       ],
-      "Hash": "0eb86baa62f06e8855258fa5a8048667"
+      "Hash": "e4f97056611e8e6b8b852d13b7400cf1"
     },
     "digest": {
       "Package": "digest",
@@ -383,7 +383,7 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.6",
+      "Version": "1.6.8",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -391,7 +391,7 @@
       "RemoteRef": "httpuv",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.6.6",
+      "RemoteSha": "1.6.8",
       "Requirements": [
         "R",
         "R6",
@@ -400,7 +400,7 @@
         "promises",
         "utils"
       ],
-      "Hash": "fd090e236ae2dc0f0cdf33a9ec83afb6"
+      "Hash": "08e611aee165b27f8ff18770285fb535"
     },
     "httr": {
       "Package": "httr",
@@ -577,7 +577,7 @@
       "RemoteUsername": "rstudio",
       "RemotePkgRef": "pins=rstudio/pins-r",
       "RemoteRef": "HEAD",
-      "RemoteSha": "18e9ba83868c02418e73ad9763183a82648be86c",
+      "RemoteSha": "50b13af523ca201b7d80830ce7dc499feffd863c",
       "Requirements": [
         "R",
         "cli",
@@ -601,7 +601,7 @@
         "yaml",
         "zip"
       ],
-      "Hash": "b4e57b2df9e917a76f89f64158cff392"
+      "Hash": "31e7277069039ea23647e1aba93ba9c6"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -666,11 +666,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "any",
+      "Source": "Repository",
       "Repository": "RSPM",
-      "RemoteType": "any",
-      "RemotePkgRef": "any::progress",
-      "RemoteRef": "any::progress",
+      "RemoteType": "standard",
+      "RemotePkgRef": "progress",
+      "RemoteRef": "progress",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -680,7 +680,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "19dd27c830113b0f5d92ac92306fa5f8"
+      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
     "promises": {
       "Package": "promises",
@@ -705,7 +705,7 @@
     },
     "purrr": {
       "Package": "purrr",
-      "Version": "0.3.5",
+      "Version": "1.0.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -713,13 +713,16 @@
       "RemoteRef": "purrr",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.3.5",
+      "RemoteSha": "1.0.1",
       "Requirements": [
         "R",
+        "cli",
+        "lifecycle",
         "magrittr",
-        "rlang"
+        "rlang",
+        "vctrs"
       ],
-      "Hash": "54842a2443c76267152eface28d9e90a"
+      "Hash": "d71c815267c640f17ddbf7f16144b4bb"
     },
     "rapidoc": {
       "Package": "rapidoc",
@@ -815,7 +818,7 @@
     },
     "stringi": {
       "Package": "stringi",
-      "Version": "1.7.8",
+      "Version": "1.7.12",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -823,14 +826,14 @@
       "RemoteRef": "stringi",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.7.8",
+      "RemoteSha": "1.7.12",
       "Requirements": [
         "R",
         "stats",
         "tools",
         "utils"
       ],
-      "Hash": "a68b980681bcbc84c7a67003fa796bfb"
+      "Hash": "ca8bd84263c77310739d2cf64d84d7c9"
     },
     "swagger": {
       "Package": "swagger",
