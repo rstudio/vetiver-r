@@ -107,10 +107,10 @@ format.vetiver_model <- function(x, ...) {
     first_class <- class(x$model)[[1]]
     cli::cli_format_method({
         cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        if (is.null(x$ptype)) {
+        if (is.null(x$prototype)) {
             cli::cli_text("{x$description}")
         } else {
-            cli::cli_text("{x$description} using {ncol(x$ptype)} feature{?s}")
+            cli::cli_text("{x$description} using {ncol(x$prototype)} feature{?s}")
         }
     })
 }
