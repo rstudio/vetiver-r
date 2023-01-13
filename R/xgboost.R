@@ -40,7 +40,7 @@ handler_startup.xgb.Booster <- function(vetiver_model) {
 #' @export
 handler_predict.xgb.Booster <- function(vetiver_model, ...) {
 
-    ptype <- vetiver_model$ptype
+    ptype <- vetiver_model$prototype
 
     function(req) {
         newdata <- req$body

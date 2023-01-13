@@ -13,7 +13,7 @@ vetiver_create_rsconnect_bundle(
 )
 }
 \arguments{
-\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_rsconnect]{board_rsconnect()}},
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
 \code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
 \item{name}{Pin name.}

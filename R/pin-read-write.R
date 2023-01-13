@@ -36,7 +36,7 @@ vetiver_pin_write <- function(board, vetiver_model, ...) {
     pins::pin_write(
         board = board,
         x = list(model = vetiver_model$model,
-                 ptype = vetiver_model$ptype,
+                 prototype = vetiver_model$prototype,
                  required_pkgs = vetiver_model$metadata$required_pkgs),
         name = vetiver_model$model_name,
         type = "rds",
@@ -74,7 +74,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
             url = meta$local$url,
             required_pkgs = pinned$required_pkgs
         ),
-        ptype = pinned$ptype,
+        prototype = pinned$prototype %||% pinned$ptype,
         versioned = board$versioned
     )
 }

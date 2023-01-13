@@ -16,7 +16,7 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' `"vetiver_renv.lock"`.
 #' @param rspm A logical to use the
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
-#' [renv::restore()] in the Docker image. Defaults to `TRUE`.
+#' `renv::restore()` in the Docker image. Defaults to `TRUE`.
 #' @param port The server port for listening: a number such as 8080 or an
 #' expression like `'as.numeric(Sys.getenv("PORT"))'` when the port is injected
 #' as an environment variable.
@@ -136,3 +136,62 @@ glue_sys_reqs <- function(pkgs) {
     )
 }
 
+#' Generate files necessary to build a Docker container for a vetiver model
+#'
+#' Deploying a vetiver model via Docker requires several files. Use this
+#' function to create these needed files in the directory located at `path`.
+#'
+#' @inheritParams vetiver_write_plumber
+#' @inheritParams vetiver_deploy_rsconnect
+#' @param path A path to write the Plumber file, Dockerfile, and lockfile,
+#' capturing the model's dependencies. Defaults to the working directory.
+#' @param docker_args A list of optional arguments passed to
+#' [vetiver_write_docker()] such as the `lockfile` name or whether to use
+#' `rspm`. Do not pass `additional_pkgs` here, as this function uses
+#' `additional_pkgs = required_pkgs(board)`.
+#' @details
+#' The function `vetiver_prepare_docker()` uses:
+#' - [vetiver_write_plumber()] to create a Plumber file and
+#' - [vetiver_write_docker()] to create a Dockerfile and renv lockfile
+#'
+#' These modular functions are available for more advanced use cases.
+#'
+#' @return An invisible `TRUE`.
+#'
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
+#' library(pins)
+#' b <- board_temp(versioned = TRUE)
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear")
+#' vetiver_pin_write(b, v)
+#'
+#' vetiver_prepare_docker(b, "cars_linear", path = tempdir())
+#'
+#' @export
+vetiver_prepare_docker <- function(board, name, version = NULL,
+                                   path = ".",
+                                   predict_args = list(),
+                                   docker_args = list()) {
+    withr::local_dir(path)
+    if (has_name(docker_args, "additional_pkgs")) {
+        abort(c(
+            "Do not pass `additional_pkgs` to `docker_args`",
+            "This function uses `additional_pkgs = required_pkgs(board)`",
+            "For more complex use cases, call `vetiver_write_docker()` itself"
+        ))
+    }
+    vetiver_write_plumber(
+        board = board,
+        name = name,
+        version = version,
+        !!!predict_args,
+        rsconnect = FALSE
+    )
+    v <- vetiver_pin_read(board = board, name = name, version = version)
+    inject(vetiver_write_docker(
+        v,
+        !!!docker_args,
+        additional_pkgs = required_pkgs(board))
+    )
+    invisible(TRUE)
+}

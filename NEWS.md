@@ -1,10 +1,24 @@
-# vetiver (development version)
+# vetiver (development version, to be released as 0.2.0)
+
+## Breaking changes
+
+* The arguments for dealing with a model's input data prototype have changed from using `ptype` to using `prototype` (#166): 
+    * In `vetiver_model()`, now use `save_prototype`.
+    * In `vetiver_api()`, now use `check_prototype`.
+
+## Other improvements
+
+* Added support for k-Prototypes clustering from clustMixType (#163, thanks to @galen-ft).
 
 * Now vendor renv directly in package (#157).
 
 * Fixed how `vetiver_ptype()` finds predictors for models (`lm()` and `glm()`) with interactions (#160).
 
 * New argument added to `vetiver_write_docker()` to pass in additional packages to be installed, such as `required_pkgs(board)` (#159).
+
+* New function `vetiver_prepare_docker()` creates all necessary files to deploy a basic vetiver model via Docker (#165).
+
+* Fixed a bug in handling all-`NA` columns when predicting on a `vetiver_endpoint()` (#169).
 
 # vetiver 0.1.8
 

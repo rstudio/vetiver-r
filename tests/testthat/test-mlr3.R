@@ -20,8 +20,8 @@ test_that("mlr3 learners can be pinned", {
 
     expect_length(pinned, 3)
     expect_equal(class(pinned$model)[1], "LearnerClassifRpart")
-    expect_equal(nrow(pinned$ptype), 0)
-    expect_equal(names(pinned$ptype), task$feature_names)
+    expect_equal(nrow(pinned$prototype), 0)
+    expect_equal(names(pinned$prototype), task$feature_names)
     expect_equal(pinned$required_pkgs, c("mlr3", "rpart"))
 })
 
@@ -39,8 +39,8 @@ test_that("learners from mlr3learners can be pinned", {
 
     expect_length(pinned, 3)
     expect_equal(class(pinned$model)[1], "LearnerClassifXgboost")
-    expect_equal(nrow(pinned$ptype), 0)
-    expect_equal(names(pinned$ptype), task$feature_names)
+    expect_equal(nrow(pinned$prototype), 0)
+    expect_equal(names(pinned$prototype), task$feature_names)
     expect_equal(pinned$required_pkgs, c("mlr3", "mlr3learners", "xgboost"))
 })
 
