@@ -666,11 +666,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "Repository",
+      "Source": "any",
       "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "progress",
-      "RemoteRef": "progress",
+      "RemoteType": "any",
+      "RemotePkgRef": "any::progress",
+      "RemoteRef": "any::progress",
       "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -680,7 +680,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+      "Hash": "19dd27c830113b0f5d92ac92306fa5f8"
     },
     "promises": {
       "Package": "promises",
