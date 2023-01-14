@@ -45,7 +45,7 @@ test_that("can pin a keras model", {
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "cars-keras")
     ## STILL NOT EQUAL because of serialization issues, even with bundle
-    ## expect_equal(pinned$model, bundle::bundle(mod))
+    ## expect_equal(pinned$model, bundle::bundle(keras_fit))
     expect_equal(pinned$ptype, NULL)
     expect_equal(pinned$required_pkgs, "keras")
 })
