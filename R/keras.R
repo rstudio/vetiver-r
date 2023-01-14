@@ -34,9 +34,9 @@ handler_startup.keras.engine.training.Model <- function(vetiver_model) {
 handler_predict.keras.engine.training.Model <- function(vetiver_model, ...) {
 
     function(req) {
-        new_data <- as.matrix(req$body)
-        new_data <- vetiver_type_convert(new_data, vetiver_model$ptype)
-        predict(vetiver_model$model, new_data = new_data, ...)
+        new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
+        new_data <- as.matrix(new_data)
+        predict(vetiver_model$model, x = new_data, ...)
     }
 
 }
