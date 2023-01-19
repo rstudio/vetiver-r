@@ -5,13 +5,13 @@ library(keras)
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
 x_train <- scaled_cars[1:25, 2:ncol(scaled_cars)]
-y_train <- scaled_cars[1:25, 1]
+y_train <- scaled_cars[1:25, 1, drop = FALSE]
 
 set.seed(1)
 
 keras_fit <-
-    keras_model_sequential()  %>%
-    layer_dense(units = 1, input_shape = ncol(x_train), activation = 'linear') %>%
+    keras_model_sequential(input_shape = ncol(x_train))  %>%
+    layer_dense(units = 1, activation = 'linear') %>%
     compile(
         loss = 'mean_squared_error',
         optimizer = optimizer_adam(learning_rate = .01)
