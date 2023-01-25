@@ -35,6 +35,12 @@
 #' as your training data (perhaps with [hardhat::scream()]) and/or simulating
 #' data to avoid leaking PII via your deployed model.
 #'
+#' Some models, like [ranger::ranger()] and [keras](https://tensorflow.rstudio.com/)
+#' models, *require* that you pass in example training data as `prototype_data`
+#' or else explicitly set `save_prototype = FALSE`. For non-rectangular data
+#' input to models, such as image input for a keras model, we currently
+#' recommend that you turn off prototype checking via `save_prototype = FALSE`.
+#'
 #' @return A new `vetiver_model` object.
 #'
 #' @examples

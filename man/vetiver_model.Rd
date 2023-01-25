@@ -75,6 +75,12 @@ visual documentation created by \code{\link[=vetiver_api]{vetiver_api()}}. If yo
 consider checking that your input data prototype has the same structure
 as your training data (perhaps with \code{\link[hardhat:scream]{hardhat::scream()}}) and/or simulating
 data to avoid leaking PII via your deployed model.
+
+Some models, like \code{\link[ranger:ranger]{ranger::ranger()}} and \href{https://tensorflow.rstudio.com/}{keras}
+models, \emph{require} that you pass in example training data as \code{prototype_data}
+or else explicitly set \code{save_prototype = FALSE}. For non-rectangular data
+input to models, such as image input for a keras model, we currently
+recommend that you turn off prototype checking via \code{save_prototype = FALSE}.
 }
 \examples{
 
