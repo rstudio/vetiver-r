@@ -14,7 +14,17 @@ vetiver_create_meta.keras.engine.training.Model <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.keras.engine.training.Model <- function(model, ...) {
-    NULL
+    if (length(model$inputs) > 1) {
+        abort(c(
+            "There is currently no support in vetiver for multi-input keras models.",
+            i = "Consider creating a custom handler."
+        ))
+    }
+    rlang::check_dots_used()
+    dots <- list(...)
+    check_ptype_data(dots)
+    ptype <- vctrs::vec_ptype(dots$prototype_data)
+    tibble::as_tibble(ptype)
 }
 
 #' @rdname vetiver_create_description
@@ -33,9 +43,16 @@ handler_startup.keras.engine.training.Model <- function(vetiver_model) {
 #' @export
 handler_predict.keras.engine.training.Model <- function(vetiver_model, ...) {
 
+    dtype <- vetiver_model$model$input$dtype$name
+    shape <- dim(vetiver_model$model$input)
+
     function(req) {
         new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
-        new_data <- as.matrix(new_data)
+        new_data <- tensorflow::as_tensor(
+            new_data,
+            dtype = dtype,
+            shape = shape
+        )
         predict(vetiver_model$model, x = new_data, ...)
     }
 
