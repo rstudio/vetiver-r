@@ -5,7 +5,7 @@
     Output
       
       -- cars-keras - <bundled_keras> model for deployment 
-      A sequential keras model with 2 layers
+      A sequential keras model with 2 layers using 10 features
 
 # create plumber.R for keras
 

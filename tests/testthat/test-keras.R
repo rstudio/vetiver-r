@@ -28,7 +28,7 @@ keras_fit %>%
         verbose = 0
     )
 
-v <- vetiver_model(keras_fit, "cars-keras")
+v <- vetiver_model(keras_fit, "cars-keras", prototype_data = data.frame(x_train)[1,])
 
 test_that("can print keras model", {
     expect_snapshot(v)
@@ -67,7 +67,7 @@ test_that("default OpenAPI spec", {
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
     expect_equal(as.character(post_spec$summary),
-                 "Return predictions from model")
+                 "Return predictions from model using 10 features")
     get_spec <- car_spec$paths$`/pin-url`$get
     expect_equal(as.character(get_spec$summary),
                  "Get URL of pinned vetiver model")
