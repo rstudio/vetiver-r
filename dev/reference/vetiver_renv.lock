@@ -965,7 +965,7 @@
     },
     "vetiver": {
       "Package": "vetiver",
-      "Version": "0.1.8.9000",
+      "Version": "0.2.0.9000",
       "Source": "Local",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
@@ -989,7 +989,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "2e55503a5060fb685cfba6c631e13bbf"
+      "Hash": "2b8f353090b2aef1e493103237ee5b00"
     },
     "vroom": {
       "Package": "vroom",
