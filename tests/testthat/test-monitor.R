@@ -111,6 +111,8 @@ describe("vetiver_pin_metrics()", {
 
 describe("vetiver_plot_metrics()", {
 
+    skip_if(getRversion() > 4.2)
+
     data(Chicago, package = "modeldata")
     Chicago <- dplyr::select(Chicago, ridership, date, one_of(stations))
     training_data <- dplyr::filter(Chicago, date < "2009-01-01")

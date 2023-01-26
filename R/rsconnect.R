@@ -75,7 +75,7 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 #' @return The location of the model API bundle `filename`, invisibly.
 #' @seealso [vetiver_write_plumber()], [vetiver_deploy_rsconnect()]
 #' @details This function creates a deployable bundle. See
-#' [RStudio Connect docs](https://docs.rstudio.com/connect/cookbook/deploying/)
+#' [RStudio Connect docs](https://docs.posit.co/connect/cookbook/deploying/)
 #' for how to deploy this bundle, as well as the
 #' [connectapi](https://pkgs.rstudio.com/connectapi/) R package for how to
 #' integrate with Connect's API from R.

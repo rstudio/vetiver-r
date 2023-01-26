@@ -93,7 +93,7 @@ pr() %>%
   pr_run(port = 8088)
 ```
 
-If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:
+If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:
 
 ```{r}
 library(vetiver)
