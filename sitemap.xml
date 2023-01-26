@@ -19,9 +19,6 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/model-card.html</loc>
-  </url>
-  <url>
     <loc>/articles/vetiver.html</loc>
   </url>
   <url>
@@ -101,6 +98,9 @@
   </url>
   <url>
     <loc>/reference/vetiver_pr_predict.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vetiver_prepare_docker.html</loc>
   </url>
   <url>
     <loc>/reference/vetiver_type_convert.html</loc>
