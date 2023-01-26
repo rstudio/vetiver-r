@@ -24,6 +24,19 @@ keras_fit %>%
         verbose = 0
     )
 
-v <- vetiver_model(keras_fit, "cars-keras", save_prototype = data.frame(x_train)[1,])
+v <- vetiver_model(keras_fit, "cars-keras", prototype_data = data.frame(x_train)[1,])
 pr() %>% vetiver_api(v, debug = TRUE) %>% pr_run()
+
+library(pins)
+b <- board_connect()
+b %>% vetiver_pin_write(v)
+b %>% vetiver_write_plumber("julia.silge/cars-keras")
+vetiver_deploy_rsconnect(
+    b,
+    "julia.silge/cars-keras",
+    predict_args = list(debug = TRUE),
+    account = "julia.silge",
+    server = "colorado.posit.co/rsc"
+)
+
 
