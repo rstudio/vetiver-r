@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "RSPM",
-        "URL": "https://packagemanager.rstudio.com/all/latest"
+        "URL": "https://packagemanager.posit.co/cran/latest"
       },
       {
         "Name": "CRAN",
@@ -21,7 +21,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "R6",
       "RemoteRef": "R6",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.5.1",
       "Requirements": [
@@ -31,20 +31,20 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.9",
+      "Version": "1.0.10",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "Rcpp",
       "RemoteRef": "Rcpp",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.9",
+      "RemoteSha": "1.0.10",
       "Requirements": [
         "methods",
         "utils"
       ],
-      "Hash": "e9c08b94391e9f3f97355841229124f2"
+      "Hash": "e749cae40fa9ef469b6050959517453c"
     },
     "askpass": {
       "Package": "askpass",
@@ -54,7 +54,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "askpass",
       "RemoteRef": "askpass",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1",
       "Requirements": [
@@ -70,7 +70,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "bit",
       "RemoteRef": "bit",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "4.0.5",
       "Requirements": [
@@ -86,7 +86,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "bit64",
       "RemoteRef": "bit64",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "4.0.5",
       "Requirements": [
@@ -106,7 +106,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "bundle",
       "RemoteRef": "bundle",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.1.0",
       "Requirements": [
@@ -126,7 +126,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "butcher",
       "RemoteRef": "butcher",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.3.1",
       "Requirements": [
@@ -150,7 +150,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "cli",
       "RemoteRef": "cli",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.6.0",
       "Requirements": [
@@ -167,7 +167,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "clipr",
       "RemoteRef": "clipr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.8.0",
       "Requirements": [
@@ -183,7 +183,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "cpp11",
       "RemoteRef": "cpp11",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.4.3",
       "Requirements": [],
@@ -197,7 +197,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "crayon",
       "RemoteRef": "crayon",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.5.2",
       "Requirements": [
@@ -215,7 +215,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "curl",
       "RemoteRef": "curl",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "5.0.0",
       "Requirements": [
@@ -231,7 +231,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "digest",
       "RemoteRef": "digest",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.6.31",
       "Requirements": [
@@ -248,7 +248,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "ellipsis",
       "RemoteRef": "ellipsis",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.3.2",
       "Requirements": [
@@ -259,21 +259,21 @@
     },
     "fansi": {
       "Package": "fansi",
-      "Version": "1.0.3",
+      "Version": "1.0.4",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "fansi",
       "RemoteRef": "fansi",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.3",
+      "RemoteSha": "1.0.4",
       "Requirements": [
         "R",
         "grDevices",
         "utils"
       ],
-      "Hash": "83a8afdbe71839506baa9f90eebad7ec"
+      "Hash": "1d9e7ad3c8312a192dea7d3db0274fde"
     },
     "filelock": {
       "Package": "filelock",
@@ -283,7 +283,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "filelock",
       "RemoteRef": "filelock",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.0.2",
       "Requirements": [],
@@ -291,20 +291,20 @@
     },
     "fs": {
       "Package": "fs",
-      "Version": "1.5.2",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "fs",
       "RemoteRef": "fs",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.5.2",
+      "RemoteSha": "1.6.0",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "7c89603d81793f0d5486d91ab1fc6f1d"
+      "Hash": "0120e8c933bace1141e0b0d376b0c010"
     },
     "generics": {
       "Package": "generics",
@@ -314,7 +314,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "generics",
       "RemoteRef": "generics",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.1.3",
       "Requirements": [
@@ -331,7 +331,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "glue",
       "RemoteRef": "glue",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.6.2",
       "Requirements": [
@@ -348,7 +348,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "hardhat",
       "RemoteRef": "hardhat",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.0",
       "Requirements": [
@@ -368,7 +368,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "hms",
       "RemoteRef": "hms",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1.2",
       "Requirements": [
@@ -389,7 +389,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "httpuv",
       "RemoteRef": "httpuv",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.6.8",
       "Requirements": [
@@ -410,7 +410,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "httr",
       "RemoteRef": "httr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.4.4",
       "Requirements": [
@@ -431,7 +431,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "jsonlite",
       "RemoteRef": "jsonlite",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.8.4",
       "Requirements": [
@@ -447,7 +447,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "later",
       "RemoteRef": "later",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.3.0",
       "Requirements": [
@@ -464,7 +464,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "lifecycle",
       "RemoteRef": "lifecycle",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.0.3",
       "Requirements": [
@@ -483,7 +483,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "lobstr",
       "RemoteRef": "lobstr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1.2",
       "Requirements": [
@@ -504,7 +504,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "magrittr",
       "RemoteRef": "magrittr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.0.3",
       "Requirements": [
@@ -520,7 +520,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "mime",
       "RemoteRef": "mime",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.12",
       "Requirements": [
@@ -536,7 +536,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "openssl",
       "RemoteRef": "openssl",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.0.5",
       "Requirements": [
@@ -552,7 +552,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "pillar",
       "RemoteRef": "pillar",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.8.1",
       "Requirements": [
@@ -569,15 +569,15 @@
     },
     "pins": {
       "Package": "pins",
-      "Version": "1.0.3.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "pins-r",
-      "RemoteUsername": "rstudio",
-      "RemotePkgRef": "pins=rstudio/pins-r",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "50b13af523ca201b7d80830ce7dc499feffd863c",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "pins",
+      "RemoteRef": "pins",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "1.1.0",
       "Requirements": [
         "R",
         "cli",
@@ -601,7 +601,7 @@
         "yaml",
         "zip"
       ],
-      "Hash": "31e7277069039ea23647e1aba93ba9c6"
+      "Hash": "c6bfa6bbbc54c1d71828ab9167918016"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -611,7 +611,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "pkgconfig",
       "RemoteRef": "pkgconfig",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.0.3",
       "Requirements": [
@@ -627,7 +627,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "plumber",
       "RemoteRef": "plumber",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.1",
       "Requirements": [
@@ -657,7 +657,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "prettyunits",
       "RemoteRef": "prettyunits",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1.1",
       "Requirements": [],
@@ -666,12 +666,12 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "any",
+      "Source": "Repository",
       "Repository": "RSPM",
-      "RemoteType": "any",
-      "RemotePkgRef": "any::progress",
-      "RemoteRef": "any::progress",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteType": "standard",
+      "RemotePkgRef": "progress",
+      "RemoteRef": "progress",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
       "Requirements": [
@@ -680,7 +680,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "19dd27c830113b0f5d92ac92306fa5f8"
+      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
     "promises": {
       "Package": "promises",
@@ -690,7 +690,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "promises",
       "RemoteRef": "promises",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.0.1",
       "Requirements": [
@@ -711,7 +711,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "purrr",
       "RemoteRef": "purrr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.0.1",
       "Requirements": [
@@ -732,7 +732,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "rapidoc",
       "RemoteRef": "rapidoc",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "8.4.3",
       "Requirements": [
@@ -748,7 +748,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "rappdirs",
       "RemoteRef": "rappdirs",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.3.3",
       "Requirements": [
@@ -764,7 +764,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "readr",
       "RemoteRef": "readr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.1.3",
       "Requirements": [
@@ -793,7 +793,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "rlang",
       "RemoteRef": "rlang",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.0.6",
       "Requirements": [
@@ -810,7 +810,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "sodium",
       "RemoteRef": "sodium",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.1",
       "Requirements": [],
@@ -824,7 +824,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "stringi",
       "RemoteRef": "stringi",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.7.12",
       "Requirements": [
@@ -843,7 +843,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "swagger",
       "RemoteRef": "swagger",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.33.1",
       "Requirements": [],
@@ -857,7 +857,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "sys",
       "RemoteRef": "sys",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.4.1",
       "Requirements": [],
@@ -871,7 +871,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "tibble",
       "RemoteRef": "tibble",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.1.8",
       "Requirements": [
@@ -896,7 +896,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "tidyselect",
       "RemoteRef": "tidyselect",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.0",
       "Requirements": [
@@ -918,7 +918,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "tzdb",
       "RemoteRef": "tzdb",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.3.0",
       "Requirements": [
@@ -935,7 +935,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "utf8",
       "RemoteRef": "utf8",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
       "Requirements": [
@@ -945,15 +945,15 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.5.1",
+      "Version": "0.5.2",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "vctrs",
       "RemoteRef": "vctrs",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.5.1",
+      "RemoteSha": "0.5.2",
       "Requirements": [
         "R",
         "cli",
@@ -961,13 +961,12 @@
         "lifecycle",
         "rlang"
       ],
-      "Hash": "970324f6572b4fd81db507b5d4062cb0"
+      "Hash": "e4ffa94ceed5f124d429a5a5f0f5b378"
     },
     "vetiver": {
       "Package": "vetiver",
       "Version": "0.1.8.9000",
       "Source": "Local",
-      "Remotes": "pins=rstudio/pins-r",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -990,19 +989,19 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "b69fc41a620adc0f1beb2d8ad5f8fa83"
+      "Hash": "2e55503a5060fb685cfba6c631e13bbf"
     },
     "vroom": {
       "Package": "vroom",
-      "Version": "1.6.0",
+      "Version": "1.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "vroom",
       "RemoteRef": "vroom",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.6.0",
+      "RemoteSha": "1.6.1",
       "Requirements": [
         "R",
         "bit64",
@@ -1022,7 +1021,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "64f81fdead6e0d250fb041e175d123ab"
+      "Hash": "7015a74373b83ffaef64023f4a0f5033"
     },
     "webutils": {
       "Package": "webutils",
@@ -1032,7 +1031,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "webutils",
       "RemoteRef": "webutils",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1",
       "Requirements": [
@@ -1049,7 +1048,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "whisker",
       "RemoteRef": "whisker",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.4.1",
       "Requirements": [],
@@ -1063,7 +1062,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "withr",
       "RemoteRef": "withr",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.5.0",
       "Requirements": [
@@ -1076,17 +1075,17 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.3.6",
+      "Version": "2.3.7",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
       "RemotePkgRef": "yaml",
       "RemoteRef": "yaml",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.3.6",
+      "RemoteSha": "2.3.7",
       "Requirements": [],
-      "Hash": "9b570515751dcbae610f29885e025b41"
+      "Hash": "0d0056cc5383fbc240ccd0cb584bf436"
     },
     "zip": {
       "Package": "zip",
@@ -1096,7 +1095,7 @@
       "RemoteType": "standard",
       "RemotePkgRef": "zip",
       "RemoteRef": "zip",
-      "RemoteRepos": "https://packagemanager.rstudio.com/all/__linux__/jammy/latest",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.2.2",
       "Requirements": [],
