@@ -1,4 +1,4 @@
-# vetiver (development version, to be released as 0.2.0)
+# vetiver 0.2.0
 
 ## Breaking changes
 
