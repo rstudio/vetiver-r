@@ -1,6 +1,6 @@
 Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
-Version: 0.1.8.9000
+Version: 0.2.0.9000
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
@@ -27,7 +27,7 @@ Imports:
     hardhat,
     lifecycle,
     magrittr (>= 2.0.3),
-    pins (>= 1.0.3.9000),
+    pins (>= 1.1.0),
     purrr,
     rapidoc,
     readr (>= 1.4.0),
@@ -77,8 +77,6 @@ Suggests:
     yardstick
 VignetteBuilder: 
     knitr
-Remotes: 
-    pins=rstudio/pins-r
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8

@@ -97,7 +97,7 @@ pr() %>%
   vetiver_api(v)
 ```
 
-To start a server using this object, pipe (`%>%`) to `pr_run(port = 8088)` or your port of choice. This allows you to interact with your vetiver API locally and debug it. Plumber APIs such as these can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html). You can use the function `vetiver_write_plumber()` to create a ready-to-go `plumber.R` file that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
+To start a server using this object, pipe (`%>%`) to `pr_run(port = 8088)` or your port of choice. This allows you to interact with your vetiver API locally and debug it. Plumber APIs such as these can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html). You can use the function `vetiver_write_plumber()` to create a ready-to-go `plumber.R` file that is especially suited for [RStudio Connect](https://posit.co/products/enterprise/connect/).
 
 ```{r eval=FALSE}
 vetiver_write_plumber(model_board, "biv_svm")
@@ -122,7 +122,7 @@ endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 endpoint
 ```
 
-If such a deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate R process. 
+If such a deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a [background job in the RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)), you can make predictions with that deployed model and new data in another, separate R process. 
 
 ``` r
 data(bivariate, package = "modeldata")

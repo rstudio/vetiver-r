@@ -37,7 +37,7 @@ API bundle for a \code{\link[=vetiver_model]{vetiver_model()}} that has been ver
 }
 \details{
 This function creates a deployable bundle. See
-\href{https://docs.rstudio.com/connect/cookbook/deploying/}{RStudio Connect docs}
+\href{https://docs.posit.co/connect/cookbook/deploying/}{RStudio Connect docs}
 for how to deploy this bundle, as well as the
 \href{https://pkgs.rstudio.com/connectapi/}{connectapi} R package for how to
 integrate with Connect's API from R.

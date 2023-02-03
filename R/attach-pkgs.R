@@ -14,9 +14,9 @@
 #' random seed.
 #'
 #' To learn more about load vs. attach, read the ["Dependencies" chapter of
-#' *R Packages*](https://r-pkgs.org/dependencies.html). For deploying a model, it
-#' is likely safer to fully attach needed packages but that comes with the risk
-#' of naming conflicts between packages.
+#' *R Packages*](https://r-pkgs.org/dependencies-mindset-background.html#sec-dependencies-attach-vs-load).
+#' For deploying a model, it is likely safer to fully attach needed packages
+#' but that comes with the risk of naming conflicts between packages.
 #'
 #' @param pkgs A character vector of package names to load or fully attach.
 #'
