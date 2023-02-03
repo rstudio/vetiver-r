@@ -49,7 +49,7 @@ handler_predict.keras.engine.training.Model <- function(vetiver_model, ...) {
     function(req) {
         new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
         new_data <- tensorflow::as_tensor(
-            new_data,
+            as.matrix(new_data),
             dtype = dtype,
             shape = shape
         )
