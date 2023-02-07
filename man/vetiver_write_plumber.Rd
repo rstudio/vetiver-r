@@ -2,6 +2,8 @@
 % Please edit documentation in R/write-plumber.R
 \name{vetiver_write_plumber}
 \alias{vetiver_write_plumber}
+\alias{vetiver_python_requirements}
+\alias{vetiver_python_requirements.default}
 \title{Write a deployable Plumber file for a vetiver model}
 \usage{
 vetiver_write_plumber(
@@ -12,6 +14,10 @@ vetiver_write_plumber(
   file = "plumber.R",
   rsconnect = TRUE
 )
+
+vetiver_python_requirements(model)
+
+\method{vetiver_python_requirements}{default}(model)
 }
 \arguments{
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
@@ -43,6 +49,9 @@ By default, this function will find and use the latest version of your
 vetiver model; the model API (when deployed) will be linked to that specific
 version. You can override this default behavior by choosing a specific
 \code{version}.
+
+This function uses \code{vetiver_python_requirements()} internally to create a
+minimal Python \code{requirements.txt} for models that need it.
 }
 \examples{
 \dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
