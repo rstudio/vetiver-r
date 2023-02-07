@@ -5,6 +5,7 @@
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams pins::pin_read
+#' @inheritParams vetiver_model
 #' @param ... Other arguments passed to [vetiver_api()] such as the endpoint
 #' `path` or prediction `type`.
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
