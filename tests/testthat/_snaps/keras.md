@@ -31,3 +31,11 @@
           pr %>% vetiver_api(v)
       }
 
+---
+
+    Code
+      cat(readr::read_lines(fs::path(fs::path_dir(tmp), "requirements.txt")), sep = "\n")
+    Output
+      keras
+      tensorflow
+
