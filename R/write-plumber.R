@@ -5,6 +5,7 @@
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams pins::pin_read
+#' @inheritParams vetiver_model
 #' @param ... Other arguments passed to [vetiver_api()] such as the endpoint
 #' `path` or prediction `type`.
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
@@ -17,6 +18,9 @@
 #' vetiver model; the model API (when deployed) will be linked to that specific
 #' version. You can override this default behavior by choosing a specific
 #' `version`.
+#'
+#' This function uses `vetiver_python_requirements()` internally to create a
+#' minimal Python `requirements.txt` for models that need it.
 #'
 #' @return
 #' The content of the `plumber.R` file, invisibly.
@@ -52,6 +56,8 @@ vetiver_write_plumber <- function(board, name, version = NULL,
         pin_read <- glue('v <- vetiver_pin_read(b, "{name}")')
         v <- vetiver_pin_read(board, name)
     }
+
+    write_python_requirements(v$model, file)
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
@@ -120,3 +126,27 @@ choose_version <- function(df) {
     version[["version"]]
 }
 
+write_python_requirements <- function(model, file) {
+    model <- bundle::unbundle(model)
+    path_to_requirements <- vetiver_python_requirements(model)
+    if (!is.null(path_to_requirements)) {
+        fs::file_copy(
+            path_to_requirements,
+            fs::path(fs::path_dir(file), "requirements.txt"),
+            overwrite = TRUE
+        )
+    }
+    path_to_requirements
+}
+
+#' @rdname vetiver_write_plumber
+#' @export
+vetiver_python_requirements <- function(model) {
+    UseMethod("vetiver_python_requirements")
+}
+
+#' @rdname vetiver_write_plumber
+#' @export
+vetiver_python_requirements.default <- function(model) {
+    NULL
+}
