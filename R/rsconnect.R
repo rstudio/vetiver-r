@@ -55,8 +55,7 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
                           name = name,
                           version = version,
                           !!!predict_args,
-                          file = file.path(tmp, "plumber.R"))
-
+                          file = fs::path(tmp, "plumber.R"))
     rsconnect::deployAPI(tmp, appTitle = appTitle, ...)
 
 }
