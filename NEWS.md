@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Added support for keras (#164).
+
 # vetiver 0.2.0
 
 ## Breaking changes
