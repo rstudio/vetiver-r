@@ -57,3 +57,9 @@ handler_predict.keras.engine.training.Model <- function(vetiver_model, ...) {
     }
 
 }
+
+#' @rdname vetiver_deploy_rsconnect
+#' @export
+vetiver_python_requirements.keras.engine.training.Model <- function(model) {
+    system.file("requirements/keras-requirements.txt", package = "vetiver")
+}
