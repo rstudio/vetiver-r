@@ -160,15 +160,20 @@ visual documentation created by <code><a href="vetiver_api.html">vetiver_api()</
 consider checking that your input data prototype has the same structure
 as your training data (perhaps with <code><a href="https://hardhat.tidymodels.org/reference/scream.html" class="external-link">hardhat::scream()</a></code>) and/or simulating
 data to avoid leaking PII via your deployed model.</p>
+<p>Some models, like <code><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger::ranger()</a></code> and <a href="https://tensorflow.rstudio.com/" class="external-link">keras</a>
+models, <em>require</em> that you pass in example training data as <code>prototype_data</code>
+or else explicitly set <code>save_prototype = FALSE</code>. For non-rectangular data
+input to models, such as image input for a keras model, we currently
+recommend that you turn off prototype checking via <code>save_prototype = FALSE</code>.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">vetiver_model</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span>, <span class="fu">pins</span><span class="fu">::</span><span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vetiver_model</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars-linear"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ── <span style="font-style: italic;">cars_linear</span> ─ <span style="color: #0000BB;">&lt;butchered_lm&gt;</span> model for deployment </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── <span style="font-style: italic;">cars-linear</span> ─ <span style="color: #0000BB;">&lt;butchered_lm&gt;</span> model for deployment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An OLS linear regression model using 10 features</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

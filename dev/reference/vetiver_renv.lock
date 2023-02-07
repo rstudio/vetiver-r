@@ -291,7 +291,7 @@
     },
     "fs": {
       "Package": "fs",
-      "Version": "1.6.0",
+      "Version": "1.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -299,12 +299,12 @@
       "RemoteRef": "fs",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.6.0",
+      "RemoteSha": "1.6.1",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "0120e8c933bace1141e0b0d376b0c010"
+      "Hash": "f4dcd23b67e33d851d2079f703e8b985"
     },
     "generics": {
       "Package": "generics",
@@ -989,7 +989,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "2b8f353090b2aef1e493103237ee5b00"
+      "Hash": "78ca1feb47d3fea03f090e1deeac1e6a"
     },
     "vroom": {
       "Package": "vroom",
