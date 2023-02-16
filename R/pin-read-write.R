@@ -33,18 +33,24 @@
 #'
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ...) {
+
+    metadata <- list_modify(
+        vetiver_model$metadata$user,
+        required_pkgs = vetiver_model$metadata$required_pkgs
+    )
+
     pins::pin_write(
         board = board,
         x = list(model = vetiver_model$model,
-                 prototype = vetiver_model$prototype,
-                 required_pkgs = vetiver_model$metadata$required_pkgs),
+                 prototype = vetiver_model$prototype),
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
-        metadata = vetiver_model$metadata$user,
+        metadata = metadata,
         versioned = vetiver_model$versioned,
         ...
     )
+
     rlang::inform(
         c("\nCreate a Model Card for your published model",
           "Model Cards provide a framework for transparent, responsible reporting",
@@ -62,6 +68,10 @@ vetiver_pin_read <- function(board, name, version = NULL) {
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
+    required_pkgs <- meta$user$required_pkgs %||% pinned$required_pkgs
+    meta$user <- list_assign(meta$user, required_pkgs = zap())
+    if (is_empty(meta$user)) names(meta$user) <- NULL
+
     ## TODO: add subset of renv hash checking
 
     new_vetiver_model(
@@ -72,7 +82,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
             user = meta$user,
             version = meta$local$version,
             url = meta$local$url,
-            required_pkgs = pinned$required_pkgs
+            required_pkgs = required_pkgs
         ),
         prototype = pinned$prototype %||% pinned$ptype,
         versioned = board$versioned
