@@ -7,8 +7,7 @@ test_that("can pin a model", {
         pin_read(b, "cars1"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
-            required_pkgs = NULL
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0)
         )
     )
 })
@@ -24,8 +23,7 @@ test_that("can pin a model with no prototype", {
         pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = NULL,
-            required_pkgs = NULL
+            prototype = NULL
         )
     )
 })
@@ -38,8 +36,7 @@ test_that("can pin a model with custom prototype", {
         pin_read(b, "cars_custom"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = mtcars[3:10, 2:3],
-            required_pkgs = NULL
+            prototype = mtcars[3:10, 2:3]
         )
     )
 })
@@ -49,7 +46,7 @@ test_that("default metadata for model", {
     v <- vetiver_model(cars_lm, "cars2")
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars2")
-    expect_equal(meta$user, list())
+    expect_equal(meta$user, list(required_pkgs = NULL))
     expect_equal(meta$description, "An OLS linear regression model")
 })
 
@@ -60,7 +57,7 @@ test_that("user can supply metadata for model", {
                        metadata = list(metrics = 1:10))
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars3")
-    expect_equal(meta$user, list(metrics = 1:10))
+    expect_equal(meta$user, list(metrics = 1:10, required_pkgs = NULL))
     expect_equal(meta$description, "lm model for mtcars")
 })
 
