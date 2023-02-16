@@ -3,9 +3,7 @@
 
 
 #' @import rlang
-#' @importFrom purrr map map_lgl map_chr
-#' @importFrom purrr transpose compact pluck
-#' @importFrom purrr pmap safely
+#' @importFrom purrr
 #' @importFrom utils head modifyList
 #' @importFrom vctrs vec_slice vec_sort
 #' @importFrom magrittr %>%
