@@ -69,7 +69,7 @@ vetiver_pin_read <- function(board, name, version = NULL) {
     meta   <- pins::pin_meta(board = board, name = name, version = version)
 
     required_pkgs <- meta$user$required_pkgs %||% pinned$required_pkgs
-    meta$user <- list_assign(meta$user, required_pkgs = zap())
+    meta$user <- list_modify(meta$user, required_pkgs = zap())
     if (is_empty(meta$user)) names(meta$user) <- NULL
 
     ## TODO: add subset of renv hash checking
