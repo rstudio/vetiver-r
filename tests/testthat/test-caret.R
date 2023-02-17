@@ -26,14 +26,16 @@ test_that("can print caret model", {
 test_that("can pin a caret model", {
     b <- board_temp()
     vetiver_pin_write(b, v)
-    pinned <- pin_read(b, "cars_rf")
     expect_equal(
         pin_read(b, "cars_rf"),
         list(
             model = bundle::bundle(butcher::butcher(rf_fit)),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:4]), 0),
-            required_pkgs = c("caret", "dplyr", "e1071", "ranger")
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:4]), 0)
         )
+    )
+    expect_equal(
+        pin_meta(b, "cars_rf")$user$required_pkgs,
+        c("caret", "dplyr", "e1071", "ranger")
     )
 })
 

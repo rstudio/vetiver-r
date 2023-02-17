@@ -27,9 +27,12 @@ test_that("can pin an xgboost model", {
         pinned,
         list(
             model = bundle::bundle(cars_xgb),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
-            required_pkgs = c("xgboost")
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0)
         )
+    )
+    expect_equal(
+        pin_meta(b, "cars2")$user$required_pkgs,
+        "xgboost"
     )
 })
 
