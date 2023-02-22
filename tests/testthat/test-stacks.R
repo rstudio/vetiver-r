@@ -36,9 +36,12 @@ test_that("can pin a stacks model", {
         pinned,
         list(
             model = bundle::bundle(butcher::butcher(frog_reg)),
-            prototype = vctrs::vec_ptype(tree_test),
-            required_pkgs = c("glmnet", "parsnip", "recipes", "stacks", "stats", "workflows")
+            prototype = vctrs::vec_ptype(tree_test)
         )
+    )
+    expect_equal(
+        pin_meta(b, "frog-stack")$user$required_pkgs,
+        c("glmnet", "parsnip", "recipes", "stacks", "stats", "workflows")
     )
 })
 

@@ -2,6 +2,8 @@
 
 * Added support for keras (#164).
 
+* Moved where `required_pkgs` metadata is stored remotely, from the binary blob to plain text YAML (#176).
+
 # vetiver 0.2.0
 
 ## Breaking changes

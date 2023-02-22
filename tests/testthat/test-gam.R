@@ -23,11 +23,14 @@ test_that("can pin a gam model", {
         pinned,
         list(
             model = butcher::butcher(mtcars_gam),
-            prototype = vctrs::vec_ptype(tibble::as_tibble(mtcars[, c(3, 6)])),
-            required_pkgs = "mgcv"
+            prototype = vctrs::vec_ptype(tibble::as_tibble(mtcars[, c(3, 6)]))
         ),
         ignore_function_env = TRUE,
         ignore_formula_env = TRUE
+    )
+    expect_equal(
+        pin_meta(b, "cars_gam")$user$required_pkgs,
+        "mgcv"
     )
 })
 

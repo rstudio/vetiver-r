@@ -47,7 +47,7 @@ test_that("can pin a keras model", {
     ## STILL NOT EQUAL because of serialization issues, even with bundle
     ## expect_equal(pinned$model, bundle::bundle(keras_fit))
     expect_equal(pinned$ptype, NULL)
-    expect_equal(pinned$required_pkgs, "keras")
+    expect_equal(pin_meta(b, "cars-keras")$user$required_pkgs, "keras")
 })
 
 test_that("default endpoint for keras", {

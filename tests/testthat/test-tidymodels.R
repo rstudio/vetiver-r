@@ -36,9 +36,12 @@ test_that("can pin a tidymodels model", {
         pinned,
         list(
             model = bundle::bundle(butcher::butcher(mtcars_wf)),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
-            required_pkgs = c("parsnip", "ranger", "workflows")
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0)
         )
+    )
+    expect_equal(
+        pin_meta(b, "cars_wf")$user$required_pkgs,
+        c("parsnip", "ranger", "workflows")
     )
 })
 

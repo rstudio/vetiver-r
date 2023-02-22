@@ -18,11 +18,12 @@ test_that("mlr3 learners can be pinned", {
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "rpart_pima")
 
-    expect_length(pinned, 3)
+    expect_length(pinned, 2)
     expect_equal(class(pinned$model)[1], "LearnerClassifRpart")
     expect_equal(nrow(pinned$prototype), 0)
     expect_equal(names(pinned$prototype), task$feature_names)
-    expect_equal(pinned$required_pkgs, c("mlr3", "rpart"))
+    expect_equal(pin_meta(b, "rpart_pima")$user$required_pkgs,
+                 c("mlr3", "rpart"))
 })
 
 test_that("learners from mlr3learners can be pinned", {
@@ -37,11 +38,12 @@ test_that("learners from mlr3learners can be pinned", {
     vetiver_pin_write(b, v)
     pinned <- pin_read(b, "logreg_spam")
 
-    expect_length(pinned, 3)
+    expect_length(pinned, 2)
     expect_equal(class(pinned$model)[1], "LearnerClassifXgboost")
     expect_equal(nrow(pinned$prototype), 0)
     expect_equal(names(pinned$prototype), task$feature_names)
-    expect_equal(pinned$required_pkgs, c("mlr3", "mlr3learners", "xgboost"))
+    expect_equal(pin_meta(b, "logreg_spam")$user$required_pkgs,
+                 c("mlr3", "mlr3learners", "xgboost"))
 })
 
 
