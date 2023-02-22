@@ -47,6 +47,6 @@ handler_predict.recipe <- function(vetiver_model, ...) {
     function(req) {
         new_data <- req$body
         new_data <-  vetiver_type_convert(new_data, vetiver_model$prototype)
-        bake(vetiver_model$model, new_data = new_data, ...)
+        recipes::bake(vetiver_model$model, new_data = new_data, ...)
     }
 }
