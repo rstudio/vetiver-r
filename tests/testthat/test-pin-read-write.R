@@ -83,6 +83,25 @@ test_that("can read a pinned model", {
     expect_equal(v1$versioned, FALSE)
 })
 
+test_that("can read an old pinned model with `required_pkgs` in blob", {
+    b <- board_temp()
+    pins::pin_write(
+        board = b,
+        x = list(
+            model = v$model,
+            ptype = v$ptype,
+            required_pkgs = c("janeaustenr", "beepr")
+        ),
+        name = "cars-plus-pkgs",
+        type = "rds",
+        description = v$description,
+        metadata = v$metadata$user,
+        versioned = v$versioned
+    )
+    v2 <- vetiver_pin_read(b, "cars-plus-pkgs")
+    expect_equal(v2$metadata$required_pkgs, c("janeaustenr", "beepr"))
+})
+
 test_that("can read a versioned model with metadata", {
     b <- board_temp(versioned = TRUE)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
