@@ -53,6 +53,11 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
             )
     }
 
+    metadata <- list_modify(
+        vetiver_model$metadata$user,
+        renv_lock = renv_lock
+    )
+
     pins::pin_write(
         board = board,
         x = list(model = vetiver_model$model,
@@ -61,10 +66,7 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
         name = vetiver_model$model_name,
         type = "rds",
         description = vetiver_model$description,
-        metadata = modifyList(
-            vetiver_model$metadata$user,
-            list(renv_lock = renv_lock)
-        ),
+        metadata = metadata,
         versioned = vetiver_model$versioned,
         ...
     )
@@ -94,7 +96,8 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
                     prompt = FALSE,
                     force = TRUE
                 )
-            renv_report_actions(local_lockfile, meta$user$renv_lock)
+            orig_lockfile <- structure(meta$user$renv_lock, class = "renv_lockfile")
+            renv_report_actions(local_lockfile, orig_lockfile)
         } else {
             cli::cli_warn(c(
                 "There is no lockfile stored with {.val {name}}:",
@@ -102,6 +105,9 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
             ))
         }
     }
+
+    meta$user <- list_modify(meta$user, renv_lock = zap())
+    if (is_empty(meta$user)) names(meta$user) <- NULL
 
     new_vetiver_model(
         model = pinned$model,
