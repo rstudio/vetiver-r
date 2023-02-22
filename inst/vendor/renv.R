@@ -1,6 +1,6 @@
 #
-# renv 0.16.0-69: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2023-02-21 19:16:53.
+# renv 0.16.0-72: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2023-02-22 08:26:14.
 #
 
 # aaa.R ======================================================================
@@ -14296,7 +14296,7 @@ renv_load_bioconductor <- function(project, bioconductor) {
 
 }
 
-renv_load_bioconductor_validate <- function(version) {
+renv_load_bioconductor_validate <- function(project, version) {
 
   BiocManager <- renv_namespace_load("BiocManager")
   if (!is.function(BiocManager$.version_validity))
@@ -14956,6 +14956,10 @@ renv_lockfile_read_finish_impl <- function(key, val) {
 
   }
 
+  # convert the "Requirements" field to a character vector
+  if (identical(key, "Requirements"))
+    return(unlist(val))
+
   # recurse for lists
   if (is.list(val))
     return(enumerate(val, renv_lockfile_read_finish_impl))
@@ -14966,14 +14970,9 @@ renv_lockfile_read_finish_impl <- function(key, val) {
 }
 
 renv_lockfile_read_finish <- function(data) {
-
-  # convert repository fields
   data <- enumerate(data, renv_lockfile_read_finish_impl)
-
-  # set class
   class(data) <- "renv_lockfile"
   data
-
 }
 
 renv_lockfile_read_preflight <- function(contents) {
@@ -22006,6 +22005,22 @@ renv_repos_decode <- function(x) {
 
 renv_repos_init_callback <- function(...) {
 
+  status <- tryCatch(
+    renv_repos_init_callback_impl(...),
+    error = identity
+  )
+
+  if (inherits(status, "error")) {
+    warning(status)
+    return(FALSE)
+  }
+
+  identical(status, TRUE)
+
+}
+
+renv_repos_init_callback_impl <- function(...) {
+
   # bail unless opted in
   config <- renv_config_get("eager.repos", default = FALSE)
   if (!identical(config, TRUE))
@@ -25916,8 +25931,19 @@ renv_snapshot_auto_update <- function(project) {
 }
 
 renv_snapshot_auto_callback <- function(...) {
-  renv_snapshot_auto_callback_impl()
-  TRUE
+
+  status <- tryCatch(
+    renv_snapshot_auto_callback_impl(),
+    error = identity
+  )
+
+  if (inherits(status, "error")) {
+    warning(status)
+    return(FALSE)
+  }
+
+  identical(status, TRUE)
+
 }
 
 renv_snapshot_auto_callback_impl <- function() {
@@ -26644,7 +26670,7 @@ renv_snapshot_description_impl <- function(dcf, path = NULL) {
   # generate a Requirements field -- primarily for use by 'pak'
   fields <- c("Depends", "Imports", "LinkingTo")
   deps <- bind(map(dcf[fields], renv_description_parse_field))
-  all <- as.character(unique(csort(unlist(deps$Package))))
+  all <- unique(csort(unlist(deps$Package)))
   dcf[["Requirements"]] <- all
 
   # get remotes fields
@@ -30751,8 +30777,15 @@ renv_zzz_load <- function() {
   renv_libpaths_init()
   renv_patch_init()
 
-  addTaskCallback(renv_repos_init_callback)
-  addTaskCallback(renv_snapshot_auto_callback)
+  addTaskCallback(
+    renv_repos_init_callback,
+    name = "renv:::renv_repos_init_callback"
+  )
+
+  addTaskCallback(
+    renv_snapshot_auto_callback,
+    name = "renv:::renv_snapshot_auto_callback"
+  )
 
   # record whether we're in a docker environment
   assign(".docker", file.exists("/.dockerenv"), envir = renv_envir_self())
