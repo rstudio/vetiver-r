@@ -2,6 +2,10 @@
 
 * Added support for keras (#164).
 
+* Moved where `required_pkgs` metadata is stored remotely, from the binary blob to plain text YAML (#176).
+
+* Added an optional renv lockfile that can be stored remotely in model metadata, with a new `check_renv` argument for reading/writing (#154).
+
 # vetiver 0.2.0
 
 ## Breaking changes
