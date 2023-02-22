@@ -32,12 +32,12 @@ chicago_fit <-
     fit(chicago_small)
 
 library(vetiver)
-v <- vetiver_model(chicago_fit, "chicago_ridership")
+v <- vetiver_model(chicago_fit, "julia.silge/chicago_ridership")
 v
 
 library(pins)
-model_board <- board_rsconnect()
-vetiver_pin_write(model_board, v)
+model_board <- board_connect()
+vetiver_pin_write(model_board, v, check_renv = TRUE)
 
 library(plumber)
 pr() %>%
