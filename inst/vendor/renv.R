@@ -26644,7 +26644,7 @@ renv_snapshot_description_impl <- function(dcf, path = NULL) {
   # generate a Requirements field -- primarily for use by 'pak'
   fields <- c("Depends", "Imports", "LinkingTo")
   deps <- bind(map(dcf[fields], renv_description_parse_field))
-  all <- as.list(unique(csort(unlist(deps$Package))))
+  all <- as.character(unique(csort(unlist(deps$Package))))
   dcf[["Requirements"]] <- all
 
   # get remotes fields
