@@ -5,6 +5,13 @@ test_that("all numeric", {
     )
 })
 
+test_that("NULL ptype, for save_ptype = FALSE", {
+    expect_equal(
+        vetiver_type_convert(chickwts, NULL),
+        chickwts
+    )
+})
+
 test_that("missing variables", {
     expect_snapshot_error(
         vetiver_type_convert(mtcars[,2:3], vctrs::vec_slice(mtcars, 0)),

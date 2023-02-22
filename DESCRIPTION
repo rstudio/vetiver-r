@@ -1,6 +1,6 @@
 Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
-Version: 0.1.8.9000
+Version: 0.2.0.9000
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
@@ -19,7 +19,7 @@ Depends:
     R (>= 3.4)
 Imports:
     bundle,
-    butcher,
+    butcher (>= 0.3.1),
     cli,
     fs,
     generics,
@@ -27,7 +27,7 @@ Imports:
     hardhat,
     lifecycle,
     magrittr (>= 2.0.3),
-    pins (>= 1.0.3.9000),
+    pins (>= 1.1.0),
     purrr,
     rapidoc,
     readr (>= 1.4.0),
@@ -48,6 +48,7 @@ Suggests:
     httpuv,
     httr,
     jsonlite,
+    keras,
     knitr,
     LiblineaR,
     mgcv,
@@ -61,11 +62,13 @@ Suggests:
     plumber (>= 1.0.0),
     ranger,
     recipes,
+    reticulate,
     rmarkdown,
     rpart,
     rsconnect,
     slider (>= 0.2.2),
     stacks,
+    tensorflow,
     testthat (>= 3.0.0),
     tidyselect,
     vdiffr,
@@ -74,11 +77,8 @@ Suggests:
     yardstick
 VignetteBuilder: 
     knitr
-Remotes: 
-    pins=rstudio/pins-r,
-    tidymodels/butcher
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
