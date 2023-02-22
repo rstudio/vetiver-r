@@ -5,9 +5,9 @@
 \alias{vetiver_pin_read}
 \title{Read and write a trained model to a board of models}
 \usage{
-vetiver_pin_write(board, vetiver_model, ...)
+vetiver_pin_write(board, vetiver_model, ..., check_renv = FALSE)
 
-vetiver_pin_read(board, name, version = NULL)
+vetiver_pin_read(board, name, version = NULL, check_renv = FALSE)
 }
 \arguments{
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
@@ -16,6 +16,10 @@ vetiver_pin_read(board, name, version = NULL)
 \item{vetiver_model}{A deployable \code{\link[=vetiver_model]{vetiver_model()}} object}
 
 \item{...}{Additional arguments passed on to methods for a specific board.}
+
+\item{check_renv}{Use \href{https://rstudio.github.io/renv/}{renv} to record the
+packages used at training time with \code{vetiver_pin_write()} and check for
+differences with \code{vetiver_pin_read()}. Defaults to \code{FALSE}.}
 
 \item{name}{Pin name.}
 
@@ -52,5 +56,8 @@ vetiver_pin_read(model_board, "cars_linear")
 
 # can use `version` argument to read a specific version:
 pin_versions(model_board, "cars_linear")
-
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# can store an renv lockfile as part of the pin:
+vetiver_pin_write(model_board, v, check_renv = TRUE)
+\dontshow{\}) # examplesIf}
 }

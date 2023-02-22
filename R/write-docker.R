@@ -65,9 +65,8 @@ vetiver_write_docker <- function(vetiver_model,
         ""
     )
 
-    pkgs <- unique(c(additional_pkgs, docker_pkgs,
-                     vetiver_model$metadata$required_pkgs))
-    pkgs <- setdiff(pkgs, drop_pkgs)
+    pkgs <- c(additional_pkgs, vetiver_model$metadata$required_pkgs)
+    pkgs <- vetiver_required_pkgs(pkgs)
     lockfile_pkgs <-
         renv$snapshot(
             project = path,
@@ -76,6 +75,7 @@ vetiver_write_docker <- function(vetiver_model,
             prompt = FALSE,
             force = TRUE
         )
+
     plumber_file <- fs::path_rel(plumber_file)
     sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
@@ -106,6 +106,12 @@ vetiver_write_docker <- function(vetiver_model,
 
 docker_pkgs <- c("pins", "plumber", "rapidoc", "vetiver", "renv")
 drop_pkgs <- "stats"
+
+vetiver_required_pkgs <- function(pkgs) {
+    pkgs <- c(docker_pkgs, pkgs)
+    pkgs <- setdiff(pkgs, drop_pkgs)
+    sort(unique(pkgs))
+}
 
 glue_sys_reqs <- function(pkgs) {
     rlang::check_installed(c("curl", "jsonlite"))

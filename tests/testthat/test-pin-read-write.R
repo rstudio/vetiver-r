@@ -46,7 +46,7 @@ test_that("default metadata for model", {
     v <- vetiver_model(cars_lm, "cars2")
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars2")
-    expect_equal(meta$user, list(required_pkgs = NULL))
+    expect_equal(meta$user, list(required_pkgs = NULL, renv_lock = NULL))
     expect_equal(meta$description, "An OLS linear regression model")
 })
 
@@ -57,7 +57,7 @@ test_that("user can supply metadata for model", {
                        metadata = list(metrics = 1:10))
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars3")
-    expect_equal(meta$user, list(metrics = 1:10, required_pkgs = NULL))
+    expect_equal(meta$user$metrics, 1:10)
     expect_equal(meta$description, "lm model for mtcars")
 })
 
@@ -124,4 +124,39 @@ test_that("can read a versioned model with metadata", {
     )
     expect_equal(v4$prototype, v$prototype)
     expect_equal(v4$versioned, TRUE)
+})
+
+test_that("right message for reading with `check_renv`", {
+    skip_on_cran()
+    b <- board_temp()
+    v <- vetiver_model(cars_lm, "cars5")
+    v$metadata$required_pkgs <- "janeaustenr"
+    vetiver_pin_write(b, v)
+    expect_snapshot_warning(vetiver_pin_read(b, "cars5", check_renv = TRUE))
+
+    vetiver_pin_write(b, v, check_renv = TRUE)
+    v1 <- vetiver_pin_read(b, "cars5")
+    v2 <- vetiver_pin_read(b, "cars5", check_renv = TRUE)
+    expect_equal(v1, v2)
+
+    new_lock <- renv$renv_lockfile_init(project = NULL)
+    pins::pin_write(
+        board = b,
+        x = list(
+            model = v$model,
+            ptype = v$ptype,
+            required_pkgs = v$metadata$required_pkgs
+        ),
+        name = v$model_name,
+        type = "rds",
+        description = v$description,
+        metadata = list_modify(v$metadata$user, renv_lockfile = new_lock),
+        versioned = v$versioned
+    )
+
+    expect_message(
+        vetiver_pin_read(b, "cars5", check_renv = TRUE),
+        regexp = "do not match your model"
+    )
+
 })
