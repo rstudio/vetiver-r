@@ -31,7 +31,7 @@ test_that("can pin an ranger model", {
         vctrs::vec_slice(tibble::as_tibble(mtcars[,-1]), 0)
     )
     expect_equal(
-        pinned$required_pkgs,
+        pin_meta(b, "cars3")$user$required_pkgs,
         "ranger"
     )
 })

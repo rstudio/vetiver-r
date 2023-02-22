@@ -7,8 +7,7 @@ test_that("can pin a model", {
         pin_read(b, "cars1"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0),
-            required_pkgs = NULL
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:3]), 0)
         )
     )
 })
@@ -24,8 +23,7 @@ test_that("can pin a model with no prototype", {
         pin_read(b, "cars_null"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = NULL,
-            required_pkgs = NULL
+            prototype = NULL
         )
     )
 })
@@ -38,8 +36,7 @@ test_that("can pin a model with custom prototype", {
         pin_read(b, "cars_custom"),
         list(
             model = butcher::butcher(cars_lm),
-            prototype = mtcars[3:10, 2:3],
-            required_pkgs = NULL
+            prototype = mtcars[3:10, 2:3]
         )
     )
 })
@@ -49,7 +46,7 @@ test_that("default metadata for model", {
     v <- vetiver_model(cars_lm, "cars2")
     vetiver_pin_write(b, v)
     meta <- pin_meta(b, "cars2")
-    expect_equal(meta$user, list(renv_lock = NULL))
+    expect_equal(meta$user, list(required_pkgs = NULL, renv_lock = NULL))
     expect_equal(meta$description, "An OLS linear regression model")
 })
 
@@ -84,6 +81,25 @@ test_that("can read a pinned model", {
     )
     expect_equal(v1$prototype, v$prototype)
     expect_equal(v1$versioned, FALSE)
+})
+
+test_that("can read an old pinned model with `required_pkgs` in blob", {
+    b <- board_temp()
+    pins::pin_write(
+        board = b,
+        x = list(
+            model = v$model,
+            ptype = v$ptype,
+            required_pkgs = c("janeaustenr", "beepr")
+        ),
+        name = "cars-plus-pkgs",
+        type = "rds",
+        description = v$description,
+        metadata = v$metadata$user,
+        versioned = v$versioned
+    )
+    v2 <- vetiver_pin_read(b, "cars-plus-pkgs")
+    expect_equal(v2$metadata$required_pkgs, c("janeaustenr", "beepr"))
 })
 
 test_that("can read a versioned model with metadata", {

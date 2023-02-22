@@ -22,11 +22,14 @@ test_that("can pin a glm model", {
         pinned,
         list(
             model = butcher::butcher(mtcars_glm),
-            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0),
-            required_pkgs = NULL
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0)
         ),
         ignore_function_env = TRUE,
         ignore_formula_env = TRUE
+    )
+    expect_equal(
+        pin_meta(b, "cars_glm")$user$required_pkgs,
+        NULL
     )
 })
 

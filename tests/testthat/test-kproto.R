@@ -30,9 +30,12 @@ test_that("can pin a kproto model", {
         pinned,
         list(
             model = vetiver_prepare_model(kp_fit),
-            prototype = vctrs::vec_ptype(tibble::as_tibble(crickets)),
-            required_pkgs = c("clustMixType")
+            prototype = vctrs::vec_ptype(tibble::as_tibble(crickets))
         )
+    )
+    expect_equal(
+        pin_meta(b, "kproto-example")$user$required_pkgs,
+        "clustMixType"
     )
 })
 
