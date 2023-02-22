@@ -666,11 +666,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "Repository",
+      "Source": "any",
       "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "progress",
-      "RemoteRef": "progress",
+      "RemoteType": "any",
+      "RemotePkgRef": "any::progress",
+      "RemoteRef": "any::progress",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -680,7 +680,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
+      "Hash": "709348084955ef4e12a34aae7e366021"
     },
     "promises": {
       "Package": "promises",
