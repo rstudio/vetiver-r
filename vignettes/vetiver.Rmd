@@ -22,6 +22,8 @@ The goal of vetiver is to provide fluent tooling for MLOps tasks for your traine
 - sharing
 - deploying
 
+For more extensive documentation, visit <https://vetiver.rstudio.com/>.
+
 ## Create a `vetiver_model()`
 
 The vetiver package is extensible, with generics that can support many kinds of models. For this example, let's consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
