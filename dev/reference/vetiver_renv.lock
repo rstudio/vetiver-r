@@ -186,7 +186,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.4.3",
-      "Requirements": [],
       "Hash": "ed588261931ee3be2c700d22e94a29ab"
     },
     "crayon": {
@@ -286,7 +285,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.0.2",
-      "Requirements": [],
       "Hash": "38ec653c2613bed60052ba3787bd8a2c"
     },
     "fs": {
@@ -660,7 +658,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.1.1",
-      "Requirements": [],
       "Hash": "95ef9167b75dde9d2ccc3c7528393e7e"
     },
     "progress": {
@@ -813,7 +810,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.1",
-      "Requirements": [],
       "Hash": "3606bb09e0914edd4fc8313b500dcd5e"
     },
     "stringi": {
@@ -846,7 +842,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.33.1",
-      "Requirements": [],
       "Hash": "f28d25ed70c903922254157c11b0081d"
     },
     "sys": {
@@ -860,7 +855,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "3.4.1",
-      "Requirements": [],
       "Hash": "34c16f1ef796057bfa06d3f4ff818a5d"
     },
     "tibble": {
@@ -1051,7 +1045,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "0.4.1",
-      "Requirements": [],
       "Hash": "c6abfa47a46d281a7d5159d0a8891e88"
     },
     "withr": {
@@ -1084,7 +1077,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.3.7",
-      "Requirements": [],
       "Hash": "0d0056cc5383fbc240ccd0cb584bf436"
     },
     "zip": {
@@ -1098,7 +1090,6 @@
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "2.2.2",
-      "Requirements": [],
       "Hash": "c42bfcec3fa6a0cce17ce1f8bc684f88"
     }
   }
