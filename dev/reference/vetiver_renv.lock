@@ -402,7 +402,7 @@
     },
     "httr": {
       "Package": "httr",
-      "Version": "1.4.4",
+      "Version": "1.4.5",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -410,7 +410,7 @@
       "RemoteRef": "httr",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.4.4",
+      "RemoteSha": "1.4.5",
       "Requirements": [
         "R",
         "R6",
@@ -419,7 +419,7 @@
         "mime",
         "openssl"
       ],
-      "Hash": "57557fac46471f0dbbf44705cc6a5c8c"
+      "Hash": "f6844033201269bec3ca0097bc6c97b3"
     },
     "jsonlite": {
       "Package": "jsonlite",
@@ -663,11 +663,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "any",
+      "Source": "Repository",
       "Repository": "RSPM",
-      "RemoteType": "any",
-      "RemotePkgRef": "any::progress",
-      "RemoteRef": "any::progress",
+      "RemoteType": "standard",
+      "RemotePkgRef": "progress",
+      "RemoteRef": "progress",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -677,7 +677,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "709348084955ef4e12a34aae7e366021"
+      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
     "promises": {
       "Package": "promises",
