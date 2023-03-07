@@ -70,8 +70,10 @@ file for a pinned <code><a href="vetiver_model.html">vetiver_model()</a></code>.
 <span>  <span class="va">vetiver_model</span>,</span>
 <span>  plumber_file <span class="op">=</span> <span class="st">"plumber.R"</span>,</span>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  lockfile <span class="op">=</span> <span class="st">"vetiver_renv.lock"</span>,</span>
 <span>  rspm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  base_image <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"FROM rocker/r-ver:{getRversion()}"</span><span class="op">)</span>,</span>
 <span>  port <span class="op">=</span> <span class="fl">8000</span>,</span>
 <span>  expose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
@@ -94,6 +96,10 @@ file for a pinned <code><a href="vetiver_model.html">vetiver_model()</a></code>.
 model's package dependencies. Defaults to the working directory.</p></dd>
 
 
+<dt>...</dt>
+<dd><p>Not currently used.</p></dd>
+
+
 <dt>lockfile</dt>
 <dd><p>The generated lockfile in <code>path</code>. Defaults to
 <code>"vetiver_renv.lock"</code>.</p></dd>
@@ -103,6 +109,11 @@ model's package dependencies. Defaults to the working directory.</p></dd>
 <dd><p>A logical to use the
 <a href="https://packagemanager.rstudio.com/" class="external-link">RStudio Public Package Manager</a> for
 <code>renv::restore()</code> in the Docker image. Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>base_image</dt>
+<dd><p>The base Docker image to start with. Defaults to
+<code>rocker/r-ver</code> for the version of R you are working with.</p></dd>
 
 
 <dt>port</dt>
@@ -138,7 +149,7 @@ additional software; you can use <code>required_pkgs(board)</code> here.</p></dd
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20230302T204644Z-0238a'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20230307T200434Z-3c01d'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_write_plumber.html">vetiver_write_plumber</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp_plumber</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
