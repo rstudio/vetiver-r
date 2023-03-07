@@ -8,8 +8,10 @@ vetiver_write_docker(
   vetiver_model,
   plumber_file = "plumber.R",
   path = ".",
+  ...,
   lockfile = "vetiver_renv.lock",
   rspm = TRUE,
+  base_image = glue::glue("FROM rocker/r-ver:{getRversion()}"),
   port = 8000,
   expose = TRUE,
   additional_pkgs = character(0)
@@ -24,12 +26,17 @@ vetiver_write_docker(
 \item{path}{A path to write the Dockerfile and \code{lockfile}, capturing the
 model's package dependencies. Defaults to the working directory.}
 
+\item{...}{Not currently used.}
+
 \item{lockfile}{The generated lockfile in \code{path}. Defaults to
 \code{"vetiver_renv.lock"}.}
 
 \item{rspm}{A logical to use the
 \href{https://packagemanager.rstudio.com/}{RStudio Public Package Manager} for
 \code{renv::restore()} in the Docker image. Defaults to \code{TRUE}.}
+
+\item{base_image}{The base Docker image to start with. Defaults to
+\code{rocker/r-ver} for the version of R you are working with.}
 
 \item{port}{The server port for listening: a number such as 8080 or an
 expression like \code{'as.numeric(Sys.getenv("PORT"))'} when the port is injected
