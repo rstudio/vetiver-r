@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# vetiver <a href='https://rstudio.github.io/vetiver-r/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# vetiver <a href='https://rstudio.github.io/vetiver-r/'><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -51,8 +51,8 @@ install.packages("vetiver")
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("rstudio/vetiver-r")
+# install.packages("pak")
+pak::pak("rstudio/vetiver-r")
 ```
 
 ## Example

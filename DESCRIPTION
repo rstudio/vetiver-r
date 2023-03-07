@@ -2,9 +2,9 @@ Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
 Version: 0.2.0.9000
 Authors@R: c(
-    person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
+    person("Julia", "Silge", , "julia.silge@posit.co", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
-    person("RStudio", role = c("cph", "fnd"))
+    person(given = "Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: The goal of 'vetiver' is to provide fluent tooling to
     version, share, deploy, and monitor a trained model. Functions handle
@@ -16,7 +16,7 @@ URL: https://vetiver.rstudio.com, https://rstudio.github.io/vetiver-r/,
     https://github.com/rstudio/vetiver-r/
 BugReports: https://github.com/rstudio/vetiver-r/issues
 Depends: 
-    R (>= 3.4)
+    R (>= 3.5)
 Imports:
     bundle,
     butcher (>= 0.3.1),
