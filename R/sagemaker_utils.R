@@ -80,7 +80,7 @@ create_endpoint <- function(endpoint_name,
 # https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/session.py#L3753-L3786
 wait_for_endpoint <- function(client, endpoint, poll = 30) {
     desc <- sagemaker_deploy_done(client, endpoint)
-    while (is.null(desc) || length(desc) == 0) {
+    while (is_empty(desc)) {
         Sys.sleep(poll)
         desc <- sagemaker_deploy_done(client, endpoint)
     }
