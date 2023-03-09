@@ -35,55 +35,55 @@
 vetiver_create_sagemaker_model <- function(model_name,
                                            role,
                                            image_uri,
-                                           vpc_config=list(),
-                                           enable_network_isolation=FALSE,
-                                           tags=NULL) {
-    if (!is_installed("smdocker")) {
-        abort("smdocker not installed")
-    }
-    if (!is_installed("paws.machine.learning")) {
-        abort("paws.machine.learning not installed")
-    }
+                                           vpc_config = list(),
+                                           enable_network_isolation = FALSE,
+                                           tags = NULL) {
+  if (!is_installed("smdocker")) {
+    abort("smdocker not installed")
+  }
+  if (!is_installed("paws.machine.learning")) {
+    abort("paws.machine.learning not installed")
+  }
 
-    config <- smdocker::smdocker_config()
-    sagemaker_client <- paws.machine.learning::sagemaker(config)
+  config <- smdocker::smdocker_config()
+  sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-    if (missing(model_name)) {
-        model_name <- base_name_from_image(image_uri)
-    }
+  if (missing(model_name)) {
+    model_name <- base_name_from_image(image_uri)
+  }
 
-    if (missing(role)) {
-        role <- smdocker::sagemaker_get_execution_role()
-    }
+  if (missing(role)) {
+    role <- smdocker::sagemaker_get_execution_role()
+  }
 
-    request <- list(
-        "ModelName"=model_name,
-        "ExecutionRoleArn"=role,
-        "PrimaryContainer"=list("Image"=image_uri)
-    )
-    request$Tags <- tags
-    request$VpcConfig <- get_vpc_config(vpc_config_override)
-    if (isTRUE(enable_network_isolation)) {
-        request$EnableNetworkIsolation <- TRUE
-    }
-    # create model
-    do.call(sagemaker_client$create_model, args)
+  request <- list(
+    "ModelName" = model_name,
+    "ExecutionRoleArn" = role,
+    "PrimaryContainer" = list("Image" = image_uri)
+  )
+  request$Tags <- tags
+  request$VpcConfig <- get_vpc_config(vpc_config)
+  if (isTRUE(enable_network_isolation)) {
+    request$EnableNetworkIsolation <- TRUE
+  }
+  # create model
+  do.call(sagemaker_client$create_model, args)
 
-    return(model_name)
+  return(model_name)
 }
 
 #' @export
 vetiver_deploy_sagemaker <- function(model_name,
-                                     endpoint_name=NULL,
+                                     endpoint_name = NULL,
                                      instance_type = NULL,
-                                     initial_instance_count=1,
-                                     accelerator_type=NULL,
-                                     tags=NULL,
-                                     kms_key=NULL,
-                                     data_capture_config=NULL,
-                                     volume_size=NULL,
-                                     model_data_download_timeout=NULL,
-                                     container_startup_health_check_timeout=NULL) {
+                                     initial_instance_count = 1,
+                                     accelerator_type = NULL,
+                                     tags = NULL,
+                                     kms_key = NULL,
+                                     data_capture_config = NULL,
+                                     volume_size = NULL,
+                                     model_data_download_timeout = NULL,
+                                     container_startup_health_check_timeout = NULL) {
   if (!is_installed("smdocker")) {
     abort("smdocker not installed")
   }
@@ -120,30 +120,30 @@ vetiver_deploy_sagemaker <- function(model_name,
 }
 
 #' @export
-predict.sagemaker <- function(x, new_data, ...){
-    config <- smdocker::smdocker_config()
-    sm_runtime <- paws.machine.learning::sagemakerruntime(config)
-    preds <- sm_runtime$invoke_endpoint(sm_model_name, new_data)$Body
-    con = rawConnection(stream)
-    on.exit(close(con))
-    return(fromJSON(con))
+predict.sagemaker <- function(x, new_data, ...) {
+  config <- smdocker::smdocker_config()
+  sm_runtime <- paws.machine.learning::sagemakerruntime(config)
+  preds <- sm_runtime$invoke_endpoint(sm_model_name, new_data)$Body
+  con <- rawConnection(stream)
+  on.exit(close(con))
+  return(fromJSON(con))
 }
 
 new_vetiver_endpoint_sagemaker <- function(model_name = character()) {
-    stopifnot(is.character(model_name))
-    structure(list(model_name = model_name), class = "vetiver_endpoint_sagemaker")
+  stopifnot(is.character(model_name))
+  structure(list(model_name = model_name), class = "vetiver_endpoint_sagemaker")
 }
 
 #' @export
 format.vetiver_endpoint_sagemaker <- function(x, ...) {
-    cli::cli_format_method({
-        cli::cli_h3("A model API endpoint for prediction:")
-        cli::cli_text("{x$model_name}")
-    })
+  cli::cli_format_method({
+    cli::cli_h3("A model API endpoint for prediction:")
+    cli::cli_text("{x$model_name}")
+  })
 }
 
 #' @export
 print.vetiver_endpoint_sagemaker <- function(x, ...) {
-    cat(format(x), sep = "\n")
-    invisible(x)
+  cat(format(x), sep = "\n")
+  invisible(x)
 }
