@@ -59,7 +59,8 @@ req_endpoint_config <- function(model_name,
 }
 
 # sagemaker helper functions
-create_endpoint <- function(endpoint_name,
+create_endpoint <- function(client,
+                            endpoint_name,
                             config_name,
                             tags = NULL,
                             wait = TRUE) {
@@ -67,11 +68,11 @@ create_endpoint <- function(endpoint_name,
 
   tags <- tags %||% list()
 
-  sagemaker_client$create_endpoint(
+  client$create_endpoint(
     EndpointName = endpoint_name, EndpointConfigName = config_name, Tags = tags
   )
   if (isTRUE(wait)) {
-    wait_for_endpoint(sagemaker_client, endpoint_name)
+    wait_for_endpoint(client, endpoint_name)
   }
   return(endpoint_name)
 }
