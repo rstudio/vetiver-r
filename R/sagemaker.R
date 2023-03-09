@@ -114,7 +114,9 @@ vetiver_deploy_sagemaker <- function(model_name,
   )
 
   # create endpoint
-  endpoint_name <- create_endpoint(client, model_name, endpoint_name, tags, wait)
+  endpoint_name <- create_endpoint(
+      sagemaker_client, model_name, endpoint_name, tags, wait
+  )
 
   return(new_vetiver_endpoint_sagemaker(model_name))
 }
