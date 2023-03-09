@@ -66,18 +66,18 @@ vetiver_create_sagemaker_model <- function(model_name,
 }
 
 #' @export
-vetiver_deploy_sagemaker <- function(model_name,
-                                     endpoint_name = NULL,
-                                     instance_type = NULL,
-                                     initial_instance_count = 1,
-                                     accelerator_type = NULL,
-                                     tags = NULL,
-                                     kms_key = NULL,
-                                     data_capture_config = NULL,
-                                     volume_size = NULL,
-                                     model_data_download_timeout = NULL,
-                                     container_startup_health_check_timeout = NULL,
-                                     wait = TRUE) {
+vetiver_deploy_sagemaker_model <- function(model_name,
+                                           endpoint_name = NULL,
+                                           instance_type = NULL,
+                                           initial_instance_count = 1,
+                                           accelerator_type = NULL,
+                                           tags = NULL,
+                                           kms_key = NULL,
+                                           data_capture_config = NULL,
+                                           volume_size = NULL,
+                                           model_data_download_timeout = NULL,
+                                           container_startup_health_check_timeout = NULL,
+                                           wait = TRUE) {
   rlang::check_installed(c("smdocker", "paws.machine.learning"))
 
   config <- smdocker::smdocker_config()
@@ -111,7 +111,7 @@ vetiver_deploy_sagemaker <- function(model_name,
 }
 
 #' @export
-predict.sagemaker <- function(x, new_data, ...) {
+predict.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
   rlang::check_installed(c("jsonlite", "smdocker", "paws.machine.learning"))
   data_json <- jsonlite::toJSON(new_data, na = "string")
   config <- smdocker::smdocker_config()
