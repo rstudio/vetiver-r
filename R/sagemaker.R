@@ -1,5 +1,4 @@
 #' @import rlang
-#' @importFrom jsonlite fromJSON
 #' @importFrom stats predict
 
 
@@ -38,13 +37,7 @@ vetiver_create_sagemaker_model <- function(model_name,
                                            vpc_config = list(),
                                            enable_network_isolation = FALSE,
                                            tags = NULL) {
-  if (!is_installed("smdocker")) {
-    abort("smdocker not installed")
-  }
-  if (!is_installed("paws.machine.learning")) {
-    abort("paws.machine.learning not installed")
-  }
-
+  rlang::check_installed(c("smdocker", "paws.machine.learning"))
   config <- smdocker::smdocker_config()
   sagemaker_client <- paws.machine.learning::sagemaker(config)
 
@@ -85,12 +78,7 @@ vetiver_deploy_sagemaker <- function(model_name,
                                      model_data_download_timeout = NULL,
                                      container_startup_health_check_timeout = NULL,
                                      wait = TRUE) {
-  if (!is_installed("smdocker")) {
-    abort("smdocker not installed")
-  }
-  if (!is_installed("paws.machine.learning")) {
-    abort("paws.machine.learning not installed")
-  }
+  rlang::check_installed(c("smdocker", "paws.machine.learning"))
 
   config <- smdocker::smdocker_config()
   sagemaker_client <- paws.machine.learning::sagemaker(config)
@@ -124,12 +112,15 @@ vetiver_deploy_sagemaker <- function(model_name,
 
 #' @export
 predict.sagemaker <- function(x, new_data, ...) {
+  rlang::check_installed(c("jsonlite", "smdocker", "paws.machine.learning"))
+  data_json <- jsonlite::toJSON(new_data, na = "string")
   config <- smdocker::smdocker_config()
   sm_runtime <- paws.machine.learning::sagemakerruntime(config)
-  preds <- sm_runtime$invoke_endpoint(sm_model_name, new_data)$Body
-  con <- rawConnection(stream)
+  resp <- sm_runtime$invoke_endpoint(sm_model_name, data_json)$Body
+  con <- rawConnection(resp)
   on.exit(close(con))
-  return(fromJSON(con))
+  resp <- jsonlite::fromJSON(con)
+  return(tibble::as_tibble(resp))
 }
 
 new_vetiver_endpoint_sagemaker <- function(model_name = character()) {
