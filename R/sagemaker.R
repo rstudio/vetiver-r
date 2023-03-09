@@ -48,8 +48,8 @@ vetiver_create_sagemaker_model <- function(model_name,
     config <- smdocker::smdocker_config()
     sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-    if (missing(name)) {
-        name <- base_name_from_image(image_uri)
+    if (missing(model_name)) {
+        model_name <- base_name_from_image(image_uri)
     }
 
     if (missing(role)) {
@@ -57,7 +57,7 @@ vetiver_create_sagemaker_model <- function(model_name,
     }
 
     request <- list(
-        "ModelName"=name,
+        "ModelName"=model_name,
         "ExecutionRoleArn"=role,
         "PrimaryContainer"=list("Image"=image_uri)
     )
