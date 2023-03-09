@@ -51,7 +51,7 @@ req_endpoint_config <- function(model_name,
   product_variant$InitialInstanceCount <- initial_instance_count
   product_variant$InstanceType <- instance_type
   product_variant$VolumeSizeInGB <- volume_size
-  request$ProductionVariants <- product_variant
+  request$ProductionVariants <- list(product_variant)
   request$Tags <- tags
   request$KmsKeyId <- kms_key
   request$DataCaptureConfig <- data_capture_config
