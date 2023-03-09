@@ -120,12 +120,12 @@ vetiver_deploy_sagemaker_model <- function(model_name,
 }
 
 #' @export
-vetiver_delete_sagemaker_model <- function(model_name){
-    rlang::check_installed(c("smdocker", "paws.machine.learning"))
+vetiver_delete_sagemaker_model <- function(model_name) {
+  rlang::check_installed(c("smdocker", "paws.machine.learning"))
 
-    config <- smdocker::smdocker_config()
-    sagemaker_client <- paws.machine.learning::sagemaker(config)
-    sagemaker_client$delete_model(model_name)
+  config <- smdocker::smdocker_config()
+  sagemaker_client <- paws.machine.learning::sagemaker(config)
+  sagemaker_client$delete_model(model_name)
 }
 
 #' @export
