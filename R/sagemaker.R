@@ -83,7 +83,8 @@ vetiver_deploy_sagemaker <- function(model_name,
                                      data_capture_config = NULL,
                                      volume_size = NULL,
                                      model_data_download_timeout = NULL,
-                                     container_startup_health_check_timeout = NULL) {
+                                     container_startup_health_check_timeout = NULL,
+                                     wait = TRUE) {
   if (!is_installed("smdocker")) {
     abort("smdocker not installed")
   }
@@ -115,7 +116,7 @@ vetiver_deploy_sagemaker <- function(model_name,
 
   # create endpoint
   endpoint_name <- create_endpoint(
-      sagemaker_client, model_name, endpoint_name, tags, wait
+    sagemaker_client, model_name, endpoint_name, tags, wait
   )
 
   return(new_vetiver_endpoint_sagemaker(model_name))
