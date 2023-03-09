@@ -3,46 +3,11 @@
 
 #' @include sagemaker_utils.R
 
-
-# @export
-# vetiver_create_aws_ecr <- function(repository = NULL,
-#                                    compute_type = c(
-#                                      "BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
-#                                      "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"
-#                                    ),
-#                                    role = NULL,
-#                                    dir = ".",
-#                                    bucket = NULL,
-#                                    vpc_id = NULL,
-#                                    subnet_ids = list(),
-#                                    security_group_ids = list(),
-#                                    log = TRUE,
-#                                    ...) {
-#   if (!is_installed("smdocker")) {
-#     abort("smdocker not installed")
-#   }
-#   image_uri <- smdocker::sm_build(
-#       repository = repository,
-#       compute_type = compute_type,
-#       role = role,
-#       dir = dir,
-#       bucket = bucket,
-#       vpc_id = vpc_id,
-#       subnet_ids = subnet_ids,
-#       security_group_ids = security_group_ids,
-#       log = log,
-#       ...
-#   )
-#
-#   return(image_uri)
-# }
-
-
 #' @title initial create sagemaker model from vetiver
 #' @export
-vetiver_create_sagemaker_model <- function(model_name,
+vetiver_create_sagemaker_model <- function(image_uri,
+                                           model_name,
                                            role,
-                                           image_uri,
                                            vpc_config = list(),
                                            enable_network_isolation = FALSE,
                                            tags = NULL) {
@@ -91,6 +56,8 @@ vetiver_deploy_sagemaker_model <- function(model_name,
 
   config <- smdocker::smdocker_config()
   sagemaker_client <- paws.machine.learning::sagemaker(config)
+
+  endpoint_name <- endpoint_name %||% model_name
 
   request <- req_endpoint_config(
     model_name,
