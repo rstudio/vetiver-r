@@ -67,7 +67,7 @@ vetiver_create_sagemaker_model <- function(model_name,
     request$EnableNetworkIsolation <- TRUE
   }
   # create model
-  do.call(sagemaker_client$create_model, args)
+  do.call(sagemaker_client$create_model, request)
 
   return(model_name)
 }
