@@ -1,13 +1,10 @@
 #' @import rlang
 #' @importFrom stats predict
 
-
 #' @include sagemaker_utils.R
 
-# TODO: tidy up!
-# Should classes be used to help with flow?
 
-# helper function
+# @export
 # vetiver_create_aws_ecr <- function(repository = NULL,
 #                                    compute_type = c(
 #                                      "BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
@@ -24,10 +21,22 @@
 #   if (!is_installed("smdocker")) {
 #     abort("smdocker not installed")
 #   }
-#   image_uri <- smdocker::sm_build()
+#   image_uri <- smdocker::sm_build(
+#       repository = repository,
+#       compute_type = compute_type,
+#       role = role,
+#       dir = dir,
+#       bucket = bucket,
+#       vpc_id = vpc_id,
+#       subnet_ids = subnet_ids,
+#       security_group_ids = security_group_ids,
+#       log = log,
+#       ...
+#   )
 #
 #   return(image_uri)
 # }
+
 
 #' @title initial create sagemaker model from vetiver
 #' @export
@@ -111,6 +120,15 @@ vetiver_deploy_sagemaker_model <- function(model_name,
 }
 
 #' @export
+vetiver_delete_sagemaker_model <- function(model_name){
+    rlang::check_installed(c("smdocker", "paws.machine.learning"))
+
+    config <- smdocker::smdocker_config()
+    sagemaker_client <- paws.machine.learning::sagemaker(config)
+    sagemaker_client$delete_model(model_name)
+}
+
+#' @export
 predict.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
   rlang::check_installed(c("jsonlite", "smdocker", "paws.machine.learning"))
   data_json <- jsonlite::toJSON(new_data, na = "string")
@@ -122,6 +140,8 @@ predict.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
   resp <- jsonlite::fromJSON(con)
   return(tibble::as_tibble(resp))
 }
+
+# classes and formatting
 
 new_vetiver_endpoint_sagemaker <- function(model_name = character()) {
   stopifnot(is.character(model_name))
