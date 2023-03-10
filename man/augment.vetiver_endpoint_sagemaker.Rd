@@ -22,8 +22,8 @@ Post new data to a deployed model API endpoint and augment with predictions
 \examples{
 
 if (FALSE) {
-endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
-augment(endpoint, mtcars[4:7, -1])
+  endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
+  augment(endpoint, mtcars[4:7, -1])
 }
 
 }
