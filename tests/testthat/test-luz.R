@@ -1,6 +1,6 @@
 skip_on_cran()
 skip_if_not_installed(pkg = c("torch", "luz", "plumber"))
-Sys.setenv(TORCH_INSTALL=1)
+torch::install_torch()
 
 fitted <- torch::nn_linear %>%
     luz::setup(loss = torch::nnf_mse_loss, optimizer = torch::optim_sgd) %>%
