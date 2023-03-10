@@ -329,12 +329,12 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
   sm_runtime <- paws.machine.learning::sagemakerruntime(config)
   tryCatch(
     {
-        resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json)$Body
+      resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json)$Body
     },
     error = function(error) {
       error_code <- error$error_response$ErrorCode
       if (error_code == "NO_SUCH_ENDPOINT") {
-        abort(glue("Model Endpoint '{object$model_endpoint}' not found."))
+        stop(glue("Model Endpoint '{object$model_endpoint}' not found."), call. = F)
       }
       stop(error)
     }
@@ -379,7 +379,7 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 #' @examples
 #'
 #' if (FALSE) {
-#' vetiver_endpoint("vetiver-sagemaker-demo-model")
+#'   vetiver_endpoint("vetiver-sagemaker-demo-model")
 #' }
 #' @export
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
