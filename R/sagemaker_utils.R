@@ -50,9 +50,9 @@ req_endpoint_config <- function(model_name,
   product_variant$AcceleratorType <- accelerator_type
   product_variant$InitialInstanceCount <- initial_instance_count
   product_variant$InstanceType <- instance_type
-  product_variant$VolumeSizeInGB <- if(is.null(volume_size)) NULL else as.integer(volume_size)
+  product_variant$VolumeSizeInGB <- if (is.null(volume_size)) NULL else as.integer(volume_size)
   product_variant$ModelDataDownloadTimeoutInSeconds <- (
-      if(is.null(model_data_download_timeout)) NULL else as.integer(model_data_download_timeout)
+    if (is.null(model_data_download_timeout)) NULL else as.integer(model_data_download_timeout)
   )
   request$ProductionVariants <- list(product_variant)
   request$Tags <- tags
