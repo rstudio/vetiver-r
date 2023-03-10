@@ -12,6 +12,7 @@ vetiver_deploy_sagemaker(
   repo_name = glue("vetiver-sagemaker-{name}"),
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
+  bucket = NULL,
   instance_type = NULL,
   ...
 )
@@ -31,6 +32,9 @@ such as the endpoint \code{path} or prediction \code{type}.}
 \item{repo_name}{The \verb{AWS ECR} repository name to store the model.}
 
 \item{compute_type}{The \verb{AWS CodeBuild} instance to build docker for the model.}
+
+\item{bucket}{(character): The S3 bucket to use for sending data to \code{CodeBuild} (if None,
+use the \verb{SageMaker SDK} default bucket).}
 
 \item{instance_type}{The \verb{Amazon SageMaker} instance to host the model.}
 

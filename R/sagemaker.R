@@ -15,6 +15,8 @@
 #' such as the endpoint `path` or prediction `type`.
 #' @param repo_name The `AWS ECR` repository name to store the model.
 #' @param compute_type The `AWS CodeBuild` instance to build docker for the model.
+#' @param bucket (character): The S3 bucket to use for sending data to `CodeBuild` (if None,
+#' use the `SageMaker SDK` default bucket).
 #' @param instance_type The `Amazon SageMaker` instance to host the model.
 #' @param ... Other arguments passed to [vetiver_sm_endpoint()] such as
 #' `accelerator_type` or `data_capture_config`.
@@ -37,6 +39,7 @@ vetiver_deploy_sagemaker <- function(board,
                                          "BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
                                          "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"
                                      ),
+                                     bucket = NULL,
                                      instance_type = NULL,
                                      ...) {
   # create dockerfile using
@@ -61,7 +64,8 @@ vetiver_deploy_sagemaker <- function(board,
   image_uri <- vetiver_sm_build(
     repository = glue("{repo_name}:{strftime(Sys.time(), '%Y-%m-%d')}"),
     compute_type = compute_type,
-    dir = tmp
+    dir = tmp,
+    bucket = bucket
   )
 
   args <- list2(...)
