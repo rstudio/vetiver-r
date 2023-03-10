@@ -36,8 +36,8 @@ vetiver_deploy_sagemaker <- function(board,
                                      predict_args = list(),
                                      repo_name = glue("vetiver-sagemaker-{name}"),
                                      compute_type = c(
-                                         "BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
-                                         "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"
+                                       "BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
+                                       "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"
                                      ),
                                      bucket = NULL,
                                      instance_type = NULL,
@@ -47,22 +47,28 @@ vetiver_deploy_sagemaker <- function(board,
   tmp <- fs::dir_create(tempdir(), "vetiver")
   withr::local_dir(tmp)
   vetiver_write_plumber(
-      board = board,
-      name = name,
-      version = version,
-      !!!predict_args
+    board = board,
+    name = name,
+    version = version,
+    !!!predict_args
   )
   v <- vetiver_pin_read(board = board, name = name, version = version)
   vetiver_write_docker(
-      v,
-      port = 8080,
-      base_image = glue("FROM ghcr.io/rocker-org/r-ver:{getRversion()}"),
-      additional_pkgs = required_pkgs(board)
+    v,
+    port = 8080,
+    base_image = glue("FROM ghcr.io/rocker-org/r-ver:{getRversion()}"),
+    additional_pkgs = required_pkgs(board)
+  )
+
+  repo_name <- ifelse(
+    grepl(":", repo_name),
+    repo_name,
+    glue("{repo_name}:{strftime(Sys.time(), '%Y-%m-%d')}")
   )
 
   # build image and push to aws ecr
   image_uri <- vetiver_sm_build(
-    repository = glue("{repo_name}:{strftime(Sys.time(), '%Y-%m-%d')}"),
+    repository = repo_name,
     compute_type = compute_type,
     dir = tmp,
     bucket = bucket
@@ -272,21 +278,24 @@ vetiver_sm_endpoint <- function(model_name,
 #' @param delete_endpoint_config Delete endpoint configuration (default: `TRUE`).
 #' @return `TRUE` invisible
 #' @export
-vetiver_sm_delete <- function(endpoint_name, delete_endpoint_config=TRUE) {
+vetiver_sm_delete <- function(endpoint_name, delete_endpoint_config = TRUE) {
   rlang::check_installed(c("smdocker", "paws.machine.learning"))
 
   config <- smdocker::smdocker_config()
   sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-  if(!is.null(delete_endpoint_config)) {
-      tryCatch({
-          endpoint_config_name = sagemaker_client$describe_endpoint(
-              EndpointName=endpoint_name
-          )$EndpointConfigName
-          sagemaker_client$delete_endpoint_config(endpoint_config_name)
-      }, error = function(err) {
+  if (!is.null(delete_endpoint_config)) {
+    tryCatch(
+      {
+        endpoint_config_name <- sagemaker_client$describe_endpoint(
+          EndpointName = endpoint_name
+        )$EndpointConfigName
+        sagemaker_client$delete_endpoint_config(endpoint_config_name)
+      },
+      error = function(err) {
         warn(glue("Unable to delete '{endpoint_name}' endpoint configuration."))
-      })
+      }
+    )
   }
   sagemaker_client$delete_model(endpoint_name)
   return(invisible(TRUE))
@@ -306,8 +315,8 @@ vetiver_sm_delete <- function(endpoint_name, delete_endpoint_config=TRUE) {
 #' @examples
 #'
 #' if (FALSE) {
-#' endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
-#' predict(endpoint, mtcars[4:7, -1])
+#'   endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
+#'   predict(endpoint, mtcars[4:7, -1])
 #' }
 #' @export
 predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
@@ -335,13 +344,13 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
 #' @examples
 #'
 #' if (FALSE) {
-#' endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
-#' augment(endpoint, mtcars[4:7, -1])
+#'   endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
+#'   augment(endpoint, mtcars[4:7, -1])
 #' }
 #'
 augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
-    preds <- predict(x, new_data = new_data, ...)
-    vctrs::vec_cbind(tibble::as_tibble(new_data), preds)
+  preds <- predict(x, new_data = new_data, ...)
+  vctrs::vec_cbind(tibble::as_tibble(new_data), preds)
 }
 
 
@@ -359,19 +368,19 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 #'
 #' @export
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
-    rlang::check_installed("smdocker")
-    config <- smdocker::smdocker_config()
-    model_endpoint <- as.character(model_endpoint)
-    new_vetiver_endpoint_sagemaker(model_endpoint, config$region)
+  rlang::check_installed("smdocker")
+  config <- smdocker::smdocker_config()
+  model_endpoint <- as.character(model_endpoint)
+  new_vetiver_endpoint_sagemaker(model_endpoint, config$region)
 }
 
 new_vetiver_endpoint_sagemaker <- function(model_endpoint = character(),
                                            region = character()) {
-    stopifnot(is.character(model_endpoint), is.character(region))
-    structure(
-        list(model_endpoint = model_endpoint, region = region),
-        class = "vetiver_endpoint_sagemaker"
-    )
+  stopifnot(is.character(model_endpoint), is.character(region))
+  structure(
+    list(model_endpoint = model_endpoint, region = region),
+    class = "vetiver_endpoint_sagemaker"
+  )
 }
 
 #' @export
