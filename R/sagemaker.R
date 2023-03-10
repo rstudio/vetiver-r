@@ -181,6 +181,9 @@ vetiver_sm_model <- function(image_uri,
   sagemaker_client <- paws.machine.learning::sagemaker(config)
 
   if (missing(model_name)) {
+    # NOTE: model name needs to meet regex:
+    # ^[a-zA-Z0-9]([\-a-zA-Z0-9]*[a-zA-Z0-9])?
+    # Should there be a check or a clean up of name coming from ecr image?
     model_name <- base_name_from_image(image_uri)
   }
 
