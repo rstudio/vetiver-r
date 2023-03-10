@@ -60,4 +60,6 @@ test_that("can call endpoints", {
     })
     endpoint <- vetiver_endpoint("http://127.0.0.1:3232/predict")
     predictions <- predict(endpoint, list(as.array(torch::torch_randn(10, 10))))
+    expect_equal(nrow(predictions), 10)
+    expect_equal(names(predictions), c(".pred"))
 })
