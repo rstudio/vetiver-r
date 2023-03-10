@@ -274,15 +274,17 @@ vetiver_sm_endpoint <- function(model_name,
 }
 
 #' @title Delete `Amazon SageMaker` endpoint and configuration.
-#' @param endpoint_name `Amazon SageMaker` model endpoint to be deleted.
+#' @param object A model API endpoint object created with [vetiver_endpoint_sagemaker()].
 #' @param delete_endpoint_config Delete endpoint configuration (default: `TRUE`).
 #' @return `TRUE` invisible
 #' @export
-vetiver_sm_delete <- function(endpoint_name, delete_endpoint_config = TRUE) {
+vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
   rlang::check_installed(c("smdocker", "paws.machine.learning"))
 
   config <- smdocker::smdocker_config()
   sagemaker_client <- paws.machine.learning::sagemaker(config)
+
+  endpoint_name <- object$model_endpoint
 
   if (!is.null(delete_endpoint_config)) {
     tryCatch(

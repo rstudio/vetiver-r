@@ -4,10 +4,10 @@
 \alias{vetiver_sm_delete}
 \title{Delete \verb{Amazon SageMaker} endpoint and configuration.}
 \usage{
-vetiver_sm_delete(endpoint_name, delete_endpoint_config = TRUE)
+vetiver_sm_delete(object, delete_endpoint_config = TRUE)
 }
 \arguments{
-\item{endpoint_name}{\verb{Amazon SageMaker} model endpoint to be deleted.}
+\item{object}{A model API endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
 
 \item{delete_endpoint_config}{Delete endpoint configuration (default: \code{TRUE}).}
 }
