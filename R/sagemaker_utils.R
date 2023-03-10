@@ -50,7 +50,10 @@ req_endpoint_config <- function(model_name,
   product_variant$AcceleratorType <- accelerator_type
   product_variant$InitialInstanceCount <- initial_instance_count
   product_variant$InstanceType <- instance_type
-  product_variant$VolumeSizeInGB <- volume_size
+  product_variant$VolumeSizeInGB <- if(is.null(volume_size)) NULL else as.integer(volume_size)
+  product_variant$ModelDataDownloadTimeoutInSeconds <- (
+      if(is.null(model_data_download_timeout)) NULL else as.integer(model_data_download_timeout)
+  )
   request$ProductionVariants <- list(product_variant)
   request$Tags <- tags
   request$KmsKeyId <- kms_key
@@ -127,6 +130,78 @@ sagemaker_deploy_done <- function(client, endpoint_name) {
 
   write_to_console("")
   return(desc)
+}
+
+# developed from:
+# https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/_studio.py#L21-L113
+STUDIO_PROJECT_CONFIG <- ".sagemaker-code-config"
+
+.append_project_tags <- function(tags = NULL, working_dir = NULL) {
+  path <- .find_config(working_dir)
+  if (is.null(path)) {
+    return(tags)
+  }
+
+  config <- .load_config(path)
+  if (is.null(config)) {
+    return(tags)
+  }
+
+  additional_tags <- .parse_tags(config)
+  if (is.null(additional_tags)) {
+    return(tags)
+  }
+
+  all_tags <- tags %||% list()
+  all_tags <- c(all_tags, additional_tags)
+
+  return(all_tags)
+}
+
+.find_config <- function(working_dir = NULL) {
+  tryCatch(
+    {
+      wd <- if (!is.null(working_dir)) working_dir else getwd()
+      path <- NULL
+      while (is.null(path) && !grepl("/", wd)) {
+        candidate <- fs::path(wd, STUDIO_PROJECT_CONFIG)
+        if (fs::file_exists(candidate)) {
+          path <- candidate
+        }
+        wd <- fs::path_dir(candidate)
+      }
+      return(path)
+    },
+    error = function(e) {
+      return(NULL)
+    }
+  )
+}
+
+.load_config <- function(path) {
+  if (!fs::file_exists(path)) {
+    return(NULL)
+  }
+  tryCatch(
+    {
+      config <- jsonlite::read_json(path)
+      return(config)
+    },
+    error = function(e) {
+      return(NULL)
+    }
+  )
+}
+
+.parse_tags <- function(config) {
+  if (!is_empty(config$sagemakerProjectId) || !is_empty(config$sagemakerProjectName)) {
+    return(list(
+      list("Key" = "sagemaker:project-id", "Value" = config$sagemakerProjectId),
+      list("Key" = "sagemaker:project-name", "Value" = config$sagemakerProjectName)
+    ))
+  } else {
+    return(NULL)
+  }
 }
 
 # allow to write to jupyter console while code still executing
