@@ -325,13 +325,12 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
   data_json <- jsonlite::toJSON(new_data, na = "string")
   config <- smdocker::smdocker_config()
   sm_runtime <- paws.machine.learning::sagemakerruntime(config)
-  resp <- sm_runtime$invoke_endpoint(sm_model_name, data_json)$Body
+  resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json)$Body
   con <- rawConnection(resp)
   on.exit(close(con))
   resp <- jsonlite::fromJSON(con)
   return(tibble::as_tibble(resp))
 }
-
 
 #' Post new data to a deployed model API endpoint and augment with predictions
 #'
