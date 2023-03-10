@@ -327,7 +327,18 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
   data_json <- jsonlite::toJSON(new_data, na = "string")
   config <- smdocker::smdocker_config()
   sm_runtime <- paws.machine.learning::sagemakerruntime(config)
-  resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json)$Body
+  tryCatch(
+    {
+        resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json)$Body
+    },
+    error = function(error) {
+      error_code <- error$error_response$ErrorCode
+      if (error_code == "NO_SUCH_ENDPOINT") {
+        abort(glue("Model Endpoint '{object$model_endpoint}' not found."))
+      }
+      stop(error)
+    }
+  )
   con <- rawConnection(resp)
   on.exit(close(con))
   resp <- jsonlite::fromJSON(con)
