@@ -298,6 +298,7 @@ vetiver_sm_delete <- function(endpoint_name, delete_endpoint_config = TRUE) {
     )
   }
   sagemaker_client$delete_model(endpoint_name)
+  sagemaker_client$delete_endpoint(endpoint_name)
   return(invisible(TRUE))
 }
 
