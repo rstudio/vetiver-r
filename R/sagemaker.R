@@ -55,7 +55,7 @@ vetiver_deploy_sagemaker <- function(board,
   v <- vetiver_pin_read(board = board, name = name, version = version)
   vetiver_write_docker(
       v,
-      docker_args = list(port = 8080),
+      port = 8080,
       base_image = glue("FROM ghcr.io/rocker-org/r-ver:{getRversion()}"),
       additional_pkgs = required_pkgs(board)
   )
