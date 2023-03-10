@@ -102,7 +102,18 @@ test_that("can call endpoints", {
         p$run(port = 3232)
     })
     endpoint <- vetiver_endpoint("http://127.0.0.1:3232/predict")
+    # wait for session to start plumber
+    httr::RETRY("GET", "http://127.0.0.1:3232/ping", quiet = TRUE)
+
     predictions <- predict(endpoint, list(input = as.array(torch::torch_randn(10, 1, 5, 2))))
+    expect_equal(nrow(predictions), 10)
+    expect_equal(names(predictions), c(".pred"))
+
+    predictions <- predict(endpoint, list(as.array(torch::torch_randn(10, 1, 5, 2))))
+    expect_equal(nrow(predictions), 10)
+    expect_equal(names(predictions), c(".pred"))
+
+    predictions <- predict(endpoint, as.array(torch::torch_randn(10, 1, 5, 2)))
     expect_equal(nrow(predictions), 10)
     expect_equal(names(predictions), c(".pred"))
 })
