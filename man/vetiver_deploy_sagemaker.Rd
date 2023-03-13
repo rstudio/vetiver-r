@@ -9,6 +9,7 @@ vetiver_deploy_sagemaker(
   name,
   version = NULL,
   predict_args = list(),
+  docker_args = list(),
   repo_name = glue("vetiver-sagemaker-{name}"),
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
@@ -27,6 +28,11 @@ find out which versions are available and when they were created.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
 such as the prediction \code{type}.}
+
+\item{docker_args}{A list of optional arguments passed to
+\code{\link[=vetiver_write_docker]{vetiver_write_docker()}} such as the \code{lockfile} name or whether to use
+\code{rspm}. Do not pass \code{additional_pkgs} here, as this function uses
+\code{additional_pkgs = required_pkgs(board)}.}
 
 \item{repo_name}{The name for the AWS ECR repository to store the model.}
 

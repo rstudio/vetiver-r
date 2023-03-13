@@ -164,6 +164,13 @@ builds the image on \href{https://aws.amazon.com/codebuild/}{AWS CodeBuild}. The
 resulting image is stored in \href{https://aws.amazon.com/ecr/}{AWS ECR}.
 This function creates a Plumber file and Dockerfile appropriate for
 SageMaker, for example, with \code{path = "/invocations"} and \code{port = 8080}.
+
+If you run into problems with Docker rate limits, then either
+\itemize{
+\item authenticate to Docker from SageMaker, or
+\item use a \href{https://gallery.ecr.aws/docker/library/r-base}{public ECR base image},
+passed through \code{docker_args}
+}
 }
 \examples{
 if (FALSE) {
@@ -176,7 +183,11 @@ vetiver_pin_write(b, v)
 new_image_uri <- vetiver_sm_build(
     board = b,
     name = "cars_linear",
-    predict_args = list(type = "class", debug = TRUE)
+    predict_args = list(type = "class", debug = TRUE),
+    docker_args = list(
+        base_image = "FROM public.ecr.aws/docker/library/r-base:4.2.2",
+        port = 8088
+    )
 )
 
 model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
