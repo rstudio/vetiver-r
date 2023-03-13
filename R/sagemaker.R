@@ -88,7 +88,10 @@ vetiver_deploy_sagemaker <- function(board,
 
     # create sagemaker endpoint
     endpoint_args <- c(
-        model_name = model_name, instance_type = instance_type, args
+        model_name = model_name,
+        instance_type = instance_type,
+        tags = tags,
+        args
     )
     endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
     return(endpoint)
@@ -299,7 +302,7 @@ vetiver_sm_model <- function(image_uri,
 #'
 #' @param model_name The Amazon SageMaker model name to be deployed.
 #' @param endpoint_name The name to use for the Amazon SageMaker model endpoint
-#' to be created.
+#' to be created, if to be different from `model_name`.
 #' @param instance_type Type of EC2 instance to use; see
 #' [Amazon SageMaker pricing](https://aws.amazon.com/sagemaker/pricing/).
 #' @param initial_instance_count The initial number of instances to run
