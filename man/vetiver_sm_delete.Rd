@@ -20,5 +20,5 @@ Defaults to \code{TRUE}.}
 Delete Amazon SageMaker model, endpoint, and configuration
 }
 \seealso{
-\code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
+\code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_sm_build]{vetiver_sm_build()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
 }

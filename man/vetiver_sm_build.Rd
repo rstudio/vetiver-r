@@ -2,8 +2,9 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_sm_build}
 \alias{vetiver_sm_build}
-\title{Generate and build a Docker image to deploy a vetiver model on
-SageMaker}
+\alias{vetiver_sm_model}
+\alias{vetiver_sm_endpoint}
+\title{Deploy a vetiver model API to Amazon SageMaker}
 \usage{
 vetiver_sm_build(
   board,
@@ -22,6 +23,29 @@ vetiver_sm_build(
   security_group_ids = list(),
   log = TRUE,
   ...
+)
+
+vetiver_sm_model(
+  image_uri,
+  model_name,
+  role,
+  vpc_config = list(),
+  enable_network_isolation = FALSE,
+  tags = list()
+)
+
+vetiver_sm_endpoint(
+  model_name,
+  endpoint_name = NULL,
+  instance_type = NULL,
+  initial_instance_count = 1,
+  accelerator_type = NULL,
+  tags = list(),
+  kms_key = NULL,
+  data_capture_config = list(),
+  volume_size = NULL,
+  model_data_download_timeout = NULL,
+  wait = TRUE
 )
 }
 \arguments{
@@ -50,8 +74,7 @@ Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 \item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{role}{The IAM role name for CodeBuild to use as a character. Defaults
-to the SageMaker Studio execution role.}
+\item{role}{The ARN role for the Amazon SageMaker model.}
 
 \item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
 character. Defaults to the SageMaker SDK default bucket.}
@@ -60,7 +83,7 @@ character. Defaults to the SageMaker SDK default bucket.}
 (such as \code{"vpc-05c09f91d48831c8c"}).}
 
 \item{subnet_ids}{List of subnet IDs for the CodeBuild project
-(such as \code{list("subnet-0b31f1863e9d31a67")})}
+(such as \code{list("subnet-0b31f1863e9d31a67")}).}
 
 \item{security_group_ids}{List of security group IDs for the CodeBuild
 project (such as \code{list("sg-0ce4ec0d0414d2ddc")}).}
@@ -70,31 +93,81 @@ Defaults to \code{TRUE}.}
 
 \item{...}{\href{https://docs.docker.com/engine/reference/commandline/build/#options>}{Docker build parameters}
 (Use "_" instead of "-"; for example, Docker optional parameter
-\code{build-arg} becomes \code{build_arg})}
+\code{build-arg} becomes \code{build_arg}).}
+
+\item{image_uri}{The AWS ECR image URI for the Amazon SageMaker Model to be
+created (for example, as returned by \code{\link[=vetiver_sm_build]{vetiver_sm_build()}}).}
+
+\item{model_name}{The Amazon SageMaker model name to be deployed.}
+
+\item{vpc_config}{A list containing the VPC configuration for the Amazon
+SageMaker model \href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html}{API VpcConfig}
+(optional).
+\itemize{
+\item \code{Subnets}: List of subnet ids
+\item \code{SecurityGroupIds}: List of security group ids
+}}
+
+\item{enable_network_isolation}{A logical to specify whether the container
+will run in network isolation mode. Defaults to \code{FALSE}.}
+
+\item{tags}{A list of tags for labeling the Amazon SageMaker model endpoint.}
+
+\item{endpoint_name}{The name to use for the Amazon SageMaker model endpoint
+to be created, if to be different from \code{model_name}.}
+
+\item{instance_type}{Type of EC2 instance to use; see
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
+
+\item{initial_instance_count}{The initial number of instances to run
+in the endpoint.}
+
+\item{accelerator_type}{Type of Elastic Inference accelerator to
+attach to an endpoint for model loading and inference, for
+example, \code{"ml.eia1.medium"}.}
+
+\item{kms_key}{The ARN of the KMS key used to encrypt the data on the
+storage volume attached to the instance hosting the endpoint.}
+
+\item{data_capture_config}{A list for configuration to control how Amazon
+SageMaker captures inference data.}
+
+\item{volume_size}{The size, in GB, of the ML storage volume attached to
+the individual inference instance associated with the production variant.
+Currently only Amazon EBS gp2 storage volumes are supported.}
+
+\item{model_data_download_timeout}{The timeout value, in seconds, to download
+and extract model data from Amazon S3.}
+
+\item{wait}{A logical for whether to wait for the endpoint to be deployed.
+Defaults to \code{TRUE}.}
 }
 \value{
-The AWS ECR image URI as a character vector, invisibly.
+\code{vetiver_sm_build()} returns the AWS ECR image URI and
+\code{vetiver_sm_model()} returns the model name (both as characters).
+\code{vetiver_sm_endpoint()} returns new \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}} object.
 }
 \description{
-This function generates the files necessary to build a Docker
-container to deploy a vetiver model in SageMaker and builds the image on
-\href{https://aws.amazon.com/codebuild/}{AWS CodeBuild}. The resulting image is
-then stored in \href{https://aws.amazon.com/ecr/}{AWS ECR}.
-
 Use the function \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}} for basic deployment on
 SageMaker, or these three functions together for more advanced use cases:
 \itemize{
 \item \code{vetiver_sm_build()} generates and builds a Docker image on SageMaker for
 a vetiver model
-\item \code{\link[=vetiver_sm_model]{vetiver_sm_model()}} creates an Amazon SageMaker model
-\item \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} deploys an Amazon SageMaker model endpoint
+\item \code{vetiver_sm_model()} creates an Amazon SageMaker model
+\item \code{vetiver_sm_endpoint()} deploys an Amazon SageMaker model endpoint
 }
 }
 \details{
-This function creates a Plumber file and Dockerfile appropriate
-for SageMaker, for example, with \code{path = "/invocations"} and \code{port = 8080}.
+The function \code{vetiver_sm_build()} generates the files necessary to
+build a Docker container to deploy a vetiver model in SageMaker and then
+builds the image on \href{https://aws.amazon.com/codebuild/}{AWS CodeBuild}. The
+resulting image is stored in \href{https://aws.amazon.com/ecr/}{AWS ECR}.
+This function creates a Plumber file and Dockerfile appropriate for
+SageMaker, for example, with \code{path = "/invocations"} and \code{port = 8080}.
 }
-\examples{
+\seealso{
+\code{\link[=vetiver_prepare_docker]{vetiver_prepare_docker()}}, \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
+
 if (FALSE) {
 library(pins)
 b <- board_s3(bucket = "my-existing-bucket")
@@ -103,12 +176,11 @@ v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 
 new_image_uri <- vetiver_sm_build(
-    board = b,
-    name = "cars_linear",
-    predict_args = list(type = "class", debug = TRUE)
+board = b,
+name = "cars_linear",
+predict_args = list(type = "class", debug = TRUE)
 )
-}
-}
-\seealso{
-\code{\link[=vetiver_prepare_docker]{vetiver_prepare_docker()}}, \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}
+
+model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
+vetiver_sm_endpoint(model_name)
 }
