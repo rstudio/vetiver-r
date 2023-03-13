@@ -42,7 +42,7 @@ req_endpoint_config <- function(model_name,
 
     request <- compact(list(
         EndpointConfigName = endpoint_name,
-        ProductionVariants = compact(list(
+        ProductionVariants = list(compact(list(
             ModelName = model_name,
             VariantName = "AllTraffic",
             InitialVariantWeight = 1,
@@ -51,7 +51,7 @@ req_endpoint_config <- function(model_name,
             InstanceType = instance_type,
             VolumeSizeInGB = volume_size,
             ModelDataDownloadTimeoutInSeconds = model_data_download_timeout
-        )),
+        ))),
         Tags = tags,
         KmsKeyId = kms_key,
         DataCaptureConfig = data_capture_config
