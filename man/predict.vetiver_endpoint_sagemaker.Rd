@@ -2,25 +2,24 @@
 % Please edit documentation in R/sagemaker.R
 \name{predict.vetiver_endpoint_sagemaker}
 \alias{predict.vetiver_endpoint_sagemaker}
-\title{Post new data to a deployed model API endpoint and return predictions}
+\title{Post new data to a deployed SageMaker model endpoint and return predictions}
 \usage{
 \method{predict}{vetiver_endpoint_sagemaker}(object, new_data, ...)
 }
 \arguments{
-\item{object}{A model API endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
+\item{object}{A SageMaker model endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
 
 \item{new_data}{New data for making predictions, such as a data frame.}
 
-\item{...}{Extra arguments passed to \code{\link[httr:POST]{httr::POST()}}}
+\item{...}{Extra arguments passed to \code{\link[paws.machine.learning:sagemakerruntime_invoke_endpoint]{paws.machine.learning::sagemakerruntime_invoke_endpoint()}}}
 }
 \value{
 A tibble of model predictions with as many rows as in \code{new_data}.
 }
 \description{
-Post new data to a deployed model API endpoint and return predictions
+Post new data to a deployed SageMaker model endpoint and return predictions
 }
 \examples{
-
 if (FALSE) {
   endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
   predict(endpoint, mtcars[4:7, -1])

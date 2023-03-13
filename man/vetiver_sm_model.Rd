@@ -2,7 +2,7 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_sm_model}
 \alias{vetiver_sm_model}
-\title{Create a \verb{Amazon SageMaker} Model.}
+\title{Create an Amazon SageMaker Model}
 \usage{
 vetiver_sm_model(
   image_uri,
@@ -10,31 +10,61 @@ vetiver_sm_model(
   role,
   vpc_config = list(),
   enable_network_isolation = FALSE,
-  tags = NULL
+  tags = list()
 )
 }
 \arguments{
-\item{image_uri}{The AWS ECR image uri for \verb{Amazon SageMaker} Model}
+\item{image_uri}{The AWS ECR image URI for the Amazon SageMaker Model to be
+created (for example, as returned by \code{\link[=vetiver_sm_build]{vetiver_sm_build()}})}
 
-\item{model_name}{The \verb{Amazon SageMaker} model name (optional)}
+\item{model_name}{The Amazon SageMaker model name (optional)}
 
-\item{role}{The ARN role for the \verb{Amazon SageMaker} model (optional)}
+\item{role}{The ARN role for the Amazon SageMaker model (optional)}
 
-\item{vpc_config}{A list containing the \code{VPC} configuration for \verb{Amazon SageMaker} model
-\href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html}{API VpcConfig} (optional).
+\item{vpc_config}{A list containing the VPC configuration for the Amazon
+SageMaker model \href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html}{API VpcConfig}
+(optional).
 \itemize{
 \item \code{Subnets}: List of subnet ids
-\item \code{SecurityGroupIds}: List of security group ids.
+\item \code{SecurityGroupIds}: List of security group ids
 }}
 
-\item{enable_network_isolation}{Specifies whether container will
-run in network isolation mode.}
+\item{enable_network_isolation}{A logical to specify whether the container
+will run in network isolation mode. Defaults to \code{FALSE}.}
 
-\item{tags}{A list of tags for labeling \verb{Amazon SageMaker} Model.}
+\item{tags}{A list of tags for labeling the Amazon SageMaker Model to be
+created.}
 }
 \value{
-Character vector of the model name
+Model name as a character
 }
 \description{
-Create a \verb{Amazon SageMaker} Model.
+Use the function \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}} for basic deployment on
+SageMaker, or these three functions together for more advanced use cases:
+\itemize{
+\item \code{\link[=vetiver_sm_build]{vetiver_sm_build()}} generates and builds a Docker image on SageMaker for
+a vetiver model
+\item \code{vetiver_sm_model()} creates an Amazon SageMaker model
+\item \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} deploys an Amazon SageMaker model endpoint
+}
+}
+\examples{
+if (FALSE) {
+library(pins)
+b <- board_s3(bucket = "my-existing-bucket")
+cars_lm <- lm(mpg ~ ., data = mtcars)
+v <- vetiver_model(cars_lm, "cars_linear")
+vetiver_pin_write(b, v)
+
+new_image_uri <- vetiver_sm_build(
+    board = b,
+    name = "cars_linear",
+    predict_args = list(type = "class", debug = TRUE)
+)
+
+model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
+}
+}
+\seealso{
+\code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_sm_build]{vetiver_sm_build()}}, \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}}
 }

@@ -2,14 +2,20 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_sm_build}
 \alias{vetiver_sm_build}
-\title{Use \verb{AWS CodeBuild} to build docker images and push them to Amazon \code{ECR}}
+\title{Generate and build a Docker image to deploy a vetiver model on
+SageMaker}
 \usage{
 vetiver_sm_build(
+  board,
+  name,
+  version,
+  path = fs::dir_create(tempdir(), "vetiver"),
+  predict_args,
+  docker_args,
   repository = NULL,
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
   role = NULL,
-  dir = ".",
   bucket = NULL,
   vpc_id = NULL,
   subnet_ids = list(),
@@ -19,55 +25,90 @@ vetiver_sm_build(
 )
 }
 \arguments{
-\item{repository}{(character): The \code{ECR} repository:tag for the image
-(default: \verb{sagemaker-studio-$\{domain_id\}:latest})}
+\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
+\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
-\item{compute_type}{(character): The \href{https://aws.amazon.com/codebuild/}{\code{CodeBuild}} compute type (default: \code{BUILD_GENERAL1_SMALL})}
+\item{name}{Pin name.}
 
-\item{role}{(character): The \code{IAM} role name for \code{CodeBuild} to use (default: the Studio execution role).}
+\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
+find out which versions are available and when they were created.}
 
-\item{dir}{(character): Directory to build}
+\item{path}{A path to write the Plumber file, Dockerfile, and lockfile,
+capturing the model's dependencies. Defaults to the working directory.}
 
-\item{bucket}{(character): The S3 bucket to use for sending data to \code{CodeBuild} (if None,
-use the \verb{SageMaker SDK} default bucket).}
+\item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
+such as the endpoint \code{path} or prediction \code{type}.}
 
-\item{vpc_id}{(character): The Id of the \code{VPC} that will host the \code{CodeBuild} Project
-(such as \verb{vpc-05c09f91d48831c8c}).}
+\item{docker_args}{A list of optional arguments passed to
+\code{\link[=vetiver_write_docker]{vetiver_write_docker()}} such as the \code{lockfile} name or whether to use
+\code{rspm}. Do not pass \code{additional_pkgs} here, as this function uses
+\code{additional_pkgs = required_pkgs(board)}.}
 
-\item{subnet_ids}{(list): List of \code{subnet} ids for the \code{CodeBuild} Project
-(such as \verb{subnet-0b31f1863e9d31a67})}
+\item{repository}{The ECR repository and tag for the image as a character.
+Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 
-\item{security_group_ids}{(list): List of security group ids for
-the \code{CodeBuild} Project (such as \verb{sg-0ce4ec0d0414d2ddc}).}
+\item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
+compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{log}{(logical): Show the logs of the running \code{CodeBuild} build}
+\item{role}{The IAM role name for CodeBuild to use as a character. Defaults
+to the SageMaker Studio execution role.}
 
-\item{...}{docker build parameters
-\url{https://docs.docker.com/engine/reference/commandline/build/#options}
-(NOTE: use "_" instead of "-" for example: docker optional parameter
+\item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
+character. Defaults to the SageMaker SDK default bucket.}
+
+\item{vpc_id}{ID of the VPC that will host the CodeBuild project
+(such as \code{"vpc-05c09f91d48831c8c"}).}
+
+\item{subnet_ids}{List of subnet IDs for the CodeBuild project
+(such as \code{list("subnet-0b31f1863e9d31a67")})}
+
+\item{security_group_ids}{List of security group IDs for the CodeBuild
+project (such as \code{list("sg-0ce4ec0d0414d2ddc")}).}
+
+\item{log}{A logical to show the logs of the running CodeBuild build.
+Defaults to \code{TRUE}.}
+
+\item{...}{\href{https://docs.docker.com/engine/reference/commandline/build/#options>}{Docker build parameters}
+(Use "_" instead of "-"; for example, Docker optional parameter
 \code{build-arg} becomes \code{build_arg})}
 }
 \value{
-invisible character vector of \verb{AWS ECR} image \code{uri}.
+The AWS ECR image URI as a character vector, invisibly.
 }
 \description{
-This function takes a directory containing a
-\href{https://docs.docker.com/engine/reference/builder/}{dockerfile}, and builds it on
-\href{https://aws.amazon.com/codebuild/}{\verb{AWS CodeBuild}}. The resulting image is
-then stored in \href{https://aws.amazon.com/ecr/}{\verb{AWS ECR}} for later use.
+This function generates the files necessary to build a Docker
+container to deploy a vetiver model in SageMaker and builds the image on
+\href{https://aws.amazon.com/codebuild/}{AWS CodeBuild}. The resulting image is
+then stored in \href{https://aws.amazon.com/ecr/}{AWS ECR}.
+
+Use the function \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}} for basic deployment on
+SageMaker, or these three functions together for more advanced use cases:
+\itemize{
+\item \code{vetiver_sm_build()} generates and builds a Docker image on SageMaker for
+a vetiver model
+\item \code{\link[=vetiver_sm_model]{vetiver_sm_model()}} creates an Amazon SageMaker model
+\item \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} deploys an Amazon SageMaker model endpoint
+}
+}
+\details{
+This function creates a Plumber file and Dockerfile appropriate
+for SageMaker, for example, with \code{path = "/invocations"} and \code{port = 8080}.
 }
 \examples{
-\dontrun{
-# Execute on current directory.
-vetiver_sm_build()
+if (FALSE) {
+library(pins)
+b <- board_s3(bucket = "my-existing-bucket")
+cars_lm <- lm(mpg ~ ., data = mtcars)
+v <- vetiver_model(cars_lm, "cars_linear")
+vetiver_pin_write(b, v)
 
-# Execute on different directory.
-vetiver_sm_build(dir = "my-project")
-
-# Add extra docker arguments
-vetiver_sm_build(
-  file = "/path/to/Dockerfile",
-  build_arg = "foo=bar"
+new_image_uri <- vetiver_sm_build(
+    board = b,
+    name = "cars_linear",
+    predict_args = list(type = "class", debug = TRUE)
 )
 }
+}
+\seealso{
+\code{\link[=vetiver_prepare_docker]{vetiver_prepare_docker()}}, \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}
 }

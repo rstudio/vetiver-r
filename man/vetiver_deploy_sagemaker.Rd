@@ -2,7 +2,7 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_deploy_sagemaker}
 \alias{vetiver_deploy_sagemaker}
-\title{Deploy a vetiver model API to RStudio Connect}
+\title{Deploy a vetiver model API to Amazon SageMaker}
 \usage{
 vetiver_deploy_sagemaker(
   board,
@@ -26,30 +26,56 @@ vetiver_deploy_sagemaker(
 find out which versions are available and when they were created.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
-such as the endpoint \code{path} or prediction \code{type}.}
+such as the prediction \code{type}.}
 
-\item{repo_name}{The \verb{AWS ECR} repository name to store the model.}
+\item{repo_name}{The name for the AWS ECR repository to store the model.}
 
-\item{compute_type}{The \verb{AWS CodeBuild} instance to build docker for the model.}
+\item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
+compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{instance_type}{The \verb{Amazon SageMaker} instance to host the model.}
+\item{instance_type}{Type of EC2 instance to use; see
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
 
 \item{...}{Other arguments passed to \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} such as
 \code{accelerator_type} or \code{data_capture_config}.}
 }
 \value{
-The deployment success (\code{TRUE} or \code{FALSE}), invisibly.
+The deployed SageMaker model endpoint.
 }
 \description{
-Use \code{vetiver_deploy_sagemaker()} to deploy a \code{\link[=vetiver_model]{vetiver_model()}} that has been
-versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_pin_write()}} as a Plumber API on
-\verb{Amazon SageMaker}.
+Use \code{vetiver_deploy_sagemaker()} to deploy a \code{\link[=vetiver_model]{vetiver_model()}}
+that has been versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_pin_write()}} as a Plumber API
+on Amazon SageMaker.
 }
 \details{
-The two functions \code{vetiver_deploy_rsconnect()} and
-\code{\link[=vetiver_create_rsconnect_bundle]{vetiver_create_rsconnect_bundle()}} are alternatives to each other, providing
-different strategies for deploying a vetiver model API to RStudio Connect.
+The function \code{vetiver_deploy_sagemaker()} uses:
+\itemize{
+\item \code{\link[=vetiver_sm_build]{vetiver_sm_build()}} to build and push a Docker image to ECR,
+\item \code{\link[=vetiver_sm_model]{vetiver_sm_model()}} to create a SageMaker model, and
+\item \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} to deploy a SageMaker model endpoint.
+}
+
+These modular functions are available for more advanced use cases. Also,
+this function stores your model deployment image in the same bucket used
+by \code{board}.
+}
+\examples{
+if (FALSE) {
+library(pins)
+b <- board_s3(bucket = "my-existing-bucket")
+cars_lm <- lm(mpg ~ ., data = mtcars)
+v <- vetiver_model(cars_lm, "cars_linear")
+vetiver_pin_write(b, v)
+
+endpoint <- vetiver_deploy_sagemaker(
+    board = b,
+    name = "cars_linear",
+    predict_args = list(type = "class", debug = TRUE),
+    instance_type = "ml.t2.medium"
+)
+}
+
 }
 \seealso{
-\code{\link[=vetiver_write_plumber]{vetiver_write_plumber()}}, \code{\link[=vetiver_create_rsconnect_bundle]{vetiver_create_rsconnect_bundle()}}
+\code{\link[=vetiver_sm_build]{vetiver_sm_build()}}, \code{\link[=vetiver_sm_model]{vetiver_sm_model()}}, \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}}
 }

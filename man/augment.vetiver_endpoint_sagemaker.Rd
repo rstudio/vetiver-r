@@ -2,22 +2,22 @@
 % Please edit documentation in R/sagemaker.R
 \name{augment.vetiver_endpoint_sagemaker}
 \alias{augment.vetiver_endpoint_sagemaker}
-\title{Post new data to a deployed model API endpoint and augment with predictions}
+\title{Post new data to a deployed SageMaker model endpoint and augment with predictions}
 \usage{
 \method{augment}{vetiver_endpoint_sagemaker}(x, new_data, ...)
 }
 \arguments{
-\item{x}{A model API endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
+\item{x}{A SageMaker model endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
 
 \item{new_data}{New data for making predictions, such as a data frame.}
 
-\item{...}{Extra arguments passed to \code{\link[httr:POST]{httr::POST()}}}
+\item{...}{Extra arguments passed to \code{\link[paws.machine.learning:sagemakerruntime_invoke_endpoint]{paws.machine.learning::sagemakerruntime_invoke_endpoint()}}}
 }
 \value{
 The \code{new_data} with added prediction column(s).
 }
 \description{
-Post new data to a deployed model API endpoint and augment with predictions
+Post new data to a deployed SageMaker model endpoint and augment with predictions
 }
 \examples{
 

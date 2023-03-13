@@ -2,12 +2,12 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_endpoint_sagemaker}
 \alias{vetiver_endpoint_sagemaker}
-\title{Create a model API endpoint object for prediction}
+\title{Create a SageMaker model API endpoint object for prediction}
 \usage{
 vetiver_endpoint_sagemaker(model_endpoint)
 }
 \arguments{
-\item{model_endpoint}{An Amazon SageMaker Model endpoint.}
+\item{model_endpoint}{The name of the Amazon SageMaker model endpoint.}
 }
 \value{
 A new \code{vetiver_endpoint_sagemaker} object
@@ -18,8 +18,7 @@ No HTTP calls are made until you actually
 \code{\link[=predict.vetiver_endpoint_sagemaker]{predict()}} with your endpoint.
 }
 \examples{
-
 if (FALSE) {
-vetiver_endpoint("vetiver-sagemaker-demo-model")
+  vetiver_endpoint("vetiver-sagemaker-demo-model")
 }
 }

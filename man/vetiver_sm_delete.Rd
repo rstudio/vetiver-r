@@ -2,18 +2,23 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_sm_delete}
 \alias{vetiver_sm_delete}
-\title{Delete \verb{Amazon SageMaker} endpoint and configuration.}
+\title{Delete Amazon SageMaker model, endpoint, and configuration}
 \usage{
 vetiver_sm_delete(object, delete_endpoint_config = TRUE)
 }
 \arguments{
-\item{object}{A model API endpoint object created with \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
+\item{object}{The model API endpoint object to be deleted, created with
+\code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
 
-\item{delete_endpoint_config}{Delete endpoint configuration (default: \code{TRUE}).}
+\item{delete_endpoint_config}{Delete the endpoint configuration as well?
+Defaults to \code{TRUE}.}
 }
 \value{
-\code{TRUE} invisible
+\code{TRUE}, invisibly
 }
 \description{
-Delete \verb{Amazon SageMaker} endpoint and configuration.
+Delete Amazon SageMaker model, endpoint, and configuration
+}
+\seealso{
+\code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
 }
