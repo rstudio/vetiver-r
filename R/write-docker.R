@@ -156,7 +156,7 @@ glue_sys_reqs <- function(pkgs) {
 #' @inheritParams vetiver_write_plumber
 #' @inheritParams vetiver_deploy_rsconnect
 #' @param path A path to write the Plumber file, Dockerfile, and lockfile,
-#' capturing the model's dependencies. Defaults to the working directory.
+#' capturing the model's dependencies.
 #' @param docker_args A list of optional arguments passed to
 #' [vetiver_write_docker()] such as the `lockfile` name or whether to use
 #' `rspm`. Do not pass `additional_pkgs` here, as this function uses

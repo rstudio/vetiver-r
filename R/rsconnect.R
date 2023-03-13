@@ -6,7 +6,7 @@
 #'
 #' @inheritParams vetiver_write_plumber
 #' @param predict_args A list of optional arguments passed to [vetiver_api()]
-#' such as the endpoint `path` or prediction `type`.
+#' such as the prediction `type`.
 #' @param appTitle The API title on RStudio Connect. Use the default based on
 #' `name`, or pass in your own title.
 #' @param ... Other arguments passed to [rsconnect::deployApp()] such as

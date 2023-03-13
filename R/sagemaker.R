@@ -7,8 +7,6 @@
 #' @inheritParams vetiver_sm_build
 #' @inheritParams vetiver_sm_model
 #' @inheritParams vetiver_sm_endpoint
-#' @param predict_args A list of optional arguments passed to [vetiver_api()]
-#' such as the prediction `type`.
 #' @param repo_name The name for the AWS ECR repository to store the model.
 #' @param ... Other arguments passed to [vetiver_sm_endpoint()] such as
 #' `accelerator_type` or `data_capture_config`.
@@ -157,8 +155,8 @@ vetiver_sm_build <- function(board,
                              name,
                              version,
                              path = fs::dir_create(tempdir(), "vetiver"),
-                             predict_args,
-                             docker_args,
+                             predict_args = list(),
+                             docker_args = list(),
                              repository = NULL,
                              compute_type = c(
                                  "BUILD_GENERAL1_SMALL",

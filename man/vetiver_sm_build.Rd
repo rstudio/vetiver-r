@@ -10,8 +10,8 @@ vetiver_sm_build(
   name,
   version,
   path = fs::dir_create(tempdir(), "vetiver"),
-  predict_args,
-  docker_args,
+  predict_args = list(),
+  docker_args = list(),
   repository = NULL,
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
@@ -34,10 +34,10 @@ vetiver_sm_build(
 find out which versions are available and when they were created.}
 
 \item{path}{A path to write the Plumber file, Dockerfile, and lockfile,
-capturing the model's dependencies. Defaults to the working directory.}
+capturing the model's dependencies.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
-such as the endpoint \code{path} or prediction \code{type}.}
+such as the prediction \code{type}.}
 
 \item{docker_args}{A list of optional arguments passed to
 \code{\link[=vetiver_write_docker]{vetiver_write_docker()}} such as the \code{lockfile} name or whether to use

@@ -22,7 +22,7 @@ vetiver_create_rsconnect_bundle(
 find out which versions are available and when they were created.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
-such as the endpoint \code{path} or prediction \code{type}.}
+such as the prediction \code{type}.}
 
 \item{filename}{The path for the model API bundle to be created (can be
 used as the argument to \code{connectapi::bundle_path()})}
