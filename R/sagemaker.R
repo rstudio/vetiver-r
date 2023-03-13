@@ -4,7 +4,6 @@
 #' that has been versioned and stored via [vetiver_pin_write()] as a Plumber API
 #' on Amazon SageMaker.
 #'
-#' @inheritParams vetiver_write_plumber
 #' @inheritParams vetiver_sm_build
 #' @inheritParams vetiver_sm_model
 #' @inheritParams vetiver_sm_endpoint
@@ -95,47 +94,59 @@ vetiver_deploy_sagemaker <- function(board,
     return(endpoint)
 }
 
-#' @title Use `AWS CodeBuild` to build docker images and push them to Amazon `ECR`
+#' @title Generate and build a Docker image to deploy a vetiver model on
+#' SageMaker
 #'
-#' @description This function takes a directory containing a
-#' [dockerfile](https://docs.docker.com/engine/reference/builder/), and builds it on
-#' [`AWS CodeBuild`](https://aws.amazon.com/codebuild/). The resulting image is
-#' then stored in [`AWS ECR`](https://aws.amazon.com/ecr/) for later use.
+#' @description This function generates the files necessary to build a Docker
+#' container to deploy a vetiver model in SageMaker and builds the image on
+#' [AWS CodeBuild](https://aws.amazon.com/codebuild/). The resulting image is
+#' then stored in [AWS ECR](https://aws.amazon.com/ecr/).
+#'
+#' Use the function [vetiver_deploy_sagemaker()] for basic deployment on
+#' SageMaker, or these three functions together for more advanced use cases:
+#' - `vetiver_sm_build()` generates and builds a Docker image on SageMaker for
+#' a vetiver model
+#' - [vetiver_sm_model()] creates an Amazon SageMaker model
+#' - [vetiver_sm_endpoint()] deploys an Amazon SageMaker model endpoint
 #'
 #' @inheritParams vetiver_prepare_docker
-#' @param repository (character): The `ECR` repository:tag for the image
-#' (default: `sagemaker-studio-${domain_id}:latest`)
-#' @param compute_type (character): The [`CodeBuild`](https://aws.amazon.com/codebuild/) compute type (default: `BUILD_GENERAL1_SMALL`)
-#' @param role (character): The `IAM` role name for `CodeBuild` to use (default: the Studio execution role).
-#' @param bucket (character): The S3 bucket to use for sending data to `CodeBuild` (if None,
-#' use the `SageMaker SDK` default bucket).
-#' @param vpc_id (character): The Id of the `VPC` that will host the `CodeBuild` Project
-#' (such as `vpc-05c09f91d48831c8c`).
-#' @param subnet_ids (list): List of `subnet` ids for the `CodeBuild` Project
-#' (such as `subnet-0b31f1863e9d31a67`)
-#' @param security_group_ids (list): List of security group ids for
-#' the `CodeBuild` Project (such as `sg-0ce4ec0d0414d2ddc`).
-#' @param log (logical): Show the logs of the running `CodeBuild` build
-#' @param ... docker build parameters
-#' <https://docs.docker.com/engine/reference/commandline/build/#options>
-#' (NOTE: use "_" instead of "-" for example: docker optional parameter
-#' \code{build-arg} becomes \code{build_arg})
+#' @param repository The ECR repository and tag for the image as a character.
+#' Defaults to `sagemaker-studio-${domain_id}:latest`.
+#' @param compute_type The [CodeBuild](https://aws.amazon.com/codebuild/)
+#' compute type as a character. Defaults to `BUILD_GENERAL1_SMALL`.
+#' @param role The IAM role name for CodeBuild to use as a character. Defaults
+#' to the SageMaker Studio execution role.
+#' @param bucket The S3 bucket to use for sending data to CodeBuild as a
+#' character. Defaults to the SageMaker SDK default bucket.
+#' @param vpc_id ID of the VPC that will host the CodeBuild project
+#' (such as `"vpc-05c09f91d48831c8c"`).
+#' @param subnet_ids List of subnet IDs for the CodeBuild project
+#' (such as `list("subnet-0b31f1863e9d31a67")`)
+#' @param security_group_ids List of security group IDs for the CodeBuild
+#' project (such as `list("sg-0ce4ec0d0414d2ddc")`).
+#' @param log A logical to show the logs of the running CodeBuild build.
+#' Defaults to `TRUE`.
+#' @param ... [Docker build parameters](https://docs.docker.com/engine/reference/commandline/build/#options>)
+#' (Use "_" instead of "-"; for example, Docker optional parameter
+#' `build-arg` becomes `build_arg`)
 #'
 #' @details This function creates a Plumber file and Dockerfile appropriate
 #' for SageMaker, for example, with `path = "/invocations"` and `port = 8080`.
 #'
+#' @seealso [vetiver_prepare_docker()], [vetiver_deploy_sagemaker()]
+#'
 #' @examples
-#' \dontrun{
-#' # Execute on current directory.
-#' vetiver_sm_build()
+#' if (FALSE) {
+#' library(pins)
+#' b <- board_s3(bucket = "my-existing-bucket")
+#' cars_lm <- lm(mpg ~ ., data = mtcars)
+#' v <- vetiver_model(cars_lm, "cars_linear")
+#' vetiver_pin_write(b, v)
 #'
-#' # Execute on different directory.
-#' vetiver_sm_build(dir = "my-project")
-#'
-#' # Add extra docker arguments
-#' vetiver_sm_build(
-#'   file = "/path/to/Dockerfile",
-#'   build_arg = "foo=bar"
+#' new_image_uri <- vetiver_sm_build(
+#'     board = b,
+#'     name = "cars_linear",
+#'     predict_args = list(type = "class", debug = TRUE)
 #' )
 #' }
 #' @return The AWS ECR image URI as a character vector, invisibly.
@@ -143,6 +154,7 @@ vetiver_deploy_sagemaker <- function(board,
 vetiver_sm_build <- function(board,
                              name,
                              version,
+                             path = fs::dir_create(tempdir(), "vetiver"),
                              predict_args,
                              docker_args,
                              repository = NULL,
@@ -161,7 +173,6 @@ vetiver_sm_build <- function(board,
                              ...) {
     check_installed("smdocker")
     compute_type <- arg_match(compute_type)
-    tmp <- fs::dir_create(tempdir(), "vetiver")
 
     # create dockerfile using
     # https://github.com/rocker-org/rocker-versioned2/pkgs/container/r-ver
@@ -176,7 +187,7 @@ vetiver_sm_build <- function(board,
         board = board,
         name = name,
         version = version,
-        path = tmp,
+        path = path,
         predict_args = predict_args,
         docker_args = docker_args
     )
@@ -185,7 +196,7 @@ vetiver_sm_build <- function(board,
         repository = repository,
         compute_type = compute_type,
         role = role,
-        dir = tmp,
+        dir = path,
         bucket = bucket,
         vpc_id = vpc_id,
         subnet_ids = subnet_ids,
