@@ -47,6 +47,7 @@ vetiver_deploy_sagemaker <- function(board,
                                      name,
                                      version = NULL,
                                      predict_args = list(),
+                                     docker_args = list(),
                                      repo_name = glue("vetiver-sagemaker-{name}"),
                                      compute_type = c(
                                          "BUILD_GENERAL1_SMALL",
@@ -72,6 +73,8 @@ vetiver_deploy_sagemaker <- function(board,
         board = board,
         name = name,
         version = version,
+        predict_args = predict_args,
+        docker_args = dockers_args,
         repository = repo_name,
         compute_type = compute_type,
         bucket = board$bucket
@@ -133,6 +136,11 @@ vetiver_deploy_sagemaker <- function(board,
 #' This function creates a Plumber file and Dockerfile appropriate for
 #' SageMaker, for example, with `path = "/invocations"` and `port = 8080`.
 #'
+#' If you run into problems with Docker rate limits, then either
+#' - authenticate to Docker from SageMaker, or
+#' - use a [public ECR base image](https://gallery.ecr.aws/docker/library/r-base),
+#' passed through `docker_args`
+#'
 #' @seealso [vetiver_prepare_docker()], [vetiver_deploy_sagemaker()], [vetiver_endpoint_sagemaker()]
 #' @examples
 #' if (FALSE) {
@@ -145,7 +153,11 @@ vetiver_deploy_sagemaker <- function(board,
 #' new_image_uri <- vetiver_sm_build(
 #'     board = b,
 #'     name = "cars_linear",
-#'     predict_args = list(type = "class", debug = TRUE)
+#'     predict_args = list(type = "class", debug = TRUE),
+#'     docker_args = list(
+#'         base_image = "FROM public.ecr.aws/docker/library/r-base:4.2.2",
+#'         port = 8088
+#'     )
 #' )
 #'
 #' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
@@ -180,11 +192,7 @@ vetiver_sm_build <- function(board,
 
     # create dockerfile using
     # https://github.com/rocker-org/rocker-versioned2/pkgs/container/r-ver
-    docker_args <- list_modify(
-        docker_args,
-        base_image = glue("FROM ghcr.io/rocker-org/r-ver:{getRversion()}"),
-        port = 8080
-    )
+    docker_args <- list_modify(docker_args, port = 8080)
     predict_args <- list_modify(predict_args, path = "/invocations")
 
     vetiver_prepare_docker(
