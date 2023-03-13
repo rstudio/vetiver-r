@@ -4,12 +4,12 @@
 \alias{vetiver_sm_build}
 \alias{vetiver_sm_model}
 \alias{vetiver_sm_endpoint}
-\title{Deploy a vetiver model API to Amazon SageMaker}
+\title{Deploy a vetiver model API to Amazon SageMaker with modular functions}
 \usage{
 vetiver_sm_build(
   board,
   name,
-  version,
+  version = NULL,
   path = fs::dir_create(tempdir(), "vetiver"),
   predict_args = list(),
   docker_args = list(),
@@ -165,9 +165,7 @@ resulting image is stored in \href{https://aws.amazon.com/ecr/}{AWS ECR}.
 This function creates a Plumber file and Dockerfile appropriate for
 SageMaker, for example, with \code{path = "/invocations"} and \code{port = 8080}.
 }
-\seealso{
-\code{\link[=vetiver_prepare_docker]{vetiver_prepare_docker()}}, \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
-
+\examples{
 if (FALSE) {
 library(pins)
 b <- board_s3(bucket = "my-existing-bucket")
@@ -176,11 +174,15 @@ v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 
 new_image_uri <- vetiver_sm_build(
-board = b,
-name = "cars_linear",
-predict_args = list(type = "class", debug = TRUE)
+    board = b,
+    name = "cars_linear",
+    predict_args = list(type = "class", debug = TRUE)
 )
 
 model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
 vetiver_sm_endpoint(model_name)
+}
+}
+\seealso{
+\code{\link[=vetiver_prepare_docker]{vetiver_prepare_docker()}}, \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
 }

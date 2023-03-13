@@ -1,4 +1,4 @@
-#' @title Deploy a vetiver model API to Amazon SageMaker
+#' Deploy a vetiver model API to Amazon SageMaker
 #'
 #' @description Use `vetiver_deploy_sagemaker()` to deploy a [vetiver_model()]
 #' that has been versioned and stored via [vetiver_pin_write()] as a Plumber API
@@ -12,14 +12,15 @@
 #' `accelerator_type` or `data_capture_config`.
 #'
 #' @details
+#' This function stores your model deployment image in the same bucket used
+#' by `board`.
+#'
 #' The function `vetiver_deploy_sagemaker()` uses:
 #' - [vetiver_sm_build()] to build and push a Docker image to ECR,
 #' - [vetiver_sm_model()] to create a SageMaker model, and
 #' - [vetiver_sm_endpoint()] to deploy a SageMaker model endpoint.
 #'
-#' These modular functions are available for more advanced use cases. Also,
-#' this function stores your model deployment image in the same bucket used
-#' by `board`.
+#' These modular functions are available for more advanced use cases.
 #'
 #' @return
 #' The deployed SageMaker model endpoint.
@@ -94,10 +95,9 @@ vetiver_deploy_sagemaker <- function(board,
     return(endpoint)
 }
 
-#' @title Deploy a vetiver model API to Amazon SageMaker
+#' Deploy a vetiver model API to Amazon SageMaker with modular functions
 #'
 #' @description
-#'
 #' Use the function [vetiver_deploy_sagemaker()] for basic deployment on
 #' SageMaker, or these three functions together for more advanced use cases:
 #' - `vetiver_sm_build()` generates and builds a Docker image on SageMaker for
@@ -134,7 +134,7 @@ vetiver_deploy_sagemaker <- function(board,
 #' SageMaker, for example, with `path = "/invocations"` and `port = 8080`.
 #'
 #' @seealso [vetiver_prepare_docker()], [vetiver_deploy_sagemaker()], [vetiver_endpoint_sagemaker()]
-#'
+#' @examples
 #' if (FALSE) {
 #' library(pins)
 #' b <- board_s3(bucket = "my-existing-bucket")
@@ -150,14 +150,14 @@ vetiver_deploy_sagemaker <- function(board,
 #'
 #' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
 #' vetiver_sm_endpoint(model_name)
-#'
+#' }
 #' @return `vetiver_sm_build()` returns the AWS ECR image URI and
 #' `vetiver_sm_model()` returns the model name (both as characters).
 #' `vetiver_sm_endpoint()` returns new [vetiver_endpoint_sagemaker()] object.
 #' @export
 vetiver_sm_build <- function(board,
                              name,
-                             version,
+                             version = NULL,
                              path = fs::dir_create(tempdir(), "vetiver"),
                              predict_args = list(),
                              docker_args = list(),
@@ -329,7 +329,7 @@ vetiver_sm_endpoint <- function(model_name,
     return(vetiver_endpoint_sagemaker(model_name))
 }
 
-#' @title Delete Amazon SageMaker model, endpoint, and configuration
+#' Delete Amazon SageMaker model, endpoint, and configuration
 #' @param object The model API endpoint object to be deleted, created with
 #' [vetiver_endpoint_sagemaker()].
 #' @param delete_endpoint_config Delete the endpoint configuration as well?
@@ -373,7 +373,6 @@ vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
 #' @importFrom stats predict
 #' @seealso [augment.vetiver_endpoint_sagemaker()]
 #' @export
-#'
 #' @examples
 #' if (FALSE) {
 #'   endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
@@ -411,7 +410,6 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
 #' @return The `new_data` with added prediction column(s).
 #' @seealso [predict.vetiver_endpoint_sagemaker()]
 #' @export
-#'
 #' @examples
 #'
 #' if (FALSE) {

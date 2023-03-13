@@ -48,6 +48,9 @@ that has been versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_p
 on Amazon SageMaker.
 }
 \details{
+This function stores your model deployment image in the same bucket used
+by \code{board}.
+
 The function \code{vetiver_deploy_sagemaker()} uses:
 \itemize{
 \item \code{\link[=vetiver_sm_build]{vetiver_sm_build()}} to build and push a Docker image to ECR,
@@ -55,9 +58,7 @@ The function \code{vetiver_deploy_sagemaker()} uses:
 \item \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} to deploy a SageMaker model endpoint.
 }
 
-These modular functions are available for more advanced use cases. Also,
-this function stores your model deployment image in the same bucket used
-by \code{board}.
+These modular functions are available for more advanced use cases.
 }
 \examples{
 if (FALSE) {
