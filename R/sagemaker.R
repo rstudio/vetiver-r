@@ -74,7 +74,7 @@ vetiver_deploy_sagemaker <- function(board,
         name = name,
         version = version,
         predict_args = predict_args,
-        docker_args = dockers_args,
+        docker_args = docker_args,
         repository = repo_name,
         compute_type = compute_type,
         bucket = board$bucket
