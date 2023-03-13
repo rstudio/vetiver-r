@@ -13,7 +13,7 @@ vetiver_deploy_sagemaker(
   repo_name = glue("vetiver-sagemaker-{name}"),
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
-  instance_type = NULL,
+  instance_type = "ml.t2.medium",
   ...
 )
 }
@@ -40,7 +40,8 @@ such as the prediction \code{type}.}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
 \item{instance_type}{Type of EC2 instance to use; see
-\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.
+Defaults to \code{"ml.t2.medium"}.}
 
 \item{...}{Other arguments passed to \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} such as
 \code{accelerator_type} or \code{data_capture_config}.}

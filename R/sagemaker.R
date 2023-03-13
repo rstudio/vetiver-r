@@ -55,7 +55,7 @@ vetiver_deploy_sagemaker <- function(board,
                                          "BUILD_GENERAL1_LARGE",
                                          "BUILD_GENERAL1_2XLARGE"
                                      ),
-                                     instance_type = NULL,
+                                     instance_type = "ml.t2.medium",
                                      ...) {
 
     if (!inherits(board, "pins_board_s3")) {
@@ -223,7 +223,8 @@ vetiver_sm_build <- function(board,
 #' @param image_uri The AWS ECR image URI for the Amazon SageMaker Model to be
 #' created (for example, as returned by [vetiver_sm_build()]).
 #' @param model_name The Amazon SageMaker model name to be deployed.
-#' @param role The ARN role for the Amazon SageMaker model.
+#' @param role The ARN role for the Amazon SageMaker model. Defaults to the
+#' SageMaker execution role.
 #' @param vpc_config A list containing the VPC configuration for the Amazon
 #' SageMaker model [API VpcConfig](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html)
 #' (optional).
@@ -237,7 +238,7 @@ vetiver_sm_build <- function(board,
 #' @export
 vetiver_sm_model <- function(image_uri,
                              model_name,
-                             role,
+                             role = NULL,
                              vpc_config = list(),
                              enable_network_isolation = FALSE,
                              tags = list()) {
@@ -249,7 +250,7 @@ vetiver_sm_model <- function(image_uri,
         model_name <- base_name_from_image(image_uri)
     }
 
-    if (is_missing(role)) {
+    if (is.null(role)) {
         role <- smdocker::sagemaker_get_execution_role()
     }
 
@@ -273,6 +274,7 @@ vetiver_sm_model <- function(image_uri,
 #' to be created, if to be different from `model_name`.
 #' @param instance_type Type of EC2 instance to use; see
 #' [Amazon SageMaker pricing](https://aws.amazon.com/sagemaker/pricing/).
+#' Defaults to `"ml.t2.medium"`.
 #' @param initial_instance_count The initial number of instances to run
 #' in the endpoint.
 #' @param accelerator_type Type of Elastic Inference accelerator to
@@ -294,7 +296,7 @@ vetiver_sm_model <- function(image_uri,
 #' @export
 vetiver_sm_endpoint <- function(model_name,
                                 endpoint_name = NULL,
-                                instance_type = NULL,
+                                instance_type = "ml.t2.medium",
                                 initial_instance_count = 1,
                                 accelerator_type = NULL,
                                 tags = list(),

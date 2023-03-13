@@ -28,7 +28,7 @@ vetiver_sm_build(
 vetiver_sm_model(
   image_uri,
   model_name,
-  role,
+  role = NULL,
   vpc_config = list(),
   enable_network_isolation = FALSE,
   tags = list()
@@ -37,7 +37,7 @@ vetiver_sm_model(
 vetiver_sm_endpoint(
   model_name,
   endpoint_name = NULL,
-  instance_type = NULL,
+  instance_type = "ml.t2.medium",
   initial_instance_count = 1,
   accelerator_type = NULL,
   tags = list(),
@@ -74,7 +74,8 @@ Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 \item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{role}{The ARN role for the Amazon SageMaker model.}
+\item{role}{The ARN role for the Amazon SageMaker model. Defaults to the
+SageMaker execution role.}
 
 \item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
 character. Defaults to the SageMaker SDK default bucket.}
@@ -117,7 +118,8 @@ will run in network isolation mode. Defaults to \code{FALSE}.}
 to be created, if to be different from \code{model_name}.}
 
 \item{instance_type}{Type of EC2 instance to use; see
-\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.
+Defaults to \code{"ml.t2.medium"}.}
 
 \item{initial_instance_count}{The initial number of instances to run
 in the endpoint.}
