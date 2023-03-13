@@ -75,7 +75,6 @@ vetiver_deploy_sagemaker <- function(board,
         version = version,
         repository = repo_name,
         compute_type = compute_type,
-        dir = tmp,
         bucket = board$bucket
     )
 
@@ -250,7 +249,7 @@ vetiver_sm_build <- function(board,
 #'     predict_args = list(type = "class", debug = TRUE)
 #' )
 #'
-#' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency")))
+#' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
 #' }
 #' @export
 vetiver_sm_model <- function(image_uri,
@@ -335,7 +334,7 @@ vetiver_sm_model <- function(image_uri,
 #'     predict_args = list(type = "class", debug = TRUE)
 #' )
 #'
-#' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency")))
+#' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
 #' vetiver_sm_endpoint(model_name)
 #' }
 #' @export
