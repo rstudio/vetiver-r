@@ -229,7 +229,7 @@ vetiver_sm_build <- function(board,
 #' SageMaker model [API VpcConfig](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html)
 #' (optional).
 #' * `Subnets`: List of subnet ids
-#' * `SecurityGroupIds`: List of security group ids.
+#' * `SecurityGroupIds`: List of security group ids
 #' @param enable_network_isolation A logical to specify whether the container
 #' will run in network isolation mode. Defaults to `FALSE`.
 #' @param tags A list of tags for labeling the Amazon SageMaker Model to be
@@ -264,9 +264,6 @@ vetiver_sm_model <- function(image_uri,
     sagemaker_client <- paws.machine.learning::sagemaker(config)
 
     if (is_missing(model_name)) {
-        # NOTE: model name needs to meet regex:
-        # ^[a-zA-Z0-9]([\-a-zA-Z0-9]*[a-zA-Z0-9])?
-        # Should there be a check or a clean up of name coming from ecr image?
         model_name <- base_name_from_image(image_uri)
     }
 
@@ -280,7 +277,7 @@ vetiver_sm_model <- function(image_uri,
         "PrimaryContainer" = list("Image" = image_uri)
     )
     request$Tags <- .append_project_tags(tags)
-    request$VpcConfig <- get_vpc_config(vpc_config)
+    request$VpcConfig <- check_vpc_config(vpc_config)
     if (isTRUE(enable_network_isolation)) {
         request$EnableNetworkIsolation <- TRUE
     }

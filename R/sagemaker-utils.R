@@ -1,23 +1,22 @@
-get_vpc_config <- function(vpc_config) {
+check_vpc_config <- function(vpc_config, call = caller_env()) {
     if (is_empty(vpc_config)) {
         return(NULL)
     }
     subnet <- vpc_config$Subnets
-    if (is_empty(subnet)) {
-        abort("missing Subnets from vpc_config")
-    } else if (!is.list(subnet)) {
-        abort("Subnets in wrong format, requires to be a list")
+    if (is_empty(subnet) || !inherits(subnet, "list")) {
+        stop_input_type(subnet, "a list", call = call)
     }
     security_group_ids <- vpc_config$SecurityGroupIds
-    if (is_empty(security_group_ids)) {
-        abort("missing SecurityGroupIds from vpc_config")
-    } else if (!is.list(security_group_ids)) {
-        abort("SecurityGroupIds in wrong format, requires to be a list")
+    if (is_empty(security_group_ids) || !inherits(security_group_ids, "list")) {
+        stop_input_type(security_group_ids, "a list", call = call)
     }
     return(vpc_config)
 }
 
 base_name_from_image <- function(image) {
+    # NOTE: model name needs to meet regex:
+    # ^[a-zA-Z0-9]([\-a-zA-Z0-9]*[a-zA-Z0-9])?
+    # Should there be a check or a clean up of name coming from ecr image?
     m <- regexec("^(.+/)?([^:/]+)(:[^:]+)?$", image)
     image_name <- if (!is.null(m)) unlist(regmatches(image, m))[[3]] else image
     now <- Sys.time()
@@ -37,36 +36,41 @@ req_endpoint_config <- function(model_name,
                                 tags,
                                 kms_key,
                                 data_capture_config) {
-    request <- list(EndpointConfigName = endpoint_name)
 
-    product_variant <- list(
-        ModelName = model_name,
-        VariantName = "AllTraffic",
-        InitialVariantWeight = 1
-    )
-    product_variant$AcceleratorType <- accelerator_type
-    product_variant$InitialInstanceCount <- initial_instance_count
-    product_variant$InstanceType <- instance_type
-    product_variant$VolumeSizeInGB <- if (is.null(volume_size)) NULL else as.integer(volume_size)
-    product_variant$ModelDataDownloadTimeoutInSeconds <- (
-        if (is.null(model_data_download_timeout)) NULL else as.integer(model_data_download_timeout)
-    )
-    request$ProductionVariants <- list(product_variant)
-    request$Tags <- tags
-    request$KmsKeyId <- kms_key
-    request$DataCaptureConfig <- data_capture_config
+    volume_size <- return_null_or_integer(volume_size)
+    model_data_download_timeout <- return_null_or_integer(model_data_download_timeout)
+
+    request <- compact(list(
+        EndpointConfigName = endpoint_name,
+        ProductionVariants = compact(list(
+            ModelName = model_name,
+            VariantName = "AllTraffic",
+            InitialVariantWeight = 1,
+            AcceleratorType = accelerator_type,
+            InitialInstanceCount = initial_instance_count,
+            InstanceType = instance_type,
+            VolumeSizeInGB = volume_size,
+            ModelDataDownloadTimeoutInSeconds = model_data_download_timeout
+        )),
+        Tags = tags,
+        KmsKeyId = kms_key,
+        DataCaptureConfig = data_capture_config
+    ))
+
     return(request)
+}
+
+return_null_or_integer <- function(x) {
+    if (is.null(x)) NULL else as.integer(x)
 }
 
 # sagemaker helper functions
 create_endpoint <- function(client,
                             endpoint_name,
                             config_name,
-                            tags = NULL,
+                            tags = list(),
                             wait = TRUE) {
-    inform(sprintf("Creating endpoint with name %s", endpoint_name))
-
-    tags <- tags %||% list()
+    cli::cli_inform("Creating endpoint with name {endpoint_name}")
 
     client$create_endpoint(
         EndpointName = endpoint_name, EndpointConfigName = config_name, Tags = tags
@@ -79,7 +83,7 @@ create_endpoint <- function(client,
 
 # developed from:
 # https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/session.py#L3753-L3786
-wait_for_endpoint <- function(client, endpoint, poll = 30) {
+wait_for_endpoint <- function(client, endpoint, poll = 30, call = caller_env()) {
     desc <- sagemaker_deploy_done(client, endpoint)
     while (is_empty(desc)) {
         Sys.sleep(poll)
@@ -88,13 +92,14 @@ wait_for_endpoint <- function(client, endpoint, poll = 30) {
     status <- desc$EndpointStatus
     if (status != "InService") {
         reason <- desc$FailureReason
-        message <- sprintf(
-            "Error hosting endpoint %s: %s. Reason: %s.", endpoint, status, reason
+        message <- c(
+            "Error hosting endpoint {.val {endpoint}}: {status}",
+            "Reason: {reason}"
         )
         if (grepl("CapacityError", as.character(reason))) {
-            abort(message, class = "CapacityError")
+            cli::cli_abort(message, class = "CapacityError", call = call)
         }
-        abort(message, class = "UnexpectedStatusException")
+        cli::cli_abort(message, class = "UnexpectedStatusException", call = call)
     }
     return(desc)
 }
@@ -158,7 +163,7 @@ STUDIO_PROJECT_CONFIG <- ".sagemaker-code-config"
 .find_config <- function(working_dir = NULL) {
     tryCatch(
         {
-            wd <- if (!is.null(working_dir)) working_dir else getwd()
+            wd <- working_dir %||% getwd()
             path <- NULL
             while (is.null(path) && !grepl("/", wd)) {
                 candidate <- fs::path(wd, STUDIO_PROJECT_CONFIG)
