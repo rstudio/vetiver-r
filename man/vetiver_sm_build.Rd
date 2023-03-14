@@ -112,7 +112,7 @@ SageMaker model \href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/
 \item{enable_network_isolation}{A logical to specify whether the container
 will run in network isolation mode. Defaults to \code{FALSE}.}
 
-\item{tags}{A list of tags for labeling the Amazon SageMaker model endpoint.}
+\item{tags}{A named list of tags for labeling the Amazon SageMaker model endpoint.}
 
 \item{endpoint_name}{The name to use for the Amazon SageMaker model endpoint
 to be created, if to be different from \code{model_name}.}

@@ -81,7 +81,12 @@ vetiver_deploy_sagemaker <- function(board,
     )
 
     args <- list2(...)
-    tags <- list_modify(args$tags, "vetiver")
+    tags <- check_tags(args$tags)
+    tags <- list_modify(
+        tags,
+        "vetiver:pin_board" = glue("s3://{board$bucket}/{board$prefix %||% ''}"),
+        "vetiver:r-ver" = getRversion()
+    )
     args$tags <- NULL
 
     # create sagemaker model
@@ -232,7 +237,7 @@ vetiver_sm_build <- function(board,
 #' * `SecurityGroupIds`: List of security group ids
 #' @param enable_network_isolation A logical to specify whether the container
 #' will run in network isolation mode. Defaults to `FALSE`.
-#' @param tags A list of tags for labeling the Amazon SageMaker model or
+#' @param tags A named list of tags for labeling the Amazon SageMaker model or
 #' model endpint to be created.
 #' @rdname vetiver_sm_build
 #' @export
@@ -253,6 +258,8 @@ vetiver_sm_model <- function(image_uri,
     if (is.null(role)) {
         role <- smdocker::sagemaker_get_execution_role()
     }
+    tags <- check_tags(tags)
+    tags <- format_tags(tags)
 
     request <- list(
         "ModelName" = model_name,
@@ -280,7 +287,7 @@ vetiver_sm_model <- function(image_uri,
 #' @param accelerator_type Type of Elastic Inference accelerator to
 #' attach to an endpoint for model loading and inference, for
 #' example, `"ml.eia1.medium"`.
-#' @param tags A list of tags for labeling the Amazon SageMaker model endpoint.
+#' @param tags A named list of tags for labeling the Amazon SageMaker model endpoint.
 #' @param kms_key The ARN of the KMS key used to encrypt the data on the
 #' storage volume attached to the instance hosting the endpoint.
 #' @param data_capture_config A list for configuration to control how Amazon
@@ -311,6 +318,9 @@ vetiver_sm_endpoint <- function(model_name,
     sagemaker_client <- paws.machine.learning::sagemaker(config)
 
     endpoint_name <- endpoint_name %||% model_name
+
+    tags <- check_tags(tags)
+    tags <- format_tags(tags)
 
     request <- req_endpoint_config(
         model_name,

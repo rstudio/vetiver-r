@@ -138,6 +138,23 @@ sagemaker_deploy_done <- function(client, endpoint_name) {
 # https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/_studio.py#L21-L113
 STUDIO_PROJECT_CONFIG <- ".sagemaker-code-config"
 
+check_tags <- function(tags, call = caller_env()) {
+  if (is_empty(tags)) {
+    return(list())
+  }
+  if (!inherits(tags, "list")) {
+    stop_input_type(tags, "a list", call = call)
+  }
+  if (!is_named(tags)) {
+    stop_input_type(tags, "a valid name", call = call)
+  }
+}
+
+format_tags <- function(tags) {
+  tags <- lapply(names(tags), function(n) list(Key = n, Value = tags[[n]]))
+  return(tags)
+}
+
 .append_project_tags <- function(tags = NULL, working_dir = NULL) {
     path <- .find_config(working_dir)
     if (is.null(path)) {
