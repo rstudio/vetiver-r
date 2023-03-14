@@ -148,6 +148,7 @@ check_tags <- function(tags, call = caller_env()) {
   if (!is_named(tags)) {
     stop_input_type(tags, "a valid name", call = call)
   }
+  return(tags)
 }
 
 format_tags <- function(tags) {
