@@ -81,7 +81,7 @@ vetiver_deploy_sagemaker <- function(board,
     )
 
     args <- list2(...)
-    tags <- check_tags(args$tags)
+    tags <- sm_check_tags(args$tags)
     tags <- list_modify(
         tags,
         "vetiver:pin_board" = glue("s3://{board$bucket}/{board$prefix %||% ''}"),
@@ -262,16 +262,16 @@ vetiver_sm_model <- function(image_uri,
     if (is.null(role)) {
         role <- smdocker::sagemaker_get_execution_role()
     }
-    tags <- check_tags(tags)
-    tags <- format_tags(tags)
+    tags <- sm_check_tags(tags)
+    tags <- sm_format_tags(tags)
 
     request <- list(
         "ModelName" = model_name,
         "ExecutionRoleArn" = role,
         "PrimaryContainer" = list("Image" = image_uri)
     )
-    request$Tags <- .append_project_tags(tags)
-    request$VpcConfig <- check_vpc_config(vpc_config)
+    request$Tags <- .sm_append_project_tags(tags)
+    request$VpcConfig <- sm_check_vpc_config(vpc_config)
     if (isTRUE(enable_network_isolation)) {
         request$EnableNetworkIsolation <- TRUE
     }
@@ -323,10 +323,10 @@ vetiver_sm_endpoint <- function(model_name,
 
     endpoint_name <- endpoint_name %||% model_name
 
-    tags <- check_tags(tags)
-    tags <- format_tags(tags)
+    tags <- sm_check_tags(tags)
+    tags <- sm_format_tags(tags)
 
-    request <- req_endpoint_config(
+    request <- sm_req_endpoint_config(
         model_name,
         endpoint_name,
         instance_type,
@@ -334,7 +334,7 @@ vetiver_sm_endpoint <- function(model_name,
         accelerator_type,
         volume_size,
         model_data_download_timeout,
-        .append_project_tags(tags),
+        .sm_append_project_tags(tags),
         kms_key,
         data_capture_config
     )
@@ -346,7 +346,7 @@ vetiver_sm_endpoint <- function(model_name,
     )
 
     # create endpoint
-    endpoint_name <- create_endpoint(
+    endpoint_name <- sm_create_endpoint(
         sagemaker_client, model_name, endpoint_name, tags, wait
     )
 

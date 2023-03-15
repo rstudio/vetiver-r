@@ -1,4 +1,4 @@
-check_vpc_config <- function(vpc_config, call = caller_env()) {
+sm_check_vpc_config <- function(vpc_config, call = caller_env()) {
     if (is_empty(vpc_config)) {
         return(NULL)
     }
@@ -26,16 +26,16 @@ base_name_from_image <- function(image) {
     return(sprintf("%s-%s", image_name, timestamp))
 }
 
-req_endpoint_config <- function(model_name,
-                                endpoint_name,
-                                instance_type,
-                                initial_instance_count,
-                                accelerator_type,
-                                volume_size,
-                                model_data_download_timeout,
-                                tags,
-                                kms_key,
-                                data_capture_config) {
+sm_req_endpoint_config <- function(model_name,
+                                   endpoint_name,
+                                   instance_type,
+                                   initial_instance_count,
+                                   accelerator_type,
+                                   volume_size,
+                                   model_data_download_timeout,
+                                   tags,
+                                   kms_key,
+                                   data_capture_config) {
 
     volume_size <- return_null_or_integer(volume_size)
     model_data_download_timeout <- return_null_or_integer(model_data_download_timeout)
@@ -65,25 +65,25 @@ return_null_or_integer <- function(x) {
 }
 
 # sagemaker helper functions
-create_endpoint <- function(client,
-                            endpoint_name,
-                            config_name,
-                            tags = list(),
-                            wait = TRUE) {
+sm_create_endpoint <- function(client,
+                               endpoint_name,
+                               config_name,
+                               tags = list(),
+                               wait = TRUE) {
     cli::cli_inform("Creating endpoint with name {.val {endpoint_name}}")
 
     client$create_endpoint(
         EndpointName = endpoint_name, EndpointConfigName = config_name, Tags = tags
     )
     if (isTRUE(wait)) {
-        wait_for_endpoint(client, endpoint_name)
+        sm_wait_for_endpoint(client, endpoint_name)
     }
     return(endpoint_name)
 }
 
 # developed from:
 # https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/session.py#L3753-L3786
-wait_for_endpoint <- function(client, endpoint, poll = 30, call = caller_env()) {
+sm_wait_for_endpoint <- function(client, endpoint, poll = 30, call = caller_env()) {
     desc <- sagemaker_deploy_done(client, endpoint)
     while (is_empty(desc)) {
         Sys.sleep(poll)
@@ -138,36 +138,36 @@ sagemaker_deploy_done <- function(client, endpoint_name) {
 # https://github.com/aws/sagemaker-python-sdk/blob/master/src/sagemaker/_studio.py#L21-L113
 STUDIO_PROJECT_CONFIG <- ".sagemaker-code-config"
 
-check_tags <- function(tags, call = caller_env()) {
-  if (is_empty(tags)) {
-    return(list())
-  }
-  if (!inherits(tags, "list")) {
-    stop_input_type(tags, "a list", call = call)
-  }
-  if (!is_named(tags)) {
-    stop_input_type(tags, "a valid name", call = call)
-  }
-  return(tags)
+sm_check_tags <- function(tags, call = caller_env(), arg = caller_arg(tags)) {
+    if (is_empty(tags)) {
+        return(list())
+    }
+    if (!inherits(tags, "list")) {
+        stop_input_type(tags, "a list", call = call)
+    }
+    if (!is_named(tags)) {
+        cli::cli_abort('{.arg {arg}} must have valid names, like {.code list("my-tag" = "my-value")}', call = call)
+    }
+    return(tags)
 }
 
-format_tags <- function(tags) {
-  tags <- lapply(names(tags), function(n) list(Key = n, Value = tags[[n]]))
-  return(tags)
+sm_format_tags <- function(tags) {
+    tags <- lapply(names(tags), function(n) list(Key = n, Value = tags[[n]]))
+    return(tags)
 }
 
-.append_project_tags <- function(tags = NULL, working_dir = NULL) {
-    path <- .find_config(working_dir)
+.sm_append_project_tags <- function(tags = NULL, working_dir = NULL) {
+    path <- .sm_find_config(working_dir)
     if (is.null(path)) {
         return(tags)
     }
 
-    config <- .load_config(path)
+    config <- .sm_load_config(path)
     if (is.null(config)) {
         return(tags)
     }
 
-    additional_tags <- .parse_tags(config)
+    additional_tags <- .sm_parse_tags(config)
     if (is.null(additional_tags)) {
         return(tags)
     }
@@ -178,7 +178,7 @@ format_tags <- function(tags) {
     return(all_tags)
 }
 
-.find_config <- function(working_dir = NULL) {
+.sm_find_config <- function(working_dir = NULL) {
     tryCatch(
         {
             wd <- working_dir %||% getwd()
@@ -198,7 +198,7 @@ format_tags <- function(tags) {
     )
 }
 
-.load_config <- function(path) {
+.sm_load_config <- function(path) {
     if (!fs::file_exists(path)) {
         return(NULL)
     }
@@ -213,7 +213,7 @@ format_tags <- function(tags) {
     )
 }
 
-.parse_tags <- function(config) {
+.sm_parse_tags <- function(config) {
     if (!is_empty(config$sagemakerProjectId) || !is_empty(config$sagemakerProjectName)) {
         return(list(
             list("Key" = "sagemaker:project-id", "Value" = config$sagemakerProjectId),
