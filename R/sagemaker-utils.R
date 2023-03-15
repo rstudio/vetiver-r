@@ -70,7 +70,7 @@ create_endpoint <- function(client,
                             config_name,
                             tags = list(),
                             wait = TRUE) {
-    cli::cli_inform("Creating endpoint with name {endpoint_name}")
+    cli::cli_inform("Creating endpoint with name {.val {endpoint_name}}")
 
     client$create_endpoint(
         EndpointName = endpoint_name, EndpointConfigName = config_name, Tags = tags

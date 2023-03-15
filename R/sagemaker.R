@@ -93,7 +93,7 @@ vetiver_deploy_sagemaker <- function(board,
     model_name <- vetiver_sm_model(image_uri, tags = tags)
 
     # create sagemaker endpoint
-    endpoint_args <- c(
+    endpoint_args <- list(
         model_name = model_name,
         instance_type = instance_type,
         tags = list(tags),
@@ -374,7 +374,7 @@ vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
                 sagemaker_client$delete_endpoint_config(endpoint_config_name)
             },
             error = function(err) {
-                cli::cli_warn("Unable to delete '{endpoint_name}' endpoint configuration.")
+                cli::cli_warn("Unable to delete {.val {endpoint_name}} endpoint configuration.")
             }
         )
     }
