@@ -165,7 +165,11 @@ vetiver_deploy_sagemaker <- function(board,
 #'     )
 #' )
 #'
-#' model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
+#' model_name <- vetiver_sm_model(
+#'     new_image_uri,
+#'     tags = list("my_custom_tag" = "fuel_efficiency")
+#' )
+#'
 #' vetiver_sm_endpoint(model_name)
 #' }
 #' @return `vetiver_sm_build()` returns the AWS ECR image URI and

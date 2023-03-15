@@ -192,7 +192,11 @@ new_image_uri <- vetiver_sm_build(
     )
 )
 
-model_name <- vetiver_sm_model(new_image_uri, tags = list("fuel-efficiency"))
+model_name <- vetiver_sm_model(
+    new_image_uri,
+    tags = list("my_custom_tag" = "fuel_efficiency")
+)
+
 vetiver_sm_endpoint(model_name)
 }
 }
