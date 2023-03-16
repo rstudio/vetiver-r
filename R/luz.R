@@ -42,7 +42,8 @@ handler_predict.luz_module_fitted <- function(vetiver_model, ...) {
     force(vetiver_model)
     function(req) {
         new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
-        preds <- tensors_to_array(predict(vetiver_model$model, as.array(as.matrix(new_data))))
+        new_data <- if (is.data.frame(new_data)) as.matrix(new_data) else new_data
+        preds <- tensors_to_array(predict(vetiver_model$model, new_data))
         preds
     }
 }
