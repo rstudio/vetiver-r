@@ -7,14 +7,13 @@
 vetiver_deploy_sagemaker(
   board,
   name,
-  version = NULL,
+  instance_type,
+  ...,
   predict_args = list(),
   docker_args = list(),
-  repo_name = glue("vetiver-sagemaker-{name}"),
-  compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
-    "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
-  instance_type = "ml.t2.medium",
-  ...
+  build_args = list(),
+  endpoint_args = list(),
+  repo_name = glue("vetiver-sagemaker-{name}")
 )
 }
 \arguments{
@@ -23,8 +22,10 @@ vetiver_deploy_sagemaker(
 
 \item{name}{Pin name.}
 
-\item{version}{Retrieve a specific version of a pin. Use \code{\link[pins:pin_versions]{pin_versions()}} to
-find out which versions are available and when they were created.}
+\item{instance_type}{Type of EC2 instance to use; see
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
+
+\item{...}{Not currently used.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
 such as the prediction \code{type}.}
@@ -34,20 +35,16 @@ such as the prediction \code{type}.}
 \code{rspm}. Do not pass \code{additional_pkgs} here, as this function uses
 \code{additional_pkgs = required_pkgs(board)}.}
 
+\item{build_args}{A list of optional arguments passed to
+\code{\link[=vetiver_sm_build]{vetiver_sm_build()}} such as the model \code{version} or the \code{compute_type}.}
+
+\item{endpoint_args}{A list of optional arguments passed to
+\code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} such as \code{accelerator_type} or \code{data_capture_config}.}
+
 \item{repo_name}{The name for the AWS ECR repository to store the model.}
-
-\item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
-compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
-
-\item{instance_type}{Type of EC2 instance to use; see
-\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.
-Defaults to \code{"ml.t2.medium"}.}
-
-\item{...}{Other arguments passed to \code{\link[=vetiver_sm_endpoint]{vetiver_sm_endpoint()}} such as
-\code{accelerator_type} or \code{data_capture_config}.}
 }
 \value{
-The deployed SageMaker model endpoint.
+The deployed \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.
 }
 \description{
 Use \code{vetiver_deploy_sagemaker()} to deploy a \code{\link[=vetiver_model]{vetiver_model()}}
@@ -78,8 +75,8 @@ vetiver_pin_write(b, v)
 endpoint <- vetiver_deploy_sagemaker(
     board = b,
     name = "cars_linear",
-    predict_args = list(type = "class", debug = TRUE),
-    instance_type = "ml.t2.medium"
+    instance_type = "ml.t2.medium",
+    predict_args = list(type = "class", debug = TRUE)
 )
 }
 

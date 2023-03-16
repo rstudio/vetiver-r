@@ -36,8 +36,8 @@ vetiver_sm_model(
 
 vetiver_sm_endpoint(
   model_name,
+  instance_type,
   endpoint_name = NULL,
-  instance_type = "ml.t2.medium",
   initial_instance_count = 1,
   accelerator_type = NULL,
   tags = list(),
@@ -80,14 +80,14 @@ SageMaker execution role.}
 \item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
 character. Defaults to the SageMaker SDK default bucket.}
 
-\item{vpc_id}{ID of the VPC that will host the CodeBuild project
-(such as \code{"vpc-05c09f91d48831c8c"}).}
+\item{vpc_id}{ID of the VPC that will host the CodeBuild project such as
+\code{"vpc-05c09f91d48831c8c"}.}
 
-\item{subnet_ids}{List of subnet IDs for the CodeBuild project
-(such as \code{list("subnet-0b31f1863e9d31a67")}).}
+\item{subnet_ids}{List of subnet IDs for the CodeBuild project, such as
+\code{list("subnet-0b31f1863e9d31a67")}.}
 
 \item{security_group_ids}{List of security group IDs for the CodeBuild
-project (such as \code{list("sg-0ce4ec0d0414d2ddc")}).}
+project, such as \code{list("sg-0ce4ec0d0414d2ddc")}.}
 
 \item{log}{A logical to show the logs of the running CodeBuild build.
 Defaults to \code{TRUE}.}
@@ -112,14 +112,14 @@ SageMaker model \href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/
 \item{enable_network_isolation}{A logical to specify whether the container
 will run in network isolation mode. Defaults to \code{FALSE}.}
 
-\item{tags}{A named list of tags for labeling the Amazon SageMaker model endpoint.}
+\item{tags}{A named list of tags for labeling the Amazon SageMaker model or
+model endpint to be created.}
+
+\item{instance_type}{Type of EC2 instance to use; see
+\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.}
 
 \item{endpoint_name}{The name to use for the Amazon SageMaker model endpoint
 to be created, if to be different from \code{model_name}.}
-
-\item{instance_type}{Type of EC2 instance to use; see
-\href{https://aws.amazon.com/sagemaker/pricing/}{Amazon SageMaker pricing}.
-Defaults to \code{"ml.t2.medium"}.}
 
 \item{initial_instance_count}{The initial number of instances to run
 in the endpoint.}
