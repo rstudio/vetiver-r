@@ -68,15 +68,16 @@ vetiver_deploy_sagemaker <- function(board,
     )
 
     # build image and push to aws ecr
-    image_uri <- vetiver_sm_build(
-        board = board,
-        name = name,
-        predict_args = predict_args,
-        docker_args = docker_args,
-        repository = repo_name,
-        bucket = board$bucket,
-        !!!build_args
-    )
+    build_args <- compact(c(
+        list(board = board,
+             name = name,
+             predict_args = predict_args,
+             docker_args = docker_args,
+             repository = repo_name,
+             bucket = board$bucket),
+        build_args
+    ))
+    image_uri <- do.call(vetiver_sm_build, build_args)
 
     tags <- sm_check_tags(endpoint_args$tags)
     tags <- list_modify(
@@ -90,14 +91,14 @@ vetiver_deploy_sagemaker <- function(board,
     model_name <- vetiver_sm_model(image_uri, tags = tags)
 
     # create sagemaker endpoint
-    endpoint_args <- compact(
-        c(list(
+    endpoint_args <- compact(c(
+        list(
             model_name = model_name,
             instance_type = instance_type,
             tags = tags),
-          endpoint_args
-        ))
-    endpoint <- vetiver_sm_endpoint(!!!endpoint_args)
+        endpoint_args
+    ))
+    endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
     return(endpoint)
 }
 
