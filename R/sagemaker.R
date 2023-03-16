@@ -93,12 +93,12 @@ vetiver_deploy_sagemaker <- function(board,
     model_name <- vetiver_sm_model(image_uri, tags = tags)
 
     # create sagemaker endpoint
-    endpoint_args <- list(
+    endpoint_args <- compact(list(
         model_name = model_name,
         instance_type = instance_type,
         tags = tags,
         args
-    )
+    ))
     endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
     return(endpoint)
 }
