@@ -20,16 +20,7 @@ vetiver_ptype.luz_module_fitted <- function(model, ...) {
     rlang::check_dots_used()
     dots <- list(...)
     check_ptype_data(dots)
-
-    data <- dots$prototype_data
-    data <- tensors_to_array(data)
-
-    # luz doesn't require named inputs. we use `input` if the user didn't provide any.
-    if (!is.list(data)) {
-        data <- tibble::tibble(input = data)
-    }
-
-    ptype <- vctrs::vec_ptype(data)
+    ptype <- vctrs::vec_ptype(dots$prototype_data)
     tibble::as_tibble(ptype)
 }
 
@@ -51,8 +42,8 @@ handler_predict.luz_module_fitted <- function(vetiver_model, ...) {
     force(vetiver_model)
     function(req) {
         new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
-        preds <- tensors_to_array(predict(vetiver_model$model, new_data))
-        tibble::tibble(.pred = preds)
+        preds <- tensors_to_array(predict(vetiver_model$model, as.array(as.matrix(new_data))))
+        preds
     }
 }
 
