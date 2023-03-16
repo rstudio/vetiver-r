@@ -1,7 +1,10 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.luz_module_fitted <- function(model) {
-    glue("A luz module")
+    n_parameters <- lapply(model$model$parameters, function(x) prod(x$shape))
+    n_parameters <- do.call(sum, n_parameters)
+    n_parameters <- formatC(n_parameters, big.mark = ",", format = "d")
+    glue("A luz module with {n_parameters} parameters")
 }
 
 #' @rdname vetiver_create_meta
