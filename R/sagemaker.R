@@ -349,15 +349,21 @@ vetiver_sm_endpoint <- function(model_name,
     return(vetiver_endpoint_sagemaker(model_name))
 }
 
-#' Delete Amazon SageMaker model, endpoint, and configuration
+#' Delete Amazon SageMaker model, endpoint, and endpoint configuration
+#'
+#' Use this function to delete the Amazon SageMaker components used in a
+#' [vetiver_endpoint_sagemaker()] object. This function does _not_ delete
+#' any pinned model object in S3.
+#'
 #' @param object The model API endpoint object to be deleted, created with
 #' [vetiver_endpoint_sagemaker()].
-#' @param delete_endpoint_config Delete the endpoint configuration as well?
+#' @param delete_model Delete the SageMaker model? Defaults to `TRUE`.
+#' @param delete_endpoint Delete both the endpoint and endpoint configuration?
 #' Defaults to `TRUE`.
 #' @return `TRUE`, invisibly
 #' @seealso [vetiver_deploy_sagemaker()], [vetiver_sm_build()], [vetiver_endpoint_sagemaker()]
 #' @export
-vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
+vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRUE) {
     check_installed(c("smdocker", "paws.machine.learning"))
 
     config <- smdocker::smdocker_config()
@@ -365,7 +371,7 @@ vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
 
     endpoint_name <- object$model_endpoint
 
-    if (!is.null(delete_endpoint_config)) {
+    if (!is.null(delete_endpoint)) {
         tryCatch(
             {
                 endpoint_config_name <- sagemaker_client$describe_endpoint(
@@ -377,9 +383,11 @@ vetiver_sm_delete <- function(object, delete_endpoint_config = TRUE) {
                 cli::cli_warn("Unable to delete {.val {endpoint_name}} endpoint configuration.")
             }
         )
+        sagemaker_client$delete_endpoint(endpoint_name)
     }
-    sagemaker_client$delete_model(endpoint_name)
-    sagemaker_client$delete_endpoint(endpoint_name)
+    if (!is.null(delete_model)) {
+        sagemaker_client$delete_model(endpoint_name)
+    }
     return(invisible(TRUE))
 }
 

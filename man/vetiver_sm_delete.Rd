@@ -2,22 +2,26 @@
 % Please edit documentation in R/sagemaker.R
 \name{vetiver_sm_delete}
 \alias{vetiver_sm_delete}
-\title{Delete Amazon SageMaker model, endpoint, and configuration}
+\title{Delete Amazon SageMaker model, endpoint, and endpoint configuration}
 \usage{
-vetiver_sm_delete(object, delete_endpoint_config = TRUE)
+vetiver_sm_delete(object, delete_model = TRUE, delete_endpoint = TRUE)
 }
 \arguments{
 \item{object}{The model API endpoint object to be deleted, created with
 \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}.}
 
-\item{delete_endpoint_config}{Delete the endpoint configuration as well?
+\item{delete_model}{Delete the SageMaker model? Defaults to \code{TRUE}.}
+
+\item{delete_endpoint}{Delete both the endpoint and endpoint configuration?
 Defaults to \code{TRUE}.}
 }
 \value{
 \code{TRUE}, invisibly
 }
 \description{
-Delete Amazon SageMaker model, endpoint, and configuration
+Use this function to delete the Amazon SageMaker components used in a
+\code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}} object. This function does \emph{not} delete
+any pinned model object in S3.
 }
 \seealso{
 \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}}, \code{\link[=vetiver_sm_build]{vetiver_sm_build()}}, \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}}
