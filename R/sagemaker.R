@@ -7,9 +7,12 @@
 #' @inheritParams vetiver_sm_build
 #' @inheritParams vetiver_sm_model
 #' @inheritParams vetiver_sm_endpoint
+#' @param ... Not currently used.
+#' @param build_args A list of optional arguments passed to
+#' [vetiver_sm_build()] such as the model `version` or the `compute_type`.
+#' @param endpoint_args A list of optional arguments passed to
+#' [vetiver_sm_endpoint()] such as `accelerator_type` or `data_capture_config`.
 #' @param repo_name The name for the AWS ECR repository to store the model.
-#' @param ... Other arguments passed to [vetiver_sm_endpoint()] such as
-#' `accelerator_type` or `data_capture_config`.
 #'
 #' @details
 #' This function stores your model deployment image in the same bucket used
@@ -23,7 +26,7 @@
 #' These modular functions are available for more advanced use cases.
 #'
 #' @return
-#' The deployed SageMaker model endpoint.
+#' The deployed [vetiver_endpoint_sagemaker()].
 #'
 #' @seealso [vetiver_sm_build()], [vetiver_sm_model()], [vetiver_sm_endpoint()]
 #' @export
@@ -38,26 +41,22 @@
 #' endpoint <- vetiver_deploy_sagemaker(
 #'     board = b,
 #'     name = "cars_linear",
-#'     predict_args = list(type = "class", debug = TRUE),
-#'     instance_type = "ml.t2.medium"
+#'     instance_type = "ml.t2.medium",
+#'     predict_args = list(type = "class", debug = TRUE)
 #' )
 #' }
 #'
 vetiver_deploy_sagemaker <- function(board,
                                      name,
-                                     version = NULL,
+                                     instance_type,
+                                     ...,
                                      predict_args = list(),
                                      docker_args = list(),
-                                     repo_name = glue("vetiver-sagemaker-{name}"),
-                                     compute_type = c(
-                                         "BUILD_GENERAL1_SMALL",
-                                         "BUILD_GENERAL1_MEDIUM",
-                                         "BUILD_GENERAL1_LARGE",
-                                         "BUILD_GENERAL1_2XLARGE"
-                                     ),
-                                     instance_type = "ml.t2.medium",
-                                     ...) {
+                                     build_args = list(),
+                                     endpoint_args = list(),
+                                     repo_name = glue("vetiver-sagemaker-{name}")) {
 
+    ellipsis::check_dots_empty()
     if (!inherits(board, "pins_board_s3")) {
         stop_input_type(board, "an S3 pins board")
     }
@@ -72,34 +71,33 @@ vetiver_deploy_sagemaker <- function(board,
     image_uri <- vetiver_sm_build(
         board = board,
         name = name,
-        version = version,
         predict_args = predict_args,
         docker_args = docker_args,
         repository = repo_name,
-        compute_type = compute_type,
-        bucket = board$bucket
+        bucket = board$bucket,
+        !!!build_args
     )
 
-    args <- list2(...)
-    tags <- sm_check_tags(args$tags)
+    tags <- sm_check_tags(endpoint_args$tags)
     tags <- list_modify(
         tags,
         "vetiver:pin_board" = glue("s3://{board$bucket}/{board$prefix %||% ''}"),
         "vetiver:r-ver" = getRversion()
     )
-    args$tags <- NULL
+    endpoint_args$tags <- NULL
 
     # create sagemaker model
     model_name <- vetiver_sm_model(image_uri, tags = tags)
 
     # create sagemaker endpoint
-    endpoint_args <- compact(list(
-        model_name = model_name,
-        instance_type = instance_type,
-        tags = tags,
-        args
-    ))
-    endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
+    endpoint_args <- compact(
+        c(list(
+            model_name = model_name,
+            instance_type = instance_type,
+            tags = tags),
+          endpoint_args
+        ))
+    endpoint <- vetiver_sm_endpoint(!!!endpoint_args)
     return(endpoint)
 }
 
@@ -122,12 +120,12 @@ vetiver_deploy_sagemaker <- function(board,
 #' to the SageMaker Studio execution role.
 #' @param bucket The S3 bucket to use for sending data to CodeBuild as a
 #' character. Defaults to the SageMaker SDK default bucket.
-#' @param vpc_id ID of the VPC that will host the CodeBuild project
-#' (such as `"vpc-05c09f91d48831c8c"`).
-#' @param subnet_ids List of subnet IDs for the CodeBuild project
-#' (such as `list("subnet-0b31f1863e9d31a67")`).
+#' @param vpc_id ID of the VPC that will host the CodeBuild project such as
+#' `"vpc-05c09f91d48831c8c"`.
+#' @param subnet_ids List of subnet IDs for the CodeBuild project, such as
+#' `list("subnet-0b31f1863e9d31a67")`.
 #' @param security_group_ids List of security group IDs for the CodeBuild
-#' project (such as `list("sg-0ce4ec0d0414d2ddc")`).
+#' project, such as `list("sg-0ce4ec0d0414d2ddc")`.
 #' @param log A logical to show the logs of the running CodeBuild build.
 #' Defaults to `TRUE`.
 #' @param ... [Docker build parameters](https://docs.docker.com/engine/reference/commandline/build/#options>)
@@ -281,17 +279,15 @@ vetiver_sm_model <- function(image_uri,
     return(model_name)
 }
 
-#' @param endpoint_name The name to use for the Amazon SageMaker model endpoint
-#' to be created, if to be different from `model_name`.
 #' @param instance_type Type of EC2 instance to use; see
 #' [Amazon SageMaker pricing](https://aws.amazon.com/sagemaker/pricing/).
-#' Defaults to `"ml.t2.medium"`.
+#' @param endpoint_name The name to use for the Amazon SageMaker model endpoint
+#' to be created, if to be different from `model_name`.
 #' @param initial_instance_count The initial number of instances to run
 #' in the endpoint.
 #' @param accelerator_type Type of Elastic Inference accelerator to
 #' attach to an endpoint for model loading and inference, for
 #' example, `"ml.eia1.medium"`.
-#' @param tags A named list of tags for labeling the Amazon SageMaker model endpoint.
 #' @param kms_key The ARN of the KMS key used to encrypt the data on the
 #' storage volume attached to the instance hosting the endpoint.
 #' @param data_capture_config A list for configuration to control how Amazon
@@ -306,8 +302,8 @@ vetiver_sm_model <- function(image_uri,
 #' @rdname vetiver_sm_build
 #' @export
 vetiver_sm_endpoint <- function(model_name,
+                                instance_type,
                                 endpoint_name = NULL,
-                                instance_type = "ml.t2.medium",
                                 initial_instance_count = 1,
                                 accelerator_type = NULL,
                                 tags = list(),
