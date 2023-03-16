@@ -51,7 +51,7 @@ handler_predict.luz_module_fitted <- function(vetiver_model, ...) {
     force(vetiver_model)
     function(req) {
         new_data <- vetiver_type_convert(req$body, vetiver_model$ptype)
-        preds <- asNamespace("vetiver")$tensors_to_array(predict(vetiver_model$model, new_data))
+        preds <- tensors_to_array(predict(vetiver_model$model, new_data))
         tibble::tibble(.pred = preds)
     }
 }
