@@ -22,3 +22,28 @@ test_that("can create correct files for `vetiver_sm_build()`", {
         transform = redact_vetiver
     )
 })
+
+
+test_that("can create SageMaker Model", {
+    mockery::stub(vetiver_sm_model, "smdocker::smdocker_config", list())
+    mockery::stub(vetiver_sm_model, "sagemaker_client$create_model", list())
+    image_uri <- "999999999999.dkr.ecr.us-east-2.amazonaws.com/vetiver-sagemaker-example-model:2023-03-17"
+    model_name <- "vetiver-sagemaker-example_model"
+    role <- "arn:aws:iam::999999999999:role/SagemakerExecution"
+
+    expect_snapshot(error = TRUE, {
+        vetiver_sm_model(image_uri = image_uri, role = role, tags = "potato")
+        vetiver_sm_model(image_uri = image_uri, role = role, tags = list("potato"))
+    })
+
+    out <-
+        vetiver_sm_model(
+            image_uri = image_uri,
+            model_name = model_name,
+            role = role,
+            tags = list("new-tag" = "amazing")
+        )
+
+    expect_equal(out, model_name)
+})
+

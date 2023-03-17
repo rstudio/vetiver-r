@@ -43,3 +43,16 @@
       EXPOSE 8080
       ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8080)"]
 
+# can create SageMaker Model
+
+    Code
+      vetiver_sm_model(image_uri = image_uri, role = role, tags = "potato")
+    Condition
+      Error in `vetiver_sm_model()`:
+      ! `tags` must be a list, not the string "potato".
+    Code
+      vetiver_sm_model(image_uri = image_uri, role = role, tags = list("potato"))
+    Condition
+      Error in `vetiver_sm_model()`:
+      ! `tags` must have valid names, like `list("my-tag" = "my-value")`
+
