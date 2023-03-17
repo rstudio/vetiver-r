@@ -20,8 +20,7 @@ base_name_from_image <- function(image) {
     m <- regexec("^(.+/)?([^:/]+)(:[^:]+)?$", image)
     image_name <- if (!is.null(m)) unlist(regmatches(image, m))[[3]] else image
     now <- Sys.time()
-    now_ms <- strsplit(format(as.numeric(now, 3), nsmall = 3), split = "\\.")[[1]][[2]]
-    timestamp <- format(now, paste0("%Y-%m-%d-%H-%M-%S-", now_ms))
+    timestamp <- gsub("\\.", "-", strftime(now, "%Y-%m-%d-%H-%M-%OS3"))
     image_name <- substring(image_name, 1, (63L - nchar(timestamp) - 1))
     return(sprintf("%s-%s", image_name, timestamp))
 }
