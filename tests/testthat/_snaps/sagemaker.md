@@ -78,3 +78,21 @@
     Message
       Creating endpoint with name "vetiver-sagemaker-example-model"
 
+# can create vetiver endpoint object
+
+    Code
+      vetiver_endpoint_sagemaker(list())
+    Condition
+      Error in `vetiver_endpoint_sagemaker()`:
+      ! `model_endpoint` must be a character vector, not an empty list.
+
+---
+
+    Code
+      vetiver_endpoint_sagemaker(model_endpoint)
+    Output
+      
+      -- A SageMaker model endpoint for prediction: 
+      Model endpoint: vetiver-sagemaker-example-model
+      Region: my-region
+

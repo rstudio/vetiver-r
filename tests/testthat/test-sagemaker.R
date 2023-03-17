@@ -83,4 +83,21 @@ test_that("can call sm_create_endpoint", {
     expect_equal(out, endpoint_name)
 })
 
+test_that("can create vetiver endpoint object", {
+    mockery::stub(
+        vetiver_endpoint_sagemaker,
+        "smdocker::smdocker_config",
+        list(region = "my-region")
+    )
+
+    model_endpoint <- "vetiver-sagemaker-example-model"
+
+    expect_snapshot(
+        vetiver_endpoint_sagemaker(list()),
+        error = TRUE
+    )
+    expect_snapshot(vetiver_endpoint_sagemaker(model_endpoint))
+})
+
+
 
