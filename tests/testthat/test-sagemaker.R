@@ -45,7 +45,6 @@ test_that("can create correct files for `vetiver_sm_build()`", {
 
 
 test_that("can create SageMaker Model", {
-    mockery::stub(vetiver_sm_model, "smdocker::smdocker_config", list())
     mockery::stub(vetiver_sm_model, "sagemaker_client$create_model", list())
     image_uri <- "999999999999.dkr.ecr.us-east-2.amazonaws.com/vetiver-sagemaker-example-model:2023-03-17"
     model_name <- "vetiver-sagemaker-example_model"
@@ -74,7 +73,6 @@ test_that("can create SageMaker Model", {
 })
 
 test_that("can create SageMaker Endpoint", {
-    mockery::stub(vetiver_sm_endpoint, "smdocker::smdocker_config", list())
     mockery::stub(vetiver_sm_endpoint, "sagemaker_client$create_endpoint_config", list())
     mockery::stub(vetiver_sm_endpoint, "sm_create_endpoint", "example-endpoint-name")
     model_name <- "vetiver-sagemaker-example_model"
@@ -110,7 +108,7 @@ test_that("can call sm_create_endpoint", {
 })
 
 test_that("can delete SageMaker endpoints", {
-    mock_delete_endpoint_config <- mockery::mock(abort(), list())
+    mock_delete_endpoint_config <- mockery::mock(abort("No config!"), list())
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
@@ -137,3 +135,25 @@ test_that("can create vetiver endpoint object", {
     )
     expect_snapshot(vetiver_endpoint_sagemaker(model_endpoint))
 })
+
+test_that("can predict with vetiver endpoint object", {
+
+    res <- tibble::tibble(.pred = mtcars$mpg)
+    mockery::stub(
+        vetiver_endpoint_sagemaker,
+        "smdocker::smdocker_config",
+        list(region = "my-region")
+    )
+    mockery::stub(
+        predict.vetiver_endpoint_sagemaker,
+        "sm_runtime$invoke_endpoint",
+        list(Body = charToRaw(jsonlite::toJSON(res)))
+    )
+    mockery::stub(augment.vetiver_endpoint_sagemaker, "predict", res)
+
+    endpoint <- vetiver_endpoint_sagemaker("example-model")
+    expect_equal(predict(endpoint, mtcars), res)
+    expect_equal(augment(endpoint, mtcars), vctrs::vec_cbind(tibble::tibble(mtcars), res))
+
+})
+
