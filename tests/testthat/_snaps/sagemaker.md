@@ -56,3 +56,18 @@
       Error in `vetiver_sm_model()`:
       ! `tags` must have valid names, like `list("my-tag" = "my-value")`
 
+# can create SageMaker Endpoint
+
+    Code
+      vetiver_sm_endpoint(model_name = model_name, instance_type = instance_type,
+        tags = "potato")
+    Condition
+      Error in `vetiver_sm_endpoint()`:
+      ! `tags` must be a list, not the string "potato".
+    Code
+      vetiver_sm_endpoint(model_name = model_name, instance_type = instance_type,
+        tags = list("potato"))
+    Condition
+      Error in `vetiver_sm_endpoint()`:
+      ! `tags` must have valid names, like `list("my-tag" = "my-value")`
+

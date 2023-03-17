@@ -1,7 +1,7 @@
 skip_if_not_installed("smdocker")
-skip_on_cran()
 
 test_that("can create correct files for `vetiver_sm_build()`", {
+    skip_on_cran()
     mockery::stub(vetiver_sm_build, "smdocker::sm_build", "new_sagemaker_uri")
 
     b <- board_folder(path = tmp_dir)
@@ -45,5 +45,27 @@ test_that("can create SageMaker Model", {
         )
 
     expect_equal(out, model_name)
+})
+
+test_that("can create SageMaker Endpoint", {
+    mockery::stub(vetiver_sm_endpoint, "smdocker::smdocker_config", list())
+    mockery::stub(vetiver_sm_endpoint, "sagemaker_client$create_endpoint_config", list())
+    mockery::stub(vetiver_sm_endpoint, "sm_create_endpoint", "example-endpoint-name")
+    model_name <- "vetiver-sagemaker-example_model"
+    instance_type <- "ml.t2.medium"
+
+    expect_snapshot(error = TRUE, {
+        vetiver_sm_endpoint(model_name = model_name, instance_type = instance_type, tags = "potato")
+        vetiver_sm_endpoint(model_name = model_name, instance_type = instance_type, tags = list("potato"))
+    })
+
+    out <-
+        vetiver_sm_endpoint(
+            model_name = model_name,
+            instance_type = instance_type,
+            tags = list("new-tag" = "amazing")
+        )
+
+    expect_equal(out, vetiver_endpoint_sagemaker(model_name))
 })
 
