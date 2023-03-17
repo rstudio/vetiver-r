@@ -173,7 +173,7 @@ vetiver_deploy_sagemaker <- function(board,
 #' }
 #' @return `vetiver_sm_build()` returns the AWS ECR image URI and
 #' `vetiver_sm_model()` returns the model name (both as characters).
-#' `vetiver_sm_endpoint()` returns new [vetiver_endpoint_sagemaker()] object.
+#' `vetiver_sm_endpoint()` returns a new [vetiver_endpoint_sagemaker()] object.
 #' @export
 vetiver_sm_build <- function(board,
                              name,
@@ -197,9 +197,6 @@ vetiver_sm_build <- function(board,
                              ...) {
     check_installed("smdocker")
     compute_type <- arg_match(compute_type)
-
-    # create dockerfile using
-    # https://github.com/rocker-org/rocker-versioned2/pkgs/container/r-ver
     docker_args <- list_modify(docker_args, port = 8080)
     predict_args <- list_modify(predict_args, path = "/invocations")
 
@@ -404,7 +401,6 @@ vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRU
 #' @param ... Extra arguments passed to [paws.machine.learning::sagemakerruntime_invoke_endpoint()]
 #'
 #' @return A tibble of model predictions with as many rows as in `new_data`.
-#' @importFrom stats predict
 #' @seealso [augment.vetiver_endpoint_sagemaker()]
 #' @export
 #' @examples
@@ -468,9 +464,7 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 #' @return A new `vetiver_endpoint_sagemaker` object
 #'
 #' @examples
-#' if (FALSE) {
-#'   vetiver_endpoint("vetiver-sagemaker-demo-model")
-#' }
+#' vetiver_endpoint_sagemaker("vetiver-sagemaker-demo-model")
 #' @export
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
     check_installed("smdocker")
