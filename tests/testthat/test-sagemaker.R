@@ -109,6 +109,19 @@ test_that("can call sm_create_endpoint", {
     expect_equal(out, endpoint_name)
 })
 
+test_that("can delete SageMaker endpoints", {
+    mock_delete_endpoint_config <- mockery::mock(abort(), list())
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_model", list())
+
+    object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
+
+    expect_snapshot(vetiver_sm_delete(object))
+    expect_true(vetiver_sm_delete(object))
+})
+
 test_that("can create vetiver endpoint object", {
     mockery::stub(
         vetiver_endpoint_sagemaker,

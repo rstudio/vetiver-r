@@ -103,6 +103,14 @@
     Message
       Creating endpoint with name "vetiver-sagemaker-example-model"
 
+# can delete SageMaker endpoints
+
+    Code
+      vetiver_sm_delete(object)
+    Condition
+      Warning:
+      Unable to delete "vetiver-sagemaker-example-model" endpoint configuration.
+
 # can create vetiver endpoint object
 
     Code
