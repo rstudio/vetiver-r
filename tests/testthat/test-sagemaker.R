@@ -18,7 +18,6 @@ test_that("can deploy via `vetiver_deploy_sagemaker()`", {
     class(b) <- c("pins_board_s3", "pins_board")
     out <- vetiver_deploy_sagemaker(b, "cars1", instance_type)
     expect_equal(out, vetiver_endpoint_sagemaker(model_name))
-
 })
 
 test_that("can create correct files for `vetiver_sm_build()`", {
@@ -55,6 +54,12 @@ test_that("can create SageMaker Model", {
     expect_snapshot(error = TRUE, {
         vetiver_sm_model(image_uri = image_uri, role = role, tags = "potato")
         vetiver_sm_model(image_uri = image_uri, role = role, tags = list("potato"))
+        vetiver_sm_model(image_uri = image_uri, role = role,
+                         vpc_config = list("potato"))
+        vetiver_sm_model(image_uri = image_uri, role = role,
+                         vpc_config = list(Subnets = list(1:3), SecurityGroupIds = 1:3))
+        vetiver_sm_model(image_uri = image_uri, role = role,
+                         vpc_config = list(Subnets = 1:3, SecurityGroupIds = list(1:3)))
     })
 
     out <-
@@ -119,6 +124,3 @@ test_that("can create vetiver endpoint object", {
     )
     expect_snapshot(vetiver_endpoint_sagemaker(model_endpoint))
 })
-
-
-

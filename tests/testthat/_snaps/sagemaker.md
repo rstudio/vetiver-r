@@ -63,6 +63,23 @@
     Condition
       Error in `vetiver_sm_model()`:
       ! `tags` must have valid names, like `list("my-tag" = "my-value")`
+    Code
+      vetiver_sm_model(image_uri = image_uri, role = role, vpc_config = list("potato"))
+    Condition
+      Error in `vetiver_sm_model()`:
+      ! `subnet` must be a list, not `NULL`.
+    Code
+      vetiver_sm_model(image_uri = image_uri, role = role, vpc_config = list(Subnets = list(
+        1:3), SecurityGroupIds = 1:3))
+    Condition
+      Error in `vetiver_sm_model()`:
+      ! `security_group_ids` must be a list, not an integer vector.
+    Code
+      vetiver_sm_model(image_uri = image_uri, role = role, vpc_config = list(Subnets = 1:
+        3, SecurityGroupIds = list(1:3)))
+    Condition
+      Error in `vetiver_sm_model()`:
+      ! `subnet` must be a list, not an integer vector.
 
 # can create SageMaker Endpoint
 
