@@ -158,7 +158,7 @@ test_that("can predict with vetiver endpoint object", {
 })
 
 test_that("can get base name from image", {
-    mockery::stub(base_name_from_image, "Sys.time", as.POSIXct("2023-03-17 12:34:56.789", tz = "UTC"))
+    mockery::stub(base_name_from_image, "Sys.time", as.POSIXct("2023-03-17 12:34:56.789"))
     image_uri <- "999999999999.dkr.ecr.us-east-2.amazonaws.com/vetiver-sagemaker-example-model:2023-03-17"
 
     expect_equal(
