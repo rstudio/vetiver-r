@@ -421,11 +421,12 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
     sm_runtime <- paws.machine.learning::sagemakerruntime(config)
     tryCatch(
         {
-            resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json, ...)$Body
+            resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json, ...)
+            resp <- resp$Body
         },
         error = function(error) {
             error_code <- error$error_response$ErrorCode
-            if (error_code == "NO_SUCH_ENDPOINT") {
+            if (!is.null(error_code) && error_code == "NO_SUCH_ENDPOINT") {
                 cli::cli_abort("Model endpoint {.val {object$model_endpoint}} not found.")
             }
             stop(error)
