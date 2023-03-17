@@ -266,8 +266,7 @@ vetiver_sm_model <- function(image_uri,
     tags <- sm_format_tags(tags)
 
     # set model data url from vetiver tags
-    primary_container <- list("Image" = image_uri)
-    primary_container$ModelDataUrl <- model_data_url
+    primary_container <- list("Image" = image_uri, "ModelDataUrl" = model_data_url)
 
     request <- list(
         "ModelName" = model_name,
