@@ -18,7 +18,5 @@ No HTTP calls are made until you actually
 \code{\link[=predict.vetiver_endpoint_sagemaker]{predict()}} with your endpoint.
 }
 \examples{
-if (FALSE) {
-  vetiver_endpoint("vetiver-sagemaker-demo-model")
-}
+vetiver_endpoint_sagemaker("vetiver-sagemaker-demo-model")
 }

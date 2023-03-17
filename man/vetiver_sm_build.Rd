@@ -147,7 +147,7 @@ Defaults to \code{TRUE}.}
 \value{
 \code{vetiver_sm_build()} returns the AWS ECR image URI and
 \code{vetiver_sm_model()} returns the model name (both as characters).
-\code{vetiver_sm_endpoint()} returns new \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}} object.
+\code{vetiver_sm_endpoint()} returns a new \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker()}} object.
 }
 \description{
 Use the function \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}} for basic deployment on
