@@ -259,16 +259,12 @@ vetiver_sm_model <- function(image_uri,
         role <- smdocker::sagemaker_get_execution_role()
     }
     tags <- sm_check_tags(tags)
-    model_data_url <- tags[["vetiver:pin_board"]]
     tags <- sm_format_tags(tags)
-
-    # set model data url from vetiver tags
-    primary_container <- list("Image" = image_uri, "ModelDataUrl" = model_data_url)
 
     request <- list(
         "ModelName" = model_name,
         "ExecutionRoleArn" = role,
-        "PrimaryContainer" = primary_container
+        "PrimaryContainer" = list("Image" = image_uri)
     )
     request$Tags <- .sm_append_project_tags(tags)
     request$VpcConfig <- sm_check_vpc_config(vpc_config)
