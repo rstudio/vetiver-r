@@ -463,7 +463,7 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 #' @param model_endpoint The name of the Amazon SageMaker model endpoint.
 #' @return A new `vetiver_endpoint_sagemaker` object
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("smdocker")
 #' vetiver_endpoint_sagemaker("vetiver-sagemaker-demo-model")
 #' @export
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
