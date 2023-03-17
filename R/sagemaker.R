@@ -469,15 +469,13 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
     check_installed("smdocker")
     config <- smdocker::smdocker_config()
-    model_endpoint <- as.character(model_endpoint)
+    check_character(model_endpoint)
+    check_character(config$region)
     new_vetiver_endpoint_sagemaker(model_endpoint, config$region)
 }
 
 new_vetiver_endpoint_sagemaker <- function(model_endpoint = character(),
-                                           region = character(),
-                                           call = caller_env()) {
-    check_character(model_endpoint, call = call)
-    check_character(region, call = call)
+                                           region = character()) {
     structure(
         list(model_endpoint = model_endpoint, region = region),
         class = "vetiver_endpoint_sagemaker"
