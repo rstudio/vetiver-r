@@ -197,7 +197,7 @@ model_name <- vetiver_sm_model(
     tags = list("my_custom_tag" = "fuel_efficiency")
 )
 
-vetiver_sm_endpoint(model_name)
+vetiver_sm_endpoint(model_name, "ml.t2.medium")
 }
 }
 \seealso{
