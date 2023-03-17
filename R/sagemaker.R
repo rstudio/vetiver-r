@@ -375,9 +375,10 @@ vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRU
     if (!is.null(delete_endpoint)) {
         tryCatch(
             {
-                endpoint_config_name <- sagemaker_client$describe_endpoint(
+                endpoint_describe <- sagemaker_client$describe_endpoint(
                     EndpointName = endpoint_name
-                )$EndpointConfigName
+                )
+                endpoint_config_name <- endpoint_describe$EndpointConfigName
                 sagemaker_client$delete_endpoint_config(endpoint_config_name)
             },
             error = function(err) {
