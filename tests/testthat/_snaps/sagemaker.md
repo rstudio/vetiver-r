@@ -71,3 +71,10 @@
       Error in `vetiver_sm_endpoint()`:
       ! `tags` must have valid names, like `list("my-tag" = "my-value")`
 
+# can call sm_create_endpoint
+
+    Code
+      out <- sm_create_endpoint(client, endpoint_name, config_name, wait = FALSE)
+    Message
+      Creating endpoint with name "vetiver-sagemaker-example-model"
+

@@ -69,3 +69,18 @@ test_that("can create SageMaker Endpoint", {
     expect_equal(out, vetiver_endpoint_sagemaker(model_name))
 })
 
+test_that("can call sm_create_endpoint", {
+    mockery::stub(sm_create_endpoint, "client$create_endpoint", list())
+
+    endpoint_name <- "vetiver-sagemaker-example-model"
+    config_name <- "vetiver-sagemaker-config"
+    client <- paws.machine.learning::sagemaker(list())
+
+    expect_snapshot(
+        out <- sm_create_endpoint(client, endpoint_name, config_name, wait = FALSE)
+    )
+
+    expect_equal(out, endpoint_name)
+})
+
+
