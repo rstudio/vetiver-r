@@ -1,5 +1,26 @@
 skip_if_not_installed("smdocker")
 
+test_that("can deploy via `vetiver_deploy_sagemaker()`", {
+    skip_on_cran()
+    model_name <- "example_model_name"
+    instance_type <- "ml.t2.medium"
+    mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_build", "new_sagemaker_uri")
+    mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_model", model_name)
+    mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_endpoint", vetiver_endpoint_sagemaker(model_name))
+
+    b <- board_folder(path = tmp_dir)
+    cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
+    v <- vetiver_model(cars_lm, "cars1")
+    vetiver_pin_write(b, v)
+
+    expect_snapshot(vetiver_deploy_sagemaker(b, "cars1", instance_type), error = TRUE)
+
+    class(b) <- c("pins_board_s3", "pins_board")
+    out <- vetiver_deploy_sagemaker(b, "cars1", instance_type)
+    expect_equal(out, vetiver_endpoint_sagemaker(model_name))
+
+})
+
 test_that("can create correct files for `vetiver_sm_build()`", {
     skip_on_cran()
     mockery::stub(vetiver_sm_build, "smdocker::sm_build", "new_sagemaker_uri")

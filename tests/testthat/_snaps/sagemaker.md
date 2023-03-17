@@ -1,3 +1,11 @@
+# can deploy via `vetiver_deploy_sagemaker()`
+
+    Code
+      vetiver_deploy_sagemaker(b, "cars1", instance_type)
+    Condition
+      Error in `vetiver_deploy_sagemaker()`:
+      ! `board` must be an S3 pins board, not a <pins_board_folder/pins_board> object.
+
 # can create correct files for `vetiver_sm_build()`
 
     Code
