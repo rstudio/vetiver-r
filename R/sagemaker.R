@@ -369,7 +369,7 @@ vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRU
 
     endpoint_name <- object$model_endpoint
 
-    if (!is.null(delete_endpoint)) {
+    if (is_true(delete_endpoint)) {
         tryCatch(
             {
                 endpoint_describe <- sagemaker_client$describe_endpoint(
@@ -384,7 +384,7 @@ vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRU
         )
         sagemaker_client$delete_endpoint(endpoint_name)
     }
-    if (!is.null(delete_model)) {
+    if (is_true(delete_model)) {
         sagemaker_client$delete_model(endpoint_name)
     }
     return(invisible(TRUE))

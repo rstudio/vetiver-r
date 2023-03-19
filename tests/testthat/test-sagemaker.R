@@ -109,15 +109,51 @@ test_that("can call sm_create_endpoint", {
 
 test_that("can delete SageMaker endpoints", {
     mock_delete_endpoint_config <- mockery::mock(abort("No config!"), list())
+    mock_delete_model <- mockery::mock()
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
-    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_model", list())
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_model", mock_delete_model)
 
     object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
 
     expect_snapshot(vetiver_sm_delete(object))
     expect_true(vetiver_sm_delete(object))
+    # Check if delete model and endpoint have been called
+    expect_equal(environment(mock_delete_endpoint_config)$call_no, 2)
+    expect_equal(environment(mock_delete_model)$call_no, 2)
+})
+
+test_that("can delete SageMaker endpoints but not endpoint", {
+    mock_delete_endpoint_config <- mockery::mock(list(EndpointConfigName = "dummy-endpoint"))
+    mock_delete_model <- mockery::mock()
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_model", mock_delete_model)
+
+    object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
+
+    expect_true(vetiver_sm_delete(object, delete_endpoint = F))
+    # Check if delete model and endpoint have been called
+    expect_equal(environment(mock_delete_endpoint_config)$call_no, 0)
+    expect_equal(environment(mock_delete_model)$call_no, 1)
+})
+
+test_that("can delete SageMaker endpoints but not model", {
+    mock_delete_endpoint_config <- mockery::mock(list(EndpointConfigName = "dummy-endpoint"))
+    mock_delete_model <- mockery::mock()
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
+    mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_model", mock_delete_model)
+
+    object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
+
+    expect_true(vetiver_sm_delete(object, delete_model = F))
+    # Check if delete model and endpoint have been called
+    expect_equal(environment(mock_delete_endpoint_config)$call_no, 1)
+    expect_equal(environment(mock_delete_model)$call_no, 0)
 })
 
 test_that("can create vetiver endpoint object", {
