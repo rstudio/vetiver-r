@@ -6,7 +6,8 @@
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom purrr transpose compact pluck
 #' @importFrom purrr pmap safely list_modify
-#' @importFrom utils head modifyList
+#' @importFrom utils head modifyList flush.console
+#' @importFrom stats predict
 #' @importFrom vctrs vec_slice vec_sort
 #' @importFrom magrittr %>%
 #' @importFrom glue glue

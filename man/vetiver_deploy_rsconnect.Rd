@@ -23,7 +23,7 @@ vetiver_deploy_rsconnect(
 find out which versions are available and when they were created.}
 
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
-such as the endpoint \code{path} or prediction \code{type}.}
+such as the prediction \code{type}.}
 
 \item{appTitle}{The API title on RStudio Connect. Use the default based on
 \code{name}, or pass in your own title.}
