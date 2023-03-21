@@ -187,8 +187,7 @@ new_image_uri <- vetiver_sm_build(
     name = "cars_linear",
     predict_args = list(type = "class", debug = TRUE),
     docker_args = list(
-        base_image = "FROM public.ecr.aws/docker/library/r-base:4.2.2",
-        port = 8088
+        base_image = "FROM public.ecr.aws/docker/library/r-base:4.2.2"
     )
 )
 
