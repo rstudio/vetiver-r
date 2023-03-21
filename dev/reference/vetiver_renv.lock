@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.2",
+    "Version": "4.2.3",
     "Repositories": [
       {
         "Name": "RSPM",
@@ -120,7 +120,7 @@
     },
     "butcher": {
       "Package": "butcher",
-      "Version": "0.3.1",
+      "Version": "0.3.2",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -128,7 +128,7 @@
       "RemoteRef": "butcher",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.3.1",
+      "RemoteSha": "0.3.2",
       "Requirements": [
         "R",
         "cli",
@@ -140,7 +140,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "30aee833901f64898b9f9a6b248bac04"
+      "Hash": "0804e023949503fee9fab811788deb2f"
     },
     "cli": {
       "Package": "cli",
@@ -528,7 +528,7 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.0.5",
+      "Version": "2.0.6",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -536,11 +536,11 @@
       "RemoteRef": "openssl",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "2.0.5",
+      "RemoteSha": "2.0.6",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "b04c27110bf367b4daa93f34f3d58e75"
+      "Hash": "0f7cd2962e3044bb940cca4f4b5cecbe"
     },
     "pillar": {
       "Package": "pillar",
@@ -663,11 +663,11 @@
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
-      "Source": "any",
+      "Source": "Repository",
       "Repository": "RSPM",
-      "RemoteType": "any",
-      "RemotePkgRef": "any::progress",
-      "RemoteRef": "any::progress",
+      "RemoteType": "standard",
+      "RemotePkgRef": "progress",
+      "RemoteRef": "progress",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
       "RemoteSha": "1.2.2",
@@ -677,7 +677,7 @@
         "hms",
         "prettyunits"
       ],
-      "Hash": "709348084955ef4e12a34aae7e366021"
+      "Hash": "14dc9f7a3c91ebb14ec5bb9208a07061"
     },
     "promises": {
       "Package": "promises",
@@ -784,7 +784,7 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.6",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -792,12 +792,12 @@
       "RemoteRef": "rlang",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.0.6",
+      "RemoteSha": "1.1.0",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "4ed1f8336c8d52c3e750adcdc57228a7"
+      "Hash": "dc079ccd156cde8647360f473c1fa718"
     },
     "sodium": {
       "Package": "sodium",
@@ -859,7 +859,7 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.8",
+      "Version": "3.2.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -867,7 +867,7 @@
       "RemoteRef": "tibble",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "3.1.8",
+      "RemoteSha": "3.2.1",
       "Requirements": [
         "R",
         "fansi",
@@ -880,7 +880,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "56b6934ef0f8c68225949a8672fe1a8f"
+      "Hash": "a84e2cc86d07289b3b6f5069df7a004c"
     },
     "tidyselect": {
       "Package": "tidyselect",
@@ -939,7 +939,7 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.5.2",
+      "Version": "0.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -947,7 +947,7 @@
       "RemoteRef": "vctrs",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.5.2",
+      "RemoteSha": "0.6.0",
       "Requirements": [
         "R",
         "cli",
@@ -955,7 +955,7 @@
         "lifecycle",
         "rlang"
       ],
-      "Hash": "e4ffa94ceed5f124d429a5a5f0f5b378"
+      "Hash": "7e877404388794361277be95d8445de8"
     },
     "vetiver": {
       "Package": "vetiver",
@@ -984,7 +984,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "2284e10a3a808b727a3237ee6c6892f7"
+      "Hash": "65a47538223667d9454b212d7a8fe465"
     },
     "vroom": {
       "Package": "vroom",
