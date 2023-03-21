@@ -109,7 +109,7 @@ test_that("can call sm_create_endpoint", {
 
 test_that("can delete SageMaker endpoints", {
     mock_delete_endpoint_config <- mockery::mock(abort("No config!"), list())
-    mock_delete_model <- mockery::mock()
+    mock_delete_model <- mockery::mock(list(), cycle = TRUE)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
@@ -120,13 +120,13 @@ test_that("can delete SageMaker endpoints", {
     expect_snapshot(vetiver_sm_delete(object))
     expect_true(vetiver_sm_delete(object))
     # Check if delete model and endpoint have been called
-    expect_equal(environment(mock_delete_endpoint_config)$call_no, 2)
-    expect_equal(environment(mock_delete_model)$call_no, 2)
+    mockery::expect_called(mock_delete_endpoint_config, 2)
+    mockery::expect_called(mock_delete_model, 2)
 })
 
 test_that("can delete SageMaker model but not endpoint", {
     mock_delete_endpoint_config <- mockery::mock(list(EndpointConfigName = "dummy-endpoint"))
-    mock_delete_model <- mockery::mock()
+    mock_delete_model <- mockery::mock(list())
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
@@ -136,13 +136,13 @@ test_that("can delete SageMaker model but not endpoint", {
 
     expect_true(vetiver_sm_delete(object, delete_endpoint = FALSE))
     # Check if delete model and endpoint have been called
-    expect_equal(environment(mock_delete_endpoint_config)$call_no, 0)
-    expect_equal(environment(mock_delete_model)$call_no, 1)
+    mockery::expect_called(mock_delete_endpoint_config, 0)
+    mockery::expect_called(mock_delete_model, 1)
 })
 
 test_that("can delete SageMaker endpoints but not model", {
     mock_delete_endpoint_config <- mockery::mock(list(EndpointConfigName = "dummy-endpoint"))
-    mock_delete_model <- mockery::mock()
+    mock_delete_model <- mockery::mock(list())
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint_config", mock_delete_endpoint_config)
     mockery::stub(vetiver_sm_delete, "sagemaker_client$delete_endpoint", list())
@@ -152,8 +152,8 @@ test_that("can delete SageMaker endpoints but not model", {
 
     expect_true(vetiver_sm_delete(object, delete_model = FALSE))
     # Check if delete model and endpoint have been called
-    expect_equal(environment(mock_delete_endpoint_config)$call_no, 1)
-    expect_equal(environment(mock_delete_model)$call_no, 0)
+    mockery::expect_called(mock_delete_endpoint_config, 1)
+    mockery::expect_called(mock_delete_model, 0)
 })
 
 test_that("can create vetiver endpoint object", {
@@ -201,4 +201,3 @@ test_that("can get base name from image", {
         base_name_from_image(image_uri)
     ))
 })
-
