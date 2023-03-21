@@ -70,7 +70,7 @@ Suggests:
     rpart,
     rsconnect,
     slider (>= 0.2.2),
-    smdocker (>= 0.1.1.9000),
+    smdocker (>= 0.1.2),
     stacks,
     tensorflow,
     testthat (>= 3.0.0),
