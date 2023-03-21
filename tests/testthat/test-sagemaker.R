@@ -124,7 +124,7 @@ test_that("can delete SageMaker endpoints", {
     expect_equal(environment(mock_delete_model)$call_no, 2)
 })
 
-test_that("can delete SageMaker endpoints but not endpoint", {
+test_that("can delete SageMaker model but not endpoint", {
     mock_delete_endpoint_config <- mockery::mock(list(EndpointConfigName = "dummy-endpoint"))
     mock_delete_model <- mockery::mock()
     mockery::stub(vetiver_sm_delete, "sagemaker_client$describe_endpoint", list(EndpointConfigName = "the-name"))
@@ -134,7 +134,7 @@ test_that("can delete SageMaker endpoints but not endpoint", {
 
     object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
 
-    expect_true(vetiver_sm_delete(object, delete_endpoint = F))
+    expect_true(vetiver_sm_delete(object, delete_endpoint = FALSE))
     # Check if delete model and endpoint have been called
     expect_equal(environment(mock_delete_endpoint_config)$call_no, 0)
     expect_equal(environment(mock_delete_model)$call_no, 1)
@@ -150,7 +150,7 @@ test_that("can delete SageMaker endpoints but not model", {
 
     object <- vetiver_endpoint_sagemaker("vetiver-sagemaker-example-model")
 
-    expect_true(vetiver_sm_delete(object, delete_model = F))
+    expect_true(vetiver_sm_delete(object, delete_model = FALSE))
     # Check if delete model and endpoint have been called
     expect_equal(environment(mock_delete_endpoint_config)$call_no, 1)
     expect_equal(environment(mock_delete_model)$call_no, 0)
