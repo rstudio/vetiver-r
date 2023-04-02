@@ -152,12 +152,12 @@ has the same structure as your training data, perhaps with
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## calls the right method for `model` via:</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_lm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## can also turn off prototype</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_create_ptype</span><span class="op">(</span><span class="va">cars_lm</span>, <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -166,8 +166,8 @@ has the same structure as your training data, perhaps with
 <span class="r-in"><span><span class="va">cars_rf</span> <span class="op">&lt;-</span> <span class="fu">ranger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ranger/man/ranger.html" class="external-link">ranger</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_ptype</span><span class="op">(</span><span class="va">cars_rf</span>, prototype_data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;, drat &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wt &lt;dbl&gt;, qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;, carb &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 10 variables: cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;, drat &lt;dbl&gt;, wt &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;, carb &lt;dbl&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

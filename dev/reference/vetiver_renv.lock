@@ -144,7 +144,7 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.6.0",
+      "Version": "3.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -152,12 +152,12 @@
       "RemoteRef": "cli",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "3.6.0",
+      "RemoteSha": "3.6.1",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "3177a5a16c243adc199ba33117bd9657"
+      "Hash": "89e6d8219950eac806ae0c489052048a"
     },
     "clipr": {
       "Package": "clipr",
@@ -340,7 +340,7 @@
     },
     "hardhat": {
       "Package": "hardhat",
-      "Version": "1.2.0",
+      "Version": "1.3.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -348,19 +348,20 @@
       "RemoteRef": "hardhat",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.2.0",
+      "RemoteSha": "1.3.0",
       "Requirements": [
         "R",
+        "cli",
         "glue",
         "rlang",
         "tibble",
         "vctrs"
       ],
-      "Hash": "7cd2660e174e555b05aaeac979dee22b"
+      "Hash": "b56b42c50bb7c76a683e8e61f415d828"
     },
     "hms": {
       "Package": "hms",
-      "Version": "1.1.2",
+      "Version": "1.1.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -368,16 +369,15 @@
       "RemoteRef": "hms",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.1.2",
+      "RemoteSha": "1.1.3",
       "Requirements": [
-        "ellipsis",
         "lifecycle",
         "methods",
         "pkgconfig",
         "rlang",
         "vctrs"
       ],
-      "Hash": "41100392191e1244b887878b533eea91"
+      "Hash": "b59377caa7ed00fa41808342002138f9"
     },
     "httpuv": {
       "Package": "httpuv",
@@ -544,7 +544,7 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.8.1",
+      "Version": "1.9.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -552,7 +552,7 @@
       "RemoteRef": "pillar",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "1.8.1",
+      "RemoteSha": "1.9.0",
       "Requirements": [
         "cli",
         "fansi",
@@ -563,7 +563,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "f2316df30902c81729ae9de95ad5a608"
+      "Hash": "15da5a8412f317beeee6175fbc76f4bb"
     },
     "pins": {
       "Package": "pins",
@@ -939,7 +939,7 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.6.0",
+      "Version": "0.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -947,7 +947,7 @@
       "RemoteRef": "vctrs",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "source",
-      "RemoteSha": "0.6.0",
+      "RemoteSha": "0.6.1",
       "Requirements": [
         "R",
         "cli",
@@ -955,12 +955,13 @@
         "lifecycle",
         "rlang"
       ],
-      "Hash": "7e877404388794361277be95d8445de8"
+      "Hash": "06eceb3a5d716fd0654cc23ca3d71a99"
     },
     "vetiver": {
       "Package": "vetiver",
       "Version": "0.2.0.9000",
       "Source": "Local",
+      "Remotes": "r-lib/testthat",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -984,7 +985,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "65a47538223667d9454b212d7a8fe465"
+      "Hash": "56d4261f3c5444ded608d38a13097284"
     },
     "vroom": {
       "Package": "vroom",

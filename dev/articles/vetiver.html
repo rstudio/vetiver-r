@@ -142,7 +142,7 @@ encompasses both feature engineering and model estimation.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">1</span>262.  67.0 Two  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  985.  62.0 Two  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  893.  56.8 Two  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 999 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 999 more rows</span></span></span>
 <span></span>
 <span><span class="va">biv_rec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">bivariate_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -203,8 +203,8 @@ write it once more to our board.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230321T183341Z-e21d3 2023-03-21 <span style="color: #949494;">18:33:41</span> e21d3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230321T183342Z-06517 2023-03-21 <span style="color: #949494;">18:33:42</span> 06517</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230402T234853Z-74c8d 2023-04-02 <span style="color: #949494;">23:48:53</span> 74c8d</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230402T234854Z-4f2e2 2023-04-02 <span style="color: #949494;">23:48:54</span> 4f2e2</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data
 artifacts, so depending on the board you choose, your pinned
 <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your
@@ -254,8 +254,8 @@ Connect</a>.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpaM6jlN/pins-2a066783cf12"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230321T183342Z-06517"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpS1jb22/pins-2a025c1e141e"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230402T234854Z-4f2e2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
