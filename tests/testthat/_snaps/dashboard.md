@@ -5,6 +5,6 @@
     Condition
       Error in `vetiver_dashboard()`:
       ! The pin "seattle_rf" does not exist on your board
-      • Check the `pins` params in your dashboard YAML
-      ℹ To knit the example vetiver monitoring dashboard, execute `vetiver::pin_example_kc_housing_model()` to set up demo model and metrics pins
+      * Check the `pins` params in your dashboard YAML
+      i To knit the example vetiver monitoring dashboard, execute `vetiver::pin_example_kc_housing_model()` to set up demo model and metrics pins
 
