@@ -1,3 +1,7 @@
+options(pins.verbose = FALSE)
+options(pins.quiet = TRUE)
+options(renv.verbose = FALSE)
+
 clean_python_tmp_dir <- function() {
     if (rlang::is_installed("reticulate")) {
         python_temp_dir <- dirname(reticulate::py_run_string(
