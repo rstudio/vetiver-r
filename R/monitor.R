@@ -164,14 +164,10 @@ vetiver_pin_metrics <- function(board,
                                 type = NULL,
                                 ...) {
 
-    pin_type <- ifelse(
-        is.null(type),
-        pins::pin_meta(board, metrics_pin_name)$type,
-        type
-    )
+    pin_type <- type %||% pins::pin_meta(board, metrics_pin_name)$type
 
     if (! pin_type %in% c("arrow", "rds")) {
-        abort(glue('Metrics must be pinned as "arrow" or "rds", not "{pin_type}"'))
+        cli::cli_abort('Metrics must be pinned as "arrow" or "rds", not "{pin_type}"')
     }
 
     .index <- enquo(.index)
@@ -184,9 +180,9 @@ vetiver_pin_metrics <- function(board,
         old_metrics <- vec_slice(old_metrics, !overlapping_dates)
     } else {
         if (any(overlapping_dates))
-            abort(c(
-                glue("The new metrics overlap with dates \\
-                     already stored in {glue::single_quote(metrics_pin_name)}"),
+            cli::cli_abort(c(
+                "The new metrics overlap with dates \\
+                 already stored in {glue::single_quote(metrics_pin_name)}",
                 i = "Check the aggregated dates or use `overwrite = TRUE`"
             ))
     }
