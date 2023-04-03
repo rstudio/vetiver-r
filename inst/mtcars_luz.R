@@ -32,9 +32,9 @@ luz_fit <- luz_module %>%
 v <- vetiver_model(luz_fit, "cars-luz", prototype_data = data.frame(x_train)[1,])
 pr() %>% vetiver_api(v, debug = TRUE) %>% pr_run(port = 8080)
 
-## in new session: #############################################################
+##### in new session: ##########################################################
 # library(vetiver)
 # endpoint <- vetiver_endpoint("http://127.0.0.1:8080/predict")
 # scaled_cars <- scale(as.matrix(mtcars))
 # x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
-# predict(endpoint, data.frame(x_text[1:2,]))
+# predict(endpoint, data.frame(x_test[1:2,]))
