@@ -31,3 +31,11 @@
           pr %>% vetiver_api(v)
       }
 
+---
+
+    Code
+      cat(readr::read_lines(fs::path(fs::path_dir(tmp), ".Renviron")), sep = "\n")
+    Output
+      TORCH_INSTALL=1
+      TORCH_HOME="libtorch/"
+

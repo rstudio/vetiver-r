@@ -77,4 +77,8 @@ test_that("create plumber.R for keras", {
         cat(readr::read_lines(tmp), sep = "\n"),
         transform = redact_vetiver
     )
+    expect_snapshot(
+        cat(readr::read_lines(fs::path(fs::path_dir(tmp), ".Renviron")), sep = "\n"),
+        transform = redact_vetiver
+    )
 })
