@@ -57,3 +57,9 @@ tensors_to_array <- function(x) {
         x
     }
 }
+
+#' @rdname vetiver_python_requirements
+#' @export
+vetiver_renviron_requirements.luz_module_fitted <- function(model) {
+    system.file("requirements/luz-renviron.txt", package = "vetiver")
+}

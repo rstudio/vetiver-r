@@ -19,9 +19,6 @@
 #' version. You can override this default behavior by choosing a specific
 #' `version`.
 #'
-#' This function uses `vetiver_python_requirements()` internally to create a
-#' minimal Python `requirements.txt` for models that need it.
-#'
 #' @return
 #' The content of the `plumber.R` file, invisibly.
 #'
@@ -57,7 +54,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
         v <- vetiver_pin_read(board, name)
     }
 
-    write_python_requirements(v$model, file)
+    write_extra_requirements(v$model, file)
 
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
@@ -126,27 +123,53 @@ choose_version <- function(df) {
     version[["version"]]
 }
 
-write_python_requirements <- function(model, file) {
+write_extra_requirements <- function(model, file) {
     model <- bundle::unbundle(model)
-    path_to_requirements <- vetiver_python_requirements(model)
-    if (!is.null(path_to_requirements)) {
+    path_to_py_requirements <- vetiver_python_requirements(model)
+    file_copy_requirements(path_to_py_requirements, file, "requirements.txt")
+    path_to_renviron_requirements <- vetiver_renviron_requirements(model)
+    file_copy_requirements(path_to_renviron_requirements, file, ".Renviron")
+    TRUE
+}
+
+file_copy_requirements <- function(requirements, plumber_file, new_name) {
+    if (!is.null(requirements)) {
         fs::file_copy(
-            path_to_requirements,
-            fs::path(fs::path_dir(file), "requirements.txt"),
+            requirements,
+            fs::path(fs::path_dir(plumber_file), new_name),
             overwrite = TRUE
         )
     }
-    path_to_requirements
+    requirements
 }
 
-#' @rdname vetiver_write_plumber
+#' Use extra files required for deployment
+#'
+#' Create files required for deploying an app generated via
+#' [vetiver_write_plumber()], such as a Python `requirements.txt` or an
+#' `.Renviron`
+#'
+#' @inheritParams vetiver_model
 #' @export
+#' @keywords internal
 vetiver_python_requirements <- function(model) {
     UseMethod("vetiver_python_requirements")
 }
 
-#' @rdname vetiver_write_plumber
+#' @rdname vetiver_python_requirements
 #' @export
 vetiver_python_requirements.default <- function(model) {
+    NULL
+}
+
+#' @rdname vetiver_python_requirements
+#' @export
+vetiver_renviron_requirements <- function(model) {
+    UseMethod("vetiver_renviron_requirements")
+}
+
+#' @rdname vetiver_python_requirements
+#' @export
+vetiver_renviron_requirements.default <- function(model) {
     NULL
 }
