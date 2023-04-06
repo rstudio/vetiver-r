@@ -50,8 +50,6 @@ jobs:
         with:
           extra-packages:
             any::rcmdcheck,
-            any::cpp11,
-            any::progress,
             ranger=?ignore-before-r=4.1.0
           needs: check
 
