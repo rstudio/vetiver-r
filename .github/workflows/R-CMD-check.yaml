@@ -48,7 +48,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::cpp11, any::progress
+          extra-packages:
+            any::rcmdcheck,
+            any::cpp11,
+            any::progress,
+            ranger=?ignore-before-r=4.1.0
           needs: check
 
       - name: Install Miniconda & Tensorflow
