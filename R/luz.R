@@ -10,7 +10,7 @@ vetiver_create_description.luz_module_fitted <- function(model) {
 #' @rdname vetiver_create_meta
 #' @export
 vetiver_create_meta.luz_module_fitted <- function(model, metadata) {
-    pkgs <- c("luz", model$model$required_pkgs)
+    pkgs <- c("luz", "torch", model$model$required_pkgs)
     vetiver_meta(metadata, required_pkgs = pkgs)
 }
 
