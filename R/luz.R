@@ -33,9 +33,7 @@ vetiver_prepare_model.luz_module_fitted <- function(model) {
 #' @rdname handler_startup
 #' @export
 handler_startup.luz_module_fitted <- function(vetiver_model) {
-    attach_pkgs(vetiver_model$metadata$required_pkgs)
-    print(vetiver_model$metadata$required_pkgs)
-    attach_pkgs(c("torch", "luz"))
+    map(vetiver_model$metadata$required_pkgs, attachNamespace)
     print(sessionInfo())
 }
 
