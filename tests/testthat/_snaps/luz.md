@@ -22,6 +22,7 @@
       # Packages needed to generate model predictions
       if (FALSE) {
           library(luz)
+          library(torch)
       }
       b <- board_folder(path = "<redacted>")
       v <- vetiver_pin_read(b, "cars-luz")
