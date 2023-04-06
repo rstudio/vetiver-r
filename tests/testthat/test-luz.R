@@ -40,7 +40,7 @@ test_that("can pin a luz model", {
     ## STILL NOT EQUAL because of serialization issues, even with bundle
     ## expect_equal(pinned$model, bundle::bundle(luz_fit))
     expect_equal(pinned$prototype, vctrs::vec_ptype(tibble::as_tibble(x_train)))
-    expect_equal(pin_meta(b, "cars-luz")$user$required_pkgs, "luz")
+    expect_equal(pin_meta(b, "cars-luz")$user$required_pkgs, c("luz", "torch"))
 })
 
 test_that("endpoints for luz", {
