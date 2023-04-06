@@ -1,6 +1,5 @@
 library(vetiver)
 library(plumber)
-library(torch)
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
@@ -11,13 +10,13 @@ set.seed(1)
 
 luz_module <- torch::nn_module(
     initialize = function(in_features, out_features) {
-        self$linear <- nn_linear(in_features, out_features)
+        self$linear <- torch::nn_linear(in_features, out_features)
     },
     forward = function(x) {
         if (self$training) {
             self$linear(x)
         } else {
-            torch_randn(dim(x)[1], 3, 64, 64, device = self$linear$weight$device)
+            torch::torch_randn(dim(x)[1], 3, 64, 64, device = self$linear$weight$device)
         }
 
     }
@@ -35,6 +34,5 @@ pr() %>% vetiver_api(v, debug = TRUE) %>% pr_run(port = 8080)
 ##### in new session: ##########################################################
 # library(vetiver)
 # endpoint <- vetiver_endpoint("http://127.0.0.1:8080/predict")
-# scaled_cars <- scale(as.matrix(mtcars))
-# x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
-# predict(endpoint, data.frame(x_test[1:2,]))
+# x_test <- dplyr::slice(data.frame(scale(mtcars)), 26:32)
+# predict(endpoint, x_test[1:2,])
