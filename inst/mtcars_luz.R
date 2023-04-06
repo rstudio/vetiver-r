@@ -1,5 +1,6 @@
 library(vetiver)
 library(plumber)
+library(torch)
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
@@ -10,13 +11,13 @@ set.seed(1)
 
 luz_module <- torch::nn_module(
     initialize = function(in_features, out_features) {
-        self$linear <- torch::nn_linear(in_features, out_features)
+        self$linear <- nn_linear(in_features, out_features)
     },
     forward = function(x) {
         if (self$training) {
             self$linear(x)
         } else {
-            torch::torch_randn(dim(x)[1], 3, 64, 64, device = self$linear$weight$device)
+            torch_randn(dim(x)[1], 3, 64, 64, device = self$linear$weight$device)
         }
 
     }
