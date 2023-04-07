@@ -4,7 +4,7 @@
 
 * Moved where `required_pkgs` metadata is stored remotely, from the binary blob to plain text YAML (#176).
 
-* Added an optional renv lockfile that can be stored remotely in model metadata, with a new `check_renv` argument for reading/writing (#154).
+* Added an optional renv lockfile that can be stored remotely in model metadata, with a new `check_renv` argument for reading/writing (#154, #192).
 
 * Exposed a new `base_image` argument for creating Dockerfiles (#182).
 

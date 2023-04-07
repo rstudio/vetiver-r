@@ -136,7 +136,7 @@ test_that("right message for reading with `check_renv`", {
 
     vetiver_pin_write(b, v, check_renv = TRUE)
     v1 <- vetiver_pin_read(b, "cars5")
-    v2 <- vetiver_pin_read(b, "cars5", check_renv = TRUE)
+    expect_silent(v2 <- vetiver_pin_read(b, "cars5", check_renv = TRUE))
     expect_equal(v1, v2)
 
     new_lock <- renv$renv_lockfile_init(project = NULL)
