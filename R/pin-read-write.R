@@ -87,13 +87,14 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
 
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
+    required_pkgs <- meta$user$required_pkgs %||% pinned$required_pkgs
 
     if (check_renv) {
         if (length(meta$user$renv_lock) > 0) {
             local_lockfile <-
                 renv$snapshot(
                     lockfile = NULL,
-                    packages = c(pinned$required_pkgs, "vetiver"),
+                    packages = c(required_pkgs, "vetiver"),
                     prompt = FALSE,
                     force = TRUE
                 )
@@ -107,7 +108,6 @@ vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
         }
     }
 
-    required_pkgs <- meta$user$required_pkgs %||% pinned$required_pkgs
     meta$user <- list_modify(meta$user, required_pkgs = zap(), renv_lock = zap())
     if (is_empty(meta$user)) names(meta$user) <- NULL
 
