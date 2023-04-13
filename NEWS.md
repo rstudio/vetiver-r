@@ -10,6 +10,8 @@
 
 * Added new `vetiver_deploy_sagemaker()` function plus `vetiver_endpoint_sagemaker()` and other needed functionality for deploying on Amazon SageMaker (#186, @DyfanJones).
 
+* Added new additional GET endpoint for model `/metadata` (#194).
+
 # vetiver 0.2.0
 
 ## Breaking changes
