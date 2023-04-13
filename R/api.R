@@ -104,6 +104,11 @@ vetiver_pr_post <- function(pr,
             function() vetiver_model$metadata$url
         )
     }
+    pr <- plumber::pr_get(
+        pr,
+        path = "/metadata",
+        function() vetiver_model$metadata
+    )
     if (!check_prototype) {
         vetiver_model$prototype <- NULL
     }
@@ -112,7 +117,7 @@ vetiver_pr_post <- function(pr,
         path = path,
         handler = handler_predict(vetiver_model, ...)
     )
-
+    pr
 }
 
 #' @rdname vetiver_api
