@@ -17,3 +17,12 @@ redact_vetiver <- function(snapshot) {
 redact_port <- function(snapshot) {
     snapshot <- gsub(port, "<port>", snapshot, fixed = TRUE)
 }
+
+expect_api_routes <- function(routes) {
+    testthat::expect_equal(names(routes), c("metadata", "ping", "predict"))
+    testthat::expect_equal(
+        map_chr(routes, "verbs"),
+        c(metadata = "GET", ping = "GET", predict = "POST")
+    )
+}
+
