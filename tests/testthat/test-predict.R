@@ -17,6 +17,13 @@ test_that("router has health check endpoint", {
     expect_equal(r$status_code, 200)
 })
 
+test_that("router has metadata endpoint", {
+    r <- httr::GET(root_path, port = port, path = "metadata")
+    metadata <- jsonlite::fromJSON(httr::content(r, as = "text", encoding = "UTF-8"))
+    expect_equal(r$status_code, 200)
+    expect_equal(names(metadata), c("user", "version", "url", "required_pkgs"))
+})
+
 test_that("can predict on basic vetiver router", {
     endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
     expect_s3_class(endpoint, "vetiver_endpoint")
