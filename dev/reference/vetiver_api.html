@@ -151,7 +151,7 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_api</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[body]</span></span>
@@ -159,12 +159,13 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[sharedSecret]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──/logo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/metadata (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## is the same as:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_post</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[body]</span></span>
@@ -172,6 +173,7 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[sharedSecret]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──/logo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/metadata (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
