@@ -29,7 +29,8 @@ learn more about vetiver, see:
 
 You can use vetiver with:
 
-- a [tidymodels](https://www.tidymodels.org/) workflow
+- a [tidymodels](https://www.tidymodels.org/) workflow (including
+  [stacks](https://stacks.tidymodels.org/))
 - [caret](https://topepo.github.io/caret/)
 - [mlr3](https://mlr3.mlr-org.com/)
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
@@ -38,6 +39,8 @@ You can use vetiver with:
   and
   [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
 - GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
+- [keras](https://tensorflow.rstudio.com/)
+- [the luz API for torch](https://torch.mlverse.org/)
 
 ## Installation
 
