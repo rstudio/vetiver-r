@@ -1,6 +1,6 @@
 # vetiver (development version)
 
-* Added support for keras (#164) and recipes (#179).
+* Added support for keras (#164), recipes (#179), and luz (#187, @dfalbel).
 
 * Moved where `required_pkgs` metadata is stored remotely, from the binary blob to plain text YAML (#176).
 

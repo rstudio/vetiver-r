@@ -78,7 +78,9 @@ Suggests:
     vdiffr,
     workflows,
     xgboost,
-    yardstick
+    yardstick,
+    torch,
+    luz
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate

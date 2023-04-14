@@ -34,21 +34,21 @@
 #' try(attach_pkgs(c("bloopy", "readr")))
 #'
 attach_pkgs <- function(pkgs) {
+    attached <- paste0("package:", pkgs) %in% search()
+    pkgs <- pkgs[!attached]
     namespace_handling(pkgs, attachNamespace, "Package(s) could not be attached:")
 }
 
 #' @export
 #' @rdname attach_pkgs
 load_pkgs <- function(pkgs) {
+    loaded <- map_lgl(pkgs, isNamespaceLoaded)
+    pkgs <- pkgs[!loaded]
     namespace_handling(pkgs, loadNamespace, "Namespace(s) could not be loaded:")
 }
 
 namespace_handling <- function(pkgs, func, error_msg) {
-    loaded <- map_lgl(pkgs, isNamespaceLoaded)
-    pkgs <- pkgs[!loaded]
-
     safe_load <- safely(withr::with_preserve_seed(func))
-
     did_load <- map(pkgs, safe_load)
     bad <- compact(map(did_load, "error"))
     bad <- map_chr(bad, "package")
