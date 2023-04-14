@@ -1,3 +1,5 @@
+skip_if_not_installed("mockery")
+
 test_that("can choose a version", {
     skip_on_cran()
     b <- board_temp(versioned = TRUE)
