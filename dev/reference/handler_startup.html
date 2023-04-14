@@ -70,7 +70,7 @@ at each API call.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Model handler functions for API endpoint</h1>
-      <small class="dont-index">Source: <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/gam.R" class="external-link"><code>R/gam.R</code></a>, <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/glm.R" class="external-link"><code>R/glm.R</code></a>, and 10 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/caret.R" class="external-link"><code>R/caret.R</code></a>, <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/gam.R" class="external-link"><code>R/gam.R</code></a>, <a href="https://github.com/rstudio/vetiver-r/blob/HEAD/R/glm.R" class="external-link"><code>R/glm.R</code></a>, and 11 more</small>
       <div class="d-none name"><code>handler_startup.Rd</code></div>
     </div>
 
@@ -122,6 +122,12 @@ at each API call.</p></li>
 <span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for lm</span></span>
+<span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for luz_module_fitted</span></span>
+<span><span class="fu">handler_startup</span><span class="op">(</span><span class="va">vetiver_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for luz_module_fitted</span></span>
 <span><span class="fu">handler_predict</span><span class="op">(</span><span class="va">vetiver_model</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for Learner</span></span>
@@ -204,8 +210,8 @@ for dispatch.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ret &lt;- predict(vetiver_model$model, newdata = newdata, ...)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     list(.pred = ret)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x562d9b13f9e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x562d9b140ac0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5653f50eecb0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5653f50edc10&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
