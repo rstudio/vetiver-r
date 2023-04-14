@@ -7,6 +7,7 @@ test_that("can deploy via `vetiver_deploy_sagemaker()`", {
     mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_build", "new_sagemaker_uri")
     mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_model", model_name)
     mockery::stub(vetiver_deploy_sagemaker, "vetiver_sm_endpoint", vetiver_endpoint_sagemaker(model_name))
+    local_mocked_bindings(version_name = function(metadata) "20130102T050607Z-xxxxx", .package = "pins")
 
     b <- board_folder(path = tmp_dir)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
@@ -23,6 +24,7 @@ test_that("can deploy via `vetiver_deploy_sagemaker()`", {
 test_that("can create correct files for `vetiver_sm_build()`", {
     skip_on_cran()
     mockery::stub(vetiver_sm_build, "smdocker::sm_build", "new_sagemaker_uri")
+    local_mocked_bindings(version_name = function(metadata) "20130202T050607Z-xxxxx", .package = "pins")
 
     b <- board_folder(path = tmp_dir)
     cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
