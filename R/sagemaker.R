@@ -195,6 +195,7 @@ vetiver_sm_build <- function(board,
                              log = TRUE,
                              ...) {
     check_installed("smdocker")
+    ellipsis::check_dots_used()
     compute_type <- arg_match(compute_type)
     docker_args <- list_modify(docker_args, port = 8080)
     predict_args <- list_modify(predict_args, path = "/invocations")

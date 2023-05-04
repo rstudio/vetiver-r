@@ -51,6 +51,7 @@ vetiver_ptype.default <- function(model, ...) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_create_ptype <- function(model, save_prototype, ...) {
+    ellipsis::check_dots_used()
     if (isTRUE(save_prototype)) {
         ptype <- vetiver_ptype(model, ...)
     } else if (isFALSE(save_prototype)) {
