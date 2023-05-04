@@ -94,7 +94,7 @@ test_that("OpenAPI spec for save_prototype = FALSE", {
 
 test_that("OpenAPI spec with custom ptype", {
     car_ptype <- mtcars[15:16, 2:3]
-    v <- vetiver_model(cars_lm, "cars1", b, save_prototype = car_ptype)
+    v <- vetiver_model(cars_lm, "cars1", save_prototype = car_ptype)
     p <- pr() %>% vetiver_api(v)
     car_spec <- p$getApiSpec()
     post_spec <- car_spec$paths$`/predict`$post
