@@ -1,5 +1,6 @@
 skip_on_cran()
 skip_if_not_installed(pkg = c("torch", "luz", "plumber"))
+withr::local_envvar(list(TORCH_INSTALL=1))
 library(plumber)
 torch::install_torch()
 
