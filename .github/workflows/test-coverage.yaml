@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      TORCH_INSTALL: 1
 
     steps:
       - uses: actions/checkout@v3
@@ -23,7 +24,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
+          extra-packages: any::covr, any::cpp11
           needs: coverage
 
       - name: Test coverage
