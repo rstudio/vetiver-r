@@ -50,8 +50,10 @@ unquoted variable name.}
 
 \item{...}{A set of unquoted column names or one or more
 \code{dplyr} selector functions to choose which variables contain the
-class probabilities. If \code{truth} is binary, only 1 column should be selected.
-Otherwise, there should be as many columns as factor levels of \code{truth}.}
+class probabilities. If \code{truth} is binary, only 1 column should be selected,
+and it should correspond to the value of \code{event_level}. Otherwise, there
+should be as many columns as factor levels of \code{truth} and the ordering of
+the columns should be the same as the factor levels of \code{truth}.}
 
 \item{metric_set}{A \code{\link[yardstick:metric_set]{yardstick::metric_set()}} function for computing metrics.
 Defaults to \code{\link[yardstick:metrics]{yardstick::metrics()}}.}
