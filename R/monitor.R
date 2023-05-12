@@ -101,6 +101,7 @@ vetiver_compute_metrics <- function(data,
 #'
 #' @inheritParams pins::pin_read
 #' @param df_metrics A tidy dataframe of metrics over time, such as created by
+#' [vetiver_compute_metrics()].
 #' @param metrics_pin_name Pin name for where the *metrics* are stored (as
 #' opposed to where the model object is stored with [vetiver_pin_write()]).
 #' @param .index The variable in `df_metrics` containing the aggregated dates
