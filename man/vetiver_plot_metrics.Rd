@@ -13,7 +13,8 @@ vetiver_plot_metrics(
 )
 }
 \arguments{
-\item{df_metrics}{A tidy dataframe of metrics over time, such as created by}
+\item{df_metrics}{A tidy dataframe of metrics over time, such as created by
+\code{\link[=vetiver_compute_metrics]{vetiver_compute_metrics()}}.}
 
 \item{.index}{The variable in \code{df_metrics} containing the aggregated dates
 or date-times (from \code{time_var} in \code{data}). Defaults to \code{.index}.}

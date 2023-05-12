@@ -18,7 +18,8 @@ vetiver_pin_metrics(
 \item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
 \code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
 
-\item{df_metrics}{A tidy dataframe of metrics over time, such as created by}
+\item{df_metrics}{A tidy dataframe of metrics over time, such as created by
+\code{\link[=vetiver_compute_metrics]{vetiver_compute_metrics()}}.}
 
 \item{metrics_pin_name}{Pin name for where the \emph{metrics} are stored (as
 opposed to where the model object is stored with \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}).}
