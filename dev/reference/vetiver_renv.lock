@@ -175,6 +175,19 @@
       ],
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042"
     },
+    "cpp11": {
+      "Package": "cpp11",
+      "Version": "0.4.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "cpp11",
+      "RemoteRef": "cpp11",
+      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
+      "RemoteSha": "0.4.3",
+      "Hash": "ed588261931ee3be2c700d22e94a29ab"
+    },
     "crayon": {
       "Package": "crayon",
       "Version": "1.5.2",
@@ -368,7 +381,7 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.9",
+      "Version": "1.6.11",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -376,7 +389,7 @@
       "RemoteRef": "httpuv",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "1.6.9",
+      "RemoteSha": "1.6.11",
       "Requirements": [
         "R",
         "R6",
@@ -385,11 +398,11 @@
         "promises",
         "utils"
       ],
-      "Hash": "1046aa31a57eae8b357267a56a0b6d8b"
+      "Hash": "838602f54e32c1a0f8cc80708cefcefa"
     },
     "httr": {
       "Package": "httr",
-      "Version": "1.4.5",
+      "Version": "1.4.6",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -397,7 +410,7 @@
       "RemoteRef": "httr",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "1.4.5",
+      "RemoteSha": "1.4.6",
       "Requirements": [
         "R",
         "R6",
@@ -406,7 +419,7 @@
         "mime",
         "openssl"
       ],
-      "Hash": "f6844033201269bec3ca0097bc6c97b3"
+      "Hash": "7e5e3cbd2a7bc07880c94e22348fb661"
     },
     "jsonlite": {
       "Package": "jsonlite",

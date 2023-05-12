@@ -140,8 +140,10 @@ unquoted variable name.</p></dd>
 <dt>...</dt>
 <dd><p>A set of unquoted column names or one or more
 <code>dplyr</code> selector functions to choose which variables contain the
-class probabilities. If <code>truth</code> is binary, only 1 column should be selected.
-Otherwise, there should be as many columns as factor levels of <code>truth</code>.</p></dd>
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p></dd>
 
 
 <dt>metric_set</dt>
