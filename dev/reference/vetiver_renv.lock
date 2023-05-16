@@ -906,7 +906,7 @@
     },
     "tzdb": {
       "Package": "tzdb",
-      "Version": "0.3.0",
+      "Version": "0.4.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -914,12 +914,12 @@
       "RemoteRef": "tzdb",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "0.3.0",
+      "RemoteSha": "0.4.0",
       "Requirements": [
         "R",
         "cpp11"
       ],
-      "Hash": "b2e1cbce7c903eaf23ec05c58e59fb5e"
+      "Hash": "f561504ec2897f4d46f0c7657e488ae1"
     },
     "utf8": {
       "Package": "utf8",
@@ -959,9 +959,8 @@
     },
     "vetiver": {
       "Package": "vetiver",
-      "Version": "0.2.0.9000",
+      "Version": "0.2.1.9000",
       "Source": "Local",
-      "Remotes": "r-lib/testthat",
       "RemotePkgRef": "local::.",
       "RemoteType": "local",
       "Requirements": [
@@ -985,7 +984,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "7c4fe460f972a2a9e31a43f6e1fe768a"
+      "Hash": "c466c3137d478e6ae0c6263526de0874"
     },
     "vroom": {
       "Package": "vroom",
