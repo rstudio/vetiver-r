@@ -49,8 +49,8 @@ vetiver_sm_endpoint(
 )
 }
 \arguments{
-\item{board}{A pin board, created by \code{\link[pins:board_folder]{board_folder()}}, \code{\link[pins:board_connect]{board_connect()}},
-\code{\link[pins:board_url]{board_url()}} or another \code{board_} function.}
+\item{board}{An AWS S3 board created with \code{\link[pins:board_s3]{pins::board_s3()}}. This board
+must be in the correct region for your SageMaker instance.}
 
 \item{name}{Pin name.}
 
