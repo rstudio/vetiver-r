@@ -113,6 +113,8 @@ vetiver_deploy_sagemaker <- function(board,
 #' - `vetiver_sm_endpoint()` deploys an Amazon SageMaker model endpoint
 #'
 #' @inheritParams vetiver_prepare_docker
+#' @param board An AWS S3 board created with [pins::board_s3()]. This board
+#' must be in the correct region for your SageMaker instance.
 #' @param repository The ECR repository and tag for the image as a character.
 #' Defaults to `sagemaker-studio-${domain_id}:latest`.
 #' @param compute_type The [CodeBuild](https://aws.amazon.com/codebuild/)
