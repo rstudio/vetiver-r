@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.2.1
 
 * Added support for keras (#164), recipes (#179), and luz (#187, @dfalbel).
 

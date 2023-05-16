@@ -40,6 +40,7 @@
 #' @export
 vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 
+    withr::local_options(list(renv.dynamic.enabled = FALSE))
     renv_lock <- NULL
 
     if (check_renv) {
@@ -85,6 +86,7 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
 #' @export
 vetiver_pin_read <- function(board, name, version = NULL, check_renv = FALSE) {
 
+    withr::local_options(list(renv.dynamic.enabled = FALSE))
     pinned <- pins::pin_read(board = board, name = name, version = version)
     meta   <- pins::pin_meta(board = board, name = name, version = version)
     required_pkgs <- meta$user$required_pkgs %||% pinned$required_pkgs

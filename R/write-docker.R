@@ -64,6 +64,7 @@ vetiver_write_docker <- function(vetiver_model,
                                  additional_pkgs = character(0)) {
 
     ellipsis::check_dots_empty()
+    withr::local_options(list(renv.dynamic.enabled = FALSE))
 
     rspm_env <- ifelse(
         rspm,

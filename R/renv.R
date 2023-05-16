@@ -1,7 +1,7 @@
 
 #
-# renv 0.16.0-72: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2023-02-22 08:26:14.
+# renv 0.17.3-30: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2023-05-12 08:47:17.
 #
 
 
@@ -16,7 +16,7 @@ renv$initialize <- function() {
   # set up metadata environment
   metadata <- list(
     embedded = TRUE,
-    version  = "0.16.0-69"
+    version  = "0.17.3-30"
   )
 
   # assign into renv
@@ -25,6 +25,7 @@ renv$initialize <- function() {
   # get imports
   imports <- list(
     utils = c(
+      "Rprof",
       "URLencode",
       "adist",
       "available.packages",
@@ -47,6 +48,7 @@ renv$initialize <- function() {
       "remove.packages",
       "sessionInfo",
       "str",
+      "summaryRprof",
       "tail",
       "tar",
       "toBibtex",
