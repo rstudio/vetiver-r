@@ -69,7 +69,8 @@ vetiver_pin_write <- function(board, vetiver_model, ..., check_renv = FALSE) {
         description = vetiver_model$description,
         metadata = metadata,
         versioned = vetiver_model$versioned,
-        ...
+        ...,
+        force_identical_write = TRUE
     )
 
     rlang::inform(
