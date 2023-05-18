@@ -274,19 +274,6 @@
       ],
       "Hash": "1d9e7ad3c8312a192dea7d3db0274fde"
     },
-    "filelock": {
-      "Package": "filelock",
-      "Version": "1.0.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "filelock",
-      "RemoteRef": "filelock",
-      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
-      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "1.0.2",
-      "Hash": "38ec653c2613bed60052ba3787bd8a2c"
-    },
     "fs": {
       "Package": "fs",
       "Version": "1.6.2",
@@ -567,21 +554,20 @@
     },
     "pins": {
       "Package": "pins",
-      "Version": "1.1.0",
+      "Version": "1.2.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "RemoteType": "standard",
       "RemotePkgRef": "pins",
       "RemoteRef": "pins",
-      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
-      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "1.1.0",
+      "RemoteRepos": "https://cloud.r-project.org",
+      "RemotePkgPlatform": "source",
+      "RemoteSha": "1.2.0",
       "Requirements": [
         "R",
         "cli",
         "digest",
         "ellipsis",
-        "filelock",
         "fs",
         "generics",
         "glue",
@@ -589,17 +575,15 @@
         "jsonlite",
         "lifecycle",
         "magrittr",
-        "mime",
-        "openssl",
+        "purrr",
         "rappdirs",
         "rlang",
         "tibble",
         "whisker",
         "withr",
-        "yaml",
-        "zip"
+        "yaml"
       ],
-      "Hash": "c6bfa6bbbc54c1d71828ab9167918016"
+      "Hash": "01080dd12fbc8045722140595a388d03"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -984,7 +968,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "c466c3137d478e6ae0c6263526de0874"
+      "Hash": "24996ae532b81bdf31ed657688fa9a3e"
     },
     "vroom": {
       "Package": "vroom",
@@ -1079,19 +1063,6 @@
       "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
       "RemoteSha": "2.3.7",
       "Hash": "0d0056cc5383fbc240ccd0cb584bf436"
-    },
-    "zip": {
-      "Package": "zip",
-      "Version": "2.3.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "RemoteType": "standard",
-      "RemotePkgRef": "zip",
-      "RemoteRef": "zip",
-      "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
-      "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "2.3.0",
-      "Hash": "d98c94dacb7e0efcf83b0a133a705504"
     }
   }
 }
