@@ -28,7 +28,7 @@ Imports:
     hardhat,
     lifecycle,
     magrittr (>= 2.0.3),
-    pins (>= 1.1.0),
+    pins (>= 1.2.0),
     purrr,
     rapidoc,
     readr (>= 1.4.0),
