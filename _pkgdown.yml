@@ -2,14 +2,15 @@ template:
   bootstrap: 5
   package: tidytemplate
 
+
 navbar:
+  structure:
+    left:  [intro, reference, news, vetiver]
   components:
-    home: ~
-    tutorials:
-      text: Learn more
-      menu:
-      - text: "Model Cards for transparent, responsible reporting"
-        href: https://vetiver.rstudio.com/learn-more/model-card.html
+    vetiver:
+      text: Learn more about vetiver
+      href: https://vetiver.rstudio.com
+
 
 development:
   mode: auto
