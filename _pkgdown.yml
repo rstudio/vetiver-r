@@ -2,14 +2,17 @@ template:
   bootstrap: 5
   package: tidytemplate
 
-
 navbar:
   structure:
     left:  [intro, reference, news, vetiver]
   components:
     vetiver:
-      text: Learn more about vetiver
-      href: https://vetiver.rstudio.com
+      text: Learn more
+      menu:
+        - text: "vetiver.rstudio.com"
+          href: https://vetiver.rstudio.com
+        - text: "Python package documentation"
+          href: https://rstudio.github.io/vetiver-python/
 
 
 development:
