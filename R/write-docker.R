@@ -64,6 +64,16 @@ vetiver_write_docker <- function(vetiver_model,
                                  additional_pkgs = character(0)) {
 
     ellipsis::check_dots_empty()
+    
+    if (!fs::file_exists(plumber_file)) {
+      cli::cli_abort(
+        c(
+          "{.arg plumber_file} does not exist at {.path {plumber_file}}",
+          "i" = "Create your Plumber file with {.fn vetiver_write_plumber}"
+          )
+        )
+    }
+    
     withr::local_options(list(renv.dynamic.enabled = FALSE))
 
     rspm_env <- ifelse(
