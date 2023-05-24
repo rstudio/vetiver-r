@@ -109,7 +109,7 @@ test_that("OpenAPI spec with custom ptype", {
                  purrr::transpose(car_ptype))
 })
 
-test_that("OpenAPI spec with additional endpoint", {
+test_that("OpenAPI spec with additional endpoints", {
     v$metadata <- list(url = "potatoes")
 
     another_handler <- function(req) {
@@ -120,11 +120,17 @@ test_that("OpenAPI spec with additional endpoint", {
     p <- pr() %>%
         vetiver_pr_post(v) %>%
         pr_post(path = "/sum", handler = another_handler) %>%
+        pr_get(
+            "/",
+            function() "Hello World",
+            ## to test Connect redirect:
+            comments = "This endpoint was added to automatically redirect visitors"
+        ) %>%
         vetiver_pr_docs(v)
 
     car_spec <- p$getApiSpec()
-    expect_equal(sort(names(car_spec$paths)),
-                 sort(paste0("/", names(p$routes[-1]))))
+    expect_equal(car_spec$path$`/`, NULL)
+    expect_true(all(names(car_spec$paths) %in% paste0("/", names(p$routes))))
 
     post_spec <- car_spec$paths$`/predict`$post
     sum_spec <- car_spec$paths$`/sum`$post
