@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Fixed a bug in where `vetiver_write_docker()` writes the renv lockfile (#212).
+
 # vetiver 0.2.1
 
 * Added support for keras (#164), recipes (#179), and luz (#187, @dfalbel).
