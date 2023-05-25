@@ -24,6 +24,7 @@ test_that("create Dockerfile with 'additional' packages", {
     vetiver_write_plumber(b, "cars1", file = file.path(tmp_dir, "plumber.R"))
     vetiver_write_docker(v, file.path(tmp_dir, "plumber.R"), tmp_dir,
                          additional_pkgs = c("caret", "ggplot2"))
+    expect_true(fs::file_exists(fs::path(tmp_dir, "vetiver_renv.lock")))
     expect_snapshot(
         cat(readr::read_lines(file.path(tmp_dir, "Dockerfile")), sep = "\n"),
         transform = redact_vetiver
