@@ -830,7 +830,7 @@
     },
     "sys": {
       "Package": "sys",
-      "Version": "3.4.1",
+      "Version": "3.4.2",
       "Source": "Repository",
       "Repository": "RSPM",
       "RemoteType": "standard",
@@ -838,8 +838,8 @@
       "RemoteRef": "sys",
       "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "RemotePkgPlatform": "x86_64-pc-linux-gnu-ubuntu-22.04",
-      "RemoteSha": "3.4.1",
-      "Hash": "34c16f1ef796057bfa06d3f4ff818a5d"
+      "RemoteSha": "3.4.2",
+      "Hash": "3a1be13d68d47a8cd0bfd74739ca1555"
     },
     "tibble": {
       "Package": "tibble",
