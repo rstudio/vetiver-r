@@ -64,7 +64,7 @@ vetiver_write_docker <- function(vetiver_model,
                                  additional_pkgs = character(0)) {
 
     ellipsis::check_dots_empty()
-    
+
     if (!fs::file_exists(plumber_file)) {
       cli::cli_abort(
         c(
@@ -73,8 +73,10 @@ vetiver_write_docker <- function(vetiver_model,
           )
         )
     }
-    
+    plumber_file <- fs::path_rel(plumber_file)
+
     withr::local_options(list(renv.dynamic.enabled = FALSE))
+    withr::local_dir(path)
 
     rspm_env <- ifelse(
         rspm,
@@ -86,14 +88,12 @@ vetiver_write_docker <- function(vetiver_model,
     pkgs <- vetiver_required_pkgs(pkgs)
     lockfile_pkgs <-
         renv$snapshot(
-            project = path,
             lockfile = lockfile,
             packages = pkgs,
             prompt = FALSE,
             force = TRUE
         )
 
-    plumber_file <- fs::path_rel(plumber_file)
     sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
@@ -118,7 +118,7 @@ vetiver_write_docker <- function(vetiver_model,
         entrypoint
     ))
 
-    readr::write_lines(ret, file = file.path(path, "Dockerfile"))
+    readr::write_lines(ret, file = "Dockerfile")
 }
 
 docker_pkgs <- c("pins", "plumber", "rapidoc", "vetiver", "renv")
