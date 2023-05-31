@@ -11,8 +11,10 @@ navbar:
       menu:
         - text: "vetiver.rstudio.com"
           href: https://vetiver.rstudio.com
+          target: "_blank"
         - text: "Python package documentation"
           href: https://rstudio.github.io/vetiver-python/
+          target: "_blank"
 
 
 development:
