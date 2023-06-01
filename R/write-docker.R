@@ -66,13 +66,21 @@ vetiver_write_docker <- function(vetiver_model,
     ellipsis::check_dots_empty()
 
     if (!fs::file_exists(plumber_file)) {
-      cli::cli_abort(
-        c(
-          "{.arg plumber_file} does not exist at {.path {plumber_file}}",
-          "i" = "Create your Plumber file with {.fn vetiver_write_plumber}"
-          )
+        cli::cli_abort(
+            c(
+                "{.arg plumber_file} does not exist at {.path {plumber_file}}",
+                "i" = "Create your Plumber file with {.fn vetiver_write_plumber}"
+            )
         )
     }
+
+    if (inherits(vetiver_model$model, "bundled_keras") && missing(base_image)) {
+        cli::cli_warn(c(
+            "Your {.arg vetiver_model} object contains a keras model",
+            "i" = "Be sure to use an appropriate {.arg base_image}"
+        ))
+    }
+
     plumber_file <- fs::path_rel(plumber_file)
 
     withr::local_options(list(renv.dynamic.enabled = FALSE))
@@ -96,6 +104,11 @@ vetiver_write_docker <- function(vetiver_model,
 
     sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
+    copy_python <- ifelse(
+        !is.null(vetiver_python_requirements(bundle::unbundle(vetiver_model$model))),
+        "COPY requirements.txt requirements.txt\nRUN python -m pip install -r requirements.txt",
+        ""
+    )
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
     expose <- ifelse(expose, glue("EXPOSE {port}"), "")
     entrypoint <- glue('ENTRYPOINT ["R", "-e", ',
@@ -111,8 +124,10 @@ vetiver_write_docker <- function(vetiver_model,
         sys_reqs,
         "",
         copy_renv,
+        copy_python,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
+        'RUN Rscript -e "tensorflow::tf_version()"',
         copy_plumber,
         expose,
         entrypoint
