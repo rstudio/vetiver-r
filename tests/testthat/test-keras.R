@@ -16,9 +16,7 @@ set.seed(1)
 keras_fit <-
     keras_model_sequential()  %>%
     layer_dense(units = 1, input_shape = ncol(x_train), activation = 'linear') %>%
-    compile(
-        loss = 'mean_squared_error'
-    )
+    compile(loss = 'mean_squared_error')
 
 keras_fit %>%
     fit(
