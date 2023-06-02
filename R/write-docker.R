@@ -19,7 +19,8 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
 #' `renv::restore()` in the Docker image. Defaults to `TRUE`.
 #' @param base_image The base Docker image to start with. Defaults to
-#' `rocker/r-ver` for the version of R you are working with.
+#' `rocker/r-ver` for the version of R you are working with, but models like
+#' keras will require a different base image.
 #' @param port The server port for listening: a number such as 8080 or an
 #' expression like `'as.numeric(Sys.getenv("PORT"))'` when the port is injected
 #' as an environment variable.
@@ -74,10 +75,10 @@ vetiver_write_docker <- function(vetiver_model,
         )
     }
 
-    if (inherits(vetiver_model$model, "bundled_keras") && missing(base_image)) {
+    if ("keras" %in% vetiver_model$metadata$required_pkgs && missing(base_image)) {
         cli::cli_warn(c(
             "Your {.arg vetiver_model} object contains a keras model",
-            "i" = "Be sure to use an appropriate {.arg base_image}"
+            "i" = "Be sure to use an appropriate {.arg base_image} such as `rocker/cuda`"
         ))
     }
 
@@ -104,11 +105,6 @@ vetiver_write_docker <- function(vetiver_model,
 
     sys_reqs <- glue_sys_reqs(names(lockfile_pkgs$Packages))
     copy_renv <- glue("COPY {lockfile} renv.lock")
-    copy_python <- ifelse(
-        !is.null(vetiver_python_requirements(bundle::unbundle(vetiver_model$model))),
-        "COPY requirements.txt requirements.txt\nRUN python -m pip install -r requirements.txt",
-        ""
-    )
     copy_plumber <- glue("COPY {plumber_file} /opt/ml/plumber.R")
     expose <- ifelse(expose, glue("EXPOSE {port}"), "")
     entrypoint <- glue('ENTRYPOINT ["R", "-e", ',
@@ -124,10 +120,8 @@ vetiver_write_docker <- function(vetiver_model,
         sys_reqs,
         "",
         copy_renv,
-        copy_python,
         'RUN Rscript -e "install.packages(\'renv\')"',
         'RUN Rscript -e "renv::restore()"',
-        'RUN Rscript -e "tensorflow::tf_version()"',
         copy_plumber,
         expose,
         entrypoint
@@ -192,7 +186,10 @@ glue_sys_reqs <- function(pkgs) {
 #' - [vetiver_write_plumber()] to create a Plumber file and
 #' - [vetiver_write_docker()] to create a Dockerfile and renv lockfile
 #'
-#' These modular functions are available for more advanced use cases.
+#' These modular functions are available for more advanced use cases. For
+#' models such as keras and torch, you will need to edit the generated
+#' Dockerfile to, for example, `COPY requirements.txt requirements.txt` or
+#' similar.
 #'
 #' @return An invisible `TRUE`.
 #'
