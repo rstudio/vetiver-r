@@ -75,7 +75,9 @@ vetiver_write_docker <- function(vetiver_model,
         )
     }
 
-    if ("keras" %in% vetiver_model$metadata$required_pkgs && missing(base_image)) {
+    keras <- "keras" %in% vetiver_model$metadata$required_pkgs
+    default_image <- base_image == eval(fn_fmls()$base_image)
+    if (keras && default_image) {
         cli::cli_warn(c(
             "Your {.arg vetiver_model} object contains a keras model",
             "i" = "Be sure to use an appropriate {.arg base_image} such as `rocker/cuda`"
