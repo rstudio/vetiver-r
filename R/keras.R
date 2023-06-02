@@ -62,5 +62,6 @@ handler_predict.keras.engine.training.Model <- function(vetiver_model, ...) {
 #' @export
 vetiver_python_requirements.keras.engine.training.Model <- function(model) {
     ## TODO: something like pip freeze for keras and tensorflow to get versions
+    ## Also maybe protobuf because very picky wrt tensorflow
     system.file("requirements/keras-requirements.txt", package = "vetiver")
 }
