@@ -16,10 +16,7 @@ set.seed(1)
 keras_fit <-
     keras_model_sequential()  %>%
     layer_dense(units = 1, input_shape = ncol(x_train), activation = 'linear') %>%
-    compile(
-        loss = 'mean_squared_error',
-        optimizer = optimizer_adam(learning_rate = .01)
-    )
+    compile(loss = 'mean_squared_error')
 
 keras_fit %>%
     fit(
@@ -85,6 +82,9 @@ test_that("create plumber.R for keras", {
     expect_snapshot(
         cat(readr::read_lines(fs::path(fs::path_dir(tmp), "requirements.txt")), sep = "\n"),
         transform = redact_vetiver
+    )
+    expect_snapshot(
+        vetiver_write_docker(v, tmp, tmp_dir)
     )
 })
 

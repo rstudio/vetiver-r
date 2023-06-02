@@ -39,3 +39,12 @@
       keras
       tensorflow
 
+---
+
+    Code
+      vetiver_write_docker(v, tmp, tmp_dir)
+    Condition
+      Warning:
+      Your `vetiver_model` object contains a keras model
+      i Be sure to use an appropriate `base_image` such as `rocker/cuda`
+

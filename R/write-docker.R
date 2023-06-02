@@ -19,7 +19,8 @@ DEFAULT_RSPM <-  "https://packagemanager.rstudio.com"
 #' [RStudio Public Package Manager](https://packagemanager.rstudio.com/) for
 #' `renv::restore()` in the Docker image. Defaults to `TRUE`.
 #' @param base_image The base Docker image to start with. Defaults to
-#' `rocker/r-ver` for the version of R you are working with.
+#' `rocker/r-ver` for the version of R you are working with, but models like
+#' keras will require a different base image.
 #' @param port The server port for listening: a number such as 8080 or an
 #' expression like `'as.numeric(Sys.getenv("PORT"))'` when the port is injected
 #' as an environment variable.
@@ -66,13 +67,23 @@ vetiver_write_docker <- function(vetiver_model,
     ellipsis::check_dots_empty()
 
     if (!fs::file_exists(plumber_file)) {
-      cli::cli_abort(
-        c(
-          "{.arg plumber_file} does not exist at {.path {plumber_file}}",
-          "i" = "Create your Plumber file with {.fn vetiver_write_plumber}"
-          )
+        cli::cli_abort(
+            c(
+                "{.arg plumber_file} does not exist at {.path {plumber_file}}",
+                "i" = "Create your Plumber file with {.fn vetiver_write_plumber}"
+            )
         )
     }
+
+    keras <- "keras" %in% vetiver_model$metadata$required_pkgs
+    default_image <- base_image == eval(fn_fmls()$base_image)
+    if (keras && default_image) {
+        cli::cli_warn(c(
+            "Your {.arg vetiver_model} object contains a keras model",
+            "i" = "Be sure to use an appropriate {.arg base_image} such as `rocker/cuda`"
+        ))
+    }
+
     plumber_file <- fs::path_rel(plumber_file)
 
     withr::local_options(list(renv.dynamic.enabled = FALSE))
@@ -177,7 +188,10 @@ glue_sys_reqs <- function(pkgs) {
 #' - [vetiver_write_plumber()] to create a Plumber file and
 #' - [vetiver_write_docker()] to create a Dockerfile and renv lockfile
 #'
-#' These modular functions are available for more advanced use cases.
+#' These modular functions are available for more advanced use cases. For
+#' models such as keras and torch, you will need to edit the generated
+#' Dockerfile to, for example, `COPY requirements.txt requirements.txt` or
+#' similar.
 #'
 #' @return An invisible `TRUE`.
 #'
