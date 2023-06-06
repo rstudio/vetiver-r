@@ -166,8 +166,9 @@ compute type as a character. Defaults to <code>BUILD_GENERAL1_SMALL</code>.</p><
 
 
 <dt>role</dt>
-<dd><p>The ARN role for the Amazon SageMaker model. Defaults to the
-SageMaker execution role.</p></dd>
+<dd><p>The ARM IAM role name (as a character) for:</p><ul><li><p>CodeBuild to use for <code>vetiver_sm_build()</code></p></li>
+<li><p>the Amazon SageMaker model for <code>vetiver_sm_model()</code></p></li>
+</ul><p>Defaults to the SageMaker Studio execution role.</p></dd>
 
 
 <dt>bucket</dt>
