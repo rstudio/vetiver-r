@@ -119,7 +119,7 @@ vetiver_deploy_sagemaker <- function(board,
 #' Defaults to `sagemaker-studio-${domain_id}:latest`.
 #' @param compute_type The [CodeBuild](https://aws.amazon.com/codebuild/)
 #' compute type as a character. Defaults to `BUILD_GENERAL1_SMALL`.
-#' @param role The ARM IAM role name (as a character) to be used with:
+#' @param role The ARN IAM role name (as a character) to be used with:
 #' - CodeBuild for `vetiver_sm_build()`
 #' - the SageMaker model for `vetiver_sm_model()`
 #'

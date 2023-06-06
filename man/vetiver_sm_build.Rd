@@ -74,7 +74,7 @@ Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 \item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{role}{The ARM IAM role name (as a character) to be used with:
+\item{role}{The ARN IAM role name (as a character) to be used with:
 \itemize{
 \item CodeBuild for \code{vetiver_sm_build()}
 \item the SageMaker model for \code{vetiver_sm_model()}
