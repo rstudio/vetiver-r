@@ -53,13 +53,13 @@ test_that("can create SageMaker Model", {
     role <- "arn:aws:iam::999999999999:role/SagemakerExecution"
 
     expect_snapshot(error = TRUE, {
-        vetiver_sm_model(image_uri = image_uri, role = role, tags = "potato")
-        vetiver_sm_model(image_uri = image_uri, role = role, tags = list("potato"))
-        vetiver_sm_model(image_uri = image_uri, role = role,
+        vetiver_sm_model(image_uri = image_uri, model_role = role, tags = "potato")
+        vetiver_sm_model(image_uri = image_uri, model_role = role, tags = list("potato"))
+        vetiver_sm_model(image_uri = image_uri, model_role = role,
                          vpc_config = list("potato"))
-        vetiver_sm_model(image_uri = image_uri, role = role,
+        vetiver_sm_model(image_uri = image_uri, model_role = role,
                          vpc_config = list(Subnets = list(1:3), SecurityGroupIds = 1:3))
-        vetiver_sm_model(image_uri = image_uri, role = role,
+        vetiver_sm_model(image_uri = image_uri, model_role = role,
                          vpc_config = list(Subnets = 1:3, SecurityGroupIds = list(1:3)))
     })
 
@@ -67,7 +67,7 @@ test_that("can create SageMaker Model", {
         vetiver_sm_model(
             image_uri = image_uri,
             model_name = model_name,
-            role = role,
+            model_role = role,
             tags = list("new-tag" = "amazing")
         )
 
