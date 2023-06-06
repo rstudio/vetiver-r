@@ -119,8 +119,11 @@ vetiver_deploy_sagemaker <- function(board,
 #' Defaults to `sagemaker-studio-${domain_id}:latest`.
 #' @param compute_type The [CodeBuild](https://aws.amazon.com/codebuild/)
 #' compute type as a character. Defaults to `BUILD_GENERAL1_SMALL`.
-#' @param role The IAM role name for CodeBuild to use as a character. Defaults
-#' to the SageMaker Studio execution role.
+#' @param role The ARM IAM role name (as a character) for:
+#' - CodeBuild to use for `vetiver_sm_build()`
+#' - the Amazon SageMaker model for `vetiver_sm_model()`
+#'
+#' Defaults to the SageMaker Studio execution role.
 #' @param bucket The S3 bucket to use for sending data to CodeBuild as a
 #' character. Defaults to the SageMaker SDK default bucket.
 #' @param vpc_id ID of the VPC that will host the CodeBuild project such as
@@ -230,8 +233,6 @@ vetiver_sm_build <- function(board,
 #' @param image_uri The AWS ECR image URI for the Amazon SageMaker Model to be
 #' created (for example, as returned by [vetiver_sm_build()]).
 #' @param model_name The Amazon SageMaker model name to be deployed.
-#' @param role The ARN role for the Amazon SageMaker model. Defaults to the
-#' SageMaker execution role.
 #' @param vpc_config A list containing the VPC configuration for the Amazon
 #' SageMaker model [API VpcConfig](https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html)
 #' (optional).

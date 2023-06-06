@@ -74,8 +74,13 @@ Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 \item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{role}{The ARN role for the Amazon SageMaker model. Defaults to the
-SageMaker execution role.}
+\item{role}{The ARM IAM role name (as a character) for:
+\itemize{
+\item CodeBuild to use for \code{vetiver_sm_build()}
+\item the Amazon SageMaker model for \code{vetiver_sm_model()}
+}
+
+Defaults to the SageMaker Studio execution role.}
 
 \item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
 character. Defaults to the SageMaker SDK default bucket.}
