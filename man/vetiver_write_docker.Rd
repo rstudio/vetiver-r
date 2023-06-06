@@ -36,7 +36,8 @@ model's package dependencies. Defaults to the working directory.}
 \code{renv::restore()} in the Docker image. Defaults to \code{TRUE}.}
 
 \item{base_image}{The base Docker image to start with. Defaults to
-\code{rocker/r-ver} for the version of R you are working with.}
+\code{rocker/r-ver} for the version of R you are working with, but models like
+keras will require a different base image.}
 
 \item{port}{The server port for listening: a number such as 8080 or an
 expression like \code{'as.numeric(Sys.getenv("PORT"))'} when the port is injected

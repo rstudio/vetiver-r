@@ -47,7 +47,10 @@ The function \code{vetiver_prepare_docker()} uses:
 \item \code{\link[=vetiver_write_docker]{vetiver_write_docker()}} to create a Dockerfile and renv lockfile
 }
 
-These modular functions are available for more advanced use cases.
+These modular functions are available for more advanced use cases. For
+models such as keras and torch, you will need to edit the generated
+Dockerfile to, for example, \verb{COPY requirements.txt requirements.txt} or
+similar.
 }
 \examples{
 \dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

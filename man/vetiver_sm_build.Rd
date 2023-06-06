@@ -16,7 +16,7 @@ vetiver_sm_build(
   repository = NULL,
   compute_type = c("BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM",
     "BUILD_GENERAL1_LARGE", "BUILD_GENERAL1_2XLARGE"),
-  role = NULL,
+  build_role = NULL,
   bucket = NULL,
   vpc_id = NULL,
   subnet_ids = list(),
@@ -28,7 +28,7 @@ vetiver_sm_build(
 vetiver_sm_model(
   image_uri,
   model_name,
-  role = NULL,
+  model_role = NULL,
   vpc_config = list(),
   enable_network_isolation = FALSE,
   tags = list()
@@ -74,8 +74,8 @@ Defaults to \verb{sagemaker-studio-$\{domain_id\}:latest}.}
 \item{compute_type}{The \href{https://aws.amazon.com/codebuild/}{CodeBuild}
 compute type as a character. Defaults to \code{BUILD_GENERAL1_SMALL}.}
 
-\item{role}{The ARN role for the Amazon SageMaker model. Defaults to the
-SageMaker execution role.}
+\item{build_role}{The IAM role name for CodeBuild to use as a character. Defaults
+to the SageMaker Studio execution role.}
 
 \item{bucket}{The S3 bucket to use for sending data to CodeBuild as a
 character. Defaults to the SageMaker SDK default bucket.}
@@ -100,6 +100,9 @@ Defaults to \code{TRUE}.}
 created (for example, as returned by \code{\link[=vetiver_sm_build]{vetiver_sm_build()}}).}
 
 \item{model_name}{The Amazon SageMaker model name to be deployed.}
+
+\item{model_role}{The ARN role for the Amazon SageMaker model. Defaults to the
+SageMaker execution role.}
 
 \item{vpc_config}{A list containing the VPC configuration for the Amazon
 SageMaker model \href{https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html}{API VpcConfig}
