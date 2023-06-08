@@ -85,10 +85,7 @@ vetiver_write_docker <- function(vetiver_model,
     }
 
     plumber_file <- fs::path_rel(plumber_file)
-
-    withr::local_options(list(renv.dynamic.enabled = FALSE))
     withr::local_dir(path)
-
     rspm_env <- ifelse(
         rspm,
         "ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest\n",
