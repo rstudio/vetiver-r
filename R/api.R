@@ -99,7 +99,7 @@ vetiver_pr_post <- function(pr,
     pr <- plumber::pr_set_debug(pr, debug = debug)
     pr <- plumber::pr_set_serializer(
         pr,
-        serializer = serializer_unboxed_json(null = "null")
+        serializer = plumber::serializer_unboxed_json(null = "null")
     )
     pr <- vetiver_pr_ping(pr)
     pr <- vetiver_pr_pin_url(pr, vetiver_model)
