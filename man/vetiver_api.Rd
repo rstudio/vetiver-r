@@ -62,9 +62,15 @@ You can first store and version your \code{\link[=vetiver_model]{vetiver_model()
 Setting \code{debug = TRUE} may expose any sensitive data from your model in
 API errors.
 
-Two GET endpoints will also be added to the router \code{pr}, depending on the
-characteristics of the model object: a \verb{/pin-url} endpoint to return the
-URL of the pinned model and a \verb{/ping} endpoint for the API health.
+Several GET endpoints will also be added to the router \code{pr}, depending on the
+characteristics of the model object:
+\itemize{
+\item a \verb{/pin-url} endpoint to return the URL of the pinned model
+\item a \verb{/metadata} endpoint to return any metadata stored with the model
+\item a \verb{/ping} endpoint for the API health
+\item a \verb{/prototype} endpoint for the models' input data prototype (use
+\code{\link[cereal:cereal_to_json]{cereal::cereal_from_json()}}) to convert this back to a \href{https://vctrs.r-lib.org/articles/type-size.html}{vctrs ptype}
+}
 
 The function \code{vetiver_api()} uses:
 \itemize{

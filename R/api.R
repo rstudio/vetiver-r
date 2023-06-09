@@ -23,9 +23,14 @@
 #' Setting `debug = TRUE` may expose any sensitive data from your model in
 #' API errors.
 #'
-#' Two GET endpoints will also be added to the router `pr`, depending on the
-#' characteristics of the model object: a `/pin-url` endpoint to return the
-#' URL of the pinned model and a `/ping` endpoint for the API health.
+#' Several GET endpoints will also be added to the router `pr`, depending on the
+#' characteristics of the model object:
+#'
+#' - a `/pin-url` endpoint to return the URL of the pinned model
+#' - a `/metadata` endpoint to return any metadata stored with the model
+#' - a `/ping` endpoint for the API health
+#' - a `/prototype` endpoint for the models' input data prototype (use
+#' [cereal::cereal_from_json()]) to convert this back to a [vctrs ptype](https://vctrs.r-lib.org/articles/type-size.html)
 #'
 #' The function `vetiver_api()` uses:
 #' - `vetiver_pr_post()` for endpoint definition and
