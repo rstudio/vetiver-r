@@ -140,6 +140,9 @@ api_spec <- function(spec, vetiver_model, path, all_docs = TRUE) {
     if ("/metadata" %in% names(spec$paths)) {
         spec$paths$`/metadata`$get$summary <- "Get all metadata of pinned vetiver model"
     }
+    if ("/prototype" %in% names(spec$paths)) {
+        spec$paths$`/prototype`$get$summary <- "Get input data prototype for vetiver model"
+    }
     if ("/ping" %in% names(spec$paths)) {
         spec$paths$`/ping`$get$summary <- "Health check"
     }
