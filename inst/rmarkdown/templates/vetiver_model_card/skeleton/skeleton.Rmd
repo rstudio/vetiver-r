@@ -4,7 +4,7 @@ date: '`r Sys.Date()`'
 output: 
   html_document
 params:
-    board: !r pins::board_rsconnect()
+    board: !r pins::board_connect()
     name: julia.silge/sacramento-rf
     version: NULL
 ---
