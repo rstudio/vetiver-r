@@ -85,7 +85,7 @@ v
 
 You can **version** and **share** your `vetiver_model()` by choosing a
 [pins](https://pins.rstudio.com) “board” for it, including a local
-folder, RStudio Connect, Amazon S3, and more.
+folder, Posit Connect, Amazon S3, and more.
 
 ``` r
 library(pins)

@@ -10,7 +10,7 @@
 #' `path` or prediction `type`.
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
 #' working directory. See [plumber::plumb()] for naming precedence rules.
-#' @param rsconnect Create a Plumber file with features needed for [RStudio
+#' @param rsconnect Create a Plumber file with features needed for [Posit
 #' Connect](https://posit.co/products/enterprise/connect/)? Defaults to `TRUE`.
 #'
 #' @details

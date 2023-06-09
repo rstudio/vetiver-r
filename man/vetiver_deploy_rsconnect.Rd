@@ -2,7 +2,7 @@
 % Please edit documentation in R/rsconnect.R
 \name{vetiver_deploy_rsconnect}
 \alias{vetiver_deploy_rsconnect}
-\title{Deploy a vetiver model API to RStudio Connect}
+\title{Deploy a vetiver model API to Posit Connect}
 \usage{
 vetiver_deploy_rsconnect(
   board,
@@ -25,7 +25,7 @@ find out which versions are available and when they were created.}
 \item{predict_args}{A list of optional arguments passed to \code{\link[=vetiver_api]{vetiver_api()}}
 such as the prediction \code{type}.}
 
-\item{appTitle}{The API title on RStudio Connect. Use the default based on
+\item{appTitle}{The API title on Posit Connect. Use the default based on
 \code{name}, or pass in your own title.}
 
 \item{...}{Other arguments passed to \code{\link[rsconnect:deployApp]{rsconnect::deployApp()}} such as
@@ -42,7 +42,7 @@ Connect.
 \details{
 The two functions \code{vetiver_deploy_rsconnect()} and
 \code{\link[=vetiver_create_rsconnect_bundle]{vetiver_create_rsconnect_bundle()}} are alternatives to each other, providing
-different strategies for deploying a vetiver model API to RStudio Connect.
+different strategies for deploying a vetiver model API to Posit Connect.
 }
 \examples{
 \dontshow{if (rlang::is_installed("rsconnect")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

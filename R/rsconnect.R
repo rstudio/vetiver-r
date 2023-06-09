@@ -1,4 +1,4 @@
-#' Deploy a vetiver model API to RStudio Connect
+#' Deploy a vetiver model API to Posit Connect
 #'
 #' Use `vetiver_deploy_rsconnect()` to deploy a [vetiver_model()] that has been
 #' versioned and stored via [vetiver_pin_write()] as a Plumber API on RStudio
@@ -7,14 +7,14 @@
 #' @inheritParams vetiver_write_plumber
 #' @param predict_args A list of optional arguments passed to [vetiver_api()]
 #' such as the prediction `type`.
-#' @param appTitle The API title on RStudio Connect. Use the default based on
+#' @param appTitle The API title on Posit Connect. Use the default based on
 #' `name`, or pass in your own title.
 #' @param ... Other arguments passed to [rsconnect::deployApp()] such as
 #' `account` or `launch.browser`.
 #'
 #' @details The two functions `vetiver_deploy_rsconnect()` and
 #' [vetiver_create_rsconnect_bundle()] are alternatives to each other, providing
-#' different strategies for deploying a vetiver model API to RStudio Connect.
+#' different strategies for deploying a vetiver model API to Posit Connect.
 #'
 #' @return
 #' The deployment success (`TRUE` or `FALSE`), invisibly.
@@ -61,9 +61,9 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 
 }
 
-#' Create an RStudio Connect bundle for a vetiver model API
+#' Create an Posit Connect bundle for a vetiver model API
 #'
-#' Use `vetiver_create_rsconnect_bundle()` to create an RStudio Connect model
+#' Use `vetiver_create_rsconnect_bundle()` to create an Posit Connect model
 #' API bundle for a [vetiver_model()] that has been versioned and stored via
 #' [vetiver_pin_write()].
 #'
@@ -75,14 +75,14 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 #' @return The location of the model API bundle `filename`, invisibly.
 #' @seealso [vetiver_write_plumber()], [vetiver_deploy_rsconnect()]
 #' @details This function creates a deployable bundle. See
-#' [RStudio Connect docs](https://docs.posit.co/connect/cookbook/deploying/)
+#' [Posit Connect docs](https://docs.posit.co/connect/cookbook/deploying/)
 #' for how to deploy this bundle, as well as the
 #' [connectapi](https://pkgs.rstudio.com/connectapi/) R package for how to
 #' integrate with Connect's API from R.
 #'
 #' The two functions `vetiver_create_rsconnect_bundle()` and
 #' [vetiver_deploy_rsconnect()] are alternatives to each other, providing
-#' different strategies for deploying a vetiver model API to RStudio Connect.
+#' different strategies for deploying a vetiver model API to Posit Connect.
 #'
 #' @examplesIf rlang::is_installed("connectapi") && identical(Sys.getenv("NOT_CRAN"), "true")
 #' library(pins)
@@ -91,7 +91,7 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 #' v <- vetiver_model(cars_lm, "cars_linear")
 #' vetiver_pin_write(b, v)
 #'
-#' ## when you pin to RStudio Connect, your pin name will be typically be like:
+#' ## when you pin to Posit Connect, your pin name will be typically be like:
 #' ## "user.name/cars_linear"
 #' vetiver_create_rsconnect_bundle(
 #'     b,

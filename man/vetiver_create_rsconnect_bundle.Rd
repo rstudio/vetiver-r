@@ -2,7 +2,7 @@
 % Please edit documentation in R/rsconnect.R
 \name{vetiver_create_rsconnect_bundle}
 \alias{vetiver_create_rsconnect_bundle}
-\title{Create an RStudio Connect bundle for a vetiver model API}
+\title{Create an Posit Connect bundle for a vetiver model API}
 \usage{
 vetiver_create_rsconnect_bundle(
   board,
@@ -31,20 +31,20 @@ used as the argument to \code{connectapi::bundle_path()})}
 The location of the model API bundle \code{filename}, invisibly.
 }
 \description{
-Use \code{vetiver_create_rsconnect_bundle()} to create an RStudio Connect model
+Use \code{vetiver_create_rsconnect_bundle()} to create an Posit Connect model
 API bundle for a \code{\link[=vetiver_model]{vetiver_model()}} that has been versioned and stored via
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}.
 }
 \details{
 This function creates a deployable bundle. See
-\href{https://docs.posit.co/connect/cookbook/deploying/}{RStudio Connect docs}
+\href{https://docs.posit.co/connect/cookbook/deploying/}{Posit Connect docs}
 for how to deploy this bundle, as well as the
 \href{https://pkgs.rstudio.com/connectapi/}{connectapi} R package for how to
 integrate with Connect's API from R.
 
 The two functions \code{vetiver_create_rsconnect_bundle()} and
 \code{\link[=vetiver_deploy_rsconnect]{vetiver_deploy_rsconnect()}} are alternatives to each other, providing
-different strategies for deploying a vetiver model API to RStudio Connect.
+different strategies for deploying a vetiver model API to Posit Connect.
 }
 \examples{
 \dontshow{if (rlang::is_installed("connectapi") && identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -54,7 +54,7 @@ cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
 
-## when you pin to RStudio Connect, your pin name will be typically be like:
+## when you pin to Posit Connect, your pin name will be typically be like:
 ## "user.name/cars_linear"
 vetiver_create_rsconnect_bundle(
     b,
