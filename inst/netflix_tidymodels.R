@@ -35,7 +35,7 @@ v <- vetiver_model(netflix_fit, "netflix_descriptions")
 v
 
 library(pins)
-model_board <- board_rsconnect()
+model_board <- board_connect()
 vetiver_pin_write(model_board, v)
 
 library(plumber)
