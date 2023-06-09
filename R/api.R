@@ -92,7 +92,10 @@ vetiver_pr_post <- function(pr,
 
     handler_startup(vetiver_model)
     pr <- plumber::pr_set_debug(pr, debug = debug)
-    pr <- plumber::pr_set_serializer(pr, serializer = serializer_unboxed_json())
+    pr <- plumber::pr_set_serializer(
+        pr,
+        serializer = serializer_unboxed_json(null = "null")
+    )
     pr <- vetiver_pr_ping(pr)
     pr <- vetiver_pr_pin_url(pr, vetiver_model)
     pr <- vetiver_pr_metadata(pr, vetiver_model)
@@ -140,7 +143,9 @@ vetiver_pr_prototype <- function(pr, vetiver_model) {
         pr <- plumber::pr_get(
             pr,
             path = "/prototype",
-            handler = function() purrr::map(v$prototype, cereal_encode)
+            handler = function() {
+                purrr::map(vetiver_model$prototype, cereal::cereal_encode)
+            }
         )
     }
     pr
