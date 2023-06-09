@@ -92,23 +92,10 @@ vetiver_pr_post <- function(pr,
 
     handler_startup(vetiver_model)
     pr <- plumber::pr_set_debug(pr, debug = debug)
-    pr <- plumber::pr_get(
-        pr,
-        path = "/ping",
-        function() {list(status = "online", time = Sys.time())}
-    )
-    if (!is_null(vetiver_model$metadata$url)) {
-        pr <- plumber::pr_get(
-            pr,
-            path = "/pin-url",
-            function() vetiver_model$metadata$url
-        )
-    }
-    pr <- plumber::pr_get(
-        pr,
-        path = "/metadata",
-        function() vetiver_model$metadata
-    )
+    pr <- vetiver_pr_ping(pr)
+    pr <- vetiver_pr_pin_url(pr, vetiver_model)
+    pr <- vetiver_pr_metadata(pr, vetiver_model)
+
     if (!check_prototype) {
         vetiver_model$prototype <- NULL
     }
@@ -118,6 +105,33 @@ vetiver_pr_post <- function(pr,
         handler = handler_predict(vetiver_model, ...)
     )
     pr
+}
+
+vetiver_pr_ping <- function(pr) {
+    plumber::pr_get(
+        pr,
+        path = "/ping",
+        function() {list(status = "online", time = Sys.time())}
+    )
+}
+
+vetiver_pr_pin_url <- function(pr, vetiver_model) {
+    if (!is_null(vetiver_model$metadata$url)) {
+        pr <- plumber::pr_get(
+            pr,
+            path = "/pin-url",
+            function() vetiver_model$metadata$url
+        )
+    }
+    pr
+}
+
+vetiver_pr_metadata <- function(pr, vetiver_model) {
+    plumber::pr_get(
+        pr,
+        path = "/metadata",
+        function() vetiver_model$metadata
+    )
 }
 
 #' @rdname vetiver_api
