@@ -112,7 +112,7 @@ vetiver_write_plumber(model_board, "biv_svm", file = tmp)
 cat(readr::read_lines(tmp), sep = "\n")
 ```
 
-In a real-world situation, you would see something like `b <- board_rsconnect()` or `b <- board_s3()` here instead of our temporary demo board. Notice that the deployment is strongly linked to a *specific version* of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.
+In a real-world situation, you would see something like `b <- board_connect()` or `b <- board_s3()` here instead of our temporary demo board. Notice that the deployment is strongly linked to a *specific version* of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.
 
 ## Predict from your model endpoint
 
