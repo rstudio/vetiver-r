@@ -1,6 +1,7 @@
 options(pins.verbose = FALSE)
 options(pins.quiet = TRUE)
 options(renv.verbose = FALSE)
+withr::local_envvar(list(RENV_WATCHDOG_ENABLED = FALSE))
 
 clean_python_tmp_dir <- function() {
     if (rlang::is_installed("reticulate")) {
