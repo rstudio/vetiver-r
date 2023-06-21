@@ -1,5 +1,11 @@
 
-setTimeLimit(elapsed = 600)
+vetiver:::renv$the$log_level <- 1L
+
+command <- paste("sleep 600 && kill -INT", Sys.getpid())
+system(command, wait = FALSE)
+
+command <- paste("sleep 660 && kill -TERM", Sys.getpid())
+system(command, wait = FALSE)
 
 withCallingHandlers(
 
