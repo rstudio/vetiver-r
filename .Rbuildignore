@@ -11,7 +11,6 @@
 ^vignettes/articles$
 ^CODE_OF_CONDUCT\.md$
 ^_pkgdown\.yml$
-^ci$
 ^docs$
 ^pkgdown$
 ^codecov\.yml$

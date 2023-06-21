@@ -28,7 +28,13 @@ jobs:
           needs: coverage
 
       - name: Test coverage
-        run: Rscript ci/code-coverage.R
+        run: |
+          covr::codecov(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
+          )
+        shell: Rscript {0}
 
       - name: Show testthat output
         if: always()

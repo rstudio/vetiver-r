@@ -26,13 +26,3 @@ expect_api_routes <- function(routes) {
     )
 }
 
-test_that <- function(desc, code) {
-    writeLines("")
-    writeLines(renv$header(paste(desc, "[begin]")))
-    call <- sys.call()
-    call[[1]] <- quote(testthat::test_that)
-    eval(call, envir = parent.frame())
-    writeLines(renv$header(paste(desc, "[ended]")))
-    writeLines("")
-    writeLines("")
-}
