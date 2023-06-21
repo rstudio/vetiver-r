@@ -1,6 +1,5 @@
 
-renv <- vetiver:::renv
-renv$the$log_level <- 1L
+Sys.setenv(RENV_LOG_LEVEL = "debug")
 
 command <- paste("sleep 600 && kill -INT", Sys.getpid())
 system(command, wait = FALSE)
@@ -18,7 +17,11 @@ withCallingHandlers(
 
     error = function(cnd) {
         print(rlang::trace_back())
-        print(renv$renv_debuggify_dump(cnd))
+        stop(cnd)
+    },
+
+    interrupt = function(cnd) {
+        print(rlang::trace_back())
         stop(cnd)
     }
 
