@@ -1,6 +1,6 @@
 #
-# renv 0.17.3-88 [rstudio/renv#41cc3e3]: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2023-06-21 00:33:04.394238.
+# renv 0.17.3-88 [rstudio/renv#bfb5356]: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2023-06-21 00:41:16.932556.
 #
 
 # aaa.R ----------------------------------------------------------------------
@@ -32231,11 +32231,15 @@ renv_watchdog_start_impl <- function() {
 
   # wait for connection from watchdog server
   dlog("watchdog", "watchdog process launched; waiting for message")
-  conn <- renv_socket_accept(socket, open = "rb", timeout = 10)
-  defer(close(conn))
+  conn <- catch(renv_socket_accept(socket, open = "rb", timeout = 10))
+  if (inherits(conn, "error")) {
+    dlog("watchdog", paste("error connecting to watchdog:", conditionMessage(conn)))
+    return(FALSE)
+  }
 
   # store information about the running process
   the$watchdog_process <- unserialize(conn)
+  close(conn)
 
   # return TRUE to indicate process was started
   dlog("watchdog", "watchdog message received [pid == %i]", the$watchdog_process$pid)
