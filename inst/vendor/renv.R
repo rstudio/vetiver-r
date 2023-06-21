@@ -1,6 +1,6 @@
 #
-# renv 0.17.3-87: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2023-06-16 09:43:20.
+# renv 0.17.3-88: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2023-06-21 15:03:31.
 #
 
 # aaa.R ----------------------------------------------------------------------
@@ -444,7 +444,7 @@ activate <- function(project = NULL, profile = NULL) {
 
 renv_activate_impl <- function(project,
                                profile,
-                               version,
+                               version = NULL,
                                restart = TRUE)
 {
   # prepare renv infrastructure
@@ -459,17 +459,15 @@ renv_activate_impl <- function(project,
     renv_imbue_self(project)
 
   # restart session if requested
-  if (restart) {
-    renv_restart_request(project, reason = "renv activated")
-  } else {
-    if (renv_rstudio_available())
-      renv_rstudio_initialize(project)
+  if (restart && !renv_tests_running())
+    return(renv_restart_request(project, reason = "renv activated"))
 
-    setwd(project)
+  if (renv_rstudio_available())
+    renv_rstudio_initialize(project)
 
-    # try to load the project
-    load(project)
-  }
+  # try to load the project
+  setwd(project)
+  load(project)
 
 }
 
@@ -519,8 +517,10 @@ renv_activate_version_lockfile <- function(project) {
 
 }
 
+# TODO: can we unravel this, and just record the metadata structure
+# into the activate script?
 renv_activate_version_default <- function(project) {
-  renv_metadata_version()
+  the$metadata$sha %||% the$metadata$version
 }
 
 renv_activate_prompt <- function(action, library, prompt, project) {
@@ -1902,10 +1902,17 @@ renv_binding_replace <- function(envir, symbol, replacement) {
 # bioconductor.R -------------------------------------------------------------
 
 
+renv_bioconductor_manager <- function() {
+  if (getRversion() >= "3.5.0")
+    "BiocManager"
+  else
+    "BiocInstaller"
+}
+
 renv_bioconductor_init <- function(library = NULL) {
   renv_scope_options(renv.verbose = FALSE)
 
-  if (getRversion() >= "3.5.0")
+  if (identical(renv_bioconductor_manager(), "BiocManager"))
     renv_bioconductor_init_biocmanager(library)
   else
     renv_bioconductor_init_biocinstaller(library)
@@ -1996,10 +2003,10 @@ renv_bioconductor_repos <- function(project = NULL, version = NULL) {
   version <- version %||% renv_bioconductor_version(project = project)
 
   # read Bioconductor repositories (prefer BiocInstaller for older R)
-  if (getRversion() < "3.5.0")
-    renv_bioconductor_repos_biocinstaller(version)
-  else
+  if (identical(renv_bioconductor_manager(), "BiocManager"))
     renv_bioconductor_repos_biocmanager(version)
+  else
+    renv_bioconductor_repos_biocinstaller(version)
 
 }
 
@@ -2024,13 +2031,19 @@ renv_bioconductor_repos_biocinstaller <- function(version) {
   BiocInstaller$biocinstallRepos(version = version)
 }
 
+renv_bioconductor_required <- function(records) {
+
+  for (record in records)
+    if (identical(record$Source, "Bioconductor"))
+      return(TRUE)
+
+  FALSE
+
+}
+
 
 # bootstrap.R ----------------------------------------------------------------
 
-
-startswith <- function(string, prefix) {
-  substring(string, 1, nchar(prefix)) == prefix
-}
 
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
@@ -2049,27 +2062,58 @@ catf <- function(fmt, ..., appendLF = TRUE) {
 
 }
 
+header <- function(label,
+                   ...,
+                   prefix = "#",
+                   suffix = "-",
+                   n = min(getOption("width"), 78))
+{
+  label <- sprintf(label, ...)
+  n <- max(n - nchar(label) - nchar(prefix) - 2L, 8L)
+  if (n <= 0)
+    return(paste(prefix, label))
+
+  tail <- paste(rep.int(suffix, n), collapse = "")
+  paste0(prefix, " ", label, " ", tail)
+
+}
+
+startswith <- function(string, prefix) {
+  substring(string, 1, nchar(prefix)) == prefix
+}
+
 bootstrap <- function(version, library) {
 
   # load failed; inform user we're about to bootstrap
-  catf("Bootstrapping renv %s:", version)
+  friendly <- version
+  if (nchar(friendly) >= 40)
+    friendly <- sprintf("[rstudio/renv@%s]", substring(version, 1L, 7L))
+
+  section <- header(sprintf("Bootstrapping renv %s", friendly))
+  catf(section)
 
   # attempt to download renv
+  catf("- Downloading renv ... ", appendLF = FALSE)
   withCallingHandlers(
     tarball <- renv_bootstrap_download(version),
     error = function(err) {
+      catf("FAILED")
       stop("failed to download:\n", conditionMessage(err))
     }
   )
+  catf("OK")
   on.exit(unlink(tarball), add = TRUE)
 
   # now attempt to install
+  catf("- Installing renv  ... ", appendLF = FALSE)
   withCallingHandlers(
     status <- renv_bootstrap_install(version, tarball, library),
     error = function(err) {
+      catf("FAILED")
       stop("failed to install:\n", conditionMessage(err))
     }
   )
+  catf("OK")
 
   # add empty line to break up bootstrapping from normal output
   catf("")
@@ -2229,8 +2273,6 @@ renv_bootstrap_download_cran_latest <- function(version) {
   type  <- spec$type
   repos <- spec$repos
 
-  catf("* Downloading %s from <%s> ... ", type, repos, appendLF = FALSE)
-
   baseurl <- utils::contrib.url(repos = repos, type = type)
   ext <- if (identical(type, "source"))
     ".tar.gz"
@@ -2247,13 +2289,10 @@ renv_bootstrap_download_cran_latest <- function(version) {
     condition = identity
   )
 
-  if (inherits(status, "condition")) {
-    catf("FAILED")
+  if (inherits(status, "condition"))
     return(FALSE)
-  }
 
   # report success and return
-  catf("OK")
   destfile
 
 }
@@ -2310,8 +2349,6 @@ renv_bootstrap_download_cran_archive <- function(version) {
   urls <- file.path(repos, "src/contrib/Archive/renv", name)
   destfile <- file.path(tempdir(), name)
 
-  catf("* Downloading from archive ... ", appendLF = FALSE)
-
   for (url in urls) {
 
     status <- tryCatch(
@@ -2319,14 +2356,11 @@ renv_bootstrap_download_cran_archive <- function(version) {
       condition = identity
     )
 
-    if (identical(status, 0L)) {
-      catf("OK")
+    if (identical(status, 0L))
       return(destfile)
-    }
 
   }
 
-  catf("FAILED")
   return(FALSE)
 
 }
@@ -2358,7 +2392,7 @@ renv_bootstrap_download_tarball <- function(version) {
 
   }
 
-  catf("* Using local tarball '%s'", tarball)
+  catf("- Using local tarball '%s'.", tarball)
   tarball
 
 }
@@ -2385,8 +2419,6 @@ renv_bootstrap_download_github <- function(version) {
     on.exit(do.call(base::options, saved), add = TRUE)
   }
 
-  catf("* Downloading version %s from GitHub ... ", version, appendLF = FALSE)
-
   url <- file.path("https://api.github.com/repos/rstudio/renv/tarball", version)
   name <- sprintf("renv_%s.tar.gz", version)
   destfile <- file.path(tempdir(), name)
@@ -2396,14 +2428,11 @@ renv_bootstrap_download_github <- function(version) {
     condition = identity
   )
 
-  if (!identical(status, 0L)) {
-    catf("FAILED")
+  if (!identical(status, 0L))
     return(FALSE)
-  }
 
   renv_bootstrap_download_augment(destfile)
 
-  catf("OK")
   return(destfile)
 
 }
@@ -2476,34 +2505,28 @@ renv_bootstrap_git_extract_sha1_tar <- function(bundle) {
 renv_bootstrap_install <- function(version, tarball, library) {
 
   # attempt to install it into project library
-  catf("* Installing ... ", appendLF = FALSE)
   dir.create(library, showWarnings = FALSE, recursive = TRUE)
-
   output <- renv_bootstrap_install_impl(library, tarball)
 
   # check for successful install
   status <- attr(output, "status")
-  if (is.numeric(status) && !identical(status, 0L)) {
-    catf("FAILED")
+  if (is.null(status) || identical(status, 0L))
+    return(status)
 
-    header <- "Error installing renv:"
-    lines <- paste(rep.int("=", nchar(header)), collapse = "")
-    text <- c(header, lines, output)
-    writeLines(text, con = stdout())
-    stop("Failed")
-  } else {
-    catf("OK")
-  }
-
-  status
+  # an error occurred; report it
+  header <- "installation of renv failed"
+  lines <- paste(rep.int("=", nchar(header)), collapse = "")
+  text <- paste(c(header, lines, output), collapse = "\n")
+  stop(text)
 
 }
 
 renv_bootstrap_install_impl <- function(library, tarball) {
+
   # invoke using system2 so we can capture and report output
   bin <- R.home("bin")
   exe <- if (Sys.info()[["sysname"]] == "Windows") "R.exe" else "R"
-  r <- file.path(bin, exe)
+  R <- file.path(bin, exe)
 
   args <- c(
     "--vanilla", "CMD", "INSTALL", "--no-multiarch",
@@ -2511,7 +2534,7 @@ renv_bootstrap_install_impl <- function(library, tarball) {
     shQuote(path.expand(tarball))
   )
 
-  system2(r, args, stdout = TRUE, stderr = TRUE)
+  system2(R, args, stdout = TRUE, stderr = TRUE)
 
 }
 
@@ -3813,6 +3836,11 @@ renv_check_unknown_source <- function(records, project = NULL) {
 #' that of an existing CRAN package, but is otherwise unrelated to the package
 #' on CRAN.
 #'
+#' Note that `renv::checkout()` does not update the project lockfile; it only
+#' installs the packages from the provided repository. You should call
+#' [snapshot()] after you've confirmed that the installed packages function as
+#' expected in your project.
+#'
 #' @inheritParams renv-params
 #'
 #' @param repos The \R package repositories to use.
@@ -3825,8 +3853,7 @@ renv_check_unknown_source <- function(records, project = NULL) {
 #' @param date The snapshot date to use. When set, the associated snapshot as
 #'   available from the Posit's public
 #'   [Package Manager](https://packagemanager.rstudio.com/) instance will be
-#'   used. The repository path can be adjusted using the `renv.checkout.repos`
-#'   option. Ignored if `repos` is non-`NULL`.
+#'   used. Ignored if `repos` is non-`NULL`.
 #'
 #' @examples
 #' \dontrun{
@@ -3982,11 +4009,8 @@ renv_checkout_repos <- function(date) {
   if (is.null(date))
     return(getOption("repos"))
 
-  # build path to root of repository
-  default <- "https://packagemanager.rstudio.com/cran"
-  root <- getOption("renv.checkout.repos", default = default)
-
-  # try forming path to date
+  # build path to repository snapshot location
+  root <- dirname(config$ppm.url())
   url <- file.path(root, date)
   if (renv_download_available(file.path(url, "src/contrib/PACKAGES")))
     return(url)
@@ -4225,9 +4249,9 @@ renv_clean_unused_packages <- function(project, prompt) {
   if (empty(installed))
     return(ntd())
 
-  # find packages used in the project and their dependencies
-  deps <- renv_dependencies_confirm("clean", project, dev = TRUE)
-  paths <- renv_package_dependencies(deps$Package, project = project)
+  # find packages used in the project and their recursive dependencies
+  packages <- renv_snapshot_dependencies(project, dev = TRUE)
+  paths <- renv_package_dependencies(packages, project = project)
   packages <- names(paths)
 
   # figure out which packages aren't needed
@@ -5602,8 +5626,14 @@ renv_dcf_read_impl <- function(file, ...) {
 }
 
 renv_dcf_write <- function(x, file = "") {
+
   keep.white <- c("Description", "Authors@R", "Author", "Built", "Packaged")
-  write.dcf(as.list(x), file = file, indent = 4L, width = 80L, keep.white = keep.white)
+  result <- write.dcf(as.list(x), file = file, indent = 4L, width = 80L, keep.white = keep.white)
+
+  renv_filebacked_invalidate(file)
+
+  invisible(result)
+
 }
 
 
@@ -5631,6 +5661,51 @@ deactivate <- function(project = NULL, clean = FALSE) {
 
   renv_restart_request(project, reason = "renv deactivated")
   invisible(project)
+
+}
+
+
+# debuggify.R ----------------------------------------------------------------
+
+
+debuggify <- function(expr) {
+  withCallingHandlers(expr, interrupt = renv_debuggify_dump)
+}
+
+renv_debuggify_dump <- function(cnd) {
+
+  # print a backtrace
+  status <- sys.status()
+  calls <- head(status$sys.calls, n = -2L)
+  frames <- head(status$sys.frames, n = -2L)
+  traceback <- renv_error_format(calls, frames)
+  writef(traceback)
+
+  # print information about each frame
+  n <- length(calls)
+  for (i in seq_along(calls)) {
+    renv_debuggify_dump_impl(
+      index  = n - i + 1,
+      call   = calls[[i]],
+      frame  = frames[[i]]
+    )
+  }
+
+}
+
+renv_debuggify_dump_impl <- function(index, call, frame) {
+  writeLines(header(paste("Frame", index)))
+  vars <- ls(envir = frame, all.names = TRUE)
+  lapply(vars, renv_debuggify_dump_impl_one, call = call, frame = frame)
+  writeLines("")
+}
+
+renv_debuggify_dump_impl_one <- function(var, call, frame) {
+
+  if (var %in% c("expr"))
+    return("<promise>")
+
+  str(frame[[var]])
 
 }
 
@@ -5923,17 +5998,22 @@ renv_dependencies_impl <- function(
   # resolve errors
   errors <- match.arg(errors)
 
+  before <- Sys.time()
   renv_dependencies_scope(root = root)
-
   files <- renv_dependencies_find(path, root)
   deps <- renv_dependencies_discover(files, progress, errors)
+  after <- Sys.time()
+  elapsed <- difftime(after, before, units = "secs")
+
+  renv_condition_signal("renv.dependencies.elapsed_time", elapsed)
+
   renv_dependencies_report(errors)
 
-  if (empty(deps) || nrow(deps) == 0L) {
-    deps <- renv_dependencies_list_empty()
+  deps <- if (empty(deps) || nrow(deps) == 0L) {
+    renv_dependencies_list_empty()
   } else {
     # drop NAs, and only keep 'dev' dependencies if requested
-    deps <- deps[deps$Dev %in% c(dev, FALSE), ]
+    rows(deps, deps$Dev %in% c(dev, FALSE))
   }
 
   take(deps, field)
@@ -5993,7 +6073,8 @@ renv_dependencies_callback <- function(path) {
     ".qmd"         = function(path) renv_dependencies_discover_multimode(path, "qmd"),
     ".rmd"         = function(path) renv_dependencies_discover_multimode(path, "rmd"),
     ".rmarkdown"   = function(path) renv_dependencies_discover_multimode(path, "rmd"),
-    ".rnw"         = function(path) renv_dependencies_discover_multimode(path, "rnw")
+    ".rnw"         = function(path) renv_dependencies_discover_multimode(path, "rnw"),
+    ".ipynb"       = function(path) renv_dependencies_discover_ipynb(path)
   )
 
   name <- basename(path)
@@ -6224,29 +6305,32 @@ renv_dependencies_discover_description <- function(path,
   if (inherits(dcf, "error"))
     return(renv_dependencies_error(path, error = dcf))
 
-  if (is.null(fields)) {
-    # Most callers don't pass in project so we need to get it from global state
+  fields <- fields %||% {
+
+    # most callers don't pass in project so we need to get it from global state
     project <- project %||%
       renv_dependencies_state(key = "root") %||%
       renv_restore_state(key = "root") %||%
       renv_project_resolve()
 
+    # get fields from settings
     fields <- settings$package.dependency.fields(project = project)
 
     # if this is the DESCRIPTION file for the active project, include
     # the dependencies for the active profile (if any) and Suggested fields.
+    # collect profile-specific dependencies as well
     if (renv_path_same(file.path(project, "DESCRIPTION"), path)) {
-
-      # collect profile-specific dependencies as well
+      fmt <- "Config/renv/profiles/%s/dependencies"
       profile <- renv_profile_get()
-      profile_field <- if (length(profile))
-        sprintf("Config/renv/profiles/%s/dependencies", profile)
-
-      fields <- c(fields, "Suggests", profile_field)
+      fields <- c(fields, "Suggests", sprintf(fmt, profile))
     }
-  } else {
-    fields <- renv_description_dependency_fields(fields)
+
+    fields
+
   }
+
+  # make sure dependency fields are expanded
+  fields <- renv_description_dependency_fields_expand(fields)
 
   data <- map(
     fields,
@@ -6254,6 +6338,14 @@ renv_dependencies_discover_description <- function(path,
     dcf  = dcf,
     path = path
   )
+
+  # if this is a bioconductor package, add their implicit dependencies
+  if ("biocViews" %in% names(dcf)) {
+    data[[length(data) + 1L]] <- renv_dependencies_list(
+      source = path,
+      packages = c(renv_bioconductor_manager(), "BiocVersion")
+    )
+  }
 
   bind(data)
 
@@ -6508,7 +6600,7 @@ renv_dependencies_discover_chunks <- function(path, mode) {
     code[range] <- contents[range]
 
     # also parse chunk options
-    params <- modifyList(params, renv_knitr_options_chunk(code))
+    params <- overlay(params, renv_knitr_options_chunk(code))
 
     # return list of outputs
     list(params = params, code = code)
@@ -6616,6 +6708,28 @@ renv_dependencies_discover_chunks_ranges <- function(path, contents, patterns) {
   }
 
   bind(output)
+
+}
+
+renv_dependencies_discover_ipynb <- function(path) {
+
+  json <- renv_json_read(path)
+  if (!identical(json$metadata$kernelspec$language, "R"))
+    return()
+
+  deps <- stack()
+  if (identical(json$metadata$kernelspec$name, "ir"))
+    deps$push(renv_dependencies_list(path, "IRKernel"))
+
+  for (cell in json$cells) {
+    if (cell$cell_type != "code")
+      next
+
+    code <- paste0(cell$source, collapse = "")
+    deps$push(renv_dependencies_discover_r(path, text = code))
+  }
+
+  bind(deps$data())
 
 }
 
@@ -7348,30 +7462,13 @@ renv_dependencies_report <- function(errors) {
   writef("Please see `?renv::dependencies` for more information.")
 
   if (identical(errors, "fatal")) {
-    fmt <- "one or more errors occurred while enumerating dependencies"
+    fmt <- "one or more problems were encountered while enumerating dependencies"
     stopf(fmt)
   }
 
-  renv_condition_signal("renv.dependencies.problem", problems)
+  renv_condition_signal("renv.dependencies.problems", problems)
   TRUE
 
-}
-
-renv_dependencies_confirm <- function(action, path, ...) {
-
-  withCallingHandlers(
-    renv_dependencies_impl(
-      path = path,
-      ...,
-      errors = config$dependency.errors()
-    ),
-    renv.dependencies.problem = function(cnd) {
-      # Require user confirmation to proceed if there's a reported error
-      if (interactive() && !proceed()) {
-        cancel()
-      }
-    }
-  )
 }
 
 renv_dependencies_eval <- function(expr) {
@@ -7409,9 +7506,13 @@ renv_description_read <- function(path = NULL,
     path <- paste(components, collapse = "/")
   }
 
+  # if the DESCRIPTION file doesn't exist, bail
+  if (!file.exists(path))
+    stopf("DESCRIPTION file %s does not exist", renv_path_pretty(path))
+
   # read value with filebacked cache
   description <- filebacked(
-    scope    = "renv_description_read",
+    context  = "renv_description_read",
     path     = path,
     callback = renv_description_read_impl,
     subdir   = subdir,
@@ -7527,22 +7628,20 @@ renv_description_built_version <- function(desc = NULL) {
   substring(built, 3L, regexpr(";", built, fixed = TRUE) - 1L)
 }
 
-renv_description_dependency_fields <- function(fields, project) {
-
-  fields <- fields %||% settings$package.dependency.fields(project = project)
+renv_description_dependency_fields_expand <- function(fields) {
 
   expanded <- map(fields, function(field) {
 
     case(
 
       identical(field, FALSE)
-        ~ NULL,
+      ~ NULL,
 
       identical(field, "strong") || is.na(field)
-        ~ c("Depends", "Imports", "LinkingTo"),
+      ~ c("Depends", "Imports", "LinkingTo"),
 
       identical(field, "most") || identical(field, TRUE)
-        ~ c("Depends", "Imports", "LinkingTo", "Suggests"),
+      ~ c("Depends", "Imports", "LinkingTo", "Suggests"),
 
       identical(field, "all") ~
         c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances"),
@@ -7556,6 +7655,35 @@ renv_description_dependency_fields <- function(fields, project) {
   unique(unlist(expanded, recursive = FALSE, use.names = FALSE))
 
 }
+
+renv_description_dependency_fields <- function(fields, project) {
+  fields <- fields %||% settings$package.dependency.fields(project = project)
+  renv_description_dependency_fields_expand(fields)
+}
+
+renv_description_remotes <- function(path) {
+
+  desc <- catch(renv_description_read(path))
+  if (inherits(desc, "error"))
+    return(list())
+
+  profile <- renv_profile_get()
+  field <- if (is.null(profile))
+    "Remotes"
+  else
+    sprintf("Config/renv/profiles/%s/remotes", profile)
+
+  remotes <- desc[[field]]
+  if (is.null(remotes))
+    return(list())
+
+  splat <- strsplit(remotes, "[[:space:]]*,[[:space:]]*")[[1]]
+  resolved <- lapply(splat, renv_remotes_resolve)
+  names(resolved) <- extract_chr(resolved, "Package")
+  resolved
+
+}
+
 
 
 # diagnostics.R --------------------------------------------------------------
@@ -9086,8 +9214,7 @@ renv_embed_create <- function(path = NULL,
   all <- renv_package_dependencies(packages)
 
   # keep only matched records
-  lockfile$Packages <-
-    keep(lockfile$Packages, c("renv", names(all)))
+  lockfile$Packages <- keep(lockfile$Packages, c("renv", names(all)))
 
   # write compact use statement
   renv_lockfile_compact(lockfile)
@@ -9956,12 +10083,12 @@ renv_extsoft_manifest_path <- function(file) {
 # the file mtime changes. use `renv_filebacked_set()` to associate some value
 # with a file at a particular point in time; `renv_filebacked_get()` will return
 # that value, or NULL of the file mtime has changed
-the$filebacked <- new.env(parent = emptyenv())
+the$filebacked_cache <- new.env(parent = emptyenv())
 
-renv_filebacked_clear <- function(scope, path = NULL) {
+renv_filebacked_clear <- function(context, path = NULL) {
 
-  # get cache associated with this scope
-  envir <- renv_filebacked_envir(scope)
+  # get cache associated with this context
+  envir <- renv_filebacked_envir(context)
 
   # list all available cached results
   existing <- ls(envir = envir, all.names = TRUE)
@@ -9976,7 +10103,7 @@ renv_filebacked_clear <- function(scope, path = NULL) {
   rm(list = removable, envir = envir)
 }
 
-renv_filebacked_set <- function(scope, path, value) {
+renv_filebacked_set <- function(context, path, value) {
 
   # validate the path
   stopifnot(renv_path_absolute(path))
@@ -9986,20 +10113,20 @@ renv_filebacked_set <- function(scope, path, value) {
   entry <- list(value = value, info = info)
 
   # store it
-  envir <- renv_filebacked_envir(scope)
+  envir <- renv_filebacked_envir(context)
   assign(path, entry, envir = envir)
   invisible(value)
 
 }
 
-renv_filebacked_get <- function(scope, path) {
+renv_filebacked_get <- function(context, path) {
 
   # validate the path
   if (!renv_path_absolute(path))
     stopf("internal error: '%s' is not an absolute path", path)
 
-  # get scoped sub-environment
-  envir <- renv_filebacked_envir(scope)
+  # get contextd sub-environment
+  envir <- renv_filebacked_envir(context)
 
   # check for entry in the cache
   entry <- envir[[path]]
@@ -10026,13 +10153,13 @@ renv_filebacked_get <- function(scope, path) {
 
 }
 
-renv_filebacked_envir <- function(scope) {
-  the$filebacked[[scope]] <-
-    the$filebacked[[scope]] %||%
+renv_filebacked_envir <- function(context) {
+  the$filebacked_cache[[context]] <-
+    the$filebacked_cache[[context]] %||%
     new.env(parent = emptyenv())
 }
 
-filebacked <- function(scope, path, callback, ...) {
+filebacked <- function(context, path, callback, ...) {
 
   # don't use filebacked cache when disabled
   config <- config$filebacked.cache()
@@ -10040,16 +10167,23 @@ filebacked <- function(scope, path, callback, ...) {
     return(callback(path, ...))
 
   # check for cache entry -- if available, use it
-  cache <- renv_filebacked_get(scope, path)
+  cache <- renv_filebacked_get(context, path)
   if (!is.null(cache))
     return(cache)
 
   # otherwise, generate our value and cache it
   result <- callback(path, ...)
-  renv_filebacked_set(scope, path, result)
+  renv_filebacked_set(context, path, result)
 
   result
 
+}
+
+renv_filebacked_invalidate <- function(path) {
+  renv_scope_options(warn = -1L)
+  eapply(the$filebacked_cache, function(context) {
+    rm(list = path, envir = context)
+  })
 }
 
 
@@ -10417,10 +10551,18 @@ renv_file_mode <- function(paths) {
 renv_file_exists <- function(path) {
 
   if (renv_platform_windows())
-    return(file.exists(path))
+    renv_file_exists_win32(path)
+  else
+    renv_file_exists_unix(path)
 
+}
+
+renv_file_exists_win32 <- function(path) {
+  file.exists(path)
+}
+
+renv_file_exists_unix <- function(path) {
   !is.na(Sys.readlink(path)) | file.exists(path)
-
 }
 
 renv_file_list <- function(path, full.names = TRUE) {
@@ -10798,7 +10940,7 @@ graph <- function(root = NULL,
   }
 
   defaults <- renv_graphviz_defaults(renderer)
-  attributes <- modifyList(defaults, attributes)
+  attributes <- overlay(defaults, attributes)
 
   # render attributes
   attrtext <- renv_graphviz_render(attributes, TRUE)
@@ -11159,7 +11301,7 @@ renv_hash_text <- function(text) {
 
 renv_hash_description <- function(path) {
   filebacked(
-    scope    = "renv_hash_description",
+    context  = "renv_hash_description",
     path     = path,
     callback = renv_hash_description_impl
   )
@@ -11447,8 +11589,8 @@ hydrate <- function(packages = NULL,
 
   # remove base + missing packages
   base <- renv_packages_base()
-  na <- deps[is.na(deps)]
-  packages <- deps[renv_vector_diff(names(deps), c(names(na), base))]
+  missing <- deps[!nzchar(deps)]
+  packages <- deps[renv_vector_diff(names(deps), c(names(missing), base))]
 
   # figure out if we will copy or link
   linkable <- renv_cache_linkable(project = project, library = library)
@@ -11462,13 +11604,13 @@ hydrate <- function(packages = NULL,
 
   # inform user about changes
   if (report) {
-    renv_hydrate_report(packages, na, linkable)
-    if (length(packages) || length(na))
+    renv_hydrate_report(packages, missing, linkable)
+    if (length(packages) || length(missing))
       cancel_if(prompt && !proceed())
   }
 
   # check for nothing to be done
-  if (empty(packages) && empty(na)) {
+  if (empty(packages) && empty(missing)) {
     if (report)
       writef("* No new packages were discovered in this project; nothing to do.")
     return(invisible(list(packages = list(), missing = list())))
@@ -11491,7 +11633,7 @@ hydrate <- function(packages = NULL,
   }
 
   # attempt to install missing packages (if any)
-  missing <- renv_hydrate_resolve_missing(project, library, na)
+  missing <- renv_hydrate_resolve_missing(project, library, missing)
 
   # we're done!
   result <- list(packages = packages, missing = missing)
@@ -11552,12 +11694,7 @@ renv_hydrate_filter_impl <- function(package, path, library, update) {
 }
 
 renv_hydrate_packages <- function(project) {
-
-  deps <- the$init_dependencies %||%
-    renv_dependencies_impl(project, errors = "ignored", dev = TRUE)
-
-  unique(deps$Package)
-
+  renv_snapshot_dependencies(project, dev = TRUE)
 }
 
 renv_hydrate_dependencies <- function(project,
@@ -11568,7 +11705,7 @@ renv_hydrate_dependencies <- function(project,
   ignored <- renv_project_ignored_packages(project = project)
   packages <- renv_vector_diff(packages, ignored)
   libpaths <- libpaths %||% renv_hydrate_libpaths()
-  all <- renv_package_dependencies(packages, project = project, libpaths = libpaths)
+  all <- renv_package_dependencies(packages, libpaths = libpaths, project = project)
   writef("Done!")
 
   all
@@ -11605,7 +11742,10 @@ renv_hydrate_libpaths <- function() {
 renv_hydrate_link_package <- function(package, location, library) {
 
   # construct path to cache
-  record <- renv_snapshot_description(location)
+  record <- catch(renv_snapshot_description(location))
+  if (inherits(record, "error"))
+    return(FALSE)
+
   cache <- renv_cache_find(record)
   if (!nzchar(cache))
     return(FALSE)
@@ -11677,8 +11817,7 @@ renv_hydrate_resolve_missing <- function(project, library, na) {
 
   writef("* Resolving missing dependencies ... ")
 
-  # define a custom error handler for packages which
-  # we failed to retrieve
+  # define a custom error handler for packages which we cannot retrieve
   errors <- stack()
   handler <- function(package, action) {
     error <- catch(action)
@@ -12141,7 +12280,7 @@ index <- function(scope, key = NULL, value = NULL, limit = 3600L) {
 renv_index_load <- function(root, scope) {
 
   filebacked(
-    scope    = "renv_index_load",
+    context  = "renv_index_load",
     path     = file.path(root, "index.json"),
     callback = renv_index_load_impl
   )
@@ -12656,7 +12795,6 @@ init <- function(project = NULL,
 
   }
 
-
   # prepare and move into project directory
   renv_init_validate_project(project, force)
   renv_init_settings(project, settings)
@@ -12666,8 +12804,7 @@ init <- function(project = NULL,
     return(renv_init_fini(project, profile, restart))
 
   # compute and cache dependencies to (a) reveal problems early and (b) compute once
-  the$init_dependencies <- renv_dependencies_confirm("init", path = project, dev = TRUE)
-  defer(the$init_dependencies <- NULL)
+  deps <- renv_snapshot_dependencies(project, dev = TRUE)
 
   # determine appropriate action
   action <- renv_init_action(project, library, lockfile, bioconductor)
@@ -12679,8 +12816,8 @@ init <- function(project = NULL,
   # perform the action
   if (action == "init") {
     renv_imbue_impl(project)
-    hydrate(project = project, library = library, prompt = FALSE, report = FALSE)
-    snapshot(project = project, library = libpaths, repos = repos, prompt = FALSE)
+    hydrate(library = library, prompt = FALSE, report = FALSE, project = project)
+    snapshot(library = libpaths, repos = repos, prompt = FALSE, project = project)
   } else if (action == "restore") {
     ensure_directory(library)
     restore(project = project, library = libpaths, prompt = FALSE)
@@ -12696,7 +12833,7 @@ renv_init_fini <- function(project, profile, restart) {
   renv_activate_impl(
     project = project,
     profile = profile,
-    version = renv_metadata_version(),
+    version = the$metadata$sha %||% the$metadata$version,
     restart = restart
   )
 
@@ -12986,17 +13123,16 @@ install <- function(packages = NULL,
     packages <- c(packages, dots[!nzchar(names(dots))])
   }
 
-  # check whether this is a request to install 'all' packages
-  all <- is.null(packages)
-
   project <- renv_project_resolve(project)
   renv_project_lock(project = project)
 
+  # handle 'dependencies'
   if (!is.null(dependencies)) {
     fields <- renv_description_dependency_fields(dependencies, project = project)
     renv_scope_options(renv.settings.package.dependency.fields = fields)
   }
 
+  # set up library paths
   libpaths <- renv_libpaths_resolve(library)
   renv_scope_libpaths(libpaths)
 
@@ -13017,48 +13153,52 @@ install <- function(packages = NULL,
     return(renv_pak_install(packages, libpaths, project))
   }
 
-  packages <- packages %||% renv_snapshot_dependencies(project, dev = TRUE)
+  # resolve remotes from explicitly-requested packages
+  remotes <- if (length(packages)) {
+    remotes <- map(packages, renv_remotes_resolve)
+    names(remotes) <- map_chr(remotes, `[[`, "Package")
+    remotes
+  }
+
+  # figure out which packages we should install
+  packages <- names(remotes) %||% renv_snapshot_dependencies(project, dev = TRUE)
   if (empty(packages)) {
     writef("* There are no packages to install.")
     return(invisible(list()))
   }
 
-  # retrieve currently installed packages
-  records <- renv_snapshot_libpaths(libpaths = libpaths, project = project)
-
-  # generate package records to install
-  remotes <- lapply(packages, renv_remotes_resolve)
-  names(remotes) <- extract_chr(remotes, "Package")
-
-  if (all) {
-    # apply version specifications and Remotes from DESCRIPTION
-    pkg_remotes <- renv_project_remotes(project)
-    remotes <- c(exclude(remotes, names(pkg_remotes)), pkg_remotes)
-
-    # only install packages that aren't already installed
-    remotes <- exclude(remotes, names(records))
+  # add bioconductor packages if necessary
+  if (renv_bioconductor_required(remotes)) {
+    bioc <- c(renv_bioconductor_manager(), "BiocVersion")
+    packages <- unique(c(packages, bioc))
   }
 
-  # update existing records with requested remotes
-  records[names(remotes)] <- remotes
+  # start building a list of records; they should be resolved this priority:
+  #
+  # 1. explicit requests from the user
+  # 2. remotes declarations from the DESCRIPTION file
+  # 3. existing version in library, if any
+  # 4. fallback to package repositories
+  #
+  # we overlay 1 and 2 here, and then do 3 and 4 dynamically if required
+  # during the retrieve + install stages
+  records <- overlay(renv_project_remotes(project), remotes)
 
   # run install preflight checks
-  if (!renv_install_preflight(project, libpaths, remotes))
+  if (!renv_install_preflight(project, libpaths, records))
     cancel_if(prompt && !proceed())
 
-  # ensure package names are resolved if provided
-  packages <- if (length(packages)) names(remotes)
-
+  # we're now ready to start installation
   renv_scope_restore(
     project  = project,
     library  = renv_libpaths_active(),
+    packages = names(remotes),
     records  = records,
-    packages = packages,
     rebuild  = rebuild
   )
 
   # retrieve packages
-  records <- retrieve(names(remotes))
+  records <- retrieve(packages)
   if (empty(records)) {
     writef("* There are no packages to install.")
     return(invisible(list()))
@@ -13070,12 +13210,9 @@ install <- function(packages = NULL,
   }
 
   # install retrieved records
-  writef(header("Installing packages"))
-  writef("")
   before <- Sys.time()
   renv_install_impl(records)
   after <- Sys.time()
-  writef("")
 
   time <- renv_difftime_format(difftime(after, before))
   n <- length(records)
@@ -13091,10 +13228,15 @@ renv_install_impl <- function(records) {
 
   staged <- renv_config_install_staged()
 
+  writef(header("Installing packages"))
+  writef("")
+
   if (staged)
     renv_install_staged(records)
   else
     renv_install_default(records)
+
+  writef("")
 
   invisible(TRUE)
 
@@ -13211,9 +13353,6 @@ renv_install_staged_library_path <- function() {
 renv_install_default <- function(records) {
   state <- renv_restore_state()
   handler <- state$handler
-
-  # width <- max(nchar(map_chr(records, function(x) x$Package)), 1)
-  # renv_scope_binding(the, "package_format_width", width)
 
   for (record in records) {
     package <- record$Package
@@ -14589,9 +14728,10 @@ load <- function(project = NULL, quiet = FALSE) {
   if (switch)
     return(renv_load_switch(project))
 
-  if (quiet)
+  if (quiet || renv_load_quiet())
     renv_scope_options(renv.verbose = FALSE)
 
+  writef(header("Loading renv [%s]", renv_metadata_version_friendly()))
   renv_envvars_save()
 
   # load a minimal amount of state when testing
@@ -14687,7 +14827,7 @@ renv_load_minimal <- function(project) {
   if (length(lockfile))
     renv_load_python(project, lockfile$Python)
 
-  renv_project_set(project)
+  renv_load_finish(project, lockfile)
   invisible(project)
 
 }
@@ -15090,6 +15230,9 @@ renv_load_bioconductor <- function(project, bioconductor) {
 
 renv_load_bioconductor_validate <- function(project, version) {
 
+  if (!identical(renv_bioconductor_manager(), "BiocManager"))
+    return()
+
   BiocManager <- renv_namespace_load("BiocManager")
   if (!is.function(BiocManager$.version_validity))
     return()
@@ -15227,23 +15370,19 @@ renv_load_quiet <- function() {
   config$startup.quiet(default = default)
 }
 
-renv_load_finish <- function(project, lockfile) {
+renv_load_finish <- function(project = NULL, lockfile = NULL) {
 
   renv_project_set(project)
+
   renv_load_check(project)
+  renv_load_report_project(project)
+  renv_load_report_python(project)
 
-  if (!renv_load_quiet()) {
-    renv_load_report_project(project)
-    renv_load_report_python(project)
-  }
+  if (config$updates.check())
+    renv_load_report_updates(project)
 
-  if (interactive()) {
-    if (config$updates.check())
-      renv_load_report_updates(project)
-
-    if (config$synchronized.check())
-      renv_project_synchronized_check(project, lockfile)
-  }
+  if (config$synchronized.check())
+    renv_load_report_synchronized(project, lockfile)
 
   renv_snapshot_auto_update(project = project)
 
@@ -15255,11 +15394,11 @@ renv_load_report_project <- function(project) {
   version <- renv_metadata_version_friendly()
 
   if (length(profile)) {
-    fmt <- "* (%s) Project '%s' loaded. [renv %s]"
-    writef(fmt, profile, renv_path_aliased(project), version)
+    fmt <- "- Project '%s' loaded with %s profile."
+    writef(fmt, renv_path_aliased(project), profile)
   } else {
-    fmt <- "* Project '%s' loaded. [renv %s]"
-    writef(fmt, renv_path_aliased(project), version)
+    fmt <- "- Project '%s' loaded."
+    writef(fmt, renv_path_aliased(project))
   }
 
 }
@@ -15297,6 +15436,79 @@ renv_load_report_updates <- function(project) {
 # nocov end
 
 
+renv_load_report_synchronized <- function(project = NULL, lockfile = NULL) {
+
+  project  <- renv_project_resolve(project)
+  lockfile <- lockfile %||% renv_lockfile_load(project)
+
+  # signal that we're running synchronization checks
+  renv_scope_binding(the, "project_synchronized_check_running", TRUE)
+
+  # be quiet when checking for dependencies in this scope
+  # https://github.com/rstudio/renv/issues/1181
+  renv_scope_options(renv.config.dependency.errors = "ignored")
+
+  # check for packages referenced in the lockfile which are not installed
+  lockpkgs <- names(lockfile$Packages)
+  libpkgs <- renv_snapshot_library(
+    library = renv_libpaths_all(),
+    project = project,
+    records = FALSE
+  )
+
+  # ignore renv
+  lockpkgs <- setdiff(lockpkgs, "renv")
+  libpkgs <- setdiff(libpkgs, "renv")
+
+  # check for case where no packages are installed (except renv)
+  if (length(intersect(lockpkgs, libpkgs)) == 0 && length(lockpkgs) > 0L) {
+
+    writef(lines(
+      "- None of the packages recorded in the lockfile are installed.",
+      "- Using `renv::restore()` to restore the project library."
+    ))
+
+    if (proceed()) {
+      restore(project, prompt = FALSE, exclude = "renv")
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
+  }
+
+  # check for case where one or more packages are missing
+  missing <- setdiff(lockpkgs, basename(libpkgs))
+  if (length(missing)) {
+    msg <- lines(
+      "- One or more packages recorded in the lockfile are not installed.",
+      "- Use `renv::status()` for more details."
+    )
+    writef(msg)
+    return(FALSE)
+  }
+
+  # otherwise, use status to detect if we're synchronized
+  info <- local({
+    renv_scope_options(renv.verbose = FALSE)
+    status(project = project, sources = FALSE)
+  })
+
+  if (!identical(info$synchronized, TRUE)) {
+
+    msg <- lines(
+      "- The project is currently out-of-sync.",
+      "- Use `renv::status()` for more details."
+    )
+
+    writef(msg)
+    return(FALSE)
+
+  }
+
+  TRUE
+
+}
+
 
 # lock.R ---------------------------------------------------------------------
 
@@ -15307,6 +15519,7 @@ renv_lock_acquire <- function(path) {
 
   # normalize path
   path <- renv_lock_path(path)
+  dlog("lock", "%s [acquiring lock]", renv_path_pretty(path))
 
   # if we already have this lock, increment our counter
   count <- the$lock_registry[[path]] %||% 0L
@@ -15976,37 +16189,49 @@ renv_lockfile_sort <- function(lockfile) {
 }
 
 renv_lockfile_create <- function(project,
-                                 libpaths = NULL,
                                  type = NULL,
+                                 libpaths = NULL,
                                  packages = NULL,
-                                 exclude = NULL)
+                                 exclude = NULL,
+                                 prompt = NULL,
+                                 force = NULL)
 {
   libpaths <- libpaths %||% renv_libpaths_all()
   type <- type %||% settings$snapshot.type(project = project)
 
   # use a restart, so we can allow the user to install packages before snapshot
   lockfile <- withRestarts(
-    renv_lockfile_create_impl(project, libpaths, type, packages, exclude),
+    renv_lockfile_create_impl(project, type, libpaths, packages, exclude, prompt, force),
     renv_recompute_records = function() {
       renv_dynamic_reset()
-      renv_lockfile_create_impl(project, libpaths, type, packages, exclude)
+      renv_lockfile_create_impl(project, type, libpaths, packages, exclude, prompt, force)
     }
   )
 }
 
-renv_lockfile_create_impl <- function(project, libpaths, type, packages, exclude) {
+renv_lockfile_create_impl <- function(project, type, libpaths, packages, exclude, prompt, force) {
 
   lockfile <- renv_lockfile_init(project)
 
-  records <- renv_snapshot_libpaths(libpaths = libpaths, project = project)
-
-  records <- renv_snapshot_filter(
-    project  = project,
-    records  = records,
-    type     = type,
-    packages = packages,
-    exclude  = exclude
+  # compute the project's top-level package dependencies
+  packages <- packages %||% renv_snapshot_dependencies(
+    project = project,
+    type = type,
+    dev = FALSE
   )
+
+  # expand the recursive dependencies of these packages
+  records <- renv_snapshot_packages(
+    packages = setdiff(packages, exclude),
+    libpaths = libpaths,
+    project  = project
+  )
+
+  # warn if some required packages are missing
+  ignored <- c(renv_project_ignored_packages(project), renv_packages_base(), exclude)
+  missing <- setdiff(packages, c(names(records), ignored))
+  if (!the$status_running)
+    renv_snapshot_report_missing(missing, type)
 
   records <- renv_snapshot_fixup(records)
   renv_lockfile_records(lockfile) <- records
@@ -16185,17 +16410,22 @@ lockfile_create <- function(type = settings$snapshot.type(project = project),
                             libpaths = .libPaths(),
                             packages = NULL,
                             exclude = NULL,
+                            prompt = interactive(),
+                            force = FALSE,
                             ...,
                             project = NULL)
 {
   project <- renv_project_resolve(project)
+  renv_dots_check(...)
 
   renv_lockfile_create(
-    project = project,
+    project  = project,
+    type     = type,
     libpaths = libpaths,
-    type = type,
     packages = packages,
-    exclude = exclude
+    exclude  = exclude,
+    prompt   = prompt,
+    force    = force
   )
 }
 
@@ -16249,87 +16479,103 @@ lockfile_modify <- function(lockfile,
 # log.R ----------------------------------------------------------------------
 
 
+# the log level, indicating what severity of messages will be logged
 the$log_level <- 4L
+
+# the file to which log messages will be written
 the$log_file <- NULL
 
-log <- function(level, scope, fmt, ...) {
-  if (level >= the$log_level)
-    renv_log_impl(scope, fmt, ...)
-}
+# the scopes for which filtering will be enabled
+the$log_scopes <- NULL
 
 elog <- function(scope, fmt, ...) {
-  log(4L, scope, fmt, ...)
+  renv_log_impl(4L, scope, fmt, ...)
 }
 
 wlog <- function(scope, fmt, ...) {
-  log(3L, scope, fmt, ...)
+  renv_log_impl(3L, scope, fmt, ...)
 }
 
 ilog <- function(scope, fmt, ...) {
-  log(2L, scope, fmt, ...)
+  renv_log_impl(2L, scope, fmt, ...)
 }
 
 dlog <- function(scope, fmt, ...) {
-  log(1L, scope, fmt, ...)
+  renv_log_impl(1L, scope, fmt, ...)
 }
 
 
-renv_log_impl <- function(scope, fmt, ...) {
+renv_log_impl <- function(level, scope, fmt, ...) {
+
+  # check log level
+  if (level < the$log_level)
+    return()
+
+  # only include scopes matching the scopes
+  scopes <- the$log_scopes
+  if (is.character(scopes) && !scope %in% scopes)
+    return()
 
   # build message
   message <- sprintf(fmt, ...)
 
-  # annotate message
+  # annotate with prefix from scope, timestamp
   fmt <- "%sZ [renv-%i] %s: %s"
   now <- format(Sys.time(), format = "%Y-%m-%d %H:%M:%OS6", tz = "UTC")
   all <- sprintf(fmt, now, Sys.getpid(), scope, message)
 
   # write it out
-  file <- the$log_file %||% stderr()
-  cat(all, file = file, sep = "\n", append = TRUE)
+  cat(all, file = the$log_file, sep = "\n", append = TRUE)
 
 }
 
 renv_log_init <- function() {
-  renv_log_init_level()
-  renv_log_init_file()
+  the$log_level  <- renv_log_level()
+  the$log_file   <- renv_log_file()
+  the$log_scopes <- renv_log_scopes()
 }
 
-renv_log_init_level <- function() {
+renv_log_level <- function() {
 
-  # check for environment variable
   level <- Sys.getenv("RENV_LOG_LEVEL", unset = NA)
   if (is.na(level))
-    return()
+    return(4L)
 
-  # read and assign
-  override <- case(
+  case(
     level %in% c("4", "error",   "ERROR")   ~ 4L,
     level %in% c("3", "warning", "WARNING") ~ 3L,
     level %in% c("2", "info",    "INFO")    ~ 2L,
     level %in% c("1", "debug",   "DEBUG")   ~ 1L,
-    ~ warningf("ignoring invalid RENV_LOG_LEVEL environment variable")
+    ~ {
+      warningf("ignoring invalid RENV_LOG_LEVEL '%s'", level)
+      4L
+    }
   )
 
-  the$log_level <<- override
+}
+
+renv_log_file <- function() {
+
+  # check for log file
+  file <- Sys.getenv("RENV_LOG_FILE", unset = NA)
+  if (!is.na(file))
+    return(file)
+
+  # default to stderr, since it's unbuffered
+  stderr()
 
 }
 
-renv_log_init_file <- function() {
+renv_log_scopes <- function() {
 
-  the$log_file <<- local({
+  scopes <- Sys.getenv("RENV_LOG_SCOPES", unset = NA)
+  if (is.na(scopes))
+    return(NULL)
 
-    # check for log file
-    file <- Sys.getenv("RENV_LOG_FILE", unset = NA)
-    if (!is.na(file))
-      return(file)
-
-    # default to stderr, since it's unbuffered
-    stderr()
-
-  })
+  strsplit(scopes, ",", fixed = TRUE)[[1L]]
 
 }
+
 
 
 # manifest-convert.R ---------------------------------------------------------
@@ -16455,42 +16701,59 @@ memoize <- function(key, value, scope = NULL) {
 # metadata.R -----------------------------------------------------------------
 
 
-renv_metadata_version <- function() {
-  the$metadata$sha %||% the$metadata$version
-}
+# NOTE: 'the$metadata' is initialized either in 'renv_metadata_init()', for
+# stand-alone installations of renv, or via an embedded initialize script for
+# vendored copies of renv.
 
-renv_metadata_version_friendly <- function(metadata = the$metadata) {
-  ver <- metadata$version
-
-  if (renv_metadata_is_dev(metadata)) {
-    ver <- paste0(ver, "; rstudio/renv@", substr(metadata$sha, 1, 7))
-  }
-
-  ver
-}
-
-renv_metadata_is_dev <- function(metadata = the$metadata) {
-  if (!is.null(metadata$sha)) {
-    TRUE
-  } else {
-    renv_version_length(metadata$version) != 3L
-  }
+renv_metadata_create <- function(embedded, version, sha = NULL) {
+  list(embedded = embedded, version = version, sha = sha)
 }
 
 renv_metadata_embedded <- function() {
   the$metadata$embedded
 }
 
+renv_metadata_version <- function() {
+  the$metadata$version
+}
+
+renv_metadata_sha <- function() {
+  the$metadata$sha
+}
+
+renv_metadata_remote <- function(metadata = the$metadata) {
+
+  if (!is.null(metadata$sha))
+    paste("rstudio/renv", metadata$sha, sep = "@")
+  else
+    paste("renv", metadata$version, sep = "@")
+
+}
+
+renv_metadata_version_friendly <- function(metadata = the$metadata) {
+
+  version <- metadata$version
+
+  sha <- metadata$sha
+  if (!is.null(sha))
+    version <- sprintf("%s; rstudio/renv@%s", version, substring(sha, 1L, 7L))
+
+  version
+
+}
+
 renv_metadata_init <- function() {
 
-  # only done for non-embedded renv
-  if (exists("metadata", envir = the))
+  # if renv was embedded, then the$metadata should already be initialized
+  if (!is.null(the$metadata))
     return()
 
-  the$metadata <- list(
+  # renv doesn't appear to be embedded; initialize metadata based on the
+  # currently-loaded version of renv
+  the$metadata <- renv_metadata_create(
     embedded = FALSE,
     version  = renv_namespace_version("renv"),
-    sha = packageDescription("renv")[["RemoteSha"]]
+    sha      = packageDescription("renv")[["RemoteSha"]]
   )
 
 }
@@ -16506,6 +16769,11 @@ renv_methods_map <- function() {
     renv_path_normalize = c(
       unix  = "renv_path_normalize_unix",
       win32 = "renv_path_normalize_win32"
+    ),
+
+    renv_file_exists = c(
+      unix  = "renv_file_exists_unix",
+      win32 = "renv_file_exists_win32"
     ),
 
     renv_file_list_impl = c(
@@ -16988,7 +17256,7 @@ renv_modify_noninteractive <- function(project, changes) {
   lockfile <- renv_lockfile_read(file = lockpath)
 
   # merge changes
-  merged <- modifyList(lockfile, changes)
+  merged <- overlay(lockfile, changes)
 
   # write updated lockfile to a temporary file
   templock <- renv_scope_tempfile("renv-lock-")
@@ -17094,7 +17362,7 @@ renv_mran_database_save <- function(database, path = NULL) {
 renv_mran_database_load <- function(path = NULL) {
 
   filebacked(
-    scope    = "renv_mran_database_load",
+    context  = "renv_mran_database_load",
     path     = path %||% renv_mran_database_path(),
     callback = renv_mran_database_load_impl
   )
@@ -17528,7 +17796,7 @@ renv_package_find_impl <- function(package,
                                    check.loaded = TRUE)
 {
   # if we've been given the path to an existing package, use it as-is
-  if (file.exists(file.path(package, "DESCRIPTION")))
+  if (grepl("/", package) && file.exists(file.path(package, "DESCRIPTION")))
     return(renv_path_normalize(package, mustWork = TRUE))
 
   # first, look in the library paths
@@ -17723,8 +17991,10 @@ renv_package_augment_description <- function(path, remotes) {
 renv_package_augment_metadata <- function(path, remotes) {
 
   metapath <- file.path(path, "Meta/package.rds")
-  meta <- readRDS(metapath)
+  if (!file.exists(metapath))
+    return(FALSE)
 
+  meta <- readRDS(metapath)
   before <- as.list(meta$DESCRIPTION)
   after <- renv_package_augment_impl(before, remotes)
   if (identical(before, after))
@@ -17741,56 +18011,64 @@ renv_package_augment_metadata <- function(path, remotes) {
 # to the path where they were discovered, or NA if those packages are not
 # installed
 renv_package_dependencies <- function(packages,
-                                      project = NULL,
                                       libpaths = NULL,
-                                      fields = NULL)
+                                      fields = NULL,
+                                      callback = NULL,
+                                      project = NULL)
 {
   visited <- new.env(parent = emptyenv())
   ignored <- renv_project_ignored_packages(project = project)
   packages <- renv_vector_diff(packages, ignored)
   libpaths <- libpaths %||% renv_libpaths_all()
   fields <- fields %||% settings$package.dependency.fields(project = project)
+  callback <- callback %||% function(package, location, project) location
+  project <- renv_project_resolve(project)
 
   for (package in packages)
-    renv_package_dependencies_impl(package, visited, libpaths, fields)
+    renv_package_dependencies_impl(package, visited, libpaths, fields, callback, project)
 
   as.list(visited)
 }
 
 renv_package_dependencies_impl <- function(package,
                                            visited,
-                                           libpaths = NULL,
-                                           fields = NULL)
+                                           libpaths,
+                                           fields = NULL,
+                                           callback = NULL,
+                                           project = NULL)
 {
   # skip the 'R' package
   if (package == "R")
     return()
 
   # if we've already visited this package, bail
-  if (exists(package, envir = visited, inherits = FALSE))
+  if (!is.null(visited[[package]]))
     return()
 
   # default to unknown path for visited packages
-  assign(package, NA, envir = visited, inherits = FALSE)
+  visited[[package]] <- ""
 
-  # short-circuit for NA case
-  if (length(libpaths) == 1L && is.na(libpaths))
-    return()
+  # find the package -- note that we perform a permissive lookup here
+  # because we want to capture potentially invalid / broken package installs
+  # (that is, the 'package' we find might be an incomplete or broken package
+  # installation at this point)
+  location <- find(libpaths, function(libpath) {
+    candidate <- file.path(libpath, package)
+    if (renv_file_exists(candidate))
+      return(candidate)
+  })
 
-  # find the package
-  libpaths <- libpaths %||% renv_libpaths_all()
-  location <- renv_package_find(package, libpaths)
-  if (!file.exists(location))
-    return(location)
+  if (is.null(location))
+    return(callback(package, "", project))
 
   # we know the path, so set it now
-  assign(package, location, envir = visited, inherits = FALSE)
+  visited[[package]] <- callback(package, location, project)
 
   # find its dependencies from the DESCRIPTION file
   deps <- renv_dependencies_discover_description(location, fields = "strong")
   subpackages <- deps$Package
   for (subpackage in subpackages)
-    renv_package_dependencies_impl(subpackage, visited, libpaths, fields)
+    renv_package_dependencies_impl(subpackage, visited, libpaths, fields, callback, project)
 }
 
 renv_package_reload <- function(package, library = NULL) {
@@ -18388,7 +18666,7 @@ renv_patch_repos <- function() {
 
   # presumably this will never happen when the dev version of renv is
   # installed, so we skip to avoid parsing a sha as version
-  if (renv_metadata_is_dev())
+  if (!is.null(the$metadata$sha))
     return()
 
   # nothing to do if this version of 'renv' is already available
@@ -19373,12 +19651,16 @@ renv_ppm_enabled <- function() {
 
   # TODO: can we remove this check?
   # https://github.com/rstudio/renv/issues/1132
-  disabled <-
-    renv_platform_linux() &&
-    identical(renv_platform_machine(), "aarch64")
+  if (!is_testing()) {
 
-  if (disabled)
-    return(FALSE)
+    disabled <-
+      renv_platform_linux() &&
+      identical(renv_platform_machine(), "aarch64")
+
+    if (disabled)
+      return(FALSE)
+
+  }
 
   # check for project setting
   enabled <- settings$ppm.enabled()
@@ -19523,13 +19805,10 @@ renv_pretty_print <- function(values,
                               preamble  = NULL,
                               postamble = NULL)
 {
-  if (!renv_verbose())
+  if (!renv_verbose() || empty(values))
     return()
 
   msg <- stack()
-  if (empty(values))
-    return()
-
   if (!is.null(preamble)) {
     msg$push(paste(preamble, collapse = "\n"))
     msg$push("")
@@ -19798,7 +20077,7 @@ renv_project_type <- function(path) {
 
   path <- renv_path_normalize(path)
   filebacked(
-    scope    = "renv_project_type",
+    context  = "renv_project_type",
     path     = file.path(path, "DESCRIPTION"),
     callback = renv_project_type_impl
   )
@@ -19837,7 +20116,7 @@ renv_project_remotes <- function(project, fields = NULL) {
     return(NULL)
 
   # first, parse remotes (if any)
-  remotes <- renv_project_remotes_field(project, descpath)
+  remotes <- renv_description_remotes(descpath)
 
   # next, find packages mentioned in the DESCRIPTION file
   deps <- renv_dependencies_discover_description(
@@ -19891,27 +20170,6 @@ renv_project_remotes <- function(project, fields = NULL) {
 
   # return records
   records
-
-}
-
-renv_project_remotes_field <- function(project, descpath) {
-
-  desc <- renv_description_read(descpath)
-
-  profile <- renv_profile_get()
-  field <- if (is.null(profile))
-    "Remotes"
-  else
-    sprintf("Config/renv/profiles/%s/remotes", profile)
-
-  remotes <- desc[[field]]
-  if (is.null(remotes))
-    return(list())
-
-  splat <- strsplit(remotes, "[[:space:]]*,[[:space:]]*")[[1]]
-  resolved <- lapply(splat, renv_remotes_resolve)
-  names(resolved) <- extract_chr(resolved, "Package")
-  resolved
 
 }
 
@@ -19972,79 +20230,6 @@ renv_project_id <- function(project) {
   }
 
   readLines(idpath, n = 1L, warn = FALSE)
-
-}
-
-renv_project_synchronized_check <- function(project = NULL, lockfile = NULL) {
-
-  project  <- renv_project_resolve(project)
-  lockfile <- lockfile %||% renv_lockfile_load(project)
-
-  # signal that we're running synchronization checks
-  renv_scope_binding(the, "project_synchronized_check_running", TRUE)
-
-  # be quiet when checking for dependencies in this scope
-  # https://github.com/rstudio/renv/issues/1181
-  renv_scope_options(renv.config.dependency.errors = "ignored")
-
-  # check for packages referenced in the lockfile which are not installed
-  lockpkgs <- names(lockfile$Packages)
-  libpkgs <- renv_snapshot_library(
-    library = renv_libpaths_all(),
-    project = project,
-    records = FALSE
-  )
-
-  # ignore renv
-  lockpkgs <- setdiff(lockpkgs, "renv")
-  libpkgs <- setdiff(libpkgs, "renv")
-
-  # check for case where no packages are installed (except renv)
-  if (length(intersect(lockpkgs, libpkgs)) == 0 && length(lockpkgs) > 0L) {
-
-    writef(lines(
-      "* None of the packages recorded in the lockfile are installed.",
-      "* Using `renv::restore()` to restore the project library."
-    ))
-
-    if (proceed()) {
-      restore(project, prompt = FALSE, exclude = "renv")
-      return(TRUE)
-    } else {
-      return(FALSE)
-    }
-  }
-
-  # check for case where one or more packages are missing
-  missing <- setdiff(lockpkgs, basename(libpkgs))
-  if (length(missing)) {
-    msg <- lines(
-      "* One or more packages recorded in the lockfile are not installed.",
-      "* Use `renv::status()` for more details."
-    )
-    writef(msg)
-    return(FALSE)
-  }
-
-  # otherwise, use status to detect if we're synchronized
-  info <- quietly({
-    renv_scope_options(renv.verbose = FALSE)
-    status(project = project, sources = FALSE)
-  })
-
-  if (!identical(info$synchronized, TRUE)) {
-
-    msg <- lines(
-      "* The project is currently out-of-sync.",
-      "* Use `renv::status()` for more details."
-    )
-
-    writef(msg)
-    return(FALSE)
-
-  }
-
-  TRUE
 
 }
 
@@ -20630,7 +20815,7 @@ renv_python_exe <- function(path) {
 renv_python_version <- function(python) {
 
   filebacked(
-    scope    = "renv_python_version",
+    context  = "renv_python_version",
     path     = renv_path_normalize(python),
     callback = renv_python_version_impl
   )
@@ -22987,8 +23172,10 @@ remove <- function(packages,
 
   library <- renv_path_normalize(library %||% renv_libpaths_active())
 
+  # NOTE: users might request that we remove packages which aren't currently
+  # installed, so we need to catch errors when trying to snapshot those packages
   descpaths <- file.path(library, packages, "DESCRIPTION")
-  records <- lapply(descpaths, renv_snapshot_description)
+  records <- lapply(descpaths, compose(catch, renv_snapshot_description))
   names(records) <- packages
   records <- Filter(function(record) !inherits(record, "error"), records)
 
@@ -23665,7 +23852,6 @@ renv_restore_run_actions <- function(project, actions, current, lockfile, rebuil
 
   # perform the install
   records <- retrieve(packages)
-  writef(header("Installing packages"))
   renv_install_impl(records)
 
   # detect dependency tree repair
@@ -23728,10 +23914,13 @@ renv_restore_begin <- function(project = NULL,
     records = records,
 
     # the set of packages to be installed in this restore session;
-    # as explicitly requested by the user / front-end API call
+    # as explicitly requested by the user / front-end API call.
+    # packages in this list should be re-installed even if a compatible
+    # version appears to be already installed
     packages = packages,
 
     # an optional handler, to be used during retrieve / restore
+    # TODO: should we split this into separate handlers?
     handler = handler %||% function(package, action) action,
 
     # packages which should be rebuilt (skipping the cache)
@@ -23897,17 +24086,14 @@ retrieve <- function(packages) {
   }
   renv_scope_options(HTTPUserAgent = agent)
 
-  writef(header("Downloading packages"))
   handler <- state$handler
   for (package in packages)
     handler(package, renv_retrieve_impl(package))
 
-  if (is.null(state$downloaded))
-    writef("[no downloads required]")
-
-  writef("")
-
   state <- renv_restore_state()
+  if (identical(state$downloaded, TRUE))
+    writef("")
+
   data <- state$install$data()
   names(data) <- extract_chr(data, "Package")
   data
@@ -23927,7 +24113,7 @@ renv_retrieve_impl <- function(package) {
 
   # extract record for package
   records <- state$records
-  record <- records[[package]] %||% renv_retrieve_missing_record(package)
+  record <- records[[package]] %||% renv_retrieve_resolve(package)
 
   # normalize the record source
   source <- renv_record_source(record, normalize = TRUE)
@@ -23968,11 +24154,10 @@ renv_retrieve_impl <- function(package) {
     is.null(record$Version)
 
   if (uselatest) {
-    record <- renv_available_packages_latest(package)
-    if (is.null(record)) {
-      stopf("package '%s' is not available", package)
-      return()
-    }
+    record <- withCallingHandlers(
+      renv_available_packages_latest(package),
+      error = function(err) stopf("package '%s' is not available", package)
+    )
   }
 
   # if the requested record is incompatible with the set
@@ -24010,8 +24195,10 @@ renv_retrieve_impl <- function(package) {
 
     # if we have an installed package matching the requested record, finish early
     path <- renv_restore_find(package, record)
-    if (file.exists(path))
-      return(renv_retrieve_successful(record, path, install = FALSE))
+    if (file.exists(path)) {
+      install <- !dirname(path) %in% renv_libpaths_all()
+      return(renv_retrieve_successful(record, path, install = install))
+    }
 
     # if the requested record already exists in the cache,
     # we'll use that package for install
@@ -24078,7 +24265,10 @@ renv_retrieve_impl <- function(package) {
 
   }
 
-  state$downloaded <- TRUE
+  if (!identical(state$downloaded, TRUE)) {
+    writef(header("Downloading packages"))
+    state$downloaded <- TRUE
+  }
 
   # time to retrieve -- delegate based on previously-determined source
   switch(source,
@@ -24233,7 +24423,9 @@ renv_retrieve_gitlab <- function(record) {
 }
 
 renv_retrieve_git <- function(record) {
-  path <- renv_scope_tempfile("renv-git-")
+  # NOTE: This path will later be used during the install step, so we don't
+  # want to clean it up afterwards
+  path <- tempfile("renv-git-")
   ensure_directory(path)
   renv_retrieve_git_impl(record, path)
   renv_retrieve_successful(record, path)
@@ -24909,8 +25101,9 @@ renv_retrieve_successful <- function(record, path, install = TRUE) {
   })
 
   # read and handle remotes declared by this package
-  if (config$install.remotes())
-    renv_retrieve_handle_remotes(record, subdir = subdir)
+  remotes <- desc$Remotes
+  if (length(remotes) && config$install.remotes())
+    renv_retrieve_remotes(remotes)
 
   # ensure its dependencies are retrieved as well
   if (state$recursive) local({
@@ -24956,7 +25149,7 @@ renv_retrieve_successful_recurse_impl_one <- function(remote) {
   }
 
   # otherwise, handle custom remotes
-  record <- renv_retrieve_handle_remotes_impl(remote)
+  record <- renv_retrieve_remotes_impl(remote)
   if (length(record)) {
     renv_retrieve_impl(record$Package)
     return(list())
@@ -24979,41 +25172,30 @@ renv_retrieve_unknown_source <- function(record) {
 
 }
 
-renv_retrieve_handle_remotes <- function(record, subdir) {
-
-  # TODO: what should we do if we detect incompatible remotes?
-  # e.g. if pkg A requests 'r-lib/rlang@0.3' but pkg B requests
-  # 'r-lib/rlang@0.2'.
-
-  # check and see if this package declares Remotes -- if so,
-  # use those to fill in any missing records
-  path <- record$Path
-  desc <- renv_description_read(path = path, subdir = subdir)
-  if (is.null(desc$Remotes))
-    return(NULL)
-
-  remotes <- strsplit(desc$Remotes, "\\s*,\\s*")[[1]]
+# TODO: what should we do if we detect incompatible remotes?
+# e.g. if pkg A requests 'r-lib/rlang@0.3' but pkg B requests
+# 'r-lib/rlang@0.2'.
+renv_retrieve_remotes <- function(remotes) {
+  remotes <- strsplit(remotes, "\\s*,\\s*")[[1L]]
   for (remote in remotes)
-    renv_retrieve_handle_remotes_impl(remote)
-
+    renv_retrieve_remotes_impl(remote)
 }
 
-renv_retrieve_handle_remotes_impl <- function(remote) {
+renv_retrieve_remotes_impl <- function(remote) {
 
   dynamic(
     key   = list(remote = remote),
-    value = renv_retrieve_handle_remotes_impl_one(remote)
+    value = renv_retrieve_remotes_impl_one(remote)
   )
 
 }
 
-renv_retrieve_handle_remotes_impl_one <- function(remote) {
+renv_retrieve_remotes_impl_one <- function(remote) {
 
   # TODO: allow customization of behavior when remote parsing fails?
   resolved <- catch(renv_remotes_resolve(remote))
   if (inherits(resolved, "error")) {
-    fmt <- "failed to resolve remote '%s' declared by package '%s'; skipping"
-    warningf(fmt, remote, record$Package)
+    warningf("failed to resolve remote '%s'; skipping", remote)
     return(invisible(NULL))
   }
 
@@ -25029,13 +25211,13 @@ renv_retrieve_handle_remotes_impl_one <- function(remote) {
     !identical(record, list(Package = package, Source = "Repository"))
 
   if (skip) {
-    dlog("retrieve", "Skipping remote '%s'; it's already been declared.", remote)
-    dlog("retrieve", "Using existing remote '%s'.", stringify(record))
+    dlog("retrieve", "skipping remote '%s'; it's already been declared", remote)
+    dlog("retrieve", "using existing remote '%s'", stringify(record))
     return(invisible(NULL))
   }
 
   # update the requested record
-  dlog("retrieve", "Using remote '%s'.", remote)
+  dlog("retrieve", "using remote '%s'", remote)
   state$records[[package]] <- resolved
 
   # mark the record as needing retrieval
@@ -25044,6 +25226,15 @@ renv_retrieve_handle_remotes_impl_one <- function(remote) {
   # return new record
   invisible(resolved)
 
+}
+
+renv_retrieve_resolve <- function(package) {
+  tryCatch(
+    renv_snapshot_description(package = package),
+    error = function(e) {
+      renv_retrieve_missing_record(package)
+    }
+  )
 }
 
 renv_retrieve_missing_record <- function(package) {
@@ -25675,8 +25866,12 @@ renv_sandbox_activate <- function(project = NULL) {
 renv_sandbox_activate_impl <- function(project = NULL, sandbox = NULL) {
 
   # lock access to the sandbox
-  lockfile <- paste(sandbox, "lock", sep = ".")
-  renv_scope_lock(lockfile)
+  if (config$sandbox.enabled()) {
+    sandbox <- sandbox %||% renv_sandbox_path(project = project)
+    ensure_directory(sandbox)
+    lockfile <- paste(sandbox, "lock", sep = ".")
+    renv_scope_lock(lockfile)
+  }
 
   # get current library paths
   oldlibs <- .libPaths()
@@ -25687,29 +25882,19 @@ renv_sandbox_activate_impl <- function(project = NULL, sandbox = NULL) {
   base <- .BaseNamespaceEnv
   renv_binding_replace(base, ".Library.site", NULL)
 
+  # generate sandbox
   if (config$sandbox.enabled()) {
-
-    # generate the sandbox
-    sandbox <- sandbox %||% renv_sandbox_path(project = project)
-    ensure_directory(sandbox)
     renv_sandbox_generate(sandbox)
-
-    # override .Library
     renv_binding_replace(base, ".Library", sandbox)
-
   }
 
   # update library paths
   newlibs <- renv_vector_diff(oldlibs, syslibs)
   renv_libpaths_set(newlibs)
 
-  if (config$sandbox.enabled()) {
-
-    # protect against user profiles that might try
-    # to update the library paths
+  # protect against user profiles that might update library paths
+  if (config$sandbox.enabled())
     renv_sandbox_activate_check(newlibs)
-
-  }
 
   # return new library paths
   renv_libpaths_all()
@@ -25763,7 +25948,7 @@ renv_sandbox_generate <- function(sandbox) {
   }
 
   if (lock) {
-    dlog("sandbox", "Temporarily unlocking sandbox.")
+    dlog("sandbox", "unlocking sandbox")
     renv_sandbox_unlock(sandbox)
   }
 
@@ -25785,7 +25970,7 @@ renv_sandbox_generate <- function(sandbox) {
 
   # make the library unwritable again
   if (lock) {
-    dlog("sandbox", "Re-locking sandbox.")
+    dlog("sandbox", "locking sandbox")
     renv_sandbox_lock(sandbox)
   }
 
@@ -26483,7 +26668,7 @@ renv_settings_validate <- function(name, value) {
 renv_settings_read <- function(path) {
 
   filebacked(
-    scope    = "renv_settings_read",
+    context  = "renv_settings_read",
     path     = path,
     callback = renv_settings_read_impl
   )
@@ -27166,9 +27351,13 @@ renv_snapshot_auto_impl <- function(project) {
 
 renv_snapshot_auto_enabled <- function(project = renv_project_get()) {
 
-  # don't auto-snapshot if disabled by user
-  enabled <- config$auto.snapshot()
-  if (!enabled)
+  # respect config setting
+  config <- config$auto.snapshot(default = NULL)
+  if (!is.null(config))
+    return(config)
+
+  # only snapshot interactively
+  if (!interactive())
     return(FALSE)
 
   # only automatically snapshot the current project
@@ -27406,7 +27595,7 @@ snapshot <- function(project  = NULL,
   if (!is.null(lockfile))
     renv_activate_prompt("snapshot", library, prompt, project)
 
-  libpaths <- library %||% renv_libpaths_all()
+  libpaths <- renv_path_normalize(library %||% renv_libpaths_all())
   if (config$snapshot.validate())
     renv_snapshot_preflight(project, libpaths)
 
@@ -27423,13 +27612,28 @@ snapshot <- function(project  = NULL,
 
   }
 
-  alt <- new <- renv_lockfile_create(project, libpaths, type, packages, exclude)
+  alt <- new <- renv_lockfile_create(
+    project  = project,
+    type     = type,
+    libpaths = libpaths,
+    packages = packages,
+    exclude  = exclude,
+    prompt   = prompt,
+    force    = force
+  )
+
   if (is.null(lockfile))
     return(new)
 
   # if running as part of 'reprex', then render output inline
   if (reprex)
     return(renv_snapshot_reprex(new))
+
+  # check for missing dependencies and warn if any are discovered
+  # (note: use 'new' rather than 'alt' here as we don't want to attempt
+  # validation on uninstalled packages)
+  valid <- renv_snapshot_validate(project, new, libpaths)
+  renv_snapshot_validate_report(valid, prompt, force)
 
   # get prior lockfile state
   old <- list()
@@ -27449,12 +27653,6 @@ snapshot <- function(project  = NULL,
     }
 
   }
-
-  # check for missing dependencies and warn if any are discovered
-  # (note: use 'new' rather than 'alt' here as we don't want to attempt
-  # validation on uninstalled packages)
-  valid <- renv_snapshot_validate(project, new, libpaths)
-  renv_snapshot_validate_report(valid, prompt, force)
 
   # update new reference
   new <- alt
@@ -27602,7 +27800,7 @@ renv_snapshot_validate_bioconductor <- function(project, lockfile, libpaths) {
     return(ok)
 
   # check for BiocManager or BiocInstaller
-  package <- if (getRversion() >= "3.5.0") "BiocManager" else "BiocInstaller"
+  package <- renv_bioconductor_manager()
   if (!package %in% names(records)) {
 
     text <- c(
@@ -27850,11 +28048,11 @@ renv_snapshot_library <- function(library = NULL,
 
   # snapshot description files
   descriptions <- file.path(packages, "DESCRIPTION")
-  records <- lapply(descriptions, renv_snapshot_description)
+  records <- lapply(descriptions, compose(catch, renv_snapshot_description))
   names(records) <- basename(packages)
 
   # report any snapshot failures
-  broken <- Filter(function(record) inherits(record, "error"), records)
+  broken <- filter(records, inherits, what = "error")
   if (length(broken)) {
 
     messages <- map_chr(broken, conditionMessage)
@@ -27875,58 +28073,58 @@ renv_snapshot_library <- function(library = NULL,
 
 }
 
-renv_snapshot_library_diagnose <- function(library, pkgs) {
+renv_snapshot_library_diagnose <- function(library, paths) {
 
-  pkgs <- grep("00LOCK", pkgs, invert = TRUE, value = TRUE)
-  pkgs <- renv_snapshot_library_diagnose_broken_link(library, pkgs)
-  pkgs <- renv_snapshot_library_diagnose_tempfile(library, pkgs)
-  pkgs <- renv_snapshot_library_diagnose_missing_description(library, pkgs)
-  pkgs
+  paths <- grep("00LOCK", paths, invert = TRUE, value = TRUE)
+  paths <- renv_snapshot_library_diagnose_broken_link(library, paths)
+  paths <- renv_snapshot_library_diagnose_tempfile(library, paths)
+  paths <- renv_snapshot_library_diagnose_missing_description(library, paths)
+  paths
 
 }
 
-renv_snapshot_library_diagnose_broken_link <- function(library, pkgs) {
+renv_snapshot_library_diagnose_broken_link <- function(library, paths) {
 
-  broken <- !file.exists(pkgs)
+  broken <- !file.exists(paths)
   if (!any(broken))
-    return(pkgs)
+    return(paths)
 
   renv_pretty_print(
-    basename(pkgs)[broken],
+    basename(paths)[broken],
     "The following package(s) have broken symlinks into the cache:",
     "Use `renv::repair()` to try and reinstall these packages."
   )
 
-  pkgs[!broken]
+  paths[!broken]
 
 }
 
-renv_snapshot_library_diagnose_tempfile <- function(library, pkgs) {
+renv_snapshot_library_diagnose_tempfile <- function(library, paths) {
 
-  names <- basename(pkgs)
+  names <- basename(paths)
   missing <- grepl("^file(?:\\w){12}", names)
   if (!any(missing))
-    return(pkgs)
+    return(paths)
 
   renv_pretty_print(
-    map_chr(pkgs[missing], renv_path_pretty),
+    map_chr(paths[missing], renv_path_pretty),
     "The following folder(s) appear to be left-over temporary directories:",
     "Consider removing these folders from your R library."
   )
 
-  pkgs[!missing]
+  paths[!missing]
 
 }
 
-renv_snapshot_library_diagnose_missing_description <- function(library, pkgs) {
+renv_snapshot_library_diagnose_missing_description <- function(library, paths) {
 
-  desc <- file.path(pkgs, "DESCRIPTION")
+  desc <- file.path(paths, "DESCRIPTION")
   missing <- !file.exists(desc)
   if (!any(missing))
-    return(pkgs)
+    return(paths)
 
   renv_pretty_print(
-    sprintf("%s [%s]", format(basename(pkgs[missing])), pkgs[missing]),
+    sprintf("%s [%s]", format(basename(paths[missing])), paths[missing]),
     "The following package(s) are missing their DESCRIPTION files:",
     c(
       "These may be left over from a prior, failed installation attempt.",
@@ -27934,18 +28132,21 @@ renv_snapshot_library_diagnose_missing_description <- function(library, pkgs) {
     )
   )
 
-  pkgs[!missing]
+  paths[!missing]
 
 }
 
 renv_snapshot_description <- function(path = NULL, package = NULL) {
 
-  # read DESCRIPTION file
-  path <- path %||% renv_package_find(package)
-  dcf <- catch(renv_description_read(path, package))
-  if (inherits(dcf, "error"))
-    return(dcf)
+  # resolve path
+  path <- path %||% {
+    path <- renv_package_find(package)
+    if (!nzchar(path))
+      stopf("package '%s' is not installed", package)
+  }
 
+  # read and snapshot DESCRIPTION file
+  dcf <- renv_description_read(path, package)
   renv_snapshot_description_impl(dcf, path)
 
 }
@@ -27964,8 +28165,7 @@ renv_snapshot_description_impl <- function(dcf, path = NULL) {
   missing <- renv_vector_diff(required, names(dcf))
   if (length(missing)) {
     fmt <- "required fields %s missing from DESCRIPTION at path '%s'"
-    msg <- sprintf(fmt, paste(shQuote(missing), collapse = ", "), path %||% "<unknown>")
-    return(simpleError(msg))
+    stopf(fmt, paste(shQuote(missing), collapse = ", "), path %||% "<unknown>")
   }
 
   # generate a hash if we can
@@ -28206,16 +28406,26 @@ renv_snapshot_report_actions <- function(actions, old, new) {
 }
 # nocov end
 
+# compute the package dependencies inferred for a project,
+# respecting the snapshot type selected (or currently configured)
+# for the associated project
 renv_snapshot_dependencies <- function(project, type = NULL, dev = FALSE) {
-
-  if (!is.null(the$init_dependencies)) {
-    return(the$init_dependencies$Package)
-  }
 
   type <- type %||% settings$snapshot.type(project = project)
 
-  if (type %in% "all")
-    return(installed_packages(field = "Package"))
+  dynamic(
+    list(project = project, type = type, dev = dev),
+    renv_snapshot_dependencies_impl(project, type, dev)
+  )
+
+}
+
+renv_snapshot_dependencies_impl <- function(project, type = NULL, dev = FALSE) {
+
+  if (type %in% "all") {
+    packages <- installed_packages(field = "Package")
+    return(setdiff(packages, renv_packages_base()))
+  }
 
   if (type %in% "custom") {
     filter <- renv_snapshot_filter_custom_resolve()
@@ -28223,7 +28433,7 @@ renv_snapshot_dependencies <- function(project, type = NULL, dev = FALSE) {
   }
 
   path <- case(
-    type %in% "implicit" ~ project,
+    type %in% c("packrat", "implicit") ~ project,
     type %in% "explicit" ~ file.path(project, "DESCRIPTION"),
     ~ {
       fmt <- "internal error: unhandled snapshot type '%s' in %s"
@@ -28231,73 +28441,93 @@ renv_snapshot_dependencies <- function(project, type = NULL, dev = FALSE) {
     }
   )
 
-  renv_dependencies_confirm(
-    "snapshot",
-    path = path,
-    root = project,
-    field = "Package",
-    dev = dev
+  packages <- withCallingHandlers(
+
+    renv_dependencies_impl(
+      path = path,
+      root = project,
+      field = "Package",
+      errors = config$dependency.errors(),
+      dev = dev
+    ),
+
+    # require user confirmation to proceed if there's a reported error
+    renv.dependencies.problems = function(cnd) {
+      if (interactive() && !proceed())
+        cancel()
+    },
+
+    # notify the user if we took a long time to discover dependencies
+    renv.dependencies.elapsed_time = function(cnd) {
+
+      # only relevant for implicit-type snapshots
+      if (!type %in% c("packrat", "implicit"))
+        return()
+
+      # check for timeout
+      elapsed <- cnd$data
+      limit <- getOption("renv.dependencies.elapsed_time_threshold", default = 10L)
+      if (elapsed < limit)
+        return()
+
+      # report to user
+      lines <- c(
+        "",
+        "NOTE: Dependency discovery took %s during snapshot.",
+        "Consider using .renvignore to ignore files, or switching to explicit snapshots.",
+        "See `?dependencies` for more information.",
+        ""
+      )
+
+      writef(lines, renv_difftime_format(elapsed))
+
+    }
+
   )
 
+  unique(packages)
+
 }
 
-renv_snapshot_filter <- function(project, records, type, packages, exclude) {
+# compute package records from the provided library paths,
+# normally to be included as part of an renv lockfile
+renv_snapshot_packages <- function(packages, libpaths, project) {
 
-  type <- type %||% settings$snapshot.type(project = project)
-
-  aliases <- list(packrat = "implicit", simple = "all")
-  type <- aliases[[type]] %||% type
-
-  result <- switch(type,
-    all      = renv_snapshot_filter_all(project, records, exclude),
-    custom   = renv_snapshot_filter_custom(project, records, exclude),
-    explicit = renv_snapshot_filter_explicit(project, records, exclude),
-    implicit = renv_snapshot_filter_implicit(project, records, exclude),
-    packages = renv_snapshot_filter_packages(project, records, packages, exclude),
-    stopf("unknown snapshot type '%s'", type)
+  ignored <- c(
+    renv_packages_base(),
+    renv_project_ignored_packages(project = project),
+    if (is_testing()) "renv"
   )
 
-  result
-
-}
-
-renv_snapshot_filter_all <- function(project, records, exclude) {
-  renv_snapshot_filter_impl(project, records, names(records), "all", exclude)
-}
-
-renv_snapshot_filter_impl <- function(project, records, packages, type, exclude) {
-
-  # make sure we include renv
-  packages <- unique(c(packages, "renv"))
-
-  # warn if some required packages are missing
-  ignored <- c(renv_project_ignored_packages(project), renv_packages_base())
-  missing <- setdiff(packages, c(names(records), ignored, exclude))
-  if (!the$status_running)
-    renv_snapshot_filter_report_missing(missing, type)
-
-  # ignore packages as defined by project
-  used <- setdiff(packages, ignored)
-
-  # include transitive dependencies
-  paths <- renv_package_dependencies(used, project = project)
-  all <- as.character(names(paths))
-  kept <- keep(records, all)
-
-  # add in bioconductor infrastructure packages
-  # if any other bioconductor packages detected
-  sources <- extract_chr(kept, "Source")
-  if ("Bioconductor" %in% sources) {
-    packages <- c("BiocManager", "BiocInstaller", "BiocVersion")
-    for (package in packages)
-      kept[[package]] <- records[[package]]
+  callback <- function(package, location, project) {
+    if (nzchar(location) && !package %in% ignored)
+      return(location)
   }
 
-  kept
+  # expand package dependency tree
+  paths <- renv_package_dependencies(
+    packages = packages,
+    libpaths = libpaths,
+    callback = callback,
+    project = project
+  )
+
+  # keep only packages with known locations
+  paths <- convert(filter(paths, is.character), "character")
+
+  # diagnose issues with the scanned packages
+  paths <- uapply(libpaths, function(library) {
+    renv_snapshot_library_diagnose(
+      library = library,
+      paths   = filter(paths, startswith, prefix = library))
+  })
+
+  # now, snapshot the remaining packages
+  records <- map(paths, renv_snapshot_description)
 
 }
 
-renv_snapshot_filter_report_missing <- function(missing, type) {
+renv_snapshot_report_missing <- function(missing, type) {
 
   missing <- setdiff(missing, "renv")
   if (empty(missing))
@@ -28343,59 +28573,6 @@ renv_snapshot_filter_report_missing <- function(missing, type) {
   TRUE
 }
 
-renv_snapshot_filter_implicit <- function(project, records, exclude) {
-
-  # compute snapshot dependencies
-  start <- Sys.time()
-  packages <- renv_snapshot_dependencies(project, "implicit")
-  end <- Sys.time()
-
-  # report if dependency discovery took a long time
-  limit <- getOption("renv.snapshot.filter.timelimit", default = 10L)
-  diff <- difftime(end, start, units = "secs")
-
-  if (diff > limit) {
-
-    time <- difftime(end, start, units = "auto")
-    lines <- c(
-      "NOTE: Dependency discovery took %s during snapshot.",
-      "Consider using .renvignore to ignore files or switching to explicit snapshots",
-      "See `?dependencies` for more information."
-    )
-    writef(lines, renv_difftime_format(time))
-
-  }
-
-  renv_snapshot_filter_impl(project, records, packages, "implicit", exclude)
-
-}
-
-renv_snapshot_filter_explicit <- function(project, records, exclude) {
-  packages <- renv_snapshot_dependencies(project, "explicit")
-  renv_snapshot_filter_impl(project, records, packages, "explicit", exclude)
-}
-
-renv_snapshot_filter_packages <- function(project, records, packages, exclude) {
-
-  # TODO: do we want to respect other ignores here?
-  # include transitive dependencies
-  paths <- renv_package_dependencies(packages, project = project)
-  all <- setdiff(as.character(names(paths)), exclude)
-  kept <- keep(records, all)
-
-  # add in bioconductor infrastructure packages
-  # if any other bioconductor packages detected
-  sources <- extract_chr(kept, "Source")
-  if ("Bioconductor" %in% sources) {
-    packages <- c("BiocManager", "BiocInstaller", "BiocVersion")
-    for (package in packages)
-      kept[[package]] <- records[[package]]
-  }
-
-  kept
-
-}
-
 renv_snapshot_filter_custom_resolve <- function() {
 
   # check for custom filter
@@ -28417,28 +28594,6 @@ renv_snapshot_filter_custom_resolve <- function() {
 
   # return resolved function
   filter
-
-}
-
-renv_snapshot_filter_custom <- function(project, records, exclude) {
-
-  # get user-defined snapshot filter
-  filter <- renv_snapshot_filter_custom_resolve()
-
-  # invoke the custom filter
-  packages <- filter(project)
-  if (empty(packages))
-    return(records)
-
-  # sanity check the result
-  if (!is.character(packages))
-    stop("custom snapshot filter did not return a character vector")
-
-  # remove excluded packages
-  packages <- setdiff(packages, exclude)
-
-  # return matching records
-  keep(records, packages)
 
 }
 
@@ -28465,11 +28620,7 @@ renv_snapshot_fixup_renv <- function(records) {
     return(records)
 
   # no valid record available; construct a synthetic one
-  version <- renv_metadata_version()
-  remote <- if (renv_metadata_is_dev())
-    paste("rstudio/renv", version, sep = "@")
-  else
-    paste("renv", version, sep = "@")
+  remote <- renv_metadata_remote()
 
   # add it to the set of records
   records$renv <- renv_remotes_resolve(remote)
@@ -28703,7 +28854,7 @@ renv_status_impl <- function(project, libpaths, lockpath, sources, cache) {
     return(default)
 
   # get all dependencies, including transitive
-  dependencies <- renv_snapshot_dependencies(project)
+  dependencies <- renv_snapshot_dependencies(project, dev = FALSE)
   packages <- sort(union(dependencies, "renv"))
   paths <- renv_package_dependencies(packages, project = project)
   packages <- as.character(names(paths))
@@ -28792,7 +28943,7 @@ renv_status_check_synchronized <- function(project,
   # Bioconductor packages are in use
   sources <- extract_chr(keep(library, packages), "Source")
   if ("Bioconductor" %in% sources)
-    packages <- union(packages, "BiocManager")
+    packages <- union(packages, renv_bioconductor_manager())
 
   # missing dependencies -------------------------------------------------------
   # Must return early because `packages` will be incomplete making later
@@ -29149,8 +29300,8 @@ renv_test_retrieve <- function(record) {
   renv_scope_error_handler()
 
   # avoid using cache
-  cache_path <- renv_scope_tempfile()
-  renv_scope_envvars(RENV_PATHS_CACHE = cache_path)
+  cache <- renv_scope_tempfile()
+  renv_scope_envvars(RENV_PATHS_CACHE = cache)
 
   # construct records
   package <- record$Package
@@ -29168,7 +29319,7 @@ renv_test_retrieve <- function(record) {
     library = templib,
     records = records,
     packages = package,
-    recursive = FALSE
+    recursive = TRUE
   )
 
   records <- retrieve(record$Package)
@@ -30913,23 +31064,23 @@ case <- function(...) {
     if (!inherits(dot, "formula"))
       return(dot)
 
-    else if (length(dot) == 2) {
-      expr <- dot[[2]]
-      return(eval(expr, envir = environment(dot)))
+    # use delayed assignments below so we can allow return statements to
+    # be handled in the lexical scope where they were defined
+    if (length(dot) == 2L) {
+      do.call(delayedAssign, list("expr", dot[[2L]], eval.env = environment(dot)))
+      return(expr)
     }
 
-    else {
+    do.call(delayedAssign, list("cond", dot[[2L]], eval.env = environment(dot)))
+    do.call(delayedAssign, list("expr", dot[[3L]], eval.env = environment(dot)))
+    if (cond) return(expr)
 
-      cond <- dot[[2]]
-      expr <- dot[[3]]
-      if (eval(cond, envir = environment(dot)))
-        return(eval(expr, envir = environment(dot)))
-
-    }
   }
 
-  NULL
+}
 
+compose <- function(wrapper, callback) {
+  function(...) wrapper(callback(...))
 }
 
 catch <- function(expr) {
@@ -31173,20 +31324,6 @@ remap <- function(x, map) {
 
 }
 
-header <- function(label,
-                   prefix = "#",
-                   suffix = "-",
-                   n = min(getOption("width"), 78))
-{
-  n <- max(n - nchar(label) - nchar(prefix) - 2L, 8L)
-  if (n <= 0)
-    return(paste(prefix, label))
-
-  tail <- paste(rep.int(suffix, n), collapse = "")
-  paste0(prefix, " ", label, " ", tail)
-
-}
-
 keep <- function(x, keys) {
   x[intersect(keys, names(x))]
 }
@@ -31260,14 +31397,6 @@ recursing <- function() {
 
   FALSE
 
-}
-
-code <- function(x) {
-  paste(deparse(substitute(x)), collapse = "\n")
-}
-
-shcode <- function(x) {
-  shQuote(paste(deparse(substitute(x)), collapse = "\n"))
 }
 
 csort <- function(x, decreasing = FALSE, ...) {
@@ -31384,13 +31513,14 @@ take <- function(data, index = NULL) {
 }
 
 cancel <- function() {
+
   renv_snapshot_auto_suppress_next()
-  if (is_testing()) {
+  if (is_testing())
     stop("Operation canceled", call. = FALSE)
-  } else {
-    message("* Operation canceled.")
-    invokeRestart("abort")
-  }
+
+  message("* Operation canceled.")
+  invokeRestart("abort")
+
 }
 
 cancel_if <- function(cnd) {
@@ -31451,18 +31581,23 @@ timer <- function(units = "secs") {
 
 }
 
-renv <- function() {
+summon <- function() {
   envir <- do.call(attach, list(what = NULL, name = "renv"))
-  renv <- renv_namespace_load("renv")
+  renv <- renv_envir_self()
   list2env(as.list(renv), envir = envir)
 }
 
 assert <- function(...) stopifnot(...)
 
+overlay <- function(lhs, rhs) {
+  modifyList(as.list(lhs), as.list(rhs))
+}
+
 
 # vector.R -------------------------------------------------------------------
 
 
+# these functions are like the base R equivalents, but preserve names
 renv_vector_diff <- function(x, y) {
   x[match(x, y, 0L) == 0L]
 }
@@ -31471,17 +31606,8 @@ renv_vector_intersect <- function(x, y) {
   y[match(x, y, 0L)]
 }
 
-renv_vector_union <- function(x, y) {
-  c(x, renv_vector_diff(y, x))
-}
-
 renv_vector_unique <- function(x) {
   x[!duplicated(x)]
-}
-
-renv_vector_merge <- function(x, y) {
-  x[names(y)] <- y
-  x
 }
 
 
@@ -31509,21 +31635,15 @@ renv_vector_merge <- function(x, y) {
 #' need to rely on renv internal functions, we strongly recommend testing
 #' your usages of these functions to avoid potential breakage.
 #'
-#' @param version The version of renv to vendor. A Git tag targets a CRAN
-#'   version and "main" references the latest development version of renv. Use
-#'   a Git branch name or commit SHA to target other versions. Ignored when
-#'   `sources` is non-`NULL`.
-#'
-#' @param sources The path to local renv sources to be vendored.
+#' @param version The version of renv to vendor. `renv` sources will be pulled
+#'   from GitHub, and so `version` should refer to either a commit hash or a
+#'   branch name.
 #'
 #' @param project The project in which renv should be vendored.
 #'
 #' @keywords internal
 #'
-vendor <- function(version    = NULL,
-                   sources    = NULL,
-                   project    = getwd())
-{
+vendor <- function(version = "main", project = getwd()) {
   renv_scope_error_handler()
 
   # validate project is a package
@@ -31533,17 +31653,15 @@ vendor <- function(version    = NULL,
     stopf(fmt, renv_path_pretty(project))
   }
 
-  # get renv sources
-  if (is.null(sources)) {
-    if (is.null(version)) {
-      stop("Specify an renv version or a path to renv sources")
-    }
-    sources <- renv_vendor_sources(version)
-  }
+  # retrieve package sources
+  sources <- renv_vendor_sources(version)
 
-  # re-compute renv version from sources
-  version <- renv_description_read(path = sources, field = "Version")
-  header <- renv_vendor_header(version)
+  # compute package remote
+  spec <- sprintf("rstudio/renv@%s", version)
+  remote <- renv_remotes_resolve(spec)
+
+  # build script header
+  header <- renv_vendor_header(remote)
 
   # create the renv script itself
   embed <- renv_vendor_create(
@@ -31553,7 +31671,7 @@ vendor <- function(version    = NULL,
   )
 
   # create the loader
-  loader <- renv_vendor_loader(project, header)
+  loader <- renv_vendor_loader(project, remote, header)
 
   # let the user know what just happened
   template <- heredoc("
@@ -31569,7 +31687,6 @@ vendor <- function(version    = NULL,
   writef(template, renv_path_pretty(embed), renv_path_pretty(loader))
 
   invisible(TRUE)
-
 }
 
 renv_vendor_create <- function(project, sources, header) {
@@ -31599,7 +31716,7 @@ renv_vendor_create <- function(project, sources, header) {
 
 }
 
-renv_vendor_loader <- function(project, header) {
+renv_vendor_loader <- function(project, remote, header) {
 
   source <- system.file("resources/vendor/renv.R", package = "renv")
   template <- readLines(source, warn = FALSE)
@@ -31607,12 +31724,23 @@ renv_vendor_loader <- function(project, header) {
   # replace '..imports..' with the imports we use
   imports <- renv_vendor_imports()
 
-  metadata <- as.list(the$metadata)
-  metadata$embedded <- TRUE
+  # create metadata for the embedded version
+  metadata <- renv_metadata_create(
+    embedded = TRUE,
+    version  = remote$Version,
+    sha      = remote$RemoteSha
+  )
+
+  # format metadata for template insertion
+  lines <- enum_chr(metadata, function(key, value) {
+    sprintf("    %s = %s", key, deparse(value))
+  })
+
+  inner <- paste(lines, collapse = ",\n")
 
   replacements <- list(
-    imports = imports,
-    metadata = deparse(metadata, width.cutoff = 500L)
+    imports  = imports,
+    metadata = paste(c("list(", inner, "  )"), collapse = "\n")
   )
   contents <- renv_template_replace(template, replacements, format = "..%s..")
 
@@ -31650,28 +31778,30 @@ renv_vendor_imports <- function() {
 
 renv_vendor_sources <- function(version) {
 
-  tarball <- renv_bootstrap_download_github(version)
-  if (!is.character(tarball) || !file.exists(tarball)) {
-    stop("Download failed")
-  }
-  defer(unlink(tarball))
+  # retrieve renv
+  tarball <- renv_bootstrap_download_github(version = version)
 
+  # extract downloaded sources
   untarred <- tempfile("renv-vendor-")
   untar(tarball, exdir = untarred)
 
-  dir(untarred, full.names = TRUE)[[1]]
+  # the package itself will exist as a folder within 'exdir'
+  list.files(untarred, full.names = TRUE)[[1L]]
+
 }
 
-renv_vendor_header <- function(version) {
+renv_vendor_header <- function(remote) {
 
   template <- heredoc("
     #
-    # renv %s: A dependency management toolkit for R.
+    # renv %s [rstudio/renv#%s]: A dependency management toolkit for R.
     # Generated using `renv:::vendor()` at %s.
     #
   ")
 
-  sprintf(template, version, Sys.time())
+  version <- remote$Version
+  hash <- substring(remote$RemoteSha, 1L, 7L)
+  sprintf(template, version, hash, Sys.time())
 
 }
 
@@ -32061,7 +32191,7 @@ renv_watchdog_start <- function() {
     renv_watchdog_start_impl(),
     error = function(e) {
       the$watchdog_enabled <- FALSE
-      warning(e)
+      NULL
     }
   )
 
@@ -32071,6 +32201,7 @@ renv_watchdog_start_impl <- function() {
 
   # create a socket server -- this is used so the watchdog process
   # can communicate what port it'll be listening on for messages
+  dlog("watchdog", "launching watchdog")
   server <- renv_socket_server()
   socket <- server$socket; port <- server$port
   defer(close(socket))
@@ -32079,8 +32210,10 @@ renv_watchdog_start_impl <- function() {
   script <- renv_scope_tempfile("renv-watchdog-", fileext = ".R")
   code <- substitute({
     client <- list(pid = pid, port = port)
-    asNamespace("renv")$renv_watchdog_server_start(client)
-  }, list(pid = Sys.getpid(), port = port))
+    host <- asNamespace(.packageName)
+    renv <- if (!is.null(host$renv)) host$renv else host
+    renv$renv_watchdog_server_start(client)
+  }, list(pid = Sys.getpid(), port = port, .packageName = .packageName))
   writeLines(deparse(code), con = script)
 
   # debug logging
@@ -32088,7 +32221,6 @@ renv_watchdog_start_impl <- function() {
   stdout <- stderr <- if (truthy(debugging)) "" else FALSE
 
   # launch the watchdog
-  # TODO: How do we make this work when running tests?
   system2(
     command = R(),
     args = c("--vanilla", "-s", "-f", renv_shell_path(script)),
@@ -32098,13 +32230,19 @@ renv_watchdog_start_impl <- function() {
   )
 
   # wait for connection from watchdog server
-  conn <- renv_socket_accept(socket, open = "rb", timeout = 10)
-  defer(close(conn))
+  dlog("watchdog", "watchdog process launched; waiting for message")
+  conn <- catch(renv_socket_accept(socket, open = "rb", timeout = 10))
+  if (inherits(conn, "error")) {
+    dlog("watchdog", paste("error connecting to watchdog:", conditionMessage(conn)))
+    return(FALSE)
+  }
 
   # store information about the running process
   the$watchdog_process <- unserialize(conn)
+  close(conn)
 
   # return TRUE to indicate process was started
+  dlog("watchdog", "watchdog message received [pid == %i]", the$watchdog_process$pid)
   TRUE
 
 }
