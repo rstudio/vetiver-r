@@ -1,5 +1,6 @@
 
 Sys.setenv(RENV_LOG_LEVEL = "debug")
+Sys.setenv(RENV_WATCHDOG_ENABLED = "FALSE")
 
 command <- paste("sleep 600 && kill -INT", Sys.getpid())
 system(command, wait = FALSE)
