@@ -43,7 +43,7 @@
     
     <a class="navbar-brand me-2" href="index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,14 +58,15 @@
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
+</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-learn-more">Learn more</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-learn-more">
-    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com/learn-more/model-card.html">Model Cards for transparent, responsible reporting</a>
+    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a>
+    <a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a>
   </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -152,7 +153,7 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── sacramento_rf ─ &lt;bundled_workflow&gt; model for deployment </span></span>
 <span><span class="co">#&gt; A ranger regression modeling workflow using 4 features</span></span></code></pre></div>
-<p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more.</p>
+<p>You can <strong>version</strong> and <strong>share</strong> your <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a local folder, Posit Connect, Amazon S3, and more.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
 <span><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>

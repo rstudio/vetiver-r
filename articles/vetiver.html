@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,14 +50,15 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-learn-more">Learn more</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-learn-more">
-    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com/learn-more/model-card.html">Model Cards for transparent, responsible reporting</a>
+    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a>
+    <a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a>
   </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -175,13 +176,13 @@ object.</p>
 <h2 id="store-and-version-your-model">Store and version your model<a class="anchor" aria-label="anchor" href="#store-and-version-your-model"></a>
 </h2>
 <p>You can store and version your model by choosing a <a href="https://pins.rstudio.com" class="external-link">pins</a> “board” for it, including a
-local folder, RStudio Connect, Amazon S3, and more. Most pins boards
-have versioning turned on by default, but we can turn it on explicitly
-for our temporary demo board. When we write the
-<code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> to our board, the binary model object is
-stored on our board together with necessary metadata, like the packages
-needed to make a prediction and the model’s input data prototype for
-checking new data at prediction time.</p>
+local folder, Posit Connect, Amazon S3, and more. Most pins boards have
+versioning turned on by default, but we can turn it on explicitly for
+our temporary demo board. When we write the <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code>
+to our board, the binary model object is stored on our board together
+with necessary metadata, like the packages needed to make a prediction
+and the model’s input data prototype for checking new data at prediction
+time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
 <span><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -202,8 +203,8 @@ write it once more to our board.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230516T164641Z-0ff03 2023-05-16 <span style="color: #949494;">16:46:41</span> 0ff03</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230516T164641Z-96e5c 2023-05-16 <span style="color: #949494;">16:46:41</span> 96e5c</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230703T181620Z-e0b58 2023-07-03 <span style="color: #949494;">18:16:20</span> e0b58</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230703T181621Z-8f798 2023-07-03 <span style="color: #949494;">18:16:21</span> 8f798</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data
 artifacts, so depending on the board you choose, your pinned
 <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your
@@ -218,7 +219,7 @@ endpoint for making predictions.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"># Plumber router with 4 endpoints, 4 filters, and 1 sub-router.</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; # Use `pr_run()` on this object to start the API.</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; </span>├──<span style="color: #00BB00;">[queryString]</span></span></span>
 <span><span class="co">#&gt; ├──<span style="color: #00BB00;">[body]</span></span></span>
@@ -228,7 +229,8 @@ endpoint for making predictions.</p>
 <span><span class="co">#&gt; │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; </span>├<span style="color: #0000BB;">──/metadata (GET)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span>├<span style="color: #0000BB;">──/ping (GET)</span></span></span>
-<span><span class="co"><span style="color: #0000BB;">#&gt; </span>└<span style="color: #0000BB;">──/predict (POST)</span></span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span>├<span style="color: #0000BB;">──/predict (POST)</span></span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span>└<span style="color: #0000BB;">──/prototype (GET)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span></code></pre></div>
 <p>To start a server using this object, pipe (<code>%&gt;%</code>) to
 <code>pr_run(port = 8088)</code> or your port of choice. This allows you
@@ -236,7 +238,7 @@ to interact with your vetiver API locally and debug it. Plumber APIs
 such as these can be <a href="https://www.rplumber.io/articles/hosting.html" class="external-link">hosted in a variety
 of ways</a>. You can use the function
 <code><a href="../reference/vetiver_write_plumber.html">vetiver_write_plumber()</a></code> to create a ready-to-go
-<code>plumber.R</code> file that is especially suited for <a href="https://posit.co/products/enterprise/connect/" class="external-link">RStudio
+<code>plumber.R</code> file that is especially suited for <a href="https://posit.co/products/enterprise/connect/" class="external-link">Posit
 Connect</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vetiver_write_plumber.html">vetiver_write_plumber</a></span><span class="op">(</span><span class="va">model_board</span>, <span class="st">"biv_svm"</span><span class="op">)</span></span></code></pre></div>
@@ -254,20 +256,19 @@ Connect</a>.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpVjU0xq/pins-1bf357b70efc"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230516T164641Z-0ff03"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpAUsQhK/pins-1d105291fcc7"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230703T181621Z-8f798"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">pr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 <p>In a real-world situation, you would see something like
-<code>b &lt;- board_rsconnect()</code> or
-<code>b &lt;- board_s3()</code> here instead of our temporary demo
-board. Notice that the deployment is strongly linked to a <em>specific
-version</em> of the pinned model; if you pin another version of the
-model after you deploy your model, your deployed model will not be
-affected.</p>
+<code>b &lt;- board_connect()</code> or <code>b &lt;- board_s3()</code>
+here instead of our temporary demo board. Notice that the deployment is
+strongly linked to a <em>specific version</em> of the pinned model; if
+you pin another version of the model after you deploy your model, your
+deployed model will not be affected.</p>
 </div>
 <div class="section level2">
 <h2 id="predict-from-your-model-endpoint">Predict from your model endpoint<a class="anchor" aria-label="anchor" href="#predict-from-your-model-endpoint"></a>

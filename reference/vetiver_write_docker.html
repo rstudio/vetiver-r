@@ -14,7 +14,7 @@ file for a pinned vetiver_model()."><meta property="og:image" content="/logo.png
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,14 +28,15 @@ file for a pinned vetiver_model()."><meta property="og:image" content="/logo.png
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-learn-more">Learn more</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-learn-more">
-    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com/learn-more/model-card.html">Model Cards for transparent, responsible reporting</a>
+    <a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a>
+    <a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a>
   </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -113,7 +114,8 @@ model's package dependencies. Defaults to the working directory.</p></dd>
 
 <dt>base_image</dt>
 <dd><p>The base Docker image to start with. Defaults to
-<code>rocker/r-ver</code> for the version of R you are working with.</p></dd>
+<code>rocker/r-ver</code> for the version of R you are working with, but models like
+keras will require a different base image.</p></dd>
 
 
 <dt>port</dt>
@@ -149,16 +151,13 @@ additional software; you can use <code>required_pkgs(board)</code> here.</p></dd
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20230516T164633Z-9db11'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20230703T181610Z-7b1b9'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_write_plumber.html">vetiver_write_plumber</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, file <span class="op">=</span> <span class="va">tmp_plumber</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## default port</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_write_docker</span><span class="op">(</span><span class="va">v</span>, <span class="va">tmp_plumber</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - R             [* -&gt; 4.3.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Lockfile written to 'vetiver_renv.lock'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> * The lockfile is already up to date.</span>
 <span class="r-in"><span><span class="co">## install more pkgs, like those required to access board</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_write_docker</span><span class="op">(</span><span class="va">v</span>, <span class="va">tmp_plumber</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                     additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://generics.r-lib.org/reference/required_pkgs.html" class="external-link">required_pkgs</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span><span class="op">)</span></span></span>
