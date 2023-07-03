@@ -68,7 +68,7 @@ characteristics of the model object:
 \item a \verb{/pin-url} endpoint to return the URL of the pinned model
 \item a \verb{/metadata} endpoint to return any metadata stored with the model
 \item a \verb{/ping} endpoint for the API health
-\item a \verb{/prototype} endpoint for the models' input data prototype (use
+\item a \verb{/prototype} endpoint for the model's input data prototype (use
 \code{\link[cereal:cereal_to_json]{cereal::cereal_from_json()}}) to convert this back to a \href{https://vctrs.r-lib.org/articles/type-size.html}{vctrs ptype}
 }
 

@@ -29,7 +29,7 @@
 #' - a `/pin-url` endpoint to return the URL of the pinned model
 #' - a `/metadata` endpoint to return any metadata stored with the model
 #' - a `/ping` endpoint for the API health
-#' - a `/prototype` endpoint for the models' input data prototype (use
+#' - a `/prototype` endpoint for the model's input data prototype (use
 #' [cereal::cereal_from_json()]) to convert this back to a [vctrs ptype](https://vctrs.r-lib.org/articles/type-size.html)
 #'
 #' The function `vetiver_api()` uses:
