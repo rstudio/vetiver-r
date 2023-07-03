@@ -204,8 +204,8 @@ write it once more to our board.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230621T222345Z-51ef3 2023-06-21 <span style="color: #949494;">22:23:45</span> 51ef3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230621T222345Z-a81e8 2023-06-21 <span style="color: #949494;">22:23:45</span> a81e8</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230703T161537Z-f8eb9 2023-07-03 <span style="color: #949494;">16:15:37</span> f8eb9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230703T161538Z-eca90 2023-07-03 <span style="color: #949494;">16:15:38</span> eca90</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data
 artifacts, so depending on the board you choose, your pinned
 <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your
@@ -220,7 +220,7 @@ endpoint for making predictions.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"># Plumber router with 4 endpoints, 4 filters, and 1 sub-router.</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; # Use `pr_run()` on this object to start the API.</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; </span>├──<span style="color: #00BB00;">[queryString]</span></span></span>
 <span><span class="co">#&gt; ├──<span style="color: #00BB00;">[body]</span></span></span>
@@ -230,7 +230,8 @@ endpoint for making predictions.</p>
 <span><span class="co">#&gt; │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; </span>├<span style="color: #0000BB;">──/metadata (GET)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span>├<span style="color: #0000BB;">──/ping (GET)</span></span></span>
-<span><span class="co"><span style="color: #0000BB;">#&gt; </span>└<span style="color: #0000BB;">──/predict (POST)</span></span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span>├<span style="color: #0000BB;">──/predict (POST)</span></span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span>└<span style="color: #0000BB;">──/prototype (GET)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span></code></pre></div>
 <p>To start a server using this object, pipe (<code>%&gt;%</code>) to
 <code>pr_run(port = 8088)</code> or your port of choice. This allows you
@@ -256,8 +257,8 @@ Connect</a>.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpQyQ5HW/pins-1d6c42c3bcbc"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230621T222345Z-51ef3"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpI3nqVn/pins-1e045a6f5466"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230703T161538Z-eca90"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>

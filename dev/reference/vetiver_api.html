@@ -136,10 +136,13 @@ prototype.</p></dd>
 <code><a href="vetiver_pin_write.html">vetiver_pin_write()</a></code>, and then create an API endpoint with <code>vetiver_api()</code>.</p>
 <p>Setting <code>debug = TRUE</code> may expose any sensitive data from your model in
 API errors.</p>
-<p>Two GET endpoints will also be added to the router <code>pr</code>, depending on the
-characteristics of the model object: a <code>/pin-url</code> endpoint to return the
-URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p>
-<p>The function <code>vetiver_api()</code> uses:</p><ul><li><p><code>vetiver_pr_post()</code> for endpoint definition and</p></li>
+<p>Several GET endpoints will also be added to the router <code>pr</code>, depending on the
+characteristics of the model object:</p><ul><li><p>a <code>/pin-url</code> endpoint to return the URL of the pinned model</p></li>
+<li><p>a <code>/metadata</code> endpoint to return any metadata stored with the model</p></li>
+<li><p>a <code>/ping</code> endpoint for the API health</p></li>
+<li><p>a <code>/prototype</code> endpoint for the models' input data prototype (use
+<code><a href="https://r-lib.github.io/cereal/reference/cereal_to_json.html" class="external-link">cereal::cereal_from_json()</a></code>) to convert this back to a <a href="https://vctrs.r-lib.org/articles/type-size.html" class="external-link">vctrs ptype</a></p></li>
+</ul><p>The function <code>vetiver_api()</code> uses:</p><ul><li><p><code>vetiver_pr_post()</code> for endpoint definition and</p></li>
 <li><p><code>vetiver_pr_docs()</code> to create visual API documentation</p></li>
 </ul><p>These modular functions are available for more advanced use cases.</p>
     </div>
@@ -152,7 +155,7 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_api</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 4 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[body]</span></span>
@@ -162,11 +165,12 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/metadata (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/predict (POST)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/prototype (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## is the same as:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_post</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">vetiver_pr_docs</span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Plumber router with 4 endpoints, 4 filters, and 1 sub-router.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># Use `pr_run()` on this object to start the API.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[queryString]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├──<span style="color: #00BB00;">[body]</span></span>
@@ -176,7 +180,8 @@ URL of the pinned model and a <code>/ping</code> endpoint for the API health.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> │  │ <span style="color: #555555;"># Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/metadata (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/ping (GET)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/predict (POST)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ├<span style="color: #0000BB;">──/predict (POST)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> └<span style="color: #0000BB;">──/prototype (GET)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## for either, next, pipe to `pr_run()`</span></span></span>
 </code></pre></div>
