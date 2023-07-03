@@ -35,9 +35,22 @@ library(vetiver)
 v <- vetiver_model(chicago_fit, "julia.silge/chicago_ridership")
 v
 
+
+vetiver_pin_write(model_board, v, check_renv = TRUE)
+
+#* -------------------------------------------------------------------------- *#
+
+library(vetiver)
 library(pins)
 model_board <- board_connect()
-vetiver_pin_write(model_board, v, check_renv = TRUE)
+vetiver_deploy_rsconnect(
+    model_board,
+    "julia.silge/chicago_ridership",
+    predict_args = list(debug = TRUE),
+    account = "julia.silge"
+)
+
+#* -------------------------------------------------------------------------- *#
 
 library(plumber)
 pr() %>%

@@ -24,6 +24,17 @@ test_that("router has metadata endpoint", {
     expect_equal(names(metadata), c("user", "version", "url", "required_pkgs"))
 })
 
+test_that("router has prototype endpoint", {
+    r <- httr::GET(root_path, port = port, path = "prototype")
+    prototype <- httr::content(r, as = "text", encoding = "UTF-8")
+    expect_equal(r$status_code, 200)
+    expect_equal(
+        jsonlite::fromJSON(prototype),
+        purrr::map(v$prototype, cereal::cereal_encode)
+    )
+    expect_equal(cereal::cereal_from_json(prototype), v$prototype)
+})
+
 test_that("can predict on basic vetiver router", {
     endpoint <- vetiver_endpoint(paste0(root_path, ":", port, "/predict"))
     expect_s3_class(endpoint, "vetiver_endpoint")
@@ -49,7 +60,7 @@ test_that("can predict with single or NA values", {
     expect_equal(ncol(preds1), 1)
 
     preds2 <- predict(endpoint, data.frame(cyl = c(NA_real_, NA_real_),
-                                          disp = c(100, 200)))
+                                           disp = c(100, 200)))
     expect_s3_class(preds2, "tbl_df")
     expect_equal(nrow(preds2), 2)
     expect_equal(ncol(preds2), 1)

@@ -23,9 +23,14 @@
 #' Setting `debug = TRUE` may expose any sensitive data from your model in
 #' API errors.
 #'
-#' Two GET endpoints will also be added to the router `pr`, depending on the
-#' characteristics of the model object: a `/pin-url` endpoint to return the
-#' URL of the pinned model and a `/ping` endpoint for the API health.
+#' Several GET endpoints will also be added to the router `pr`, depending on the
+#' characteristics of the model object:
+#'
+#' - a `/pin-url` endpoint to return the URL of the pinned model
+#' - a `/metadata` endpoint to return any metadata stored with the model
+#' - a `/ping` endpoint for the API health
+#' - a `/prototype` endpoint for the models' input data prototype (use
+#' [cereal::cereal_from_json()]) to convert this back to a [vctrs ptype](https://vctrs.r-lib.org/articles/type-size.html)
 #'
 #' The function `vetiver_api()` uses:
 #' - `vetiver_pr_post()` for endpoint definition and
@@ -92,31 +97,62 @@ vetiver_pr_post <- function(pr,
 
     handler_startup(vetiver_model)
     pr <- plumber::pr_set_debug(pr, debug = debug)
-    pr <- plumber::pr_get(
+    pr <- plumber::pr_set_serializer(
         pr,
-        path = "/ping",
-        function() {list(status = "online", time = Sys.time())}
+        serializer = plumber::serializer_unboxed_json(null = "null")
     )
-    if (!is_null(vetiver_model$metadata$url)) {
-        pr <- plumber::pr_get(
-            pr,
-            path = "/pin-url",
-            function() vetiver_model$metadata$url
-        )
-    }
-    pr <- plumber::pr_get(
-        pr,
-        path = "/metadata",
-        function() vetiver_model$metadata
-    )
+    pr <- vetiver_pr_ping(pr)
+    pr <- vetiver_pr_pin_url(pr, vetiver_model)
+    pr <- vetiver_pr_metadata(pr, vetiver_model)
     if (!check_prototype) {
         vetiver_model$prototype <- NULL
     }
+    pr <- vetiver_pr_prototype(pr, vetiver_model)
     pr <- plumber::pr_post(
         pr,
         path = path,
         handler = handler_predict(vetiver_model, ...)
     )
+    pr
+}
+
+vetiver_pr_ping <- function(pr) {
+    plumber::pr_get(
+        pr,
+        path = "/ping",
+        handler = function() {list(status = "online", time = Sys.time())}
+    )
+}
+
+vetiver_pr_pin_url <- function(pr, vetiver_model) {
+    if (!is_null(vetiver_model$metadata$url)) {
+        pr <- plumber::pr_get(
+            pr,
+            path = "/pin-url",
+            handler = function() vetiver_model$metadata$url
+        )
+    }
+    pr
+}
+
+vetiver_pr_metadata <- function(pr, vetiver_model) {
+    plumber::pr_get(
+        pr,
+        path = "/metadata",
+        handler = function() vetiver_model$metadata
+    )
+}
+
+vetiver_pr_prototype <- function(pr, vetiver_model) {
+    if (!is_null(vetiver_model$prototype)) {
+        pr <- plumber::pr_get(
+            pr,
+            path = "/prototype",
+            handler = function() {
+                purrr::map(vetiver_model$prototype, cereal::cereal_encode)
+            }
+        )
+    }
     pr
 }
 
