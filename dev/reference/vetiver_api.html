@@ -140,7 +140,7 @@ API errors.</p>
 characteristics of the model object:</p><ul><li><p>a <code>/pin-url</code> endpoint to return the URL of the pinned model</p></li>
 <li><p>a <code>/metadata</code> endpoint to return any metadata stored with the model</p></li>
 <li><p>a <code>/ping</code> endpoint for the API health</p></li>
-<li><p>a <code>/prototype</code> endpoint for the models' input data prototype (use
+<li><p>a <code>/prototype</code> endpoint for the model's input data prototype (use
 <code><a href="https://r-lib.github.io/cereal/reference/cereal_to_json.html" class="external-link">cereal::cereal_from_json()</a></code>) to convert this back to a <a href="https://vctrs.r-lib.org/articles/type-size.html" class="external-link">vctrs ptype</a></p></li>
 </ul><p>The function <code>vetiver_api()</code> uses:</p><ul><li><p><code>vetiver_pr_post()</code> for endpoint definition and</p></li>
 <li><p><code>vetiver_pr_docs()</code> to create visual API documentation</p></li>
