@@ -1,7 +1,10 @@
 ## Release Summary
 
-This is the 11th CRAN release of vetiver. This release adds support for more model types, deployment to AWS SageMaker, more robust package version checking renv, and other bug fixes and improvements.
+This is the 12th CRAN release of vetiver. This release removes a usage of `getRversion()` as instructed by CRAN, as well as fixing a Docker-related bug and adding a new endpoint for vetiver model APIs.
 
-## R CMD check results
+## revdepcheck results
 
-0 errors | 0 warnings | 0 notes
+We checked 1 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
