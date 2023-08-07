@@ -10,7 +10,7 @@
 #' @param appTitle The API title on Posit Connect. Use the default based on
 #' `name`, or pass in your own title.
 #' @param ... Other arguments passed to [rsconnect::deployApp()] such as
-#' `account` or `launch.browser`.
+#' `appName`, `account`, or `launch.browser`.
 #'
 #' @details The two functions `vetiver_deploy_rsconnect()` and
 #' [vetiver_create_rsconnect_bundle()] are alternatives to each other, providing

@@ -29,7 +29,7 @@ such as the prediction \code{type}.}
 \code{name}, or pass in your own title.}
 
 \item{...}{Other arguments passed to \code{\link[rsconnect:deployApp]{rsconnect::deployApp()}} such as
-\code{account} or \code{launch.browser}.}
+\code{appName}, \code{account}, or \code{launch.browser}.}
 }
 \value{
 The deployment success (\code{TRUE} or \code{FALSE}), invisibly.
