@@ -1,7 +1,6 @@
 options(pins.verbose = FALSE)
 options(pins.quiet = TRUE)
 options(renv.verbose = FALSE)
-Sys.setenv(RENV_CONFIG_SNAPSHOT_VALIDATE = FALSE)
 
 clean_python_tmp_dir <- function() {
     if (rlang::is_installed("reticulate")) {
