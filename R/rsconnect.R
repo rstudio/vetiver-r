@@ -125,3 +125,7 @@ vetiver_create_rsconnect_bundle <- function(
     invisible(filename)
 
 }
+
+mock_write_manifest <- function(appDir, appFiles) {
+    fs::file_create(fs::path(appDir, "manifest.json"))
+}
