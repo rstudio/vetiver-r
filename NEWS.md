@@ -1,4 +1,4 @@
-# vetiver (development version)
+# vetiver 0.2.3
 
 * Updated test involving renv and rsconnect (#230).
 

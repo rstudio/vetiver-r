@@ -1,3 +1,5 @@
+skip_if_not_installed("mockery")
+
 test_that("can pin a model", {
     b <- board_temp()
     v <- vetiver_model(cars_lm, "cars1")
@@ -128,7 +130,14 @@ test_that("can read a versioned model with metadata", {
 
 test_that("right message for reading with `check_renv`", {
     skip_on_cran()
-    b <- board_temp()
+
+    b <- board_temp(versioned = TRUE)
+    mock_version_name <- mockery::mock(
+        "20130104T050607Z-xxxxx",
+        "20130204T050607Z-yyyyy",
+        "20130304T050607Z-zzzzz",
+    )
+    local_mocked_bindings(version_name = mock_version_name, .package = "pins")
     v <- vetiver_model(cars_lm, "cars5")
     v$metadata$required_pkgs <- "janeaustenr"
     vetiver_pin_write(b, v)

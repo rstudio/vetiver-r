@@ -13,9 +13,11 @@ test_that("can print xgboost model", {
 })
 
 test_that("can predict xgboost model", {
-    preds <- predict(v, as.matrix(mtcars[,-1]))
+    cars_matrix <- as.matrix(mtcars[,-1])
+    preds <- predict(v, cars_matrix)
     expect_equal(length(preds), 32)
-    expect_equal(mean(preds), 12.7, tolerance = 0.1)
+    preds2 <- predict(cars_xgb, cars_matrix)
+    expect_equal(preds, preds2)
 })
 
 
