@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -204,8 +204,8 @@ write it once more to our board.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230810T185509Z-a05c1 2023-08-10 <span style="color: #949494;">18:55:09</span> a05c1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230810T185509Z-f28ad 2023-08-10 <span style="color: #949494;">18:55:09</span> f28ad</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20230814T181037Z-687e6 2023-08-14 <span style="color: #949494;">18:10:37</span> 687e6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20230814T181038Z-850e2 2023-08-14 <span style="color: #949494;">18:10:38</span> 850e2</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data
 artifacts, so depending on the board you choose, your pinned
 <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your
@@ -257,8 +257,8 @@ Connect</a>.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmpKK5dVF/pins-1de9889b04b"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230810T185509Z-a05c1"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/Rtmpv9SPgz/pins-1d734a116dcb"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20230814T181038Z-850e2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
