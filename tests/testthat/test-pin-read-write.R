@@ -1,3 +1,5 @@
+skip_if_not_installed("mockery")
+
 test_that("can pin a model", {
     b <- board_temp()
     v <- vetiver_model(cars_lm, "cars1")
