@@ -139,7 +139,7 @@ test_that("right message for reading with `check_renv`", {
     )
     local_mocked_bindings(version_name = mock_version_name, .package = "pins")
     v <- vetiver_model(cars_lm, "cars5")
-    v$metadata$required_pkgs <- "janeaustenr"
+    v$metadata$required_pkgs <- "ranger"
     vetiver_pin_write(b, v)
     expect_snapshot_warning(vetiver_pin_read(b, "cars5", check_renv = TRUE))
 
