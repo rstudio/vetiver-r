@@ -140,9 +140,9 @@ renv_report_actions <- function(current, model) {
     lhs <- renv$renv_records(current)
     rhs <- renv$renv_records(model)
     renv$renv_pretty_print_records_pair(
+        "The following package(s) do not match your model:",
         lhs[names(lhs) %in% names(diff)],
         rhs[names(rhs) %in% names(diff)],
-        "The following package(s) do not match your model:",
         "Consider installing the same versions that your model was trained with."
     )
 

@@ -1,14 +1,15 @@
 options(pins.verbose = FALSE)
 options(pins.quiet = TRUE)
 options(renv.verbose = FALSE)
+Sys.setenv(RENV_CONFIG_SNAPSHOT_VALIDATE = FALSE)
 
 clean_python_tmp_dir <- function() {
     if (!rlang::is_installed("reticulate"))
         return()
-    
+
     if(!reticulate::py_available())
         return()
-    
+
     tryCatch(
         error = function(cnd) {
             cli::cli_inform("Cannot clean Python temp directory: {cnd}")
@@ -24,7 +25,7 @@ clean_python_tmp_dir <- function() {
             )
             fs::file_delete(detritus)
         }
-    )   
+    )
 }
 
 withr::defer(clean_python_tmp_dir(), teardown_env())
