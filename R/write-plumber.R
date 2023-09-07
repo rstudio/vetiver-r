@@ -59,7 +59,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
 
-    board <- rlang::expr_deparse(pins::board_deparse(board))
+    board <- deparse(pins::board_deparse(board))
     board <- glue('b <- {board}')
 
     if (rlang::is_empty(plumber_dots)) {
