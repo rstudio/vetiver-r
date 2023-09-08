@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Fixed how plumber files are generated for `board_url()` (#241).
+
 # vetiver 0.2.3
 
 * Updated test involving renv and rsconnect (#230).
