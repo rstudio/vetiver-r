@@ -16,6 +16,13 @@
 #' [vetiver_create_rsconnect_bundle()] are alternatives to each other, providing
 #' different strategies for deploying a vetiver model API to Posit Connect.
 #'
+#' When you first deploy to Connect, your API will only be accessible to you.
+#' You can [change the access settings](https://docs.posit.co/connect/user/content-settings/#set-viewers)
+#' so others can also access the API. For all access settings other than
+#' "Anyone - no login required", anyone querying your API (including you)
+#' will need to pass authentication details with your API call,
+#' [as shown in the Connect documentation](https://docs.posit.co/connect/user/vetiver/#predict-from-your-model-endpoint).
+#'
 #' @return
 #' The deployment success (`TRUE` or `FALSE`), invisibly.
 #'

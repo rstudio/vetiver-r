@@ -43,6 +43,13 @@ Connect.
 The two functions \code{vetiver_deploy_rsconnect()} and
 \code{\link[=vetiver_create_rsconnect_bundle]{vetiver_create_rsconnect_bundle()}} are alternatives to each other, providing
 different strategies for deploying a vetiver model API to Posit Connect.
+
+When you first deploy to Connect, your API will only be accessible to you.
+You can \href{https://docs.posit.co/connect/user/content-settings/#set-viewers}{change the access settings}
+so others can also access the API. For all access settings other than
+"Anyone - no login required", anyone querying your API (including you)
+will need to pass authentication details with your API call,
+\href{https://docs.posit.co/connect/user/vetiver/#predict-from-your-model-endpoint}{as shown in the Connect documentation}.
 }
 \examples{
 \dontshow{if (rlang::is_installed("rsconnect")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
