@@ -140,6 +140,11 @@ by <code>board</code>.</p>
 <li><p><code><a href="vetiver_sm_build.html">vetiver_sm_model()</a></code> to create a SageMaker model, and</p></li>
 <li><p><code><a href="vetiver_sm_build.html">vetiver_sm_endpoint()</a></code> to deploy a SageMaker model endpoint.</p></li>
 </ul><p>These modular functions are available for more advanced use cases.</p>
+<p>If you are working locally, you will likely need to explicitly set up
+your execution role to work correctly. Check out
+<a href="https://dyfanjones.r-universe.dev/smdocker" class="external-link">"Execution role requirements"</a>
+in the smdocker documentation, and especially note that the bucket containing
+your vetiver model needs to be added as a resource in your IAM role policy.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
