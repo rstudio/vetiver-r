@@ -63,6 +63,12 @@ The function \code{vetiver_deploy_sagemaker()} uses:
 }
 
 These modular functions are available for more advanced use cases.
+
+If you are working locally, you will likely need to explicitly set up
+your execution role to work correctly. Check out
+\href{https://dyfanjones.r-universe.dev/smdocker}{"Execution role requirements"}
+in the smdocker documentation, and especially note that the bucket containing
+your vetiver model needs to be added as a resource in your IAM role policy.
 }
 \examples{
 if (FALSE) {

@@ -24,6 +24,12 @@
 #' - [vetiver_sm_endpoint()] to deploy a SageMaker model endpoint.
 #'
 #' These modular functions are available for more advanced use cases.
+#' 
+#' If you are working locally, you will likely need to explicitly set up
+#' your execution role to work correctly. Check out 
+#' ["Execution role requirements"](https://dyfanjones.r-universe.dev/smdocker)
+#' in the smdocker documentation, and especially note that the bucket containing 
+#' your vetiver model needs to be added as a resource in your IAM role policy.
 #'
 #' @return
 #' The deployed [vetiver_endpoint_sagemaker()].
