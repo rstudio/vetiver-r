@@ -138,7 +138,7 @@ vetiver_required_pkgs <- function(pkgs) {
     sort(unique(pkgs))
 }
 
-glue_sys_reqs <- function(pkgs) {
+glue_sys_reqs <- function(pkgs, call = rlang::caller_env()) {
     rlang::check_installed(c("curl", "jsonlite"))
     rspm <- Sys.getenv("RSPM_ROOT", DEFAULT_RSPM)
     rspm_repo_id <- Sys.getenv("RSPM_REPO_ID", DEFAULT_RSPM_REPO_ID)
@@ -153,7 +153,7 @@ glue_sys_reqs <- function(pkgs) {
     res <- curl::curl_fetch_memory(req_url)
     sys_reqs <- jsonlite::fromJSON(rawToChar(res$content), simplifyVector = FALSE)
     if (!is.null(sys_reqs$error)) {
-        rlang::abort(sys_reqs$error)
+        rlang::abort(sys_reqs$error, call = call)
     }
     sys_reqs <- map(sys_reqs$requirements, pluck, "requirements", "packages")
     sys_reqs <- sort(unique(unlist(sys_reqs)))
@@ -173,6 +173,7 @@ glue_sys_reqs <- function(pkgs) {
 #' function to create these needed files in the directory located at `path`.
 #'
 #' @inheritParams vetiver_write_plumber
+#' @par
 #' @inheritParams vetiver_deploy_rsconnect
 #' @param path A path to write the Plumber file, Dockerfile, and lockfile,
 #' capturing the model's dependencies.

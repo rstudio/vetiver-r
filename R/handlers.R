@@ -86,9 +86,9 @@ vetiver_type_convert <- function(new_data, ptype) {
     new_data
 }
 
-type_convert_strict <- function(new_data, col_types) {
+type_convert_strict <- function(new_data, col_types, call = rlang::caller_env()) {
     warn_to_error <- function(e) {
-        abort(conditionMessage(e))
+        abort(conditionMessage(e), call = call)
     }
 
     tryCatch(

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# vetiver <a href='https://rstudio.github.io/vetiver-r/'><img src="man/figures/logo.png" align="right" height="138" /></a>
+# vetiver <a href="https://rstudio.github.io/vetiver-r/"><img src="man/figures/logo.png" align="right" height="138" alt="vetiver website" /></a>
 
 <!-- badges: start -->
 
@@ -24,23 +24,23 @@ API endpoint. The vetiver package is extensible, with generics that can
 support many kinds of models, and available for both R and Python. To
 learn more about vetiver, see:
 
-- the documentation at <https://vetiver.rstudio.com/>
-- the Python package at <https://rstudio.github.io/vetiver-python/>
+-   the documentation at <https://vetiver.rstudio.com/>
+-   the Python package at <https://rstudio.github.io/vetiver-python/>
 
 You can use vetiver with:
 
-- a [tidymodels](https://www.tidymodels.org/) workflow (including
-  [stacks](https://stacks.tidymodels.org/))
-- [caret](https://topepo.github.io/caret/)
-- [mlr3](https://mlr3.mlr-org.com/)
-- [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
-- [ranger](https://cran.r-project.org/package=ranger)
-- [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
-  and
-  [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
-- GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
-- [keras](https://tensorflow.rstudio.com/)
-- [the luz API for torch](https://torch.mlverse.org/)
+-   a [tidymodels](https://www.tidymodels.org/) workflow (including
+    [stacks](https://stacks.tidymodels.org/))
+-   [caret](https://topepo.github.io/caret/)
+-   [mlr3](https://mlr3.mlr-org.com/)
+-   [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+-   [ranger](https://cran.r-project.org/package=ranger)
+-   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
+    and
+    [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+-   GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
+-   [keras](https://tensorflow.rstudio.com/)
+-   [the luz API for torch](https://torch.mlverse.org/)
 
 ## Installation
 
@@ -160,14 +160,14 @@ This project is released with a [Contributor Code of
 Conduct](https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
-- For questions and discussions about modeling, machine learning, and
-  MLOps please [post on RStudio
-  Community](https://community.rstudio.com/new-topic?category_id=15&tags=vetiver,question).
+-   For questions and discussions about modeling, machine learning, and
+    MLOps please [post on RStudio
+    Community](https://community.rstudio.com/new-topic?category_id=15&tags=vetiver,question).
 
-- If you think you have encountered a bug, please [submit an
-  issue](https://github.com/rstudio/vetiver-r/issues).
+-   If you think you have encountered a bug, please [submit an
+    issue](https://github.com/rstudio/vetiver-r/issues).
 
-- Either way, learn how to create and share a
-  [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
-  (a minimal, reproducible example), to clearly communicate about your
-  code.
+-   Either way, learn how to create and share a
+    [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+    (a minimal, reproducible example), to clearly communicate about your
+    code.

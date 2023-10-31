@@ -92,9 +92,9 @@ expr_contains <- function(expr, what) {
     )
 }
 
-call_contains <- function(expr, what) {
+call_contains <- function(expr, what, call = rlang::caller_env()) {
     if (length(expr) == 0L) {
-        abort("Internal error, `expr` should be at least length 1.")
+        abort("Internal error, `expr` should be at least length 1.", call = call)
     }
 
     # Recurse into elements
