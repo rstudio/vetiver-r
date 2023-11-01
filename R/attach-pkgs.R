@@ -47,13 +47,13 @@ load_pkgs <- function(pkgs) {
     namespace_handling(pkgs, loadNamespace, "Namespace(s) could not be loaded:")
 }
 
-namespace_handling <- function(pkgs, func, error_msg) {
+namespace_handling <- function(pkgs, func, error_msg, call = rlang::caller_env()) {
     safe_load <- safely(withr::with_preserve_seed(func))
     did_load <- map(pkgs, safe_load)
     bad <- compact(map(did_load, "error"))
     bad <- map_chr(bad, "package")
     if (length(bad) >= 1) {
-        abort(c(error_msg, bad))
+        abort(c(error_msg, bad), call = call)
     }
 
     invisible(TRUE)
