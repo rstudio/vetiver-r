@@ -59,7 +59,13 @@ vetiver_write_plumber <- function(board, name, version = NULL,
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
 
-    board <- deparse(pins::board_deparse(board))
+    ## rlang::expr_deparse won't work for board_url, but
+    ## base deparse won't work for S3 and other complex boards:
+    if (inherits(board, "pins_board_url")) {
+        board <- deparse(pins::board_deparse(board))
+    } else {
+        board <- rlang::expr_deparse(pins::board_deparse(board))
+    }
     board <- glue('b <- {board}')
 
     if (rlang::is_empty(plumber_dots)) {
