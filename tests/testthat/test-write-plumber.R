@@ -13,6 +13,46 @@ test_that("create plumber.R with no packages", {
     )
 })
 
+test_that("create plumber.R for complicated board", {
+    skip_on_cran()
+    b <- pins::new_board(
+        "pins_board_s3",
+        api = 1L,
+        cache = board_cache_path("pins"),
+        versioned = FALSE,
+        bucket = "foo",
+        svc = list(.internal =
+                       list(config = list(credentials = list(creds = list(profile = 4)),
+                                          region = 6, endpoint = 8)))
+    )
+    local_mocked_bindings(vetiver_pin_read = function(board, name, version) v)
+    tmp <- tempfile()
+    vetiver_write_plumber(b, "cars1", file = tmp)
+    expect_snapshot(
+        cat(readr::read_lines(tmp), sep = "\n"),
+        transform = redact_vetiver
+    )
+})
+
+test_that("create plumber.R for URL board", {
+    skip_on_cran()
+    b <- pins::new_board(
+        "pins_board_url",
+        api = 1L,
+        cache = board_cache_path("pins"),
+        versioned = FALSE,
+        bucket = "foo",
+        urls = c(foo = "foo", bar = "bar", baz = "baz")
+    )
+    local_mocked_bindings(vetiver_pin_read = function(board, name, version) v)
+    tmp <- tempfile()
+    vetiver_write_plumber(b, "cars1", file = tmp)
+    expect_snapshot(
+        cat(readr::read_lines(tmp), sep = "\n"),
+        transform = redact_vetiver
+    )
+})
+
 test_that("create plumber.R with packages", {
     skip_on_cran()
     b <- board_folder(path = tmp_dir)
