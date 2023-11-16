@@ -173,7 +173,6 @@ glue_sys_reqs <- function(pkgs, call = rlang::caller_env()) {
 #' function to create these needed files in the directory located at `path`.
 #'
 #' @inheritParams vetiver_write_plumber
-#' @par
 #' @inheritParams vetiver_deploy_rsconnect
 #' @param path A path to write the Plumber file, Dockerfile, and lockfile,
 #' capturing the model's dependencies.
