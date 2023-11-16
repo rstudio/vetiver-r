@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/404.html</loc>
   </url>
   <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/CONTRIBUTING.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/vetiver.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/articles/vetiver.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/api_spec.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/api_spec.html</loc>
   </url>
   <url>
-    <loc>/reference/attach_pkgs.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/attach_pkgs.html</loc>
   </url>
   <url>
-    <loc>/reference/augment.vetiver_endpoint.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/augment.vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>/reference/augment.vetiver_endpoint_sagemaker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/augment.vetiver_endpoint_sagemaker.html</loc>
   </url>
   <url>
-    <loc>/reference/handler_startup.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/handler_startup.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/map_request_body.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/map_request_body.html</loc>
   </url>
   <url>
-    <loc>/reference/predict.vetiver_endpoint.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/predict.vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>/reference/predict.vetiver_endpoint_sagemaker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/predict.vetiver_endpoint_sagemaker.html</loc>
   </url>
   <url>
-    <loc>/reference/reexports.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver-package.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver-package.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_api.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_api.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_compute_metrics.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_compute_metrics.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_create_description.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_create_description.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_create_meta.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_create_meta.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_create_ptype.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_create_ptype.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_create_rsconnect_bundle.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_create_rsconnect_bundle.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_dashboard.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_dashboard.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_deploy_rsconnect.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_deploy_rsconnect.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_deploy_sagemaker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_deploy_sagemaker.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_endpoint.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_endpoint.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_endpoint_sagemaker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_endpoint_sagemaker.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_model.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_model.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_pin_metrics.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_pin_metrics.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_pin_write.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_pin_write.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_plot_metrics.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_plot_metrics.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_pr_predict.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_pr_predict.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_prepare_docker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_prepare_docker.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_python_requirements.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_python_requirements.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_sm_build.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_sm_build.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_sm_delete.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_sm_delete.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_type_convert.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_type_convert.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_write_docker.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_write_docker.html</loc>
   </url>
   <url>
-    <loc>/reference/vetiver_write_plumber.html</loc>
+    <loc>https://rstudio.github.io/vetiver-r/reference/vetiver_write_plumber.html</loc>
   </url>
 </urlset>
