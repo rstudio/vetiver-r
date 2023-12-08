@@ -15,7 +15,7 @@ vetiver_create_meta.Learner <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.Learner <- function(model, ...) {
-    tibble::as_tibble(model$state$task_prototype)[, model$state$train_task$feature_names]
+    tibble::as_tibble(model$state$data_prototype)[, model$state$train_task$feature_names]
 }
 
 #' @rdname vetiver_create_description

@@ -55,7 +55,7 @@ Suggests:
     LiblineaR,
     luz,
     mgcv,
-    mlr3,
+    mlr3 (>= 0.17.0),
     mlr3data,
     mlr3learners,
     mockery,
