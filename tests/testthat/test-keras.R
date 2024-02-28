@@ -1,4 +1,4 @@
-skip_if(TRUE)
+skip_on_cran()
 skip_if_not_installed("keras")
 skip_if_not_installed("plumber")
 skip_if(is.null(tensorflow::tf_version()))
