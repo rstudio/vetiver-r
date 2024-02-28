@@ -67,6 +67,19 @@ test_that("create plumber.R with packages", {
     )
 })
 
+test_that("create plumber.R with extra infra packages", {
+    skip_on_cran()
+    b <- board_folder(path = tmp_dir)
+    local_mocked_bindings(version_name = function(metadata) "20130204T050607Z-xyxy", .package = "pins")
+    tmp <- tempfile()
+    vetiver_pin_write(b, v)
+    vetiver_write_plumber(b, "cars1", file = tmp, additional_pkgs = c("beepr", "janeaustenr"))
+    expect_snapshot(
+        cat(readr::read_lines(tmp), sep = "\n"),
+        transform = redact_vetiver
+    )
+})
+
 test_that("create plumber.R with rsconnect = FALSE", {
     skip_on_cran()
     b <- board_folder(path = tmp_dir)

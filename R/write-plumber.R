@@ -12,6 +12,8 @@
 #' working directory. See [plumber::plumb()] for naming precedence rules.
 #' @param rsconnect Create a Plumber file with features needed for [Posit
 #' Connect](https://posit.co/products/enterprise/connect/)? Defaults to `TRUE`.
+#' @param additional_pkgs Any additional R packages that need to be **attached**
+#' via [library()] to run your API, as a character vector.
 #'
 #' @details
 #' By default, this function will find and use the latest version of your
@@ -37,7 +39,8 @@
 vetiver_write_plumber <- function(board, name, version = NULL,
                                   ...,
                                   file = "plumber.R",
-                                  rsconnect = TRUE) {
+                                  rsconnect = TRUE,
+                                  additional_pkgs = character(0)) {
 
     rlang::check_installed("plumber")
     plumber_dots <- rlang::list2(...)
@@ -56,6 +59,7 @@ vetiver_write_plumber <- function(board, name, version = NULL,
 
     write_extra_requirements(v$model, file)
 
+    infra_pkgs <- sort(c(infra_pkgs, additional_pkgs))
     load_infra_pkgs <- glue_collapse(glue("library({infra_pkgs})"), sep = "\n")
     load_required_pkgs <- glue_required_pkgs(v$metadata$required_pkgs, rsconnect)
 

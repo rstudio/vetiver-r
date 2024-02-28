@@ -55,7 +55,8 @@
 vetiver_deploy_rsconnect <- function(board, name, version = NULL,
                                      predict_args = list(),
                                      appTitle = glue::glue("{name} model API"),
-                                     ...) {
+                                     ...,
+                                     additional_pkgs = character(0)) {
 
     ellipsis::check_dots_used()
     tmp <- fs::dir_create(tempdir(), "vetiver")
@@ -63,7 +64,8 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
                           name = name,
                           version = version,
                           !!!predict_args,
-                          file = fs::path(tmp, "plumber.R"))
+                          file = fs::path(tmp, "plumber.R"),
+                          additional_pkgs = additional_pkgs)
     rsconnect::deployAPI(tmp, appTitle = appTitle, ...)
 
 }
@@ -110,14 +112,16 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 vetiver_create_rsconnect_bundle <- function(
         board, name, version = NULL,
         predict_args = list(),
-        filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+        filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
+        additional_pkgs = character(0)) {
 
     tmp <- fs::dir_create(tempdir(), "vetiver")
     vetiver_write_plumber(board = board,
                           name = name,
                           version = version,
                           !!!predict_args,
-                          file = fs::path(tmp, "plumber.R"))
+                          file = fs::path(tmp, "plumber.R"),
+                          additional_pkgs = additional_pkgs)
     rsconnect::writeManifest(tmp, "plumber.R")
     withr::with_dir(
         tmp,
