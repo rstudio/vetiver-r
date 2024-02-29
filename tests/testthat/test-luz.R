@@ -10,11 +10,17 @@ y_train <- scaled_cars[1:25, 1, drop=FALSE]
 
 set.seed(1)
 
+acc <- luz::accelerator(cpu = TRUE)
+
 luz_fit <- torch::nn_linear %>%
     luz::setup(loss = torch::nnf_mse_loss, optimizer = torch::optim_sgd) %>%
     luz::set_hparams(in_features = ncol(x_train), out_features = 1) %>%
     luz::set_opt_hparams(lr = 0.01) %>%
-    luz::fit(list(x_train, y_train), verbose = FALSE, dataloader_options = list(batch_size = 5))
+    luz::fit(
+        list(x_train, y_train), verbose = FALSE, 
+        dataloader_options = list(batch_size = 5),
+        accelerator = acc
+    )
 
 v <- vetiver_model(
     luz_fit,
@@ -27,8 +33,8 @@ test_that("can print a `vetiver`ed luz model", {
 })
 
 test_that("can predict a `vetiver`ed luz model", {
-    v_preds <- predict(v, x_test)$cpu()
-    l_preds <- predict(luz_fit, x_test)$cpu()
+    v_preds <- predict(v, x_test, accelerator = acc)$cpu()
+    l_preds <- predict(luz_fit, x_test, accelerator = acc)$cpu()
 
     expect_equal(as.array(v_preds), as.array(l_preds))
 })
