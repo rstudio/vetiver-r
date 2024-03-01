@@ -130,14 +130,10 @@ similar.</p>
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20240229T181616Z-100cb'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20240301T002057Z-100cb'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_prepare_docker</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The following required packages are not installed:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - cpp11  [required by lobstr, readr, tzdb, and 1 other]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Consider reinstalling these packages before snapshotting the lockfile.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The following package(s) will be updated in the lockfile:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Local ------------------------------------------------------------------</span>
@@ -154,6 +150,7 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cereal        [* -&gt; 0.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cli           [* -&gt; 3.6.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - clipr         [* -&gt; 0.8.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - cpp11         [* -&gt; 0.4.7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - crayon        [* -&gt; 1.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - curl          [* -&gt; 5.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - digest        [* -&gt; 0.6.34]</span>

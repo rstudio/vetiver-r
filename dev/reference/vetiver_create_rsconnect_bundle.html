@@ -72,7 +72,8 @@ API bundle for a <code><a href="vetiver_model.html">vetiver_model()</a></code> t
 <span>  <span class="va">name</span>,</span>
 <span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  predict_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  filename <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"bundle"</span>, ext <span class="op">=</span> <span class="st">".tar.gz"</span><span class="op">)</span></span>
+<span>  filename <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">file_temp</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"bundle"</span>, ext <span class="op">=</span> <span class="st">".tar.gz"</span><span class="op">)</span>,</span>
+<span>  additional_pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -100,6 +101,11 @@ such as the prediction <code>type</code>.</p></dd>
 <dt>filename</dt>
 <dd><p>The path for the model API bundle to be created (can be
 used as the argument to <code>connectapi::bundle_path()</code>)</p></dd>
+
+
+<dt>additional_pkgs</dt>
+<dd><p>Any additional R packages that need to be <strong>attached</strong>
+via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> to run your API, as a character vector.</p></dd>
 
 </dl></div>
     <div class="section level2">
