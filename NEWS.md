@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Added new `additional_pkgs` argument for writing plumber files (#271).
+
 # vetiver 0.2.5
 
 * Fixed bug in generating plumber files (#257).

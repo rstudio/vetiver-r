@@ -9,7 +9,8 @@ vetiver_create_rsconnect_bundle(
   name,
   version = NULL,
   predict_args = list(),
-  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
+  additional_pkgs = character(0)
 )
 }
 \arguments{
@@ -26,6 +27,9 @@ such as the prediction \code{type}.}
 
 \item{filename}{The path for the model API bundle to be created (can be
 used as the argument to \code{connectapi::bundle_path()})}
+
+\item{additional_pkgs}{Any additional R packages that need to be \strong{attached}
+via \code{\link[=library]{library()}} to run your API, as a character vector.}
 }
 \value{
 The location of the model API bundle \code{filename}, invisibly.

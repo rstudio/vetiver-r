@@ -10,7 +10,8 @@ vetiver_deploy_rsconnect(
   version = NULL,
   predict_args = list(),
   appTitle = glue::glue("{name} model API"),
-  ...
+  ...,
+  additional_pkgs = character(0)
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ such as the prediction \code{type}.}
 
 \item{...}{Other arguments passed to \code{\link[rsconnect:deployApp]{rsconnect::deployApp()}} such as
 \code{appName}, \code{account}, or \code{launch.browser}.}
+
+\item{additional_pkgs}{Any additional R packages that need to be \strong{attached}
+via \code{\link[=library]{library()}} to run your API, as a character vector.}
 }
 \value{
 The deployment success (\code{TRUE} or \code{FALSE}), invisibly.
