@@ -1,7 +1,7 @@
 #' Deploy a vetiver model API to Posit Connect
 #'
 #' Use `vetiver_deploy_rsconnect()` to deploy a [vetiver_model()] that has been
-#' versioned and stored via [vetiver_pin_write()] as a Plumber API on RStudio
+#' versioned and stored via [vetiver_pin_write()] as a Plumber API on Posit
 #' Connect.
 #'
 #' @inheritParams vetiver_write_plumber
