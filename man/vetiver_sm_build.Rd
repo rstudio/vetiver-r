@@ -156,7 +156,8 @@ Defaults to \code{TRUE}.}
 }
 \description{
 Use the function \code{\link[=vetiver_deploy_sagemaker]{vetiver_deploy_sagemaker()}} for basic deployment on
-SageMaker, or these three functions together for more advanced use cases:
+\href{https://aws.amazon.com/sagemaker/}{SageMaker}, or these three functions
+together for more advanced use cases:
 \itemize{
 \item \code{vetiver_sm_build()} generates and builds a Docker image on SageMaker for
 a vetiver model

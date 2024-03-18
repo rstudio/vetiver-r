@@ -35,8 +35,9 @@ via \code{\link[=library]{library()}} to run your API, as a character vector.}
 The location of the model API bundle \code{filename}, invisibly.
 }
 \description{
-Use \code{vetiver_create_rsconnect_bundle()} to create an Posit Connect model
-API bundle for a \code{\link[=vetiver_model]{vetiver_model()}} that has been versioned and stored via
+Use \code{vetiver_create_rsconnect_bundle()} to create a
+\href{https://docs.posit.co/connect/}{Posit Connect} model API bundle for a
+\code{\link[=vetiver_model]{vetiver_model()}} that has been versioned and stored via
 \code{\link[=vetiver_pin_write]{vetiver_pin_write()}}.
 }
 \details{

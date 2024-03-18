@@ -2,7 +2,7 @@
 #'
 #' @description Use `vetiver_deploy_sagemaker()` to deploy a [vetiver_model()]
 #' that has been versioned and stored via [vetiver_pin_write()] as a Plumber API
-#' on Amazon SageMaker.
+#' on [Amazon SageMaker](https://aws.amazon.com/sagemaker/).
 #'
 #' @inheritParams vetiver_sm_build
 #' @inheritParams vetiver_sm_model
@@ -112,7 +112,8 @@ vetiver_deploy_sagemaker <- function(board,
 #'
 #' @description
 #' Use the function [vetiver_deploy_sagemaker()] for basic deployment on
-#' SageMaker, or these three functions together for more advanced use cases:
+#' [SageMaker](https://aws.amazon.com/sagemaker/), or these three functions 
+#' together for more advanced use cases:
 #' - `vetiver_sm_build()` generates and builds a Docker image on SageMaker for
 #' a vetiver model
 #' - `vetiver_sm_model()` creates an Amazon SageMaker model

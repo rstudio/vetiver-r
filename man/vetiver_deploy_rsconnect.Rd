@@ -40,8 +40,7 @@ The deployment success (\code{TRUE} or \code{FALSE}), invisibly.
 }
 \description{
 Use \code{vetiver_deploy_rsconnect()} to deploy a \code{\link[=vetiver_model]{vetiver_model()}} that has been
-versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_pin_write()}} as a Plumber API on Posit
-Connect.
+versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_pin_write()}} as a Plumber API on \href{https://docs.posit.co/connect/}{Posit Connect}.
 }
 \details{
 The two functions \code{vetiver_deploy_rsconnect()} and
