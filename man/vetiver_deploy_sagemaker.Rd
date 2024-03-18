@@ -49,7 +49,7 @@ The deployed \code{\link[=vetiver_endpoint_sagemaker]{vetiver_endpoint_sagemaker
 \description{
 Use \code{vetiver_deploy_sagemaker()} to deploy a \code{\link[=vetiver_model]{vetiver_model()}}
 that has been versioned and stored via \code{\link[=vetiver_pin_write]{vetiver_pin_write()}} as a Plumber API
-on Amazon SageMaker.
+on \href{https://aws.amazon.com/sagemaker/}{Amazon SageMaker}.
 }
 \details{
 This function stores your model deployment image in the same bucket used

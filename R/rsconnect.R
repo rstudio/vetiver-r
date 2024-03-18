@@ -1,8 +1,8 @@
 #' Deploy a vetiver model API to Posit Connect
 #'
 #' Use `vetiver_deploy_rsconnect()` to deploy a [vetiver_model()] that has been
-#' versioned and stored via [vetiver_pin_write()] as a Plumber API on Posit
-#' Connect.
+#' versioned and stored via [vetiver_pin_write()] as a Plumber API on [Posit
+#' Connect](https://docs.posit.co/connect/).
 #'
 #' @inheritParams vetiver_write_plumber
 #' @param predict_args A list of optional arguments passed to [vetiver_api()]
@@ -72,8 +72,9 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 
 #' Create an Posit Connect bundle for a vetiver model API
 #'
-#' Use `vetiver_create_rsconnect_bundle()` to create an Posit Connect model
-#' API bundle for a [vetiver_model()] that has been versioned and stored via
+#' Use `vetiver_create_rsconnect_bundle()` to create a 
+#' [Posit Connect](https://docs.posit.co/connect/) model API bundle for a 
+#' [vetiver_model()] that has been versioned and stored via 
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams vetiver_write_plumber
