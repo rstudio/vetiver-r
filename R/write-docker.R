@@ -64,7 +64,7 @@ vetiver_write_docker <- function(vetiver_model,
                                  expose = TRUE,
                                  additional_pkgs = character(0)) {
 
-    ellipsis::check_dots_empty()
+    check_dots_empty()
 
     if (!fs::file_exists(plumber_file)) {
         cli::cli_abort(

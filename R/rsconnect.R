@@ -58,7 +58,7 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
                                      ...,
                                      additional_pkgs = character(0)) {
 
-    ellipsis::check_dots_used()
+    check_dots_used()
     tmp <- fs::dir_create(tempdir(), "vetiver")
     vetiver_write_plumber(board = board,
                           name = name,
