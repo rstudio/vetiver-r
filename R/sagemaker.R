@@ -62,7 +62,7 @@ vetiver_deploy_sagemaker <- function(board,
                                      endpoint_args = list(),
                                      repo_name = glue("vetiver-sagemaker-{name}")) {
 
-    ellipsis::check_dots_empty()
+    check_dots_empty()
     if (!inherits(board, "pins_board_s3")) {
         stop_input_type(board, "an S3 pins board")
     }
@@ -207,7 +207,7 @@ vetiver_sm_build <- function(board,
                              log = TRUE,
                              ...) {
     check_installed("smdocker")
-    ellipsis::check_dots_used()
+    check_dots_used()
     compute_type <- arg_match(compute_type)
     docker_args <- list_modify(docker_args, port = 8080)
     predict_args <- list_modify(predict_args, path = "/invocations")

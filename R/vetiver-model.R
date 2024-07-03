@@ -59,7 +59,7 @@ vetiver_model <- function(model,
                           save_ptype = deprecated(),
                           versioned = NULL) {
 
-    ellipsis::check_dots_used()
+    check_dots_used()
     if (lifecycle::is_present(save_ptype)) {
         lifecycle::deprecate_soft(
             "0.2.0",
@@ -131,7 +131,7 @@ print.vetiver_model <- function(x, ...) {
 
 #' @export
 predict.vetiver_model <- function(object, ...) {
-    ellipsis::check_dots_used()
+    check_dots_used()
     model <- bundle::unbundle(object$model)
     predict(model, ...)
 }
@@ -140,7 +140,7 @@ predict.vetiver_model <- function(object, ...) {
 
 #' @export
 augment.vetiver_model <- function(x, ...) {
-    ellipsis::check_dots_used()
+    check_dots_used()
     model <- bundle::unbundle(x$model)
     augment(model, ...)
 }

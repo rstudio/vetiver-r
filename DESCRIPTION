@@ -22,7 +22,6 @@ Imports:
     butcher (>= 0.3.1),
     cereal,
     cli,
-    ellipsis,
     fs,
     generics,
     glue,
