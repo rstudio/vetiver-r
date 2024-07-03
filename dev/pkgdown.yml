@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   vetiver: vetiver.html
-last_built: 2024-07-03T21:36Z
+last_built: 2024-07-03T22:28Z
 urls:
   reference: https://rstudio.github.io/vetiver-r/reference
   article: https://rstudio.github.io/vetiver-r/articles
