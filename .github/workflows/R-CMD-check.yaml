@@ -52,8 +52,7 @@ jobs:
           extra-packages:
             any::rcmdcheck,
             any::cpp11,
-            ranger=?ignore-before-r=4.1.0,
-            vdiffr@1.0.5
+            ranger=?ignore-before-r=4.1.0
           needs: check
 
       - name: Install Miniconda & Tensorflow
