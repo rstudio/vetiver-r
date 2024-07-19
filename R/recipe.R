@@ -16,11 +16,17 @@ vetiver_create_meta.recipe <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.recipe <- function(model, ...) {
-    rlang::check_dots_used()
-    dots <- list(...)
-    check_ptype_data(dots)
-    ptype <- vctrs::vec_ptype(dots$prototype_data)
-    tibble::as_tibble(ptype)
+    ptype <- model$ptype
+    if (is_null(ptype)) {
+        rlang::check_dots_used()
+        dots <- list(...)
+        check_ptype_data(dots)
+        ptype <- vctrs::vec_ptype(dots$prototype_data)
+        return(tibble::as_tibble(ptype))
+    }
+    preds <- vec_slice(model$var_info, model$var_info$role == "predictor")
+    preds <- preds$variable
+    ptype[preds]
 }
 
 #' @rdname vetiver_create_description
