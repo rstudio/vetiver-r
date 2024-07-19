@@ -16,8 +16,7 @@ vetiver_create_meta.recipe <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.recipe <- function(model, ...) {
-    preds <- vec_slice(model$var_info, model$var_info$role == "predictor")
-    model$ptype[preds$variable]
+    recipes::recipes_ptype(model, stage = "bake")
 }
 
 #' @rdname vetiver_create_description
