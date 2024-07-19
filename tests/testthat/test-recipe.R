@@ -1,4 +1,4 @@
-skip_if_not_installed("recipes")
+skip_if_not_installed("recipes", "1.1.0")
 skip_if_not_installed("plumber")
 
 library(plumber)
@@ -9,7 +9,7 @@ trained_rec <-
     step_ns(wt) %>%
     prep(retain = FALSE)
 
-v <- vetiver_model(trained_rec, "car-splines", prototype_data = mtcars[c("disp", "wt")])
+v <- vetiver_model(trained_rec, "car-splines")
 
 test_that("can print recipe", {
     expect_snapshot(v)
