@@ -1,4 +1,4 @@
-skip_if_not_installed("recipes", "1.1.0")
+skip_if_not_installed("recipes")
 skip_if_not_installed("plumber")
 
 library(plumber)
