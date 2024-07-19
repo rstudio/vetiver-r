@@ -16,11 +16,7 @@ vetiver_create_meta.recipe <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.recipe <- function(model, ...) {
-    rlang::check_dots_used()
-    dots <- list(...)
-    check_ptype_data(dots)
-    ptype <- vctrs::vec_ptype(dots$prototype_data)
-    tibble::as_tibble(ptype)
+    recipes::recipes_ptype(model, stage = "bake")
 }
 
 #' @rdname vetiver_create_description
