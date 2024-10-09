@@ -113,7 +113,7 @@ similar.</p>
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20240719T193104Z-7301a'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20241009T170845Z-7301a'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_prepare_docker</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -129,36 +129,36 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # RSPM -------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - R6            [* -&gt; 2.5.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Rcpp          [* -&gt; 1.0.13]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - askpass       [* -&gt; 1.2.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - bit           [* -&gt; 4.0.5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - bit64         [* -&gt; 4.0.5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - askpass       [* -&gt; 1.2.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - bit           [* -&gt; 4.5.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - bit64         [* -&gt; 4.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bundle        [* -&gt; 0.1.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - butcher       [* -&gt; 0.3.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cereal        [* -&gt; 0.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cli           [* -&gt; 3.6.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - clipr         [* -&gt; 0.8.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - crayon        [* -&gt; 1.5.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - curl          [* -&gt; 5.2.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - digest        [* -&gt; 0.6.36]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - curl          [* -&gt; 5.2.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - digest        [* -&gt; 0.6.37]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ellipsis      [* -&gt; 0.3.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fansi         [* -&gt; 1.0.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fastmap       [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fs            [* -&gt; 1.6.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - generics      [* -&gt; 0.1.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - glue          [* -&gt; 1.7.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - glue          [* -&gt; 1.8.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - hardhat       [* -&gt; 1.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - hms           [* -&gt; 1.1.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - httpuv        [* -&gt; 1.6.15]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - httr          [* -&gt; 1.4.7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite      [* -&gt; 1.8.8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite      [* -&gt; 1.8.9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - later         [* -&gt; 1.3.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - lifecycle     [* -&gt; 1.0.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - lobstr        [* -&gt; 1.1.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - magrittr      [* -&gt; 2.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - mime          [* -&gt; 0.12]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - openssl       [* -&gt; 2.2.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - openssl       [* -&gt; 2.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - pillar        [* -&gt; 1.9.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - pins          [* -&gt; 1.3.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - pins          [* -&gt; 1.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - pkgconfig     [* -&gt; 2.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - plumber       [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - prettyunits   [* -&gt; 1.2.0]</span>
@@ -168,22 +168,22 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rapidoc       [* -&gt; 9.3.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rappdirs      [* -&gt; 0.3.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - readr         [* -&gt; 2.1.5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - renv          [* -&gt; 1.0.7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - renv          [* -&gt; 1.0.10]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rlang         [* -&gt; 1.1.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - sodium        [* -&gt; 1.3.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - sodium        [* -&gt; 1.3.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringi       [* -&gt; 1.8.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - swagger       [* -&gt; 5.17.14.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - sys           [* -&gt; 3.4.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - sys           [* -&gt; 3.4.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tibble        [* -&gt; 3.2.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tidyselect    [* -&gt; 1.2.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tzdb          [* -&gt; 0.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - utf8          [* -&gt; 1.2.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - vctrs         [* -&gt; 0.6.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - vroom         [* -&gt; 1.6.5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - webutils      [* -&gt; 1.2.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - webutils      [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - whisker       [* -&gt; 0.4.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - withr         [* -&gt; 3.0.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - yaml          [* -&gt; 2.3.9]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - withr         [* -&gt; 3.0.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - yaml          [* -&gt; 2.3.10]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - R             [* -&gt; 4.4.1]</span>
@@ -202,7 +202,7 @@ similar.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
   </div></footer></body></html>
