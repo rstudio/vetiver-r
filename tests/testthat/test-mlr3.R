@@ -28,6 +28,7 @@ test_that("mlr3 learners can be pinned", {
 
 test_that("learners from mlr3learners can be pinned", {
     skip_if_not_installed("mlr3learners")
+    skip_if_not_installed("xgboost")
 
     task =  mlr3::tsk("spam")
     learner = mlr3learners::LearnerClassifXgboost$new()
