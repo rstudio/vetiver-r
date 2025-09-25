@@ -357,7 +357,7 @@ rlang::on_load(
       "apply_plumber2_block",
       "plumber2_vetiver_block",
       function(block, api, route_name, root, ...) {
-        api_vetiver(api, block$model, path = block$path)
+        api_vetiver(api, block$model, path = block$path, theme_docs = FALSE)
       },
       envir = asNamespace("plumber2")
     )
