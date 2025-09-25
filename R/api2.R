@@ -59,7 +59,7 @@ vetiver_route <- function(
 
   route$add_handler(
     "get",
-    paste0(root, "ping"),
+    paste0(root, "/ping"),
     handler = function(request, response, keys, ...) {
       response$status <- 200L
       response$body <- list(status = "online", time = Sys.time())
@@ -75,7 +75,7 @@ vetiver_route <- function(
   if (!is.null(model$metadata$url)) {
     route$add_handler(
       "get",
-      paste0(root, "pin-url"),
+      paste0(root, "/pin-url"),
       handler = function(request, response, keys, ...) {
         response$status <- 200L
         response$body <- model$metadata$url
@@ -91,7 +91,7 @@ vetiver_route <- function(
   }
   route$add_handler(
     "get",
-    paste0(root, "metadata"),
+    paste0(root, "/metadata"),
     handler = function(request, response, keys, ...) {
       response$status <- 200L
       response$body <- model$metadata
@@ -108,7 +108,7 @@ vetiver_route <- function(
     prototype <- purrr::map(model$prototype, cereal::cereal_encode)
     route$add_handler(
       "get",
-      paste0(root, "prototype"),
+      paste0(root, "/prototype"),
       handler = function(request, response, keys, ...) {
         response$status <- 200L
         response$body <- prototype
@@ -255,7 +255,7 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
           request_body = request_body
         )
       ),
-      !!paste0(root, "ping") := plumber2::openapi_path(
+      !!paste0(root, "/ping") := plumber2::openapi_path(
         get = plumber2::openapi_operation(
           "Health check",
           responses = list(
@@ -270,7 +270,7 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
           )
         )
       ),
-      !!paste0(root, "metadata") := plumber2::openapi_path(
+      !!paste0(root, "/metadata") := plumber2::openapi_path(
         get = plumber2::openapi_operation(
           "Get all metadata of pinned vetiver model",
           responses = metadata_type
@@ -279,22 +279,7 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
     )
   )
   if (!is.null(model$metadata$url)) {
-    spec$paths[[paste0(root, "pin-url")]] <- plumber2::openapi_path(
-      get = plumber2::openapi_operation(
-        "Get URL of pinned vetiver model",
-        responses = list(
-          "200" = plumber2::openapi_response(
-            description = "",
-            content = plumber2::openapi_content(
-              "application/json" = plumber2::openapi_schema(character())
-            )
-          )
-        )
-      )
-    )
-  }
-  if (!is.null(model$metadata$url)) {
-    spec$paths[[paste0(root, "pin-url")]] <- plumber2::openapi_path(
+    spec$paths[[paste0(root, "/pin-url")]] <- plumber2::openapi_path(
       get = plumber2::openapi_operation(
         "Get URL of pinned vetiver model",
         responses = list(
@@ -309,7 +294,7 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
     )
   }
   if (add_prototype && !is.null(model$prototype)) {
-    spec$paths[[paste0(root, "prototype")]] <- plumber2::openapi_path(
+    spec$paths[[paste0(root, "/prototype")]] <- plumber2::openapi_path(
       get = plumber2::openapi_operation(
         "Get input data prototype for vetiver model",
         responses = list(
