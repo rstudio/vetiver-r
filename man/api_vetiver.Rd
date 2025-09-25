@@ -58,7 +58,7 @@ vetiver_model(lm(mpg ~ ., data = mtcars), "cars_linear")
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 
-pa <- api() |>
+pa <- plumber2::api() |>
   api_vetiver(v, "/cars_linear/predict")
 \dontshow{\}) # examplesIf}
 }
