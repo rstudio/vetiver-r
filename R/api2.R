@@ -178,6 +178,10 @@ vetiver_route <- function(
 #' ```
 #'
 #' @inheritParams vetiver_route
+#' @param theme_docs Should vetiver styling by applied to the OpenAPI
+#' documentation. Defaults to `TRUE` but can be turned off if the model serving
+#' is incorporated into a larger API. When using the `@vetiver` tag it is set to
+#' `FALSE`.
 #'
 #' @return `api` with the relevant endpoints added
 #'
@@ -195,8 +199,11 @@ api_vetiver <- function(api,
                         vetiver_model,
                         path = "/predict",
                         ...,
-                        check_prototype = TRUE) {
+                        check_prototype = TRUE,
+                        theme_docs = TRUE) {
   rlang::check_installed("plumber2")
+
+  path <- sub("^/?", "/", path)
 
   api <- plumber2::api_add_route(
     api,
@@ -208,6 +215,26 @@ api_vetiver <- function(api,
       check_prototype = check_prototype
     )
   )
+
+  if (theme_docs) {
+    logo_path <- paste0(dirname(path), "/", "logo.png")
+    logo <- paste0(
+      '<img slot="logo" src="',
+      logo_path,
+      '" width=55px style=\"margin-left:7px\"/>'
+    )
+    logo_file <- system.file("vetiver.png", package = "vetiver")
+    api <- plumber2::api_statics(api, logo_path, logo_file)
+    api <- plumber2::api_doc_setting(
+      api,
+      doc_type = "rapidoc",
+      slots = logo,
+      heading_text = paste("vetiver", utils::packageVersion("vetiver")),
+      header_color = "#F2C6AC",
+      primary_color = "#8C2D2D"
+    )
+  }
+
 
   api <- plumber2::api_doc_add(
     api,
@@ -335,4 +362,4 @@ rlang::on_load(
       envir = asNamespace("plumber2")
     )
   })
-)
+  )

@@ -4,7 +4,14 @@
 \alias{api_vetiver}
 \title{Serve a vetiver model with plumber2}
 \usage{
-api_vetiver(api, vetiver_model, path = "/predict", ..., check_prototype = TRUE)
+api_vetiver(
+  api,
+  vetiver_model,
+  path = "/predict",
+  ...,
+  check_prototype = TRUE,
+  theme_docs = TRUE
+)
 }
 \arguments{
 \item{path}{The path to serve predictions from. Defaults to \verb{/predict}}
@@ -14,6 +21,11 @@ api_vetiver(api, vetiver_model, path = "/predict", ..., check_prototype = TRUE)
 \item{check_prototype}{Should the input data prototype stored in
 \code{vetiver_model} be used to check new data at prediction time? Defaults to
 \code{TRUE}.}
+
+\item{theme_docs}{Should vetiver styling by applied to the OpenAPI
+documentation. Defaults to \code{TRUE} but can be turned off if the model serving
+is incorporated into a larger API. When using the \verb{@vetiver} tag it is set to
+\code{FALSE}.}
 }
 \value{
 \code{api} with the relevant endpoints added
