@@ -123,12 +123,15 @@ vetiver_route <- function(
     )
   }
   handler_startup(model)
+  predictor <- handler_predict(model, ...)
+
   route$add_handler(
     "post",
     path,
     handler = function(request, response, keys, ...) {
+      request$parse("application/json" = reqres::parse_json())
       response$status <- 200L
-      response$body <- handler_predict(model, ...)
+      response$body <- predictor(request)
       response$set_formatter(
         "application/json" = reqres::format_json(
           auto_unbox = TRUE,
@@ -185,7 +188,7 @@ vetiver_route <- function(
 #' cars_lm <- lm(mpg ~ ., data = mtcars)
 #' v <- vetiver_model(cars_lm, "cars_linear")
 #'
-#' pa <- api() |>
+#' pa <- plumber2::api() |>
 #'   api_vetiver(v, "/cars_linear/predict")
 #'
 api_vetiver <- function(api,
@@ -236,14 +239,14 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
         )
       )
     ),
-    error = function(...) NULL
+    error = function(...) list()
   )
 
   spec <- plumber2::openapi(
     info = plumber2::openapi_info(
       title = glue("{model$model_name} model API"),
       description = model$description,
-      version = model$metadata$version
+      version = model$metadata$version %||% "unversioned"
     ),
     paths = list2(
       !!path := plumber2::openapi_path(
@@ -270,7 +273,7 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
       !!paste0(root, "metadata") := plumber2::openapi_path(
         get = plumber2::openapi_operation(
           "Get all metadata of pinned vetiver model",
-          responses = response
+          responses = metadata_type
         )
       )
     )
@@ -323,26 +326,28 @@ create_vetiver_doc <- function(path, model, add_prototype = TRUE) {
   spec
 }
 
-rlang::on_package_load("plumber2", {
-  plumber2::add_plumber2_tag("vetiver", function(block, call, tags, values, env) {
-    if (!inherits(block, "plumber2_empty_block")) {
-      cli::cli_abort(
-        "{.field @vetiver} cannot be used with other types of annotation blocks"
-      )
-    }
-    path <- trimws(values[[which(tags == "vetiver")[1]]])
-    if (is.null(path) || is.na(path) || path == "") path <- "/predict"
-    structure(list(
-      path = path,
-      model = call
-    ), class = "plumber2_vetiver_block")
+rlang::on_load(
+  rlang::on_package_load("plumber2", {
+    plumber2::add_plumber2_tag("vetiver", function(block, call, tags, values, env) {
+      if (!inherits(block, "plumber2_empty_block")) {
+        cli::cli_abort(
+          "{.field @vetiver} cannot be used with other types of annotation blocks"
+        )
+      }
+      path <- trimws(values[[which(tags == "vetiver")[1]]])
+      if (is.null(path) || is.na(path) || path == "") path <- "/predict"
+      structure(list(
+        path = path,
+        model = call
+      ), class = "plumber2_vetiver_block")
+    })
+    registerS3method(
+      "apply_plumber2_block",
+      "plumber2_vetiver_block",
+      function(block, api, route_name, root, ...) {
+        api_vetiver(api, block$model, path = block$path)
+      },
+      envir = asNamespace("plumber2")
+    )
   })
-  registerS3method(
-    "apply_plumber2_block",
-    "plumber2_vetiver_block",
-    function(block, api, route_name, root, ...) {
-      api_vetiver(api, block$model, path = block$path)
-    },
-    envir = asNamespace("plumber2")
-  )
-})
+)
