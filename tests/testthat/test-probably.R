@@ -1,3 +1,5 @@
+skip_if_not_installed("probably")
+skip_if_not_installed("dplyr")
 skip_if_not_installed("workflows")
 skip_if_not_installed("parsnip")
 skip_if_not_installed("ranger")
@@ -7,6 +9,7 @@ library(plumber)
 library(workflows)
 library(parsnip)
 library(probably)
+library(dplyr)
 
 rf_spec <- rand_forest(mode = "regression") %>%
     set_engine("ranger")
@@ -19,9 +22,11 @@ mtcars_wf <- workflow() %>%
 
 mtcars_int_split <- int_conformal_split(mtcars_wf, mtcars)
 mtcars_int_full <- int_conformal_full(mtcars_wf, mtcars)
+mtcars_int_quantile <- int_conformal_quantile(mtcars_wf, mtcars, mtcars)
 
 v_split <- vetiver_model(mtcars_int_split, "cars_int_split")
 v_full <- vetiver_model(mtcars_int_full, "cars_int_full")
+v_quantile <- vetiver_model(mtcars_int_quantile, "cars_int_quantile")
 
 test_that("can print int_conformal_split model", {
     expect_snapshot(v_split)
@@ -139,6 +144,67 @@ test_that("create plumber.R for int_conformal_full", {
     vetiver_pin_write(b, v_full)
     tmp <- tempfile()
     vetiver_write_plumber(b, "cars_int_full", file = tmp)
+    expect_snapshot(
+        cat(readr::read_lines(tmp), sep = "\n"),
+        transform = redact_vetiver
+    )
+})
+
+test_that("can print int_conformal_quantile model", {
+    expect_snapshot(v_quantile)
+})
+
+test_that("can predict int_conformal_quantile model", {
+    preds <- predict(v_quantile, mtcars[1, ])
+    expect_s3_class(preds, "tbl_df")
+    expect_true(all(c(".pred_lower", ".pred_upper") %in% names(preds)))
+})
+
+test_that("can pin a int_conformal_quantile model", {
+    b <- board_temp()
+    vetiver_pin_write(b, v_quantile)
+    pinned <- pin_read(b, "cars_int_quantile")
+    expect_equal(
+        pinned,
+        list(
+            model = bundle::bundle(butcher::butcher(mtcars_int_quantile)),
+            prototype = vctrs::vec_slice(tibble::as_tibble(mtcars[,2:11]), 0)
+        ),
+        ignore_formula_env = TRUE
+    )
+    expect_equal(
+        pin_meta(b, "cars_int_quantile")$user$required_pkgs,
+        c("parsnip", "ranger", "workflows", "probably")
+    )
+})
+
+test_that("default endpoint for int_conformal_quantile", {
+    p <- pr() %>% vetiver_api(v_quantile)
+    p_routes <- p$routes[-1]
+    expect_api_routes(p_routes)
+})
+
+test_that("default OpenAPI spec", {
+    v_quantile$metadata <- list(url = "potatoes")
+    p <- pr() %>% vetiver_api(v_quantile)
+    car_spec <- p$getApiSpec()
+    expect_equal(car_spec$info$description,
+                 "A quantile Conformal inference with a ranger regression model")
+    post_spec <- car_spec$paths$`/predict`$post
+    expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
+    expect_equal(as.character(post_spec$summary),
+                 "Return predictions from model using 10 features")
+    get_spec <- car_spec$paths$`/pin-url`$get
+    expect_equal(as.character(get_spec$summary),
+                 "Get URL of pinned vetiver model")
+})
+
+test_that("create plumber.R for int_conformal_quantile", {
+    skip_on_cran()
+    b <- board_folder(path = tmp_dir)
+    vetiver_pin_write(b, v_quantile)
+    tmp <- tempfile()
+    vetiver_write_plumber(b, "cars_int_quantile", file = tmp)
     expect_snapshot(
         cat(readr::read_lines(tmp), sep = "\n"),
         transform = redact_vetiver

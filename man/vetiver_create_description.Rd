@@ -27,6 +27,8 @@
 \alias{vetiver_prepare_model.int_conformal_split}
 \alias{vetiver_create_description.int_conformal_full}
 \alias{vetiver_prepare_model.int_conformal_full}
+\alias{vetiver_create_description.int_conformal_quantile}
+\alias{vetiver_prepare_model.int_conformal_quantile}
 \alias{vetiver_create_description.ranger}
 \alias{vetiver_prepare_model.ranger}
 \alias{vetiver_create_description.recipe}
@@ -86,6 +88,10 @@ vetiver_prepare_model(model)
 \method{vetiver_create_description}{int_conformal_full}(model)
 
 \method{vetiver_prepare_model}{int_conformal_full}(model)
+
+\method{vetiver_create_description}{int_conformal_quantile}(model)
+
+\method{vetiver_prepare_model}{int_conformal_quantile}(model)
 
 \method{vetiver_create_description}{ranger}(model)
 
