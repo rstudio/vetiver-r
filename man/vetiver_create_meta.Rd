@@ -15,6 +15,7 @@
 \alias{vetiver_create_meta.int_conformal_split}
 \alias{vetiver_create_meta.int_conformal_full}
 \alias{vetiver_create_meta.int_conformal_quantile}
+\alias{vetiver_create_meta.int_conformal_cv}
 \alias{vetiver_create_meta.ranger}
 \alias{vetiver_create_meta.recipe}
 \alias{vetiver_create_meta.model_stack}
@@ -45,6 +46,8 @@ vetiver_create_meta(model, metadata)
 \method{vetiver_create_meta}{int_conformal_full}(model, metadata)
 
 \method{vetiver_create_meta}{int_conformal_quantile}(model, metadata)
+
+\method{vetiver_create_meta}{int_conformal_cv}(model, metadata)
 
 \method{vetiver_create_meta}{ranger}(model, metadata)
 

@@ -14,6 +14,7 @@
 \alias{vetiver_ptype.int_conformal_split}
 \alias{vetiver_ptype.int_conformal_full}
 \alias{vetiver_ptype.int_conformal_quantile}
+\alias{vetiver_ptype.int_conformal_cv}
 \alias{vetiver_ptype}
 \alias{vetiver_ptype.default}
 \alias{vetiver_create_ptype}
@@ -45,6 +46,8 @@
 \method{vetiver_ptype}{int_conformal_full}(model, ...)
 
 \method{vetiver_ptype}{int_conformal_quantile}(model, ...)
+
+\method{vetiver_ptype}{int_conformal_cv}(model, ...)
 
 vetiver_ptype(model, ...)
 

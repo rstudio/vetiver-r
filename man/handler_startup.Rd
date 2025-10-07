@@ -26,6 +26,8 @@
 \alias{handler_predict.int_conformal_full}
 \alias{handler_startup.int_conformal_quantile}
 \alias{handler_predict.int_conformal_quantile}
+\alias{handler_startup.int_conformal_cv}
+\alias{handler_predict.int_conformal_cv}
 \alias{handler_startup.ranger}
 \alias{handler_predict.ranger}
 \alias{handler_startup.recipe}
@@ -83,6 +85,10 @@ handler_predict(vetiver_model, ...)
 \method{handler_startup}{int_conformal_quantile}(vetiver_model)
 
 \method{handler_predict}{int_conformal_quantile}(vetiver_model, ...)
+
+\method{handler_startup}{int_conformal_cv}(vetiver_model)
+
+\method{handler_predict}{int_conformal_cv}(vetiver_model, ...)
 
 \method{handler_startup}{ranger}(vetiver_model)
 
