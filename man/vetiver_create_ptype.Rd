@@ -12,6 +12,7 @@
 \alias{vetiver_ptype.luz_module_fitted}
 \alias{vetiver_ptype.Learner}
 \alias{vetiver_ptype.int_conformal_split}
+\alias{vetiver_ptype.int_conformal_full}
 \alias{vetiver_ptype}
 \alias{vetiver_ptype.default}
 \alias{vetiver_create_ptype}
@@ -39,6 +40,8 @@
 \method{vetiver_ptype}{Learner}(model, ...)
 
 \method{vetiver_ptype}{int_conformal_split}(model, ...)
+
+\method{vetiver_ptype}{int_conformal_full}(model, ...)
 
 vetiver_ptype(model, ...)
 
@@ -102,7 +105,7 @@ vetiver_ptype(cars_lm)
 
 ## can also turn off prototype
 vetiver_create_ptype(cars_lm, FALSE)
-\dontshow{if (rlang::is_installed("ranger")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("ranger")) withAutoprint(\{ # examplesIf}
 ## some models require that you pass in training features
 cars_rf <- ranger::ranger(mpg ~ ., data = mtcars)
 vetiver_ptype(cars_rf, prototype_data = mtcars[,-1])

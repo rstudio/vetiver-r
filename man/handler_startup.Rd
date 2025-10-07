@@ -22,6 +22,8 @@
 \alias{handler_predict.Learner}
 \alias{handler_startup.int_conformal_split}
 \alias{handler_predict.int_conformal_split}
+\alias{handler_startup.int_conformal_full}
+\alias{handler_predict.int_conformal_full}
 \alias{handler_startup.ranger}
 \alias{handler_predict.ranger}
 \alias{handler_startup.recipe}
@@ -71,6 +73,10 @@ handler_predict(vetiver_model, ...)
 \method{handler_startup}{int_conformal_split}(vetiver_model)
 
 \method{handler_predict}{int_conformal_split}(vetiver_model, ...)
+
+\method{handler_startup}{int_conformal_full}(vetiver_model)
+
+\method{handler_predict}{int_conformal_full}(vetiver_model, ...)
 
 \method{handler_startup}{ranger}(vetiver_model)
 
