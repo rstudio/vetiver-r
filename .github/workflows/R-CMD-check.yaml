@@ -5,6 +5,7 @@
 # check-standard.yaml is likely a better choice.
 # usethis::use_github_action("check-standard") will install it.
 on:
+  workflow_dispatch:
   push:
     branches: [main, master]
   pull_request:
@@ -35,6 +36,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       TORCH_INSTALL: 1
+      PY_REQUIRE_LEGACY_KERAS: 1
 
     steps:
       - uses: actions/checkout@v3
@@ -54,15 +56,6 @@ jobs:
             any::cpp11,
             ranger=?ignore-before-r=4.1.0
           needs: check
-
-      - name: Install Miniconda & Tensorflow
-        # conda can fail at downgrading python, so we specify python version in advance
-        env:
-          RETICULATE_MINICONDA_PYTHON_VERSION: "3.10"
-        run: |
-            reticulate::install_miniconda() # creates r-reticulate conda env by default
-            tensorflow::install_tensorflow(version="2.15", conda_python_version = NULL)
-        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
