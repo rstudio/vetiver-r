@@ -5,6 +5,7 @@ skip_if(is.null(tensorflow::tf_version()))
 
 library(plumber)
 library(keras)
+py_require_legacy_keras()
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
@@ -14,8 +15,8 @@ y_train <- scaled_cars[1:25, 1]
 set.seed(1)
 
 keras_fit <-
-    keras_model_sequential()  %>%
-    layer_dense(units = 1, input_shape = ncol(x_train), activation = 'linear') %>%
+    keras_model_sequential(input_shape = ncol(x_train))  %>%
+    layer_dense(units = 1, activation = 'linear') %>%
     compile(loss = 'mean_squared_error')
 
 keras_fit %>%
