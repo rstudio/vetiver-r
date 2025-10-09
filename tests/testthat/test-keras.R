@@ -1,12 +1,11 @@
 skip_on_cran()
 skip_if_not_installed("keras")
 skip_if_not_installed("plumber")
-skip_if(is.null(tensorflow::tf_version()))
 
 library(plumber)
 library(keras)
 py_require_legacy_keras()
-reticulate::py_require("tensorflow!=2.20.*")
+reticulate::py_require("tensorflow-datasets", action = "remove")
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
@@ -89,4 +88,3 @@ test_that("create plumber.R for keras", {
         vetiver_write_docker(v, tmp, tmp_dir)
     )
 })
-
