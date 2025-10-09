@@ -6,6 +6,7 @@ skip_if(is.null(tensorflow::tf_version()))
 library(plumber)
 library(keras)
 py_require_legacy_keras()
+reticulate::py_require("tensorflow-datasets", action = "remove")
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
 x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
