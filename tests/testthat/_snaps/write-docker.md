@@ -13,6 +13,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -39,6 +40,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -64,6 +66,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -90,6 +93,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -116,6 +120,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -160,6 +165,7 @@
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
