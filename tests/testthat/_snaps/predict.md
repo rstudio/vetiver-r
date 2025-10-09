@@ -30,5 +30,5 @@
     Condition
       Error in `predict()`:
       ! Failed to predict: Error in `hardhat::validate_column_names()`:
-      ! The following required columns are missing: 'cyl'.
+      ! The required column "cyl" is missing.
 

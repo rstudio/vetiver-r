@@ -1,6 +1,6 @@
 # missing variables
 
-    The following required columns are missing: 'mpg', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb'.
+    The required columns "mpg", "hp", "drat", "wt", "qsec", "vs", "am", "gear", and "carb" are missing.
 
 # a factor plus a bad character
 

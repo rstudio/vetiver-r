@@ -1,31 +1,38 @@
 skip_on_cran()
 skip_if_not_installed("keras")
 skip_if_not_installed("plumber")
-skip_if(is.null(tensorflow::tf_version()))
 
 library(plumber)
 library(keras)
+py_require_legacy_keras()
+reticulate::py_require("tensorflow-datasets", action = "remove")
 
 scaled_cars <- as.matrix(mtcars) %>% scale()
-x_test  <- scaled_cars[26:32, 2:ncol(scaled_cars)]
+x_test <- scaled_cars[26:32, 2:ncol(scaled_cars)]
 x_train <- scaled_cars[1:25, 2:ncol(scaled_cars)]
 y_train <- scaled_cars[1:25, 1]
 
 set.seed(1)
 
 keras_fit <-
-    keras_model_sequential()  %>%
-    layer_dense(units = 1, input_shape = ncol(x_train), activation = 'linear') %>%
+    keras_model_sequential(input_shape = ncol(x_train)) %>%
+    layer_dense(units = 1, activation = 'linear') %>%
     compile(loss = 'mean_squared_error')
 
 keras_fit %>%
     fit(
-        x = x_train, y = y_train,
-        epochs = 100, batch_size = 1,
+        x = x_train,
+        y = y_train,
+        epochs = 100,
+        batch_size = 1,
         verbose = 0
     )
 
-v <- vetiver_model(keras_fit, "cars-keras", prototype_data = data.frame(x_train)[1,])
+v <- vetiver_model(
+    keras_fit,
+    "cars-keras",
+    prototype_data = data.frame(x_train)[1, ]
+)
 
 test_that("can print keras model", {
     expect_snapshot(v)
@@ -57,16 +64,21 @@ test_that("default OpenAPI spec", {
     v$metadata <- list(url = "potatoes")
     p <- pr() %>% vetiver_api(v)
     car_spec <- p$getApiSpec()
-    expect_equal(car_spec$info$description,
-                 "A sequential keras model with 2 layers")
+    expect_equal(
+        car_spec$info$description,
+        "A sequential keras model with 2 layers"
+    )
     post_spec <- car_spec$paths$`/predict`$post
     expect_equal(names(post_spec), c("summary", "requestBody", "responses"))
-    expect_equal(as.character(post_spec$summary),
-                 "Return predictions from model using 10 features")
+    expect_equal(
+        as.character(post_spec$summary),
+        "Return predictions from model using 10 features"
+    )
     get_spec <- car_spec$paths$`/pin-url`$get
-    expect_equal(as.character(get_spec$summary),
-                 "Get URL of pinned vetiver model")
-
+    expect_equal(
+        as.character(get_spec$summary),
+        "Get URL of pinned vetiver model"
+    )
 })
 
 test_that("create plumber.R for keras", {
@@ -80,11 +92,13 @@ test_that("create plumber.R for keras", {
         transform = redact_vetiver
     )
     expect_snapshot(
-        cat(readr::read_lines(fs::path(fs::path_dir(tmp), "requirements.txt")), sep = "\n"),
+        cat(
+            readr::read_lines(fs::path(fs::path_dir(tmp), "requirements.txt")),
+            sep = "\n"
+        ),
         transform = redact_vetiver
     )
     expect_snapshot(
         vetiver_write_docker(v, tmp, tmp_dir)
     )
 })
-
