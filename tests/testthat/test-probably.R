@@ -6,6 +6,7 @@ skip_if_not_installed("ranger")
 skip_if_not_installed("plumber")
 skip_if_not_installed("tune")
 skip_if_not_installed("rsample")
+skip_if_not_installed("quantregForest")
 
 library(plumber)
 library(workflows)
