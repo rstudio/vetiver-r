@@ -4,7 +4,7 @@
       v_split
     Output
       
-      -- cars_int_split - <conformal_reg_split> model for deployment 
+      -- cars_int_split - <butchered_int_conformal_split> model for deployment 
       A Split Conformal inference with a ranger regression model using 10 features
 
 # create plumber.R for int_conformal_split
@@ -40,7 +40,7 @@
       v_full
     Output
       
-      -- cars_int_full - <conformal_reg_full> model for deployment 
+      -- cars_int_full - <butchered_int_conformal_full> model for deployment 
       A full Conformal inference with a ranger regression model using 10 features
 
 # create plumber.R for int_conformal_full
@@ -76,7 +76,7 @@
       v_quantile
     Output
       
-      -- cars_int_quantile - <conformal_reg_quantile> model for deployment 
+      -- cars_int_quantile - <butchered_int_conformal_quantile> model for deployment 
       A quantile Conformal inference with a ranger regression model using 10 features
 
 # create plumber.R for int_conformal_quantile
@@ -112,7 +112,7 @@
       v_cv
     Output
       
-      -- cars_int_cv - <conformal_reg_cv> model for deployment 
+      -- cars_int_cv - <butchered_int_conformal_cv> model for deployment 
       A 10-fold CV+ Conformal inference with a ranger regression model using 10
       features
 
