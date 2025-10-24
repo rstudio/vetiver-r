@@ -55,7 +55,7 @@ will need to pass authentication details with your API call,
 \href{https://docs.posit.co/connect/user/vetiver/#predict-from-your-model-endpoint}{as shown in the Connect documentation}.
 }
 \examples{
-\dontshow{if (rlang::is_installed("rsconnect")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("rsconnect")) withAutoprint(\{ # examplesIf}
 library(pins)
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)

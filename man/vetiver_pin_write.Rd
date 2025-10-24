@@ -56,7 +56,7 @@ vetiver_pin_read(model_board, "cars_linear")
 
 # can use `version` argument to read a specific version:
 pin_versions(model_board, "cars_linear")
-\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 # can store an renv lockfile as part of the pin:
 vetiver_pin_write(model_board, v, check_renv = TRUE)
 \dontshow{\}) # examplesIf}

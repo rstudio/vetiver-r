@@ -49,7 +49,7 @@ version. You can override this default behavior by choosing a specific
 \code{version}.
 }
 \examples{
-\dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("plumber")) withAutoprint(\{ # examplesIf}
 library(pins)
 tmp <- tempfile()
 b <- board_temp(versioned = TRUE)

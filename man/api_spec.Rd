@@ -44,7 +44,7 @@ character string.
 Update the OpenAPI specification using model metadata
 }
 \examples{
-\dontshow{if (rlang::is_installed("plumber")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("plumber")) withAutoprint(\{ # examplesIf}
 library(plumber)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")

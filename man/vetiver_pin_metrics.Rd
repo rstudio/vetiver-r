@@ -68,7 +68,7 @@ You can initially create your pin with \code{type = "arrow"} or the default
 same \code{type} by default.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow")) && identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow")) && identical(Sys.getenv("NOT_CRAN"), "true")) withAutoprint(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
