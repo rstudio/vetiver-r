@@ -9,4 +9,3 @@ inst/doc
 *html
 pkgdown/*
 vetiver_renv.lock
-revdep
