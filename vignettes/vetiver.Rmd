@@ -22,7 +22,7 @@ The goal of vetiver is to provide fluent tooling for MLOps tasks for your traine
 - sharing
 - deploying
 
-For more extensive documentation, visit <https://vetiver.rstudio.com/>.
+For more extensive documentation, visit <https://vetiver.posit.co/>.
 
 ## Create a `vetiver_model()`
 
