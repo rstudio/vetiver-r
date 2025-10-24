@@ -30,7 +30,8 @@ learn more about vetiver, see:
 You can use vetiver with:
 
 - a [tidymodels](https://www.tidymodels.org/) workflow (including
-  [stacks](https://stacks.tidymodels.org/))
+  [stacks](https://stacks.tidymodels.org/) and
+  [probably](https://probably.tidymodels.org/))
 - [caret](https://topepo.github.io/caret/)
 - [mlr3](https://mlr3.mlr-org.com/)
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)

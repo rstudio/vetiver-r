@@ -31,7 +31,7 @@ The goal of vetiver is to provide fluent tooling to version, share, deploy, and 
 
 You can use vetiver with:
 
-- a [tidymodels](https://www.tidymodels.org/) workflow (including [stacks](https://stacks.tidymodels.org/))
+- a [tidymodels](https://www.tidymodels.org/) workflow (including [stacks](https://stacks.tidymodels.org/) and [probably](https://probably.tidymodels.org/))
 - [caret](https://topepo.github.io/caret/)
 - [mlr3](https://mlr3.mlr-org.com/)
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
