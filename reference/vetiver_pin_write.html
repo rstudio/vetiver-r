@@ -38,7 +38,7 @@ vetiver_pin_read() to retrieve that pinned object."><meta property="og:image" co
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Read and write a trained model to a board of models</h1>
-      <small class="dont-index">Source: <a href="https://github.com/rstudio/vetiver-r/blob/main/R/pin-read-write.R" class="external-link"><code>R/pin-read-write.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rstudio/vetiver-r/blob/v0.2.6/R/pin-read-write.R" class="external-link"><code>R/pin-read-write.R</code></a></small>
       <div class="d-none name"><code>vetiver_pin_write.Rd</code></div>
     </div>
 
@@ -110,11 +110,11 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251028T165222Z-2c3c1'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251028T174728Z-2c3c1'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span><span class="va">model_board</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pin board <span style="color: #0000BB;">&lt;pins_board_folder&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/Rtmp2MOZjY/pins-20bd271bf024'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpjYNBwO/pins-1e227b3bc14d'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cache size: 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_read</span><span class="op">(</span><span class="va">model_board</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
@@ -127,10 +127,10 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   version                created             hash </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20251028T165222Z-2c3c1 2025-10-28 <span style="color: #949494;">16:52:22</span> 2c3c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20251028T174728Z-2c3c1 2025-10-28 <span style="color: #949494;">17:47:28</span> 2c3c1</span>
 <span class="r-in"><span><span class="co"># can store an renv lockfile as part of the pin:</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span>, check_renv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in pin_store(board, name, path, meta, versioned = versioned, x = x,     ...):</span> The new version <span style="color: #0000BB;">"20251028T165222Z-2c3c1"</span> is the same as the</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in pin_store(board, name, path, meta, versioned = versioned, x = x,     ...):</span> The new version <span style="color: #0000BB;">"20251028T174728Z-2c3c1"</span> is the same as the</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> most recent version.</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you try to create a new version with the same timestamp as the</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span>   last version?</span>
