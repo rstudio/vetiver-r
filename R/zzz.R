@@ -1,7 +1,7 @@
 # nocov start
 
 .onLoad <- function(libname, pkgname) {
-    renv$initialize()
+    renv$initialize(libname, pkgname)
 }
 
 # nocov end
