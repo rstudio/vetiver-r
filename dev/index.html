@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="index.html">vetiver</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.5.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,14 +71,14 @@
 </blockquote>
 <p>The goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint. The vetiver package is extensible, with generics that can support many kinds of models, and available for both R and Python. To learn more about vetiver, see:</p>
 <ul>
-<li>the documentation at <a href="https://vetiver.rstudio.com/" class="external-link uri">https://vetiver.rstudio.com/</a>
+<li>the documentation at <a href="https://vetiver.posit.co/" class="external-link uri">https://vetiver.posit.co/</a>
 </li>
 <li>the Python package at <a href="https://rstudio.github.io/vetiver-python/" class="external-link uri">https://rstudio.github.io/vetiver-python/</a>
 </li>
 </ul>
 <p>You can use vetiver with:</p>
 <ul>
-<li>a <a href="https://www.tidymodels.org/" class="external-link">tidymodels</a> workflow (including <a href="https://stacks.tidymodels.org/" class="external-link">stacks</a>)</li>
+<li>a <a href="https://www.tidymodels.org/" class="external-link">tidymodels</a> workflow (including <a href="https://stacks.tidymodels.org/" class="external-link">stacks</a> and <a href="https://probably.tidymodels.org/" class="external-link">probably</a>)</li>
 <li><a href="https://topepo.github.io/caret/" class="external-link">caret</a></li>
 <li><a href="https://mlr3.mlr-org.com/" class="external-link">mlr3</a></li>
 <li><a href="https://xgboost.readthedocs.io/en/latest/R-package/" class="external-link">XGBoost</a></li>
@@ -118,8 +118,11 @@
 <span>    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Sacramento</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.posit.co" class="external-link">vetiver</a></span><span class="op">)</span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">rf_fit</span>, <span class="st">"sacramento_rf"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'butcher':</span></span>
+<span><span class="co">#&gt;   method                 from    </span></span>
+<span><span class="co">#&gt;   as.character.dev_topic generics</span></span>
 <span><span class="va">v</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── sacramento_rf ─ &lt;bundled_workflow&gt; model for deployment </span></span>
@@ -137,7 +140,7 @@
 <span>  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></span></code></pre></div>
 <p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://docs.posit.co/ide/user/ide/guide/tools/jobs.html" class="external-link">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.rstudio.com" class="external-link">vetiver</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.posit.co" class="external-link">vetiver</a></span><span class="op">)</span></span>
 <span><span class="va">endpoint</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vetiver_endpoint.html">vetiver_endpoint</a></span><span class="op">(</span><span class="st">"http://127.0.0.1:8088/predict"</span><span class="op">)</span></span>
 <span><span class="va">endpoint</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -180,7 +183,7 @@
 </h2>
 <p>This project is released with a <a href="https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <ul>
-<li><p>For questions and discussions about modeling, machine learning, and MLOps please <a href="https://community.rstudio.com/new-topic?category_id=15&amp;tags=vetiver,question" class="external-link">post on RStudio Community</a>.</p></li>
+<li><p>For questions and discussions about modeling, machine learning, and MLOps please <a href="https://forum.posit.co/new-topic?category_id=15&amp;tags=vetiver,question" class="external-link">post on Posit Community</a>.</p></li>
 <li><p>If you think you have encountered a bug, please <a href="https://github.com/rstudio/vetiver-r/issues" class="external-link">submit an issue</a>.</p></li>
 <li><p>Either way, learn how to create and share a <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html" class="external-link">reprex</a> (a minimal, reproducible example), to clearly communicate about your code.</p></li>
 </ul>
