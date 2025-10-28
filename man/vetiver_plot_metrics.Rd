@@ -44,7 +44,7 @@ over time
 }
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))) withAutoprint(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")

@@ -1,6 +1,6 @@
 Package: vetiver
 Title: Version, Share, Deploy, and Monitor Models
-Version: 0.2.5.9000
+Version: 0.2.6
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@posit.co", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
@@ -12,7 +12,8 @@ Description: The goal of 'vetiver' is to provide fluent tooling to
     predicting from a remote API endpoint. The 'vetiver' package is
     extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
-URL: https://vetiver.rstudio.com, https://rstudio.github.io/vetiver-r/,
+URL: https://vetiver.posit.co, 
+    https://rstudio.github.io/vetiver-r/,
     https://github.com/rstudio/vetiver-r/
 BugReports: https://github.com/rstudio/vetiver-r/issues
 Depends: 
@@ -64,7 +65,7 @@ Suggests:
     pingr,
     plotly,
     plumber (>= 1.0.0),
-    probably (>= 1.1.1.9001),
+    probably (>= 1.2.0),
     quantregForest,
     ranger,
     recipes (>= 1.1.0),
@@ -91,7 +92,4 @@ Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
-Remotes: 
-    rstudio/reticulate,
-    tidymodels/probably
+RoxygenNote: 7.3.3

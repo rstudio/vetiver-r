@@ -13,7 +13,7 @@ The goal of 'vetiver' is to provide fluent tooling to version, share, deploy, an
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://vetiver.rstudio.com}
+  \item \url{https://vetiver.posit.co}
   \item \url{https://rstudio.github.io/vetiver-r/}
   \item \url{https://github.com/rstudio/vetiver-r/}
   \item Report bugs at \url{https://github.com/rstudio/vetiver-r/issues}

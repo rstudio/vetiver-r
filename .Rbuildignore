@@ -21,3 +21,4 @@
 ^inst/rmarkdown/templates/vetiver_dashboard/skeleton/rsconnect$
 ^CRAN-SUBMISSION$
 ^.Renviron$
+^revdep$

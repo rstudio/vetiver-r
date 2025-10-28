@@ -53,7 +53,7 @@ Dockerfile to, for example, \verb{COPY requirements.txt requirements.txt} or
 similar.
 }
 \examples{
-\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 library(pins)
 b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)

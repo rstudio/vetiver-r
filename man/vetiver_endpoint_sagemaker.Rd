@@ -18,7 +18,7 @@ No HTTP calls are made until you actually
 \code{\link[=predict.vetiver_endpoint_sagemaker]{predict()}} with your endpoint.
 }
 \examples{
-\dontshow{if (rlang::is_installed("smdocker")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("smdocker")) withAutoprint(\{ # examplesIf}
 vetiver_endpoint_sagemaker("vetiver-sagemaker-demo-model")
 \dontshow{\}) # examplesIf}
 }

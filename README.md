@@ -24,13 +24,14 @@ API endpoint. The vetiver package is extensible, with generics that can
 support many kinds of models, and available for both R and Python. To
 learn more about vetiver, see:
 
-- the documentation at <https://vetiver.rstudio.com/>
+- the documentation at <https://vetiver.posit.co/>
 - the Python package at <https://rstudio.github.io/vetiver-python/>
 
 You can use vetiver with:
 
 - a [tidymodels](https://www.tidymodels.org/) workflow (including
-  [stacks](https://stacks.tidymodels.org/))
+  [stacks](https://stacks.tidymodels.org/) and
+  [probably](https://probably.tidymodels.org/))
 - [caret](https://topepo.github.io/caret/)
 - [mlr3](https://mlr3.mlr-org.com/)
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
@@ -77,6 +78,9 @@ rf_fit <-
 
 library(vetiver)
 v <- vetiver_model(rf_fit, "sacramento_rf")
+#> Registered S3 method overwritten by 'butcher':
+#>   method                 from    
+#>   as.character.dev_topic generics
 v
 #> 
 #> ── sacramento_rf ─ <bundled_workflow> model for deployment 
@@ -161,8 +165,8 @@ Conduct](https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 - For questions and discussions about modeling, machine learning, and
-  MLOps please [post on RStudio
-  Community](https://community.rstudio.com/new-topic?category_id=15&tags=vetiver,question).
+  MLOps please [post on Posit
+  Community](https://forum.posit.co/new-topic?category_id=15&tags=vetiver,question).
 
 - If you think you have encountered a bug, please [submit an
   issue](https://github.com/rstudio/vetiver-r/issues).

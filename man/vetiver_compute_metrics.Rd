@@ -108,7 +108,7 @@ such as \code{date_var}, consider using
 to reduce repetition and/or errors.
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata"))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata"))) withAutoprint(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
