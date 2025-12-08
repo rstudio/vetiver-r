@@ -1,11 +1,17 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.xgb.Booster <- function(model) {
-  if (!is_null(model$params$objective)) {
-    ret <- glue("An xgboost {model$params$objective} model")
+  if (is_null(model$params)) {
+    if (is_null(attr(model, "params"))) {
+      ret <- "An xgboost model"
+    } else {
+      ret <- glue("An xgboost {attr(model, 'params')$objective} model")
+    }
   } else {
-    "An xgboost model"
+    ret <- glue("An xgboost {model$params$objective} model")
   }
+
+  ret
 }
 
 #' @rdname vetiver_create_meta
@@ -17,11 +23,20 @@ vetiver_create_meta.xgb.Booster <- function(model, metadata) {
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.xgb.Booster <- function(model, ...) {
-  pred_names <- matrix(
-    NA_real_,
-    ncol = model$nfeatures,
-    dimnames = list("", model$feature_names)
-  )
+  if (is_null(model$nfeatures)) {
+    feature_names <- xgboost::getinfo(model, "feature_name")
+    pred_names <- matrix(
+      NA_real_,
+      ncol = length(feature_names),
+      dimnames = list("", feature_names)
+    )
+  } else {
+    pred_names <- matrix(
+      NA_real_,
+      ncol = model$nfeatures,
+      dimnames = list("", model$feature_names)
+    )
+  }
   ptype <- vctrs::vec_ptype(pred_names)
   tibble::as_tibble(ptype)
 }
