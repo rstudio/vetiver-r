@@ -85,22 +85,22 @@ preds <- augment(v, Sacramento)
 ### Overall model performance
 
 ```{r}
-preds %>%
+preds |>
     metrics(price, .pred)
 ```
 
 ### Disaggregated model performance
 
 ```{r}
-preds %>%
-    group_by(type) %>%
+preds |>
+    group_by(type) |>
     metrics(price, .pred)
 ```
 
 ### Visualize model performance
 
 ```{r, fig.height=3}
-preds %>%
+preds |>
     ggplot(aes(price, .pred, color = type)) +
     geom_abline(slope = 1, lty = 2, color = "gray60", size = 1.2) +
     geom_point(alpha = 0.5, show.legend = FALSE) +
@@ -110,8 +110,8 @@ preds %>%
 ### Make a custom plot
 
 ```{r}
-preds %>%
-    mutate(.resid = price - .pred) %>%
+preds |>
+    mutate(.resid = price - .pred) |>
     ggplot(aes(longitude, latitude, color = .resid)) +
     geom_point(alpha = 0.8) +
     scale_color_gradient2() +
