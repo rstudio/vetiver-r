@@ -22,3 +22,5 @@
 ^CRAN-SUBMISSION$
 ^.Renviron$
 ^revdep$
+^[.]?air[.]toml$
+^\.vscode$
