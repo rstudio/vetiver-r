@@ -7,7 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -36,16 +37,16 @@ data(bivariate, package = "modeldata")
 bivariate_train
 
 biv_rec <-
-  recipe(Class ~ ., data = bivariate_train) %>%
-  step_BoxCox(all_predictors())%>%
+  recipe(Class ~ ., data = bivariate_train) |>
+  step_BoxCox(all_predictors())|>
   step_normalize(all_predictors())
 
 svm_spec <-
-  svm_linear(mode = "classification") %>%
+  svm_linear(mode = "classification") |>
   set_engine("LiblineaR")
 
 svm_fit <- 
-  workflow(biv_rec, svm_spec) %>%
+  workflow(biv_rec, svm_spec) |>
   fit(sample_frac(bivariate_train, 0.7))
 ```
 
@@ -63,28 +64,30 @@ Think of this `vetiver_model()` as a deployable model object.
 
 You can store and version your model by choosing a [pins](https://pins.rstudio.com) "board" for it, including a local folder, Posit Connect, Amazon S3, and more. Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board. When we write the `vetiver_model()` to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
 
-```{r message=FALSE}
+```{r}
+#| message: false
 library(pins)
 model_board <- board_temp(versioned = TRUE)
-model_board %>% vetiver_pin_write(v)
+model_board |> vetiver_pin_write(v)
 ```
 
 Let's train our model again with a new version of the dataset and write it once more to our board.
 
-```{r message=FALSE}
+```{r}
+#| message: false
 svm_fit <- 
-  workflow(biv_rec, svm_spec) %>%
+  workflow(biv_rec, svm_spec) |>
   fit(sample_frac(bivariate_train, 0.7))
 
 v <- vetiver_model(svm_fit, "biv_svm")
 
-model_board %>% vetiver_pin_write(v)
+model_board |> vetiver_pin_write(v)
 ```
 
 Both versions are stored, and we have access to both.
 
 ```{r}
-model_board %>% pin_versions("biv_svm")
+model_board |> pin_versions("biv_svm")
 ```
 
 The primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned `vetiver_model()` can be shareable with your collaborators.
@@ -95,18 +98,21 @@ You can deploy your model by creating a [Plumber](https://www.rplumber.io/) rout
 
 ```{r}
 library(plumber)
-pr() %>%
+pr() |>
   vetiver_api(v)
 ```
 
-To start a server using this object, pipe (`%>%`) to `pr_run(port = 8088)` or your port of choice. This allows you to interact with your vetiver API locally and debug it. Plumber APIs such as these can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html). You can use the function `vetiver_write_plumber()` to create a ready-to-go `plumber.R` file that is especially suited for [Posit Connect](https://posit.co/products/enterprise/connect/).
+To start a server using this object, pipe (`|>`) to `pr_run(port = 8088)` or your port of choice. This allows you to interact with your vetiver API locally and debug it. Plumber APIs such as these can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html). You can use the function `vetiver_write_plumber()` to create a ready-to-go `plumber.R` file that is especially suited for [Posit Connect](https://posit.co/products/enterprise/connect/).
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 vetiver_write_plumber(model_board, "biv_svm")
 ```
 
 
-```{r echo=FALSE, comment = ""}
+```{r}
+#| echo: false
+#| comment: ''
 tmp <- tempfile()
 vetiver_write_plumber(model_board, "biv_svm", file = tmp)
 cat(readr::read_lines(tmp), sep = "\n")
