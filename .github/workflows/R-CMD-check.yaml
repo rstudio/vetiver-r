@@ -53,7 +53,7 @@ jobs:
         with:
           extra-packages: 
             any::rcmdcheck,
-            any::cpp11
+            any::lhs
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
