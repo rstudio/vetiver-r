@@ -22,7 +22,7 @@
       
       #* @plumber
       function(pr) {
-          pr |> vetiver_api(v, path = "/invocations")
+          vetiver_api(pr, v, path = "/invocations")
       }
 
 ---

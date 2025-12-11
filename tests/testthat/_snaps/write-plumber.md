@@ -142,6 +142,6 @@
       
       #* @plumber
       function(pr) {
-          pr |> vetiver_api(v, debug = TRUE, endpoint = "/predict2", type = "numeric")
+          vetiver_api(pr, v, debug = TRUE, endpoint = "/predict2", type = "numeric")
       }
 
