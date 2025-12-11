@@ -1,6 +1,6 @@
 test_that("can attach pkgs", {
   skip_on_cran()
-  expect_snapshot(attach_pkgs(c("knitr", "readr")), NA)
+  expect_snapshot(attach_pkgs(c("knitr", "readr")))
 })
 
 test_that("can fail on a single pkg", {
@@ -10,6 +10,6 @@ test_that("can fail on a single pkg", {
 
 test_that("can fail on multiple pkgs", {
   skip_on_cran()
-  expect_snapshot_error(attach_pkgs(c("potato", "bloopy")))
-  expect_snapshot_error(attach_pkgs(c("potato", "readr")))
+  expect_snapshot(attach_pkgs(c("potato", "bloopy")), error = TRUE)
+  expect_snapshot(attach_pkgs(c("potato", "readr")), error = TRUE)
 })
