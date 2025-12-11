@@ -46,139 +46,147 @@
 #' v <- vetiver_model(cars_lm, "cars_linear")
 #'
 #' library(plumber)
-#' pr() %>% vetiver_api(v)
+#' pr() |> vetiver_api(v)
 #' ## is the same as:
-#' pr() %>% vetiver_pr_post(v) %>% vetiver_pr_docs(v)
+#' pr() |> vetiver_pr_post(v) |> vetiver_pr_docs(v)
 #' ## for either, next, pipe to `pr_run()`
 #'
 #' @export
-vetiver_api <- function(pr,
-                        vetiver_model,
-                        path = "/predict",
-                        debug = is_interactive(),
-                        ...) {
-    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
-    rlang::list2(...)
-    vetiver_model$model <- bundle::unbundle(vetiver_model$model)
-    pr <- vetiver_pr_post(
-        pr = pr,
-        vetiver_model = vetiver_model,
-        path = path,
-        debug = debug,
-        ...
-    )
+vetiver_api <- function(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  debug = is_interactive(),
+  ...
+) {
+  # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
+  rlang::list2(...)
+  vetiver_model$model <- bundle::unbundle(vetiver_model$model)
+  pr <- vetiver_pr_post(
+    pr = pr,
+    vetiver_model = vetiver_model,
+    path = path,
+    debug = debug,
+    ...
+  )
 
-    pr <- vetiver_pr_docs(pr = pr, vetiver_model = vetiver_model, path = path)
+  pr <- vetiver_pr_docs(pr = pr, vetiver_model = vetiver_model, path = path)
 
-    pr
+  pr
 }
 
 #' @rdname vetiver_api
 #' @export
-vetiver_pr_post <- function(pr,
-                            vetiver_model,
-                            path = "/predict",
-                            debug = is_interactive(),
-                            ...,
-                            check_prototype = TRUE,
-                            check_ptype = deprecated()) {
-    rlang::check_installed("plumber")
-    # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
-    rlang::list2(...)
+vetiver_pr_post <- function(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  debug = is_interactive(),
+  ...,
+  check_prototype = TRUE,
+  check_ptype = deprecated()
+) {
+  rlang::check_installed("plumber")
+  # `force()` all `...` arguments early; https://github.com/tidymodels/vetiver/pull/20
+  rlang::list2(...)
 
-    if (lifecycle::is_present(check_ptype)) {
-        lifecycle::deprecate_soft(
-            "0.2.0",
-            "vetiver_pr_post(check_ptype)",
-            "vetiver_pr_post(check_prototype)"
-        )
-        check_prototype <- check_ptype
-    }
+  if (lifecycle::is_present(check_ptype)) {
+    lifecycle::deprecate_soft(
+      "0.2.0",
+      "vetiver_pr_post(check_ptype)",
+      "vetiver_pr_post(check_prototype)"
+    )
+    check_prototype <- check_ptype
+  }
 
-    handler_startup(vetiver_model)
-    pr <- plumber::pr_set_debug(pr, debug = debug)
-    pr <- plumber::pr_set_serializer(
-        pr,
-        serializer = plumber::serializer_unboxed_json(null = "null")
-    )
-    pr <- vetiver_pr_ping(pr)
-    pr <- vetiver_pr_pin_url(pr, vetiver_model)
-    pr <- vetiver_pr_metadata(pr, vetiver_model)
-    if (!check_prototype) {
-        vetiver_model$prototype <- NULL
-    }
-    pr <- vetiver_pr_prototype(pr, vetiver_model)
-    pr <- plumber::pr_post(
-        pr,
-        path = path,
-        handler = handler_predict(vetiver_model, ...)
-    )
-    pr
+  handler_startup(vetiver_model)
+  pr <- plumber::pr_set_debug(pr, debug = debug)
+  pr <- plumber::pr_set_serializer(
+    pr,
+    serializer = plumber::serializer_unboxed_json(null = "null")
+  )
+  pr <- vetiver_pr_ping(pr)
+  pr <- vetiver_pr_pin_url(pr, vetiver_model)
+  pr <- vetiver_pr_metadata(pr, vetiver_model)
+  if (!check_prototype) {
+    vetiver_model$prototype <- NULL
+  }
+  pr <- vetiver_pr_prototype(pr, vetiver_model)
+  pr <- plumber::pr_post(
+    pr,
+    path = path,
+    handler = handler_predict(vetiver_model, ...)
+  )
+  pr
 }
 
 vetiver_pr_ping <- function(pr) {
-    plumber::pr_get(
-        pr,
-        path = "/ping",
-        handler = function() {list(status = "online", time = Sys.time())}
-    )
+  plumber::pr_get(
+    pr,
+    path = "/ping",
+    handler = function() {
+      list(status = "online", time = Sys.time())
+    }
+  )
 }
 
 vetiver_pr_pin_url <- function(pr, vetiver_model) {
-    if (!is_null(vetiver_model$metadata$url)) {
-        pr <- plumber::pr_get(
-            pr,
-            path = "/pin-url",
-            handler = function() vetiver_model$metadata$url
-        )
-    }
-    pr
+  if (!is_null(vetiver_model$metadata$url)) {
+    pr <- plumber::pr_get(
+      pr,
+      path = "/pin-url",
+      handler = function() vetiver_model$metadata$url
+    )
+  }
+  pr
 }
 
 vetiver_pr_metadata <- function(pr, vetiver_model) {
-    plumber::pr_get(
-        pr,
-        path = "/metadata",
-        handler = function() vetiver_model$metadata
-    )
+  plumber::pr_get(
+    pr,
+    path = "/metadata",
+    handler = function() vetiver_model$metadata
+  )
 }
 
 vetiver_pr_prototype <- function(pr, vetiver_model) {
-    if (!is_null(vetiver_model$prototype)) {
-        pr <- plumber::pr_get(
-            pr,
-            path = "/prototype",
-            handler = function() {
-                purrr::map(vetiver_model$prototype, cereal::cereal_encode)
-            }
-        )
-    }
-    pr
+  if (!is_null(vetiver_model$prototype)) {
+    pr <- plumber::pr_get(
+      pr,
+      path = "/prototype",
+      handler = function() {
+        purrr::map(vetiver_model$prototype, cereal::cereal_encode)
+      }
+    )
+  }
+  pr
 }
 
 #' @rdname vetiver_api
 #' @export
-vetiver_pr_docs <- function(pr,
-                            vetiver_model,
-                            path = "/predict",
-                            all_docs = TRUE) {
-    rlang::check_installed("plumber")
-    loadNamespace("rapidoc")
-    modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
-    pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
-    logo <-
-        '<img slot="logo" src="../logo/vetiver.png"
+vetiver_pr_docs <- function(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  all_docs = TRUE
+) {
+  rlang::check_installed("plumber")
+  loadNamespace("rapidoc")
+  modify_spec <- function(spec) api_spec(spec, vetiver_model, path, all_docs)
+  pr <- plumber::pr_set_api_spec(pr, api = modify_spec)
+  logo <-
+    '<img slot="logo" src="../logo/vetiver.png"
          width=55px style=\"margin-left:7px\"/>'
-    pr <- plumber::pr_static(pr, "/logo", system.file(package = "vetiver"))
-    pr <- plumber::pr_set_docs(
-        pr,
-        "rapidoc",
-        slots = logo,
-        heading_text = paste("vetiver", utils::packageVersion("vetiver")),
-        header_color = "#F2C6AC",
-        primary_color = "#8C2D2D"
-    )
-    pr
+  pr <- plumber::pr_static(pr, "/logo", system.file(package = "vetiver"))
+  pr <- plumber::pr_set_docs(
+    pr,
+    "rapidoc",
+    slots = logo,
+    heading_text = paste("vetiver", utils::packageVersion("vetiver")),
+    header_color = "#F2C6AC",
+    primary_color = "#8C2D2D"
+  )
+  pr
 }
 
 #' Create a Plumber API to predict with a deployable `vetiver_model()` object
@@ -191,28 +199,35 @@ vetiver_pr_docs <- function(pr,
 #' @inheritParams vetiver_api
 #' @export
 #' @keywords internal
-vetiver_pr_predict <- function(pr,
-                               vetiver_model,
-                               path = "/predict",
-                               debug = is_interactive(),
-                               ...) {
-    lifecycle::deprecate_stop(
-        "0.1.2",
-        "vetiver_pr_predict()",
-        "vetiver_api()"
-    )
+vetiver_pr_predict <- function(
+  pr,
+  vetiver_model,
+  path = "/predict",
+  debug = is_interactive(),
+  ...
+) {
+  lifecycle::deprecate_stop(
+    "0.1.2",
+    "vetiver_pr_predict()",
+    "vetiver_api()"
+  )
 }
 
 
-local_plumber_session <- function(pr, port, docs = FALSE, env = parent.frame()) {
-    rlang::check_installed("plumber")
-    rs <- callr::r_session$new()
-    rs$call(
-        function(pr, port, docs) {
-            plumber::pr_run(pr = pr, port = port, docs = docs)
-        },
-        args = list(pr = pr, port = port, docs = docs)
-    )
-    withr::defer(rs$close(), envir = env)
-    rs
+local_plumber_session <- function(
+  pr,
+  port,
+  docs = FALSE,
+  env = parent.frame()
+) {
+  rlang::check_installed("plumber")
+  rs <- callr::r_session$new()
+  rs$call(
+    function(pr, port, docs) {
+      plumber::pr_run(pr = pr, port = port, docs = docs)
+    },
+    args = list(pr = pr, port = port, docs = docs)
+  )
+  withr::defer(rs$close(), envir = env)
+  rs
 }

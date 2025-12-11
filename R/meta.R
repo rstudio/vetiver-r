@@ -24,21 +24,24 @@
 #'
 #' @rdname vetiver_create_meta
 #' @export
-vetiver_meta <- function(user = list(), version = NULL,
-                         url = NULL, required_pkgs = NULL) {
-    list(user = user, version = version,
-         url = url, required_pkgs = required_pkgs)
+vetiver_meta <- function(
+  user = list(),
+  version = NULL,
+  url = NULL,
+  required_pkgs = NULL
+) {
+  list(user = user, version = version, url = url, required_pkgs = required_pkgs)
 }
 
 
 #' @rdname vetiver_create_meta
 #' @export
 vetiver_create_meta <- function(model, metadata) {
-    UseMethod("vetiver_create_meta")
+  UseMethod("vetiver_create_meta")
 }
 
 #' @rdname vetiver_create_meta
 #' @export
 vetiver_create_meta.default <- function(model, metadata) {
-    vetiver_meta(metadata)
+  vetiver_meta(metadata)
 }

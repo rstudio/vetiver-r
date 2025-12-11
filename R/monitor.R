@@ -28,63 +28,65 @@
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
-#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
-#' training_data <- Chicago %>% filter(date < "2009-01-01")
-#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
-#' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+#' Chicago <- Chicago |> select(ridership, date, all_of(stations))
+#' training_data <- Chicago |> filter(date < "2009-01-01")
+#' testing_data <- Chicago |> filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago |> filter(date >= "2011-01-01", date < "2012-12-31")
+#' lm_fit <- linear_reg() |> fit(ridership ~ ., data = training_data)
 #'
 #' library(pins)
 #' b <- board_temp()
 #'
 #' original_metrics <-
-#'     augment(lm_fit, new_data = testing_data) %>%
+#'     augment(lm_fit, new_data = testing_data) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #'
 #' new_metrics <-
-#'     augment(lm_fit, new_data = monitoring) %>%
+#'     augment(lm_fit, new_data = monitoring) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #'
 #' @seealso [vetiver_pin_metrics()], [vetiver_plot_metrics()]
 #' @export
-vetiver_compute_metrics <- function(data,
-                                    date_var,
-                                    period,
-                                    truth, estimate, ...,
-                                    metric_set = yardstick::metrics,
-                                    every = 1L,
-                                    origin = NULL,
-                                    before = 0L,
-                                    after = 0L,
-                                    complete = FALSE) {
+vetiver_compute_metrics <- function(
+  data,
+  date_var,
+  period,
+  truth,
+  estimate,
+  ...,
+  metric_set = yardstick::metrics,
+  every = 1L,
+  origin = NULL,
+  before = 0L,
+  after = 0L,
+  complete = FALSE
+) {
+  rlang::check_installed("slider")
+  truth_quo <- enquo(truth)
+  estimate_quo <- enquo(estimate)
 
-    rlang::check_installed("slider")
-    truth_quo <- enquo(truth)
-    estimate_quo <- enquo(estimate)
+  # Figure out which column in `data` corresponds to `date_var`
+  date_var <- enquo(date_var)
+  date_var <- eval_select_one(date_var, data, "date_var")
 
-    # Figure out which column in `data` corresponds to `date_var`
-    date_var <- enquo(date_var)
-    date_var <- eval_select_one(date_var, data, "date_var")
+  index <- data[[date_var]]
 
-    index <- data[[date_var]]
-
-    slider::slide_period_dfr(
-        .x = data,
-        .i = index,
-        .period = period,
-        .f = compute_metrics,
-        date_var = date_var,
-        metric_set = metric_set,
-        truth_quo = truth_quo,
-        estimate_quo = estimate_quo,
-        ...,
-        .every = every,
-        .origin = origin,
-        .before = before,
-        .after = after,
-        .complete = complete
-    )
-
+  slider::slide_period_dfr(
+    .x = data,
+    .i = index,
+    .period = period,
+    .f = compute_metrics,
+    date_var = date_var,
+    metric_set = metric_set,
+    truth_quo = truth_quo,
+    estimate_quo = estimate_quo,
+    ...,
+    .every = every,
+    .origin = origin,
+    .before = before,
+    .after = after,
+    .complete = complete
+  )
 }
 
 
@@ -133,11 +135,11 @@ vetiver_compute_metrics <- function(data,
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
-#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
-#' training_data <- Chicago %>% filter(date < "2009-01-01")
-#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
-#' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+#' Chicago <- Chicago |> select(ridership, date, all_of(stations))
+#' training_data <- Chicago |> filter(date < "2009-01-01")
+#' testing_data <- Chicago |> filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago |> filter(date >= "2011-01-01", date < "2012-12-31")
+#' lm_fit <- linear_reg() |> fit(ridership ~ ., data = training_data)
 #'
 #' library(pins)
 #' b <- board_temp()
@@ -145,110 +147,117 @@ vetiver_compute_metrics <- function(data,
 #' ## before starting monitoring, initiate the metrics and pin
 #' ## (for example, with the testing data):
 #' original_metrics <-
-#'     augment(lm_fit, new_data = testing_data) %>%
+#'     augment(lm_fit, new_data = testing_data) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' pin_write(b, original_metrics, "lm_fit_metrics", type = "arrow")
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
-#'     augment(lm_fit, new_data = monitoring) %>%
+#'     augment(lm_fit, new_data = monitoring) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 #'
 #' @seealso [vetiver_compute_metrics()], [vetiver_plot_metrics()]
 #' @export
-vetiver_pin_metrics <- function(board,
-                                df_metrics,
-                                metrics_pin_name,
-                                .index = .index,
-                                overwrite = FALSE,
-                                type = NULL,
-                                ...) {
+vetiver_pin_metrics <- function(
+  board,
+  df_metrics,
+  metrics_pin_name,
+  .index = .index,
+  overwrite = FALSE,
+  type = NULL,
+  ...
+) {
+  pin_type <- type %||% pins::pin_meta(board, metrics_pin_name)$type
 
-    pin_type <- type %||% pins::pin_meta(board, metrics_pin_name)$type
+  if (!pin_type %in% c("arrow", "rds")) {
+    cli::cli_abort(
+      'Metrics must be pinned as "arrow" or "rds", not "{pin_type}"'
+    )
+  }
 
-    if (! pin_type %in% c("arrow", "rds")) {
-        cli::cli_abort('Metrics must be pinned as "arrow" or "rds", not "{pin_type}"')
-    }
+  .index <- enquo(.index)
+  .index <- eval_select_one(.index, df_metrics, "date_var")
+  new_dates <- unique(df_metrics[[.index]])
 
-    .index <- enquo(.index)
-    .index <- eval_select_one(.index, df_metrics, "date_var")
-    new_dates <- unique(df_metrics[[.index]])
-
-    old_metrics <- pins::pin_read(board, metrics_pin_name)
-    overlapping_dates <- old_metrics[[.index]] %in% new_dates
-    if (overwrite) {
-        old_metrics <- vec_slice(old_metrics, !overlapping_dates)
-    } else {
-        if (any(overlapping_dates))
-            cli::cli_abort(c(
-                "The new metrics overlap with dates \\
+  old_metrics <- pins::pin_read(board, metrics_pin_name)
+  overlapping_dates <- old_metrics[[.index]] %in% new_dates
+  if (overwrite) {
+    old_metrics <- vec_slice(old_metrics, !overlapping_dates)
+  } else {
+    if (any(overlapping_dates)) {
+      cli::cli_abort(c(
+        "The new metrics overlap with dates \\
                  already stored in {glue::single_quote(metrics_pin_name)}",
-                i = "Check the aggregated dates or use `overwrite = TRUE`"
-            ))
+        i = "Check the aggregated dates or use `overwrite = TRUE`"
+      ))
     }
-    new_metrics <- vctrs::vec_rbind(old_metrics, df_metrics)
-    new_metrics <- vec_slice(
-        new_metrics,
-        vctrs::vec_order(new_metrics[[.index]])
-    )
+  }
+  new_metrics <- vctrs::vec_rbind(old_metrics, df_metrics)
+  new_metrics <- vec_slice(
+    new_metrics,
+    vctrs::vec_order(new_metrics[[.index]])
+  )
 
-    pins::pin_write(
-        board,
-        new_metrics,
-        basename(metrics_pin_name),
-        type = pin_type,
-        ...
-    )
-    new_metrics
-
+  pins::pin_write(
+    board,
+    new_metrics,
+    basename(metrics_pin_name),
+    type = pin_type,
+    ...
+  )
+  new_metrics
 }
 
-compute_metrics <- function(data,
-                            date_var,
-                            metric_set,
-                            truth_quo,
-                            estimate_quo,
-                            ...) {
-    index <- data[[date_var]]
-    index <- min(index)
+compute_metrics <- function(
+  data,
+  date_var,
+  metric_set,
+  truth_quo,
+  estimate_quo,
+  ...
+) {
+  index <- data[[date_var]]
+  index <- min(index)
 
-    n <- nrow(data)
+  n <- nrow(data)
 
-    metrics <- metric_set(
-        data = data,
-        truth = !!truth_quo,
-        estimate = !!estimate_quo,
-        ...
-    )
+  metrics <- metric_set(
+    data = data,
+    truth = !!truth_quo,
+    estimate = !!estimate_quo,
+    ...
+  )
 
-    tibble::tibble(
-        .index = index,
-        .n = n,
-        metrics
-    )
+  tibble::tibble(
+    .index = index,
+    .n = n,
+    metrics
+  )
 }
 
 eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
-    rlang::check_installed("tidyselect")
-    check_dots_empty()
+  rlang::check_installed("tidyselect")
+  check_dots_empty()
 
-    # `col` is a quosure that has its own environment attached
-    env <- empty_env()
+  # `col` is a quosure that has its own environment attached
+  env <- empty_env()
 
-    loc <- tidyselect::eval_select(
-        expr = col,
-        data = data,
-        env = env,
-        error_call = call
+  loc <- tidyselect::eval_select(
+    expr = col,
+    data = data,
+    env = env,
+    error_call = call
+  )
+
+  if (length(loc) != 1L) {
+    message <- glue::glue(
+      "`{arg}` must specify exactly one column from `data`."
     )
+    abort(message, call = call)
+  }
 
-    if (length(loc) != 1L) {
-        message <- glue::glue("`{arg}` must specify exactly one column from `data`.")
-        abort(message, call = call)
-    }
-
-    loc
+  loc
 }
 
 
@@ -277,11 +286,11 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
-#' Chicago <- Chicago %>% select(ridership, date, all_of(stations))
-#' training_data <- Chicago %>% filter(date < "2009-01-01")
-#' testing_data <- Chicago %>% filter(date >= "2009-01-01", date < "2011-01-01")
-#' monitoring <- Chicago %>% filter(date >= "2011-01-01", date < "2012-12-31")
-#' lm_fit <- linear_reg() %>% fit(ridership ~ ., data = training_data)
+#' Chicago <- Chicago |> select(ridership, date, all_of(stations))
+#' training_data <- Chicago |> filter(date < "2009-01-01")
+#' testing_data <- Chicago |> filter(date >= "2009-01-01", date < "2011-01-01")
+#' monitoring <- Chicago |> filter(date >= "2011-01-01", date < "2012-12-31")
+#' lm_fit <- linear_reg() |> fit(ridership ~ ., data = training_data)
 #'
 #' library(pins)
 #' b <- board_temp()
@@ -289,13 +298,13 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #' ## before starting monitoring, initiate the metrics and pin
 #' ## (for example, with the testing data):
 #' original_metrics <-
-#'     augment(lm_fit, new_data = testing_data) %>%
+#'     augment(lm_fit, new_data = testing_data) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' pin_write(b, original_metrics, "lm_fit_metrics", type = "arrow")
 #'
 #' ## to continue monitoring with new data, compute metrics and update pin:
 #' new_metrics <-
-#'     augment(lm_fit, new_data = monitoring) %>%
+#'     augment(lm_fit, new_data = monitoring) |>
 #'     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 #' vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
 #'
@@ -305,22 +314,26 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #'
 #' @seealso [vetiver_compute_metrics()], [vetiver_pin_metrics()]
 #' @export
-vetiver_plot_metrics <- function(df_metrics,
-                                 .index = .index,
-                                 .estimate = .estimate,
-                                 .metric = .metric,
-                                 .n = .n) {
-    rlang::check_installed("ggplot2")
-    .metric <- enquo(.metric)
+vetiver_plot_metrics <- function(
+  df_metrics,
+  .index = .index,
+  .estimate = .estimate,
+  .metric = .metric,
+  .n = .n
+) {
+  rlang::check_installed("ggplot2")
+  .metric <- enquo(.metric)
 
-    ggplot2::ggplot(data = df_metrics,
-                    ggplot2::aes({{ .index }}, {{.estimate}})) +
-        ggplot2::geom_line(ggplot2::aes(color = !!.metric), alpha = 0.7) +
-        ggplot2::geom_point(ggplot2::aes(color = !!.metric,
-                                         size = {{.n}}),
-                            alpha = 0.9) +
-        ggplot2::facet_wrap(ggplot2::vars(!!.metric),
-                            scales = "free_y", ncol = 1) +
-        ggplot2::guides(color = "none") +
-        ggplot2::labs(x = NULL, y = NULL, size = NULL)
+  ggplot2::ggplot(
+    data = df_metrics,
+    ggplot2::aes({{ .index }}, {{ .estimate }})
+  ) +
+    ggplot2::geom_line(ggplot2::aes(color = !!.metric), alpha = 0.7) +
+    ggplot2::geom_point(
+      ggplot2::aes(color = !!.metric, size = {{ .n }}),
+      alpha = 0.9
+    ) +
+    ggplot2::facet_wrap(ggplot2::vars(!!.metric), scales = "free_y", ncol = 1) +
+    ggplot2::guides(color = "none") +
+    ggplot2::labs(x = NULL, y = NULL, size = NULL)
 }

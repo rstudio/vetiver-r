@@ -39,66 +39,72 @@
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype <- function(model, ...) {
-    UseMethod("vetiver_ptype")
+  UseMethod("vetiver_ptype")
 }
 
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_ptype.default <- function(model, ...) {
-    abort("There is no method available to create a 0-row input data prototype for `model`.")
+  abort(
+    "There is no method available to create a 0-row input data prototype for `model`."
+  )
 }
 
 #' @rdname vetiver_create_ptype
 #' @export
 vetiver_create_ptype <- function(model, save_prototype, ...) {
-    check_dots_used()
-    if (isTRUE(save_prototype)) {
-        ptype <- vetiver_ptype(model, ...)
-    } else if (isFALSE(save_prototype)) {
-        ptype <- NULL
-    } else if (rlang::inherits_any(save_prototype, "data.frame")) {
-        return(save_prototype)
-    } else {
-        abort("The `save_prototype` argument must be TRUE, FALSE, or a dataframe.")
-    }
-    ptype
+  check_dots_used()
+  if (isTRUE(save_prototype)) {
+    ptype <- vetiver_ptype(model, ...)
+  } else if (isFALSE(save_prototype)) {
+    ptype <- NULL
+  } else if (rlang::inherits_any(save_prototype, "data.frame")) {
+    return(save_prototype)
+  } else {
+    abort("The `save_prototype` argument must be TRUE, FALSE, or a dataframe.")
+  }
+  ptype
 }
 
 check_ptype_data <- function(dots, call = rlang::caller_env()) {
-    if (!rlang::has_name(dots, "prototype_data")) {
-        abort(c("No `prototype_data` available to create an input data prototype",
-                "Pass at least one row of training features as `prototype_data`",
-                "See the documentation for `vetiver_ptype()`"),
-              call = call)
-    }
+  if (!rlang::has_name(dots, "prototype_data")) {
+    abort(
+      c(
+        "No `prototype_data` available to create an input data prototype",
+        "Pass at least one row of training features as `prototype_data`",
+        "See the documentation for `vetiver_ptype()`"
+      ),
+      call = call
+    )
+  }
 }
 
 
 preds_lm_ish <- function(model) {
-    .terms <- terms(model)
-    terms_matrix <- attr(.terms, "factors")
-    terms_names <- colnames(terms_matrix)
-    terms_exprs <- parse_exprs(terms_names)
-    has_interactions <- map_lgl(terms_exprs, expr_contains, what = as.name(":"))
-    terms_names[!has_interactions]
+  .terms <- terms(model)
+  terms_matrix <- attr(.terms, "factors")
+  terms_names <- colnames(terms_matrix)
+  terms_exprs <- parse_exprs(terms_names)
+  has_interactions <- map_lgl(terms_exprs, expr_contains, what = as.name(":"))
+  terms_names[!has_interactions]
 }
 
 expr_contains <- function(expr, what) {
-    switch(typeof(expr),
-           symbol = identical(expr, what),
-           call = call_contains(expr, what),
-           language = call_contains(expr, what),
-           FALSE
-    )
+  switch(
+    typeof(expr),
+    symbol = identical(expr, what),
+    call = call_contains(expr, what),
+    language = call_contains(expr, what),
+    FALSE
+  )
 }
 
 call_contains <- function(expr, what, call = rlang::caller_env()) {
-    if (length(expr) == 0L) {
-        abort("Internal error, `expr` should be at least length 1.", call = call)
-    }
+  if (length(expr) == 0L) {
+    abort("Internal error, `expr` should be at least length 1.", call = call)
+  }
 
-    # Recurse into elements
-    contains <- map_lgl(as.list(expr), expr_contains, what = what)
-    any(contains)
+  # Recurse into elements
+  contains <- map_lgl(as.list(expr), expr_contains, what = what)
+  any(contains)
 }
-

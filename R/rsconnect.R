@@ -52,29 +52,33 @@
 #' )
 #' }
 #'
-vetiver_deploy_rsconnect <- function(board, name, version = NULL,
-                                     predict_args = list(),
-                                     appTitle = glue::glue("{name} model API"),
-                                     ...,
-                                     additional_pkgs = character(0)) {
-
-    check_dots_used()
-    tmp <- fs::dir_create(tempdir(), "vetiver")
-    vetiver_write_plumber(board = board,
-                          name = name,
-                          version = version,
-                          !!!predict_args,
-                          file = fs::path(tmp, "plumber.R"),
-                          additional_pkgs = additional_pkgs)
-    rsconnect::deployAPI(tmp, appTitle = appTitle, ...)
-
+vetiver_deploy_rsconnect <- function(
+  board,
+  name,
+  version = NULL,
+  predict_args = list(),
+  appTitle = glue::glue("{name} model API"),
+  ...,
+  additional_pkgs = character(0)
+) {
+  check_dots_used()
+  tmp <- fs::dir_create(tempdir(), "vetiver")
+  vetiver_write_plumber(
+    board = board,
+    name = name,
+    version = version,
+    !!!predict_args,
+    file = fs::path(tmp, "plumber.R"),
+    additional_pkgs = additional_pkgs
+  )
+  rsconnect::deployAPI(tmp, appTitle = appTitle, ...)
 }
 
 #' Create an Posit Connect bundle for a vetiver model API
 #'
-#' Use `vetiver_create_rsconnect_bundle()` to create a 
-#' [Posit Connect](https://docs.posit.co/connect/) model API bundle for a 
-#' [vetiver_model()] that has been versioned and stored via 
+#' Use `vetiver_create_rsconnect_bundle()` to create a
+#' [Posit Connect](https://docs.posit.co/connect/) model API bundle for a
+#' [vetiver_model()] that has been versioned and stored via
 #' [vetiver_pin_write()].
 #'
 #' @inheritParams vetiver_write_plumber
@@ -111,33 +115,36 @@ vetiver_deploy_rsconnect <- function(board, name, version = NULL,
 #'
 #' @export
 vetiver_create_rsconnect_bundle <- function(
-        board, name, version = NULL,
-        predict_args = list(),
-        filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
-        additional_pkgs = character(0)) {
-
-    tmp <- fs::dir_create(tempdir(), "vetiver")
-    vetiver_write_plumber(board = board,
-                          name = name,
-                          version = version,
-                          !!!predict_args,
-                          file = fs::path(tmp, "plumber.R"),
-                          additional_pkgs = additional_pkgs)
-    rsconnect::writeManifest(tmp, "plumber.R")
-    withr::with_dir(
-        tmp,
-        utils::tar(
-            tarfile = filename,
-            files = c("plumber.R", "manifest.json"),
-            compression = "gzip",
-            tar = "internal"
-        )
+  board,
+  name,
+  version = NULL,
+  predict_args = list(),
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
+  additional_pkgs = character(0)
+) {
+  tmp <- fs::dir_create(tempdir(), "vetiver")
+  vetiver_write_plumber(
+    board = board,
+    name = name,
+    version = version,
+    !!!predict_args,
+    file = fs::path(tmp, "plumber.R"),
+    additional_pkgs = additional_pkgs
+  )
+  rsconnect::writeManifest(tmp, "plumber.R")
+  withr::with_dir(
+    tmp,
+    utils::tar(
+      tarfile = filename,
+      files = c("plumber.R", "manifest.json"),
+      compression = "gzip",
+      tar = "internal"
     )
-    inform(c("Your rsconnect bundle has been created at:", filename))
-    invisible(filename)
-
+  )
+  inform(c("Your rsconnect bundle has been created at:", filename))
+  invisible(filename)
 }
 
 mock_write_manifest <- function(appDir, appFiles) {
-    fs::file_create(fs::path(appDir, "manifest.json"))
+  fs::file_create(fs::path(appDir, "manifest.json"))
 }
