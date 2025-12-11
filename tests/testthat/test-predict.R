@@ -1,5 +1,8 @@
 skip_on_cran()
-skip_if_not_installed(c("pingr", "httr", "httpuv", "plumber"))
+skip_if_not_installed("pingr")
+skip_if_not_installed("httr")
+skip_if_not_installed("httpuv")
+skip_if_not_installed("plumber")
 
 library(plumber)
 
