@@ -1,4 +1,4 @@
-# create rsconnect bundle: contains correct plumber file
+# create rsconnect bundle / contains correct plumber file
 
     Code
       cat(readr::read_lines(fs::path(tmp_dir, "plumber.R")), sep = "\n")
