@@ -4,7 +4,7 @@
       v
     Output
       
-      -- cars2 - <bundled_xgb.Booster> model for deployment 
+      -- cars2 - <bundled_xgboost> model for deployment 
       An xgboost reg:squarederror model using 10 features
 
 # create plumber.R for xgboost
