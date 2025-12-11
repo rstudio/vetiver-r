@@ -10,8 +10,8 @@ learner$train(task)
 v <- vetiver_model(learner, "pima_rpart")
 v
 
-pr() %>%
-  vetiver_api(v) %>%
+pr() |>
+  vetiver_api(v) |>
   pr_run(port = 8088)
 
 library(mlr3)

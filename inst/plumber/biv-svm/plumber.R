@@ -27,5 +27,5 @@ v <- vetiver_pin_read(b, "biv_svm", version = "20220211T213615Z-182ed")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_api(v)
+    pr |> vetiver_api(v)
 }

@@ -14,5 +14,5 @@ v <- vetiver_pin_read(b, "cars_xgb", version = "20220211T213735Z-cc767")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_api(v)
+    pr |> vetiver_api(v)
 }
