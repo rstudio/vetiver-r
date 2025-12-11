@@ -52,6 +52,6 @@ v <- vetiver_model(cars_lm, "cars_linear")
 glue_spec_summary(v$prototype)
 
 modify_spec <- function(spec) api_spec(spec, v, "/predict")
-pr() \%>\% pr_set_api_spec(api = modify_spec)
+pr() |> pr_set_api_spec(api = modify_spec)
 \dontshow{\}) # examplesIf}
 }
