@@ -1,4 +1,4 @@
-# vetiver_dashboard(): errors without pin
+# vetiver_dashboard() / errors without pin
 
     Code
       vetiver_dashboard(pins = list(board = b, name = "seattle_rf", version = NULL))

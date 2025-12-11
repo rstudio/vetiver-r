@@ -148,7 +148,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v, path = "cars")
+          pr |> vetiver_api(v, path = "cars")
       }
 
 ---

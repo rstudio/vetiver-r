@@ -14,7 +14,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R for complicated board
@@ -33,7 +33,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R for URL board
@@ -52,7 +52,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R with packages
@@ -77,7 +77,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R with extra infra packages
@@ -98,7 +98,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R with rsconnect = FALSE
@@ -117,7 +117,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # create plumber.R with args in dots
@@ -142,6 +142,6 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v, debug = TRUE, endpoint = "/predict2", type = "numeric")
+          pr |> vetiver_api(v, debug = TRUE, endpoint = "/predict2", type = "numeric")
       }
 

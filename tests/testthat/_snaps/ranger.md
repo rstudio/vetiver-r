@@ -38,6 +38,6 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
