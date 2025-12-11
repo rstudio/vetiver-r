@@ -73,7 +73,7 @@ rf_spec <- rand_forest(mode = "regression")
 rf_form <- price ~ type + sqft + beds + baths
 
 rf_fit <- 
-    workflow(rf_form, rf_spec) %>%
+    workflow(rf_form, rf_spec) |>
     fit(Sacramento)
 
 library(vetiver)
@@ -94,7 +94,7 @@ folder, Posit Connect, Amazon S3, and more.
 ``` r
 library(pins)
 model_board <- board_temp()
-model_board %>% vetiver_pin_write(v)
+model_board |> vetiver_pin_write(v)
 ```
 
 You can **deploy** your pinned `vetiver_model()` via a [Plumber
@@ -103,8 +103,8 @@ ways](https://www.rplumber.io/articles/hosting.html).
 
 ``` r
 library(plumber)
-pr() %>%
-  vetiver_api(v) %>%
+pr() |>
+  vetiver_api(v) |>
   pr_run(port = 8088)
 ```
 
@@ -128,8 +128,8 @@ for appropriate new data.
 
 ``` r
 library(tidyverse)
-new_sac <- Sacramento %>% 
-    slice_sample(n = 20) %>% 
+new_sac <- Sacramento |> 
+    slice_sample(n = 20) |> 
     select(type, sqft, beds, baths)
 
 predict(endpoint, new_sac)

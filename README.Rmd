@@ -69,7 +69,7 @@ rf_spec <- rand_forest(mode = "regression")
 rf_form <- price ~ type + sqft + beds + baths
 
 rf_fit <- 
-    workflow(rf_form, rf_spec) %>%
+    workflow(rf_form, rf_spec) |>
     fit(Sacramento)
 
 library(vetiver)
@@ -82,7 +82,7 @@ You can **version** and **share** your `vetiver_model()` by choosing a [pins](ht
 ```{r message=FALSE}
 library(pins)
 model_board <- board_temp()
-model_board %>% vetiver_pin_write(v)
+model_board |> vetiver_pin_write(v)
 ```
 
 You can **deploy** your pinned `vetiver_model()` via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a variety of ways](https://www.rplumber.io/articles/hosting.html).
@@ -90,8 +90,8 @@ You can **deploy** your pinned `vetiver_model()` via a [Plumber API](https://www
 
 ```{r, eval=FALSE}
 library(plumber)
-pr() %>%
-  vetiver_api(v) %>%
+pr() |>
+  vetiver_api(v) |>
   pr_run(port = 8088)
 ```
 
@@ -107,8 +107,8 @@ Such a model API endpoint deployed with vetiver will return predictions for appr
 
 ``` r
 library(tidyverse)
-new_sac <- Sacramento %>% 
-    slice_sample(n = 20) %>% 
+new_sac <- Sacramento |> 
+    slice_sample(n = 20) |> 
     select(type, sqft, beds, baths)
 
 predict(endpoint, new_sac)
