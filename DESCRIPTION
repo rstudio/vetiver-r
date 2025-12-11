@@ -4,7 +4,8 @@ Version: 0.2.6.9000
 Authors@R: c(
     person("Julia", "Silge", , "julia.silge@posit.co", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-3671-836X")),
-    person("Posit Software, PBC", role = c("cph", "fnd"), comment = c(ROR = "03wc8by49"))
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: The goal of 'vetiver' is to provide fluent tooling to
     version, share, deploy, and monitor a trained model. Functions handle
@@ -12,8 +13,7 @@ Description: The goal of 'vetiver' is to provide fluent tooling to
     predicting from a remote API endpoint. The 'vetiver' package is
     extensible, with generics that can support many kinds of models.
 License: MIT + file LICENSE
-URL: https://vetiver.posit.co, 
-    https://rstudio.github.io/vetiver-r/,
+URL: https://vetiver.posit.co, https://rstudio.github.io/vetiver-r/,
     https://github.com/rstudio/vetiver-r/
 BugReports: https://github.com/rstudio/vetiver-r/issues
 Depends: 
@@ -89,7 +89,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2025-12-11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Config/usethis/last-upkeep: 2025-12-11
