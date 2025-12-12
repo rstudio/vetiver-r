@@ -31,7 +31,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # can print int_conformal_full model
@@ -67,7 +67,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # can print int_conformal_quantile model
@@ -103,7 +103,7 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 
 # can print int_conformal_cv model
@@ -140,6 +140,6 @@
       
       #* @plumber
       function(pr) {
-          pr %>% vetiver_api(v)
+          pr |> vetiver_api(v)
       }
 

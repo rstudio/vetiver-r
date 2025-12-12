@@ -50,100 +50,100 @@
 #' vetiver_model(cars_lm, "cars-linear")
 #'
 #' @export
-vetiver_model <- function(model,
-                          model_name,
-                          ...,
-                          description = NULL,
-                          metadata = list(),
-                          save_prototype = TRUE,
-                          save_ptype = deprecated(),
-                          versioned = NULL) {
-
-    check_dots_used()
-    if (lifecycle::is_present(save_ptype)) {
-        lifecycle::deprecate_soft(
-            "0.2.0",
-            "vetiver_model(save_ptype)",
-            "vetiver_model(save_prototype)"
-        )
-        save_prototype <- save_ptype
-    }
-    if (is_null(description)) {
-        description <- vetiver_create_description(model)
-    }
-    prototype <- vetiver_create_ptype(model, save_prototype, ...)
-    metadata <- vetiver_create_meta(model, metadata)
-    model <- vetiver_prepare_model(model)
-
-    new_vetiver_model(
-        model = model,
-        model_name = model_name,
-        description = as.character(description),
-        metadata = metadata,
-        prototype = prototype,
-        versioned = versioned
+vetiver_model <- function(
+  model,
+  model_name,
+  ...,
+  description = NULL,
+  metadata = list(),
+  save_prototype = TRUE,
+  save_ptype = deprecated(),
+  versioned = NULL
+) {
+  check_dots_used()
+  if (lifecycle::is_present(save_ptype)) {
+    lifecycle::deprecate_soft(
+      "0.2.0",
+      "vetiver_model(save_ptype)",
+      "vetiver_model(save_prototype)"
     )
+    save_prototype <- save_ptype
+  }
+  if (is_null(description)) {
+    description <- vetiver_create_description(model)
+  }
+  prototype <- vetiver_create_ptype(model, save_prototype, ...)
+  metadata <- vetiver_create_meta(model, metadata)
+  model <- vetiver_prepare_model(model)
+
+  new_vetiver_model(
+    model = model,
+    model_name = model_name,
+    description = as.character(description),
+    metadata = metadata,
+    prototype = prototype,
+    versioned = versioned
+  )
 }
 
 #' @rdname vetiver_model
 #' @export
-new_vetiver_model <- function(model,
-                              model_name,
-                              description,
-                              metadata,
-                              prototype,
-                              versioned) {
+new_vetiver_model <- function(
+  model,
+  model_name,
+  description,
+  metadata,
+  prototype,
+  versioned
+) {
+  data <- list(
+    model = model,
+    model_name = model_name,
+    description = description,
+    metadata = metadata,
+    prototype = prototype,
+    versioned = versioned
+  )
 
-    data <- list(
-        model = model,
-        model_name = model_name,
-        description = description,
-        metadata = metadata,
-        prototype = prototype,
-        versioned = versioned
-    )
-
-    structure(data, class = "vetiver_model")
+  structure(data, class = "vetiver_model")
 }
 
 is_vetiver_model <- function(x) {
-    inherits(x, "vetiver_model")
+  inherits(x, "vetiver_model")
 }
 
 #' @export
 format.vetiver_model <- function(x, ...) {
-    first_class <- class(x$model)[[1]]
-    cli::cli_format_method({
-        cli::cli_h3("{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment")
-        if (is.null(x$prototype)) {
-            cli::cli_text("{x$description}")
-        } else {
-            cli::cli_text("{x$description} using {ncol(x$prototype)} feature{?s}")
-        }
-    })
+  first_class <- class(x$model)[[1]]
+  cli::cli_format_method({
+    cli::cli_h3(
+      "{.emph {x$model_name}} {cli::symbol$line} {.cls {first_class}} model for deployment"
+    )
+    if (is.null(x$prototype)) {
+      cli::cli_text("{x$description}")
+    } else {
+      cli::cli_text("{x$description} using {ncol(x$prototype)} feature{?s}")
+    }
+  })
 }
 
 #' @export
 print.vetiver_model <- function(x, ...) {
-    cat(format(x), sep = "\n")
-    invisible(x)
+  cat(format(x), sep = "\n")
+  invisible(x)
 }
 
 #' @export
 predict.vetiver_model <- function(object, ...) {
-    check_dots_used()
-    model <- bundle::unbundle(object$model)
-    predict(model, ...)
+  check_dots_used()
+  model <- bundle::unbundle(object$model)
+  predict(model, ...)
 }
-
 
 
 #' @export
 augment.vetiver_model <- function(x, ...) {
-    check_dots_used()
-    model <- bundle::unbundle(x$model)
-    augment(model, ...)
+  check_dots_used()
+  model <- bundle::unbundle(x$model)
+  augment(model, ...)
 }
-
-
-

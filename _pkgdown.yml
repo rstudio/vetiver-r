@@ -10,8 +10,8 @@ navbar:
     vetiver:
       text: Learn more
       menu:
-        - text: "vetiver.rstudio.com"
-          href: https://vetiver.rstudio.com
+        - text: "vetiver.posit.co"
+          href: https://vetiver.posit.co
           target: "_blank"
         - text: "Python package documentation"
           href: https://rstudio.github.io/vetiver-python/

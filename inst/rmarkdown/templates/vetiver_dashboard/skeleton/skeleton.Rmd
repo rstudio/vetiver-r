@@ -44,14 +44,14 @@ attach_pkgs(v$metadata$required_pkgs)
 
 ```{r validation, include = FALSE}
 # Load new validation data, for example from database or API:
-validation_df <- mlr3data::kc_housing %>%
-    arrange(date) %>%
+validation_df <- mlr3data::kc_housing |>
+    arrange(date) |>
     filter(date >= "2015-01-01") 
 
 validation_aug <- augment(v, validation_df)
 
 new_metrics <-
-    validation_aug %>%
+    validation_aug |>
     vetiver_compute_metrics(date, "week", price, .pred)
     
 vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name, overwrite = TRUE)
@@ -61,9 +61,9 @@ vetiver_pin_metrics(pins$board, new_metrics, metrics_pin_name, overwrite = TRUE)
 ### Model metrics
 
 ```{r}
-p1 <- new_metrics %>%
+p1 <- new_metrics |>
     ## you can operate on your metrics as needed:
-    filter(.metric %in% c("rmse", "mae"), .n > 20) %>%
+    filter(.metric %in% c("rmse", "mae"), .n > 20) |>
     vetiver_plot_metrics() + 
     ## you can also operate on the ggplot:
     scale_size(range = c(2, 5))
@@ -82,7 +82,7 @@ Plot model metrics over time to *monitor* your model.
 
 ```{r}
 p2 <-
-    validation_df %>%
+    validation_df |>
     ggplot(aes(price, after_stat(density), fill = waterfront)) +
     geom_histogram(alpha = 0.7, position = "identity")
 

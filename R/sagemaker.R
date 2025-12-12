@@ -24,11 +24,11 @@
 #' - [vetiver_sm_endpoint()] to deploy a SageMaker model endpoint.
 #'
 #' These modular functions are available for more advanced use cases.
-#' 
+#'
 #' If you are working locally, you will likely need to explicitly set up
-#' your execution role to work correctly. Check out 
+#' your execution role to work correctly. Check out
 #' ["Execution role requirements"](https://dyfanjones.r-universe.dev/smdocker)
-#' in the smdocker documentation, and especially note that the bucket containing 
+#' in the smdocker documentation, and especially note that the bucket containing
 #' your vetiver model needs to be added as a resource in your IAM role policy.
 #'
 #' @return
@@ -52,67 +52,71 @@
 #' )
 #' }
 #'
-vetiver_deploy_sagemaker <- function(board,
-                                     name,
-                                     instance_type,
-                                     ...,
-                                     predict_args = list(),
-                                     docker_args = list(),
-                                     build_args = list(),
-                                     endpoint_args = list(),
-                                     repo_name = glue("vetiver-sagemaker-{name}")) {
+vetiver_deploy_sagemaker <- function(
+  board,
+  name,
+  instance_type,
+  ...,
+  predict_args = list(),
+  docker_args = list(),
+  build_args = list(),
+  endpoint_args = list(),
+  repo_name = glue("vetiver-sagemaker-{name}")
+) {
+  check_dots_empty()
+  if (!inherits(board, "pins_board_s3")) {
+    stop_input_type(board, "an S3 pins board")
+  }
 
-    check_dots_empty()
-    if (!inherits(board, "pins_board_s3")) {
-        stop_input_type(board, "an S3 pins board")
-    }
+  repo_name <- ifelse(
+    grepl(":", repo_name),
+    repo_name,
+    glue("{repo_name}:{strftime(Sys.time(), '%Y-%m-%d')}")
+  )
 
-    repo_name <- ifelse(
-        grepl(":", repo_name),
-        repo_name,
-        glue("{repo_name}:{strftime(Sys.time(), '%Y-%m-%d')}")
-    )
+  # build image and push to aws ecr
+  build_args <- compact(c(
+    list(
+      board = board,
+      name = name,
+      predict_args = predict_args,
+      docker_args = docker_args,
+      repository = repo_name,
+      bucket = board$bucket
+    ),
+    build_args
+  ))
+  image_uri <- do.call(vetiver_sm_build, build_args)
 
-    # build image and push to aws ecr
-    build_args <- compact(c(
-        list(board = board,
-             name = name,
-             predict_args = predict_args,
-             docker_args = docker_args,
-             repository = repo_name,
-             bucket = board$bucket),
-        build_args
-    ))
-    image_uri <- do.call(vetiver_sm_build, build_args)
+  tags <- sm_check_tags(endpoint_args$tags)
+  tags <- list_modify(
+    tags,
+    "vetiver:pin_board" = glue("s3://{board$bucket}/{board$prefix %||% ''}"),
+    "vetiver:r-ver" = getRversion()
+  )
+  endpoint_args$tags <- NULL
 
-    tags <- sm_check_tags(endpoint_args$tags)
-    tags <- list_modify(
-        tags,
-        "vetiver:pin_board" = glue("s3://{board$bucket}/{board$prefix %||% ''}"),
-        "vetiver:r-ver" = getRversion()
-    )
-    endpoint_args$tags <- NULL
+  # create sagemaker model
+  model_name <- vetiver_sm_model(image_uri, tags = tags)
 
-    # create sagemaker model
-    model_name <- vetiver_sm_model(image_uri, tags = tags)
-
-    # create sagemaker endpoint
-    endpoint_args <- compact(c(
-        list(
-            model_name = model_name,
-            instance_type = instance_type,
-            tags = tags),
-        endpoint_args
-    ))
-    endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
-    return(endpoint)
+  # create sagemaker endpoint
+  endpoint_args <- compact(c(
+    list(
+      model_name = model_name,
+      instance_type = instance_type,
+      tags = tags
+    ),
+    endpoint_args
+  ))
+  endpoint <- do.call(vetiver_sm_endpoint, endpoint_args)
+  return(endpoint)
 }
 
 #' Deploy a vetiver model API to Amazon SageMaker with modular functions
 #'
 #' @description
 #' Use the function [vetiver_deploy_sagemaker()] for basic deployment on
-#' [SageMaker](https://aws.amazon.com/sagemaker/), or these three functions 
+#' [SageMaker](https://aws.amazon.com/sagemaker/), or these three functions
 #' together for more advanced use cases:
 #' - `vetiver_sm_build()` generates and builds a Docker image on SageMaker for
 #' a vetiver model
@@ -186,55 +190,57 @@ vetiver_deploy_sagemaker <- function(board,
 #' `vetiver_sm_model()` returns the model name (both as characters).
 #' `vetiver_sm_endpoint()` returns a new [vetiver_endpoint_sagemaker()] object.
 #' @export
-vetiver_sm_build <- function(board,
-                             name,
-                             version = NULL,
-                             path = fs::dir_create(tempdir(), "vetiver"),
-                             predict_args = list(),
-                             docker_args = list(),
-                             repository = NULL,
-                             compute_type = c(
-                                 "BUILD_GENERAL1_SMALL",
-                                 "BUILD_GENERAL1_MEDIUM",
-                                 "BUILD_GENERAL1_LARGE",
-                                 "BUILD_GENERAL1_2XLARGE"
-                             ),
-                             role = NULL,
-                             bucket = NULL,
-                             vpc_id = NULL,
-                             subnet_ids = list(),
-                             security_group_ids = list(),
-                             log = TRUE,
-                             ...) {
-    check_installed("smdocker")
-    check_dots_used()
-    compute_type <- arg_match(compute_type)
-    docker_args <- list_modify(docker_args, port = 8080)
-    predict_args <- list_modify(predict_args, path = "/invocations")
+vetiver_sm_build <- function(
+  board,
+  name,
+  version = NULL,
+  path = fs::dir_create(tempdir(), "vetiver"),
+  predict_args = list(),
+  docker_args = list(),
+  repository = NULL,
+  compute_type = c(
+    "BUILD_GENERAL1_SMALL",
+    "BUILD_GENERAL1_MEDIUM",
+    "BUILD_GENERAL1_LARGE",
+    "BUILD_GENERAL1_2XLARGE"
+  ),
+  role = NULL,
+  bucket = NULL,
+  vpc_id = NULL,
+  subnet_ids = list(),
+  security_group_ids = list(),
+  log = TRUE,
+  ...
+) {
+  check_installed("smdocker")
+  check_dots_used()
+  compute_type <- arg_match(compute_type)
+  docker_args <- list_modify(docker_args, port = 8080)
+  predict_args <- list_modify(predict_args, path = "/invocations")
 
-    vetiver_prepare_docker(
-        board = board,
-        name = name,
-        version = version,
-        path = path,
-        predict_args = predict_args,
-        docker_args = docker_args
-    )
+  vetiver_prepare_docker(
+    board = board,
+    name = name,
+    version = version,
+    path = path,
+    predict_args = predict_args,
+    docker_args = docker_args
+  )
 
-    image_uri <- smdocker::sm_build(
-        repository = repository,
-        compute_type = compute_type,
-        role = role,
-        dir = path,
-        bucket = bucket,
-        vpc_id = vpc_id,
-        subnet_ids = subnet_ids,
-        security_group_ids = security_group_ids,
-        log = log,
-        ...
-    )
+  image_uri <- smdocker::sm_build(
+    repository = repository,
+    compute_type = compute_type,
+    role = role,
+    dir = path,
+    bucket = bucket,
+    vpc_id = vpc_id,
+    subnet_ids = subnet_ids,
+    security_group_ids = security_group_ids,
+    log = log,
+    ...
+  )
 
-    return(image_uri)
+  return(image_uri)
 }
 
 #' @param image_uri The AWS ECR image URI for the Amazon SageMaker Model to be
@@ -251,40 +257,42 @@ vetiver_sm_build <- function(board,
 #' model endpint to be created.
 #' @rdname vetiver_sm_build
 #' @export
-vetiver_sm_model <- function(image_uri,
-                             model_name,
-                             role = NULL,
-                             vpc_config = list(),
-                             enable_network_isolation = FALSE,
-                             tags = list()) {
-    check_installed(c("smdocker", "paws.machine.learning"))
-    config <- smdocker::smdocker_config()
-    sagemaker_client <- paws.machine.learning::sagemaker(config)
+vetiver_sm_model <- function(
+  image_uri,
+  model_name,
+  role = NULL,
+  vpc_config = list(),
+  enable_network_isolation = FALSE,
+  tags = list()
+) {
+  check_installed(c("smdocker", "paws.machine.learning"))
+  config <- smdocker::smdocker_config()
+  sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-    if (is_missing(model_name)) {
-        model_name <- base_name_from_image(image_uri)
-    }
+  if (is_missing(model_name)) {
+    model_name <- base_name_from_image(image_uri)
+  }
 
-    if (is.null(role)) {
-        role <- smdocker::sagemaker_get_execution_role()
-    }
-    tags <- sm_check_tags(tags)
-    tags <- sm_format_tags(tags)
+  if (is.null(role)) {
+    role <- smdocker::sagemaker_get_execution_role()
+  }
+  tags <- sm_check_tags(tags)
+  tags <- sm_format_tags(tags)
 
-    request <- list(
-        "ModelName" = model_name,
-        "ExecutionRoleArn" = role,
-        "PrimaryContainer" = list("Image" = image_uri)
-    )
-    request$Tags <- .sm_append_project_tags(tags)
-    request$VpcConfig <- sm_check_vpc_config(vpc_config)
-    if (isTRUE(enable_network_isolation)) {
-        request$EnableNetworkIsolation <- TRUE
-    }
-    # create model
-    do.call(sagemaker_client$create_model, request)
+  request <- list(
+    "ModelName" = model_name,
+    "ExecutionRoleArn" = role,
+    "PrimaryContainer" = list("Image" = image_uri)
+  )
+  request$Tags <- .sm_append_project_tags(tags)
+  request$VpcConfig <- sm_check_vpc_config(vpc_config)
+  if (isTRUE(enable_network_isolation)) {
+    request$EnableNetworkIsolation <- TRUE
+  }
+  # create model
+  do.call(sagemaker_client$create_model, request)
 
-    return(model_name)
+  return(model_name)
 }
 
 #' @param instance_type Type of EC2 instance to use; see
@@ -309,52 +317,58 @@ vetiver_sm_model <- function(image_uri,
 #' Defaults to `TRUE`.
 #' @rdname vetiver_sm_build
 #' @export
-vetiver_sm_endpoint <- function(model_name,
-                                instance_type,
-                                endpoint_name = NULL,
-                                initial_instance_count = 1,
-                                accelerator_type = NULL,
-                                tags = list(),
-                                kms_key = NULL,
-                                data_capture_config = list(),
-                                volume_size = NULL,
-                                model_data_download_timeout = NULL,
-                                wait = TRUE) {
-    check_installed(c("smdocker", "paws.machine.learning"))
+vetiver_sm_endpoint <- function(
+  model_name,
+  instance_type,
+  endpoint_name = NULL,
+  initial_instance_count = 1,
+  accelerator_type = NULL,
+  tags = list(),
+  kms_key = NULL,
+  data_capture_config = list(),
+  volume_size = NULL,
+  model_data_download_timeout = NULL,
+  wait = TRUE
+) {
+  check_installed(c("smdocker", "paws.machine.learning"))
 
-    config <- smdocker::smdocker_config()
-    sagemaker_client <- paws.machine.learning::sagemaker(config)
+  config <- smdocker::smdocker_config()
+  sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-    endpoint_name <- endpoint_name %||% model_name
+  endpoint_name <- endpoint_name %||% model_name
 
-    tags <- sm_check_tags(tags)
-    tags <- sm_format_tags(tags)
+  tags <- sm_check_tags(tags)
+  tags <- sm_format_tags(tags)
 
-    request <- sm_req_endpoint_config(
-        model_name,
-        endpoint_name,
-        instance_type,
-        initial_instance_count,
-        accelerator_type,
-        volume_size,
-        model_data_download_timeout,
-        .sm_append_project_tags(tags),
-        kms_key,
-        data_capture_config
-    )
+  request <- sm_req_endpoint_config(
+    model_name,
+    endpoint_name,
+    instance_type,
+    initial_instance_count,
+    accelerator_type,
+    volume_size,
+    model_data_download_timeout,
+    .sm_append_project_tags(tags),
+    kms_key,
+    data_capture_config
+  )
 
-    # create endpoint config
-    resp <- do.call(
-        sagemaker_client$create_endpoint_config,
-        request
-    )
+  # create endpoint config
+  resp <- do.call(
+    sagemaker_client$create_endpoint_config,
+    request
+  )
 
-    # create endpoint
-    endpoint_name <- sm_create_endpoint(
-        sagemaker_client, model_name, endpoint_name, tags, wait
-    )
+  # create endpoint
+  endpoint_name <- sm_create_endpoint(
+    sagemaker_client,
+    model_name,
+    endpoint_name,
+    tags,
+    wait
+  )
 
-    return(vetiver_endpoint_sagemaker(model_name))
+  return(vetiver_endpoint_sagemaker(model_name))
 }
 
 #' Delete Amazon SageMaker model, endpoint, and endpoint configuration
@@ -371,33 +385,39 @@ vetiver_sm_endpoint <- function(model_name,
 #' @return `TRUE`, invisibly
 #' @seealso [vetiver_deploy_sagemaker()], [vetiver_sm_build()], [vetiver_endpoint_sagemaker()]
 #' @export
-vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRUE) {
-    check_installed(c("smdocker", "paws.machine.learning"))
+vetiver_sm_delete <- function(
+  object,
+  delete_model = TRUE,
+  delete_endpoint = TRUE
+) {
+  check_installed(c("smdocker", "paws.machine.learning"))
 
-    config <- smdocker::smdocker_config()
-    sagemaker_client <- paws.machine.learning::sagemaker(config)
+  config <- smdocker::smdocker_config()
+  sagemaker_client <- paws.machine.learning::sagemaker(config)
 
-    endpoint_name <- object$model_endpoint
+  endpoint_name <- object$model_endpoint
 
-    if (is_true(delete_endpoint)) {
-        tryCatch(
-            {
-                endpoint_describe <- sagemaker_client$describe_endpoint(
-                    EndpointName = endpoint_name
-                )
-                endpoint_config_name <- endpoint_describe$EndpointConfigName
-                sagemaker_client$delete_endpoint_config(endpoint_config_name)
-            },
-            error = function(err) {
-                cli::cli_warn("Unable to delete {.val {endpoint_name}} endpoint configuration.")
-            }
+  if (is_true(delete_endpoint)) {
+    tryCatch(
+      {
+        endpoint_describe <- sagemaker_client$describe_endpoint(
+          EndpointName = endpoint_name
         )
-        sagemaker_client$delete_endpoint(endpoint_name)
-    }
-    if (is_true(delete_model)) {
-        sagemaker_client$delete_model(endpoint_name)
-    }
-    return(invisible(TRUE))
+        endpoint_config_name <- endpoint_describe$EndpointConfigName
+        sagemaker_client$delete_endpoint_config(endpoint_config_name)
+      },
+      error = function(err) {
+        cli::cli_warn(
+          "Unable to delete {.val {endpoint_name}} endpoint configuration."
+        )
+      }
+    )
+    sagemaker_client$delete_endpoint(endpoint_name)
+  }
+  if (is_true(delete_model)) {
+    sagemaker_client$delete_model(endpoint_name)
+  }
+  return(invisible(TRUE))
 }
 
 #' Post new data to a deployed SageMaker model endpoint and return predictions
@@ -416,27 +436,29 @@ vetiver_sm_delete <- function(object, delete_model = TRUE, delete_endpoint = TRU
 #' }
 #' @export
 predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
-    check_installed(c("jsonlite", "smdocker", "paws.machine.learning"))
-    data_json <- jsonlite::toJSON(new_data, na = "string")
-    config <- smdocker::smdocker_config()
-    sm_runtime <- paws.machine.learning::sagemakerruntime(config)
-    tryCatch(
-        {
-            resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json, ...)
-            resp <- resp$Body
-        },
-        error = function(error) {
-            error_code <- error$error_response$ErrorCode
-            if (!is.null(error_code) && error_code == "NO_SUCH_ENDPOINT") {
-                cli::cli_abort("Model endpoint {.val {object$model_endpoint}} not found.")
-            }
-            stop(error)
-        }
-    )
-    con <- rawConnection(resp)
-    on.exit(close(con))
-    resp <- jsonlite::fromJSON(con)
-    return(tibble::as_tibble(resp))
+  check_installed(c("jsonlite", "smdocker", "paws.machine.learning"))
+  data_json <- jsonlite::toJSON(new_data, na = "string")
+  config <- smdocker::smdocker_config()
+  sm_runtime <- paws.machine.learning::sagemakerruntime(config)
+  tryCatch(
+    {
+      resp <- sm_runtime$invoke_endpoint(object$model_endpoint, data_json, ...)
+      resp <- resp$Body
+    },
+    error = function(error) {
+      error_code <- error$error_response$ErrorCode
+      if (!is.null(error_code) && error_code == "NO_SUCH_ENDPOINT") {
+        cli::cli_abort(
+          "Model endpoint {.val {object$model_endpoint}} not found."
+        )
+      }
+      stop(error)
+    }
+  )
+  con <- rawConnection(resp)
+  on.exit(close(con))
+  resp <- jsonlite::fromJSON(con)
+  return(tibble::as_tibble(resp))
 }
 
 #' Post new data to a deployed SageMaker model endpoint and augment with predictions
@@ -455,8 +477,8 @@ predict.vetiver_endpoint_sagemaker <- function(object, new_data, ...) {
 #' }
 #'
 augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
-    preds <- predict(x, new_data = new_data, ...)
-    vctrs::vec_cbind(tibble::as_tibble(new_data), preds)
+  preds <- predict(x, new_data = new_data, ...)
+  vctrs::vec_cbind(tibble::as_tibble(new_data), preds)
 }
 
 
@@ -473,32 +495,34 @@ augment.vetiver_endpoint_sagemaker <- function(x, new_data, ...) {
 #' vetiver_endpoint_sagemaker("vetiver-sagemaker-demo-model")
 #' @export
 vetiver_endpoint_sagemaker <- function(model_endpoint) {
-    check_installed("smdocker")
-    config <- smdocker::smdocker_config()
-    check_character(model_endpoint)
-    check_character(config$region)
-    new_vetiver_endpoint_sagemaker(model_endpoint, config$region)
+  check_installed("smdocker")
+  config <- smdocker::smdocker_config()
+  check_character(model_endpoint)
+  check_character(config$region)
+  new_vetiver_endpoint_sagemaker(model_endpoint, config$region)
 }
 
-new_vetiver_endpoint_sagemaker <- function(model_endpoint = character(),
-                                           region = character()) {
-    structure(
-        list(model_endpoint = model_endpoint, region = region),
-        class = "vetiver_endpoint_sagemaker"
-    )
+new_vetiver_endpoint_sagemaker <- function(
+  model_endpoint = character(),
+  region = character()
+) {
+  structure(
+    list(model_endpoint = model_endpoint, region = region),
+    class = "vetiver_endpoint_sagemaker"
+  )
 }
 
 #' @export
 format.vetiver_endpoint_sagemaker <- function(x, ...) {
-    cli::cli_format_method({
-        cli::cli_h3("A SageMaker model endpoint for prediction:")
-        cli::cli_text("Model endpoint: {x$model_endpoint}")
-        cli::cli_text("Region: {x$region}")
-    })
+  cli::cli_format_method({
+    cli::cli_h3("A SageMaker model endpoint for prediction:")
+    cli::cli_text("Model endpoint: {x$model_endpoint}")
+    cli::cli_text("Region: {x$region}")
+  })
 }
 
 #' @export
 print.vetiver_endpoint_sagemaker <- function(x, ...) {
-    cat(format(x), sep = "\n")
-    invisible(x)
+  cat(format(x), sep = "\n")
+  invisible(x)
 }

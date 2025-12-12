@@ -29,23 +29,23 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description <- function(model) {
-    UseMethod("vetiver_create_description")
+  UseMethod("vetiver_create_description")
 }
 
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.default <- function(model) {
-    abort("There is no method available to create a description for `model`.")
+  abort("There is no method available to create a description for `model`.")
 }
 
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model <- function(model) {
-    UseMethod("vetiver_prepare_model")
+  UseMethod("vetiver_prepare_model")
 }
 
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model.default <- function(model) {
-    model
+  model
 }

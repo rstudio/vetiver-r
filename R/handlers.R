@@ -29,8 +29,9 @@
 #' tibble or as a list coercable to a tibble via [tibble::as_tibble()].
 #' @rdname handler_startup
 #' @export
-handler_startup <- function(vetiver_model)
-    UseMethod("handler_startup", vetiver_model$model)
+handler_startup <- function(vetiver_model) {
+  UseMethod("handler_startup", vetiver_model$model)
+}
 
 #' @rdname handler_startup
 #' @export
@@ -38,13 +39,15 @@ handler_startup.default <- function(vetiver_model) invisible(NULL)
 
 #' @rdname handler_startup
 #' @export
-handler_predict <- function(vetiver_model, ...)
-    UseMethod("handler_predict", vetiver_model$model)
+handler_predict <- function(vetiver_model, ...) {
+  UseMethod("handler_predict", vetiver_model$model)
+}
 
 #' @rdname handler_startup
 #' @export
-handler_predict.default <- function(vetiver_model, ...)
-    abort("There is no method available to build a prediction handler for `x`.")
+handler_predict.default <- function(vetiver_model, ...) {
+  abort("There is no method available to build a prediction handler for `x`.")
+}
 
 #' Convert new data at prediction time using input data prototype
 #'
@@ -74,25 +77,29 @@ handler_predict.default <- function(vetiver_model, ...)
 #' @return A converted dataframe
 #' @export
 vetiver_type_convert <- function(new_data, ptype) {
-    if (is.null(ptype)) {
-        return(new_data)
-    }
-    new_data <- hardhat::validate_column_names(new_data, colnames(ptype))
-    spec <- readr::as.col_spec(ptype)
-    is_character <- vapply(new_data, is.character, logical(1))
-    if (any(is_character)) {
-        new_data <- type_convert_strict(new_data, col_types = spec)
-    }
-    new_data
+  if (is.null(ptype)) {
+    return(new_data)
+  }
+  new_data <- hardhat::validate_column_names(new_data, colnames(ptype))
+  spec <- readr::as.col_spec(ptype)
+  is_character <- vapply(new_data, is.character, logical(1))
+  if (any(is_character)) {
+    new_data <- type_convert_strict(new_data, col_types = spec)
+  }
+  new_data
 }
 
-type_convert_strict <- function(new_data, col_types, call = rlang::caller_env()) {
-    warn_to_error <- function(e) {
-        abort(conditionMessage(e), call = call)
-    }
+type_convert_strict <- function(
+  new_data,
+  col_types,
+  call = rlang::caller_env()
+) {
+  warn_to_error <- function(e) {
+    abort(conditionMessage(e), call = call)
+  }
 
-    tryCatch(
-        warning = function(e) warn_to_error(e),
-        expr = readr::type_convert(new_data, col_types = col_types)
-    )
+  tryCatch(
+    warning = function(e) warn_to_error(e),
+    expr = readr::type_convert(new_data, col_types = col_types)
+  )
 }

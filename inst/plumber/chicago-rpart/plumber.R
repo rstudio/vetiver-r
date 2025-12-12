@@ -27,5 +27,5 @@ v <- vetiver_pin_read(b, "julia.silge/chicago_ridership", version = "53335")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_api(v, debug = TRUE)
+    pr |> vetiver_api(v, debug = TRUE)
 }

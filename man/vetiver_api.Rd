@@ -87,9 +87,9 @@ cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 
 library(plumber)
-pr() \%>\% vetiver_api(v)
+pr() |> vetiver_api(v)
 ## is the same as:
-pr() \%>\% vetiver_pr_post(v) \%>\% vetiver_pr_docs(v)
+pr() |> vetiver_pr_post(v) |> vetiver_pr_docs(v)
 ## for either, next, pipe to `pr_run()`
 \dontshow{\}) # examplesIf}
 }

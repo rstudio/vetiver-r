@@ -29,5 +29,5 @@ v <- vetiver_pin_read(b, "julia.silge/netflix_descriptions", version = "53336")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_api(v, debug = TRUE)
+    pr |> vetiver_api(v, debug = TRUE)
 }

@@ -112,21 +112,21 @@ to reduce repetition and/or errors.
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
-Chicago <- Chicago \%>\% select(ridership, date, all_of(stations))
-training_data <- Chicago \%>\% filter(date < "2009-01-01")
-testing_data <- Chicago \%>\% filter(date >= "2009-01-01", date < "2011-01-01")
-monitoring <- Chicago \%>\% filter(date >= "2011-01-01", date < "2012-12-31")
-lm_fit <- linear_reg() \%>\% fit(ridership ~ ., data = training_data)
+Chicago <- Chicago |> select(ridership, date, all_of(stations))
+training_data <- Chicago |> filter(date < "2009-01-01")
+testing_data <- Chicago |> filter(date >= "2009-01-01", date < "2011-01-01")
+monitoring <- Chicago |> filter(date >= "2011-01-01", date < "2012-12-31")
+lm_fit <- linear_reg() |> fit(ridership ~ ., data = training_data)
 
 library(pins)
 b <- board_temp()
 
 original_metrics <-
-    augment(lm_fit, new_data = testing_data) \%>\%
+    augment(lm_fit, new_data = testing_data) |>
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 
 new_metrics <-
-    augment(lm_fit, new_data = monitoring) \%>\%
+    augment(lm_fit, new_data = monitoring) |>
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 \dontshow{\}) # examplesIf}
 }
