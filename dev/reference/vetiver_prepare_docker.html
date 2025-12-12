@@ -22,7 +22,7 @@ function to create these needed files in the directory located at path."><meta p
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://vetiver.posit.co" target="_blank">vetiver.posit.co</a></li>
     <li><a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -113,10 +113,14 @@ similar.</p>
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251028T224237Z-2c3c1'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251212T191548Z-53cb5'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_prepare_docker</span><span class="op">(</span><span class="va">b</span>, <span class="st">"cars_linear"</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The following required packages are not installed:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - cpp11  [required by lobstr, readr, tzdb, and 1 other]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Consider reinstalling these packages before snapshotting the lockfile.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The following package(s) will be updated in the lockfile:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Local ---------------------------------------------------------------</span>
@@ -128,15 +132,14 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - askpass       [* -&gt; 1.2.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bit           [* -&gt; 4.6.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bit64         [* -&gt; 4.6.0-1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - bundle        [* -&gt; 0.1.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - butcher       [* -&gt; 0.3.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - bundle        [* -&gt; 0.1.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - butcher       [* -&gt; 0.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cereal        [* -&gt; 0.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cli           [* -&gt; 3.6.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - clipr         [* -&gt; 0.8.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - cpp11         [* -&gt; 0.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - crayon        [* -&gt; 1.5.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - curl          [* -&gt; 7.0.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - digest        [* -&gt; 0.6.37]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - digest        [* -&gt; 0.6.39]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fastmap       [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fs            [* -&gt; 1.6.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - generics      [* -&gt; 0.1.4]</span>
@@ -148,7 +151,7 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite      [* -&gt; 2.0.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - later         [* -&gt; 1.4.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - lifecycle     [* -&gt; 1.0.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - lobstr        [* -&gt; 1.1.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - lobstr        [* -&gt; 1.1.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - magrittr      [* -&gt; 2.0.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - mime          [* -&gt; 0.13]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - openssl       [* -&gt; 2.3.4]</span>
@@ -159,15 +162,15 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - plumber       [* -&gt; 1.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - prettyunits   [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - progress      [* -&gt; 1.2.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - promises      [* -&gt; 1.4.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - purrr         [* -&gt; 1.1.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - promises      [* -&gt; 1.5.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - purrr         [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rapidoc       [* -&gt; 9.3.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rappdirs      [* -&gt; 0.3.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - readr         [* -&gt; 2.1.5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - readr         [* -&gt; 2.1.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - renv          [* -&gt; 1.1.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rlang         [* -&gt; 1.1.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - sodium        [* -&gt; 1.4.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - sparsevctrs   [* -&gt; 0.3.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - sparsevctrs   [* -&gt; 0.3.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringi       [* -&gt; 1.8.7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - swagger       [* -&gt; 5.17.14.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - sys           [* -&gt; 3.4.3]</span>
@@ -176,14 +179,14 @@ similar.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tzdb          [* -&gt; 0.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - utf8          [* -&gt; 1.2.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - vctrs         [* -&gt; 0.6.5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - vroom         [* -&gt; 1.6.6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - vroom         [* -&gt; 1.6.7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - webutils      [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - whisker       [* -&gt; 0.4.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - withr         [* -&gt; 3.0.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - yaml          [* -&gt; 2.3.10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - yaml          [* -&gt; 2.3.12]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - R             [* -&gt; 4.5.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - R             [* -&gt; 4.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Lockfile written to "vetiver_renv.lock".</span>
 </code></pre></div>
@@ -199,7 +202,7 @@ similar.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

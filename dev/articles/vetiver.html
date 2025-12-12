@@ -38,7 +38,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more">
-<li><a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a></li>
+<li><a class="external-link dropdown-item" href="https://vetiver.posit.co" target="_blank">vetiver.posit.co</a></li>
     <li><a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a></li>
   </ul>
 </li>
@@ -121,16 +121,16 @@ encompasses both feature engineering and model estimation.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 999 more rows</span></span></span>
 <span></span>
 <span><span class="va">biv_rec</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">bivariate_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_BoxCox.html" class="external-link">step_BoxCox</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html" class="external-link">all_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html" class="external-link">recipe</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">bivariate_train</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_BoxCox.html" class="external-link">step_BoxCox</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html" class="external-link">all_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_normalize.html" class="external-link">step_normalize</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html" class="external-link">all_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">svm_spec</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/svm_linear.html" class="external-link">svm_linear</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/svm_linear.html" class="external-link">svm_linear</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html" class="external-link">set_engine</a></span><span class="op">(</span><span class="st">"LiblineaR"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">svm_fit</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">sample_frac</a></span><span class="op">(</span><span class="va">bivariate_train</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>This <code>svm_fit</code> object is a fitted workflow, with both
 feature engineering and model parameters estimated using the training
@@ -165,25 +165,25 @@ time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
 <span><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span>versioned <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">model_board</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s train our model again with a new version of the dataset and
 write it once more to our board.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">svm_fit</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">biv_rec</span>, <span class="va">svm_spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">sample_frac</a></span><span class="op">(</span><span class="va">bivariate_train</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">svm_fit</span>, <span class="st">"biv_svm"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">model_board</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
 <p>Both versions are stored, and we have access to both.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions</a></span><span class="op">(</span><span class="st">"biv_svm"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">model_board</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://pins.rstudio.com/reference/pin_versions.html" class="external-link">pin_versions</a></span><span class="op">(</span><span class="st">"biv_svm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
 <span><span class="co">#&gt;   version                created             hash </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20251028T224246Z-91a09 2025-10-28 <span style="color: #949494;">22:42:46</span> 91a09</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20251028T224246Z-e5560 2025-10-28 <span style="color: #949494;">22:42:46</span> e5560</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 20251212T191557Z-26e95 2025-12-12 <span style="color: #949494;">19:15:57</span> 26e95</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 20251212T191557Z-f2349 2025-12-12 <span style="color: #949494;">19:15:57</span> f2349</span></span></code></pre></div>
 <p>The primary purpose of pins is to make it easy to share data
 artifacts, so depending on the board you choose, your pinned
 <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> can be shareable with your
@@ -196,7 +196,7 @@ collaborators.</p>
 endpoint for making predictions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"># Plumber router with 4 endpoints, 4 filters, and 1 sub-router.</span></span></span>
 <span><span class="co"><span style="color: #555555;">#&gt; # Use `pr_run()` on this object to start the API.</span></span></span>
@@ -211,7 +211,7 @@ endpoint for making predictions.</p>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span>├<span style="color: #0000BB;">──/predict (POST)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span>└<span style="color: #0000BB;">──/prototype (GET)</span></span></span>
 <span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span></code></pre></div>
-<p>To start a server using this object, pipe (<code>%&gt;%</code>) to
+<p>To start a server using this object, pipe (<code>|&gt;</code>) to
 <code>pr_run(port = 8088)</code> or your port of choice. This allows you
 to interact with your vetiver API locally and debug it. Plumber APIs
 such as these can be <a href="https://www.rplumber.io/articles/hosting.html" class="external-link">hosted in a variety
@@ -235,12 +235,12 @@ Connect</a>.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/Rtmpuy5uMm/pins-243664899b56"</span><span class="op">)</span></span>
-<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20251028T224246Z-91a09"</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_folder</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/tmp/RtmptMRKXP/pins-3ec720c6db6d"</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vetiver_pin_write.html">vetiver_pin_read</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"biv_svm"</span>, version <span class="op">=</span> <span class="st">"20251212T191557Z-26e95"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#* @plumber</span></span>
 <span><span class="kw">function</span><span class="op">(</span><span class="va">pr</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">pr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
+<span>    <span class="va">pr</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 <p>In a real-world situation, you would see something like
 <code>b &lt;- board_connect()</code> or <code>b &lt;- board_s3()</code>
@@ -299,7 +299,7 @@ that is stored with the model.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

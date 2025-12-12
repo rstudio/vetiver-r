@@ -41,7 +41,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more">
-<li><a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a></li>
+<li><a class="external-link dropdown-item" href="https://vetiver.posit.co" target="_blank">vetiver.posit.co</a></li>
     <li><a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a></li>
   </ul>
 </li>
@@ -115,7 +115,7 @@
 <span><span class="va">rf_form</span> <span class="op">&lt;-</span> <span class="va">price</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">sqft</span> <span class="op">+</span> <span class="va">beds</span> <span class="op">+</span> <span class="va">baths</span></span>
 <span></span>
 <span><span class="va">rf_fit</span> <span class="op">&lt;-</span> </span>
-<span>    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="va">rf_form</span>, <span class="va">rf_spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Sacramento</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vetiver.posit.co" class="external-link">vetiver</a></span><span class="op">)</span></span>
@@ -131,12 +131,12 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pins.rstudio.com/" class="external-link">pins</a></span><span class="op">)</span></span>
 <span><span class="va">model_board</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pins.rstudio.com/reference/board_folder.html" class="external-link">board_temp</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">model_board</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">model_board</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/vetiver_pin_write.html">vetiver_pin_write</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span></code></pre></div>
 <p>You can <strong>deploy</strong> your pinned <code><a href="reference/vetiver_model.html">vetiver_model()</a></code> via a <a href="https://www.rplumber.io/" class="external-link">Plumber API</a>, which can be <a href="https://www.rplumber.io/articles/hosting.html" class="external-link">hosted in a variety of ways</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io" class="external-link">plumber</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://www.rplumber.io/reference/pr.html" class="external-link">pr</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/vetiver_api.html">vetiver_api</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://www.rplumber.io/reference/pr_run.html" class="external-link">pr_run</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8088</span><span class="op">)</span></span></code></pre></div>
 <p>If the deployed model endpoint is running via one R process (either remotely on a server or locally, perhaps via a <a href="https://docs.posit.co/ide/user/ide/guide/tools/jobs.html" class="external-link">background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate R process. First, create a model endpoint:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -149,8 +149,8 @@
 <p>Such a model API endpoint deployed with vetiver will return predictions for appropriate new data.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="va">new_sac</span> <span class="op">&lt;-</span> <span class="va">Sacramento</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">new_sac</span> <span class="op">&lt;-</span> <span class="va">Sacramento</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">slice_sample</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">select</span><span class="op">(</span><span class="va">type</span>, <span class="va">sqft</span>, <span class="va">beds</span>, <span class="va">baths</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">new_sac</span><span class="op">)</span></span>
@@ -227,7 +227,7 @@
 <li>
 <a href="https://juliasilge.com/" class="external-link">Julia Silge</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-3671-836X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>
-<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>   </li>
+<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>  <a href="https://ror.org/03wc8by49" class="external-link"><img src="https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg" class="ror" alt="ROR"></a> </li>
 </ul>
 </div>
 
@@ -252,7 +252,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

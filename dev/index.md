@@ -1,0 +1,167 @@
+# vetiver
+
+> *Vetiver, the oil of tranquility, is used as a stabilizing ingredient
+> in perfumery to preserve more volatile fragrances.*
+
+The goal of vetiver is to provide fluent tooling to version, share,
+deploy, and monitor a trained model. Functions handle both recording and
+checking the model’s input data prototype, and predicting from a remote
+API endpoint. The vetiver package is extensible, with generics that can
+support many kinds of models, and available for both R and Python. To
+learn more about vetiver, see:
+
+- the documentation at <https://vetiver.posit.co/>
+- the Python package at <https://rstudio.github.io/vetiver-python/>
+
+You can use vetiver with:
+
+- a [tidymodels](https://www.tidymodels.org/) workflow (including
+  [stacks](https://stacks.tidymodels.org/) and
+  [probably](https://probably.tidymodels.org/))
+- [caret](https://topepo.github.io/caret/)
+- [mlr3](https://mlr3.mlr-org.com/)
+- [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+- [ranger](https://cran.r-project.org/package=ranger)
+- [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html)
+  and
+  [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+- GAMS fit with [mgcv](https://CRAN.R-project.org/package=mgcv)
+- [keras](https://tensorflow.rstudio.com/)
+- [the luz API for torch](https://torch.mlverse.org/)
+
+## Installation
+
+You can install the released version of vetiver from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("vetiver")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("rstudio/vetiver-r")
+```
+
+## Example
+
+A
+[`vetiver_model()`](https://rstudio.github.io/vetiver-r/dev/reference/vetiver_model.md)
+object collects the information needed to store, version, and deploy a
+trained model.
+
+``` r
+library(parsnip)
+library(workflows)
+data(Sacramento, package = "modeldata")
+
+rf_spec <- rand_forest(mode = "regression")
+rf_form <- price ~ type + sqft + beds + baths
+
+rf_fit <- 
+    workflow(rf_form, rf_spec) |>
+    fit(Sacramento)
+
+library(vetiver)
+v <- vetiver_model(rf_fit, "sacramento_rf")
+#> Registered S3 method overwritten by 'butcher':
+#>   method                 from    
+#>   as.character.dev_topic generics
+v
+#> 
+#> ── sacramento_rf ─ <bundled_workflow> model for deployment 
+#> A ranger regression modeling workflow using 4 features
+```
+
+You can **version** and **share** your
+[`vetiver_model()`](https://rstudio.github.io/vetiver-r/dev/reference/vetiver_model.md)
+by choosing a [pins](https://pins.rstudio.com) “board” for it, including
+a local folder, Posit Connect, Amazon S3, and more.
+
+``` r
+library(pins)
+model_board <- board_temp()
+model_board |> vetiver_pin_write(v)
+```
+
+You can **deploy** your pinned
+[`vetiver_model()`](https://rstudio.github.io/vetiver-r/dev/reference/vetiver_model.md)
+via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a
+variety of ways](https://www.rplumber.io/articles/hosting.html).
+
+``` r
+library(plumber)
+pr() |>
+  vetiver_api(v) |>
+  pr_run(port = 8088)
+```
+
+If the deployed model endpoint is running via one R process (either
+remotely on a server or locally, perhaps via a [background job in the
+RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)),
+you can make predictions with that deployed model and new data in
+another, separate R process. First, create a model endpoint:
+
+``` r
+library(vetiver)
+endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
+endpoint
+#> 
+#> ── A model API endpoint for prediction: 
+#> http://127.0.0.1:8088/predict
+```
+
+Such a model API endpoint deployed with vetiver will return predictions
+for appropriate new data.
+
+``` r
+library(tidyverse)
+new_sac <- Sacramento |> 
+    slice_sample(n = 20) |> 
+    select(type, sqft, beds, baths)
+
+predict(endpoint, new_sac)
+#> # A tibble: 20 x 1
+#>      .pred
+#>      <dbl>
+#>  1 165042.
+#>  2 212461.
+#>  3 119008.
+#>  4 201752.
+#>  5 223096.
+#>  6 115696.
+#>  7 191262.
+#>  8 211706.
+#>  9 259336.
+#> 10 206826.
+#> 11 234952.
+#> 12 221993.
+#> 13 204983.
+#> 14 548052.
+#> 15 151186.
+#> 16 299365.
+#> 17 213439.
+#> 18 287993.
+#> 19 272017.
+#> 20 226629.
+```
+
+## Contributing
+
+This project is released with a [Contributor Code of
+Conduct](https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+- For questions and discussions about modeling, machine learning, and
+  MLOps please [post on Posit
+  Community](https://forum.posit.co/new-topic?category_id=15&tags=vetiver,question).
+
+- If you think you have encountered a bug, please [submit an
+  issue](https://github.com/rstudio/vetiver-r/issues).
+
+- Either way, learn how to create and share a
+  [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+  (a minimal, reproducible example), to clearly communicate about your
+  code.
