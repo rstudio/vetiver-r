@@ -1,14 +1,11 @@
-
 #
 # renv 1.1.5.9000 [rstudio/renv#4c63ee7]: A dependency management toolkit for R.
 # Generated using `renv:::vendor()` at 2025-12-12 13:03:25.497218.
 #
 
-
 renv <- new.env(parent = new.env())
 
 renv$initialize <- function(libname, pkgname) {
-
   # set up renv + imports environments
   attr(renv, "name") <- "embedded:renv"
   attr(parent.env(renv), "name") <- "imports:renv"
@@ -72,7 +69,10 @@ renv$initialize <- function(libname, pkgname) {
   # initialize metadata
   renv$the$metadata <- list(
     embedded = TRUE,
-    version = structure("1.1.5.9000", sha = "4c63ee794a768911ea470950dafd20368c862155")
+    version = structure(
+      "1.1.5.9000",
+      sha = "4c63ee794a768911ea470950dafd20368c862155"
+    )
   )
 
   # run our load / attach hooks so internal state is initialized
@@ -80,5 +80,4 @@ renv$initialize <- function(libname, pkgname) {
 
   # remove our initialize method when we're done
   rm(list = "initialize", envir = renv)
-
 }
