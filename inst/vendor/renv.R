@@ -1,6 +1,6 @@
 #
-# renv 1.1.5.9000 [rstudio/renv#fea9014]: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2025-10-28 16:21:02.128531.
+# renv 1.1.5.9000 [rstudio/renv#4c63ee7]: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2025-12-12 13:03:25.497218.
 #
 
 # aaa.R ----------------------------------------------------------------------
@@ -11308,7 +11308,7 @@ renv_ext_enabled <- function() {
     return(FALSE)
 
   # disable if we're embedded
-  if (renv_metadata_embedded())
+  if (!identical(.packageName, "renv"))
     return(FALSE)
 
   # otherwise, check envvar
@@ -20680,7 +20680,7 @@ renv_packages_recommended <- function() {
 
 
 # the minimum-required version of 'pak' for renv integration
-the$pak_minver <- numeric_version("0.7.0")
+the$pak_minver <- numeric_version("0.9.0")
 
 renv_pak_init <- function(stream = NULL, force = FALSE) {
 
@@ -22109,6 +22109,12 @@ renv_ppm_platform_impl <- function(file = "/etc/os-release") {
     )
 
     id <- properties$ID %||% ""
+
+    # handle distros based on Ubuntu
+    if ("UBUNTU_CODENAME" %in% names(properties)) {
+      id <- "ubuntu"
+      properties$VERSION_CODENAME <- properties$UBUNTU_CODENAME
+    }
 
     case(
       identical(id, "ubuntu")    ~ renv_ppm_platform_ubuntu(properties),
@@ -30579,6 +30585,13 @@ renv_settings_impl <- function(name, default, scalar, validate, coerce, update) 
 #' The type of snapshot to perform by default. See [snapshot] for more
 #' details.
 #'
+#' ## `snapshot.dev`
+#'
+#' Whether to include development dependencies by default when calling
+#' `renv::snapshot()` or `renv::status()`. When `TRUE`, development
+#' dependencies (e.g., packages listed in `Suggests` or development tools
+#' like `devtools`) will be included. Defaults to `FALSE`.
+#'
 #' ## `use.cache`
 #'
 #' Enable the renv package cache with this project. When active, renv will
@@ -30715,6 +30728,15 @@ settings <- list(
     scalar   = TRUE,
     validate = c("all", "custom", "implicit", "explicit", "packrat", "simple"),
     coerce   = as.character,
+    update   = NULL
+  ),
+
+  snapshot.dev = renv_settings_impl(
+    name     = "snapshot.dev",
+    default  = FALSE,
+    scalar   = TRUE,
+    validate = is.logical,
+    coerce   = as.logical,
     update   = NULL
   ),
 
@@ -31216,7 +31238,7 @@ snapshot <- function(project  = NULL,
                      library  = NULL,
                      lockfile = paths$lockfile(project = project),
                      type     = settings$snapshot.type(project = project),
-                     dev      = FALSE,
+                     dev      = NULL,
                      repos    = getOption("repos"),
                      packages = NULL,
                      exclude  = NULL,
@@ -31234,6 +31256,10 @@ snapshot <- function(project  = NULL,
   project <- renv_project_resolve(project)
   renv_project_lock(project = project)
   renv_scope_verbose_if(prompt)
+
+  # use setting as default if dev not explicitly provided
+  if (is.null(dev))
+    dev <- settings$snapshot.dev(project = project)
 
   repos <- renv_repos_validate(repos)
   renv_scope_options(repos = repos)
@@ -32665,7 +32691,7 @@ status <- function(project = NULL,
                    lockfile = NULL,
                    sources = TRUE,
                    cache = FALSE,
-                   dev = FALSE)
+                   dev = NULL)
 {
   renv_scope_error_handler()
   renv_dots_check(...)
@@ -32678,6 +32704,10 @@ status <- function(project = NULL,
 
   project <- renv_project_resolve(project)
   renv_project_lock(project = project)
+
+  # use setting as default if dev not explicitly provided
+  if (is.null(dev))
+    dev <- settings$snapshot.dev(project = project)
 
   # check to see if we've initialized this project
   if (!renv_status_check_initialized(project, library, lockfile)) {
@@ -36044,8 +36074,14 @@ topfun <- function() {
 }
 
 warnify <- function(cnd) {
+
+  # re-signal condition as warning
   class(cnd) <- c("warning", "condition")
   warning(cnd)
+
+  # return the condition invisibly
+  invisible(cnd)
+
 }
 
 # note: also handles stringy values like 'True'
