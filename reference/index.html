@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://vetiver.rstudio.com" target="_blank">vetiver.rstudio.com</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://vetiver.posit.co" target="_blank">vetiver.posit.co</a></li>
     <li><a class="external-link dropdown-item" href="https://rstudio.github.io/vetiver-python/" target="_blank">Python package documentation</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -41,8 +41,7 @@
 
       <div class="section-desc"><p>A <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> collects the information needed to store, version, and deploy a trained model.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -53,49 +52,57 @@
 
         </dt>
         <dd>Create a vetiver object for deployment of a trained model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_pin_write.html">vetiver_pin_write()</a></code> <code><a href="vetiver_pin_write.html">vetiver_pin_read()</a></code>
 
         </dt>
         <dd>Read and write a trained model to a board of models</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_api.html">vetiver_api()</a></code> <code><a href="vetiver_api.html">vetiver_pr_post()</a></code> <code><a href="vetiver_api.html">vetiver_pr_docs()</a></code>
 
         </dt>
         <dd>Create a Plumber API to predict with a deployable <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_write_plumber.html">vetiver_write_plumber()</a></code>
 
         </dt>
         <dd>Write a deployable Plumber file for a vetiver model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_write_docker.html">vetiver_write_docker()</a></code>
 
         </dt>
         <dd>Write a Dockerfile for a vetiver model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_prepare_docker.html">vetiver_prepare_docker()</a></code>
 
         </dt>
         <dd>Generate files necessary to build a Docker container for a vetiver model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_endpoint.html">vetiver_endpoint()</a></code>
 
         </dt>
         <dd>Create a model API endpoint object for prediction</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="predict.vetiver_endpoint.html">predict(<i>&lt;vetiver_endpoint&gt;</i>)</a></code>
 
         </dt>
         <dd>Post new data to a deployed model API endpoint and return predictions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="augment.vetiver_endpoint.html">augment(<i>&lt;vetiver_endpoint&gt;</i>)</a></code>
 
@@ -106,8 +113,7 @@
 
       <div class="section-desc"><p>Deploy your vetiver model to Posit Connect.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -118,7 +124,8 @@
 
         </dt>
         <dd>Deploy a vetiver model API to Posit Connect</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_create_rsconnect_bundle.html">vetiver_create_rsconnect_bundle()</a></code>
 
@@ -129,8 +136,7 @@
 
       <div class="section-desc"><p>Deploy your vetiver model to Amazon SageMaker.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -141,31 +147,36 @@
 
         </dt>
         <dd>Deploy a vetiver model API to Amazon SageMaker</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_endpoint_sagemaker.html">vetiver_endpoint_sagemaker()</a></code>
 
         </dt>
         <dd>Create a SageMaker model API endpoint object for prediction</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="predict.vetiver_endpoint_sagemaker.html">predict(<i>&lt;vetiver_endpoint_sagemaker&gt;</i>)</a></code>
 
         </dt>
         <dd>Post new data to a deployed SageMaker model endpoint and return predictions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="augment.vetiver_endpoint_sagemaker.html">augment(<i>&lt;vetiver_endpoint_sagemaker&gt;</i>)</a></code>
 
         </dt>
         <dd>Post new data to a deployed SageMaker model endpoint and augment with predictions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_sm_build.html">vetiver_sm_build()</a></code> <code><a href="vetiver_sm_build.html">vetiver_sm_model()</a></code> <code><a href="vetiver_sm_build.html">vetiver_sm_endpoint()</a></code>
 
         </dt>
         <dd>Deploy a vetiver model API to Amazon SageMaker with modular functions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_sm_delete.html">vetiver_sm_delete()</a></code>
 
@@ -176,8 +187,7 @@
 
       <div class="section-desc"><p>Monitor a deployed <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> with a dashboard.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -188,19 +198,22 @@
 
         </dt>
         <dd>Aggregate model metrics over time for monitoring</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_pin_metrics.html">vetiver_pin_metrics()</a></code>
 
         </dt>
         <dd>Update model metrics over time for monitoring</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_plot_metrics.html">vetiver_plot_metrics()</a></code>
 
         </dt>
         <dd>Plot model metrics over time for monitoring</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_dashboard.html">vetiver_dashboard()</a></code> <code><a href="vetiver_dashboard.html">get_vetiver_dashboard_pins()</a></code> <code><a href="vetiver_dashboard.html">pin_example_kc_housing_model()</a></code>
 
@@ -211,8 +224,7 @@
 
       <div class="section-desc"><p>These functions are helpful for developers extending vetiver for other types of models.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -223,43 +235,50 @@
 
         </dt>
         <dd>Update the OpenAPI specification using model metadata</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="attach_pkgs.html">attach_pkgs()</a></code> <code><a href="attach_pkgs.html">load_pkgs()</a></code>
 
         </dt>
         <dd>Fully attach or load packages for making model predictions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="handler_startup.html">handler_startup()</a></code> <code><a href="handler_startup.html">handler_predict()</a></code>
 
         </dt>
         <dd>Model handler functions for API endpoint</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="map_request_body.html">map_request_body()</a></code>
 
         </dt>
         <dd>Identify data types for each column in an input data prototype</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_create_description.html">vetiver_create_description()</a></code> <code><a href="vetiver_create_description.html">vetiver_prepare_model()</a></code>
 
         </dt>
         <dd>Model constructor methods</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_create_meta.html">vetiver_meta()</a></code> <code><a href="vetiver_create_meta.html">vetiver_create_meta()</a></code>
 
         </dt>
         <dd>Metadata constructors for <code><a href="../reference/vetiver_model.html">vetiver_model()</a></code> object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_create_ptype.html">vetiver_ptype()</a></code> <code><a href="vetiver_create_ptype.html">vetiver_create_ptype()</a></code>
 
         </dt>
         <dd>Create a vetiver input data prototype</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vetiver_type_convert.html">vetiver_type_convert()</a></code>
 
@@ -277,7 +296,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>
