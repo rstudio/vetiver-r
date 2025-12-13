@@ -77,11 +77,11 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(model_board, v)
-#> Creating new version '20251212T191545Z-53cb5'
+#> Creating new version '20251213T204126Z-53cb5'
 #> Writing to pin 'cars_linear'
 model_board
 #> Pin board <pins_board_folder>
-#> Path: '/tmp/RtmpmhthsY/pins-39591e4d5615'
+#> Path: '/tmp/RtmplXe8lp/pins-19af1a2dd9a4'
 #> Cache size: 0
 
 vetiver_pin_read(model_board, "cars_linear")
@@ -94,10 +94,10 @@ pin_versions(model_board, "cars_linear")
 #> # A tibble: 1 × 3
 #>   version                created             hash 
 #>   <chr>                  <dttm>              <chr>
-#> 1 20251212T191545Z-53cb5 2025-12-12 19:15:45 53cb5
+#> 1 20251213T204126Z-53cb5 2025-12-13 20:41:26 53cb5
 # can store an renv lockfile as part of the pin:
 vetiver_pin_write(model_board, v, check_renv = TRUE)
-#> Replacing version '20251212T191545Z-53cb5' with
-#> '20251212T191546Z-53cb5'
+#> Replacing version '20251213T204126Z-53cb5' with
+#> '20251213T204127Z-53cb5'
 #> Writing to pin 'cars_linear'
 ```

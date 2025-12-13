@@ -83,7 +83,7 @@ b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
-#> Creating new version '20251212T191548Z-53cb5'
+#> Creating new version '20251213T204129Z-53cb5'
 #> Writing to pin 'cars_linear'
 
 vetiver_prepare_docker(b, "cars_linear", path = tempdir())
@@ -94,7 +94,7 @@ vetiver_prepare_docker(b, "cars_linear", path = tempdir())
 #> The following package(s) will be updated in the lockfile:
 #> 
 #> # Local ---------------------------------------------------------------
-#> - vetiver       [* -> 0.2.6.9000]
+#> - vetiver       [* -> 0.2.7.9000]
 #> 
 #> # RSPM ----------------------------------------------------------------
 #> - R6            [* -> 2.6.1]

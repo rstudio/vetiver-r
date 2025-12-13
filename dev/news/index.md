@@ -2,8 +2,12 @@
 
 ## vetiver (development version)
 
+## vetiver 0.2.7
+
+CRAN release: 2025-12-13
+
 - Updated to support all versions of xgboost
-  ([\#304](https://github.com/rstudio/vetiver-r/issues/304)).
+  ([\#306](https://github.com/rstudio/vetiver-r/issues/306)).
 
 ## vetiver 0.2.6
 

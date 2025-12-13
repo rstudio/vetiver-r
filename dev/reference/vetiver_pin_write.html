@@ -11,7 +11,7 @@ vetiver_pin_read() to retrieve that pinned object."><meta property="og:image" co
 
     <a class="navbar-brand me-2" href="../index.html">vetiver</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.7.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,11 +110,11 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-in"><span><span class="va">cars_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="vetiver_model.html">vetiver_model</a></span><span class="op">(</span><span class="va">cars_lm</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251212T191545Z-53cb5'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating new version '20251213T204126Z-53cb5'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 <span class="r-in"><span><span class="va">model_board</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pin board <span style="color: #0000BB;">&lt;pins_board_folder&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmpmhthsY/pins-39591e4d5615'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Path: '/tmp/RtmplXe8lp/pins-19af1a2dd9a4'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cache size: 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_read</span><span class="op">(</span><span class="va">model_board</span>, <span class="st">"cars_linear"</span><span class="op">)</span></span></span>
@@ -127,11 +127,11 @@ packages are needed at prediction time. You may use <code><a href="https://pins.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   version                created             hash </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20251212T191545Z-53cb5 2025-12-12 <span style="color: #949494;">19:15:45</span> 53cb5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 20251213T204126Z-53cb5 2025-12-13 <span style="color: #949494;">20:41:26</span> 53cb5</span>
 <span class="r-in"><span><span class="co"># can store an renv lockfile as part of the pin:</span></span></span>
 <span class="r-in"><span><span class="fu">vetiver_pin_write</span><span class="op">(</span><span class="va">model_board</span>, <span class="va">v</span>, check_renv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20251212T191545Z-53cb5' with</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> '20251212T191546Z-53cb5'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Replacing version '20251213T204126Z-53cb5' with</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> '20251213T204127Z-53cb5'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing to pin 'cars_linear'</span>
 </code></pre></div>
     </div>
