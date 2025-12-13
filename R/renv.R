@@ -1,6 +1,6 @@
 #
-# renv 1.1.5.9000 [rstudio/renv#fea9014]: A dependency management toolkit for R.
-# Generated using `renv:::vendor()` at 2025-10-28 16:21:02.128531.
+# renv 1.1.5.9000 [rstudio/renv#4c63ee7]: A dependency management toolkit for R.
+# Generated using `renv:::vendor()` at 2025-12-12 13:03:25.497218.
 #
 
 renv <- new.env(parent = new.env())
@@ -71,7 +71,7 @@ renv$initialize <- function(libname, pkgname) {
     embedded = TRUE,
     version = structure(
       "1.1.5.9000",
-      sha = "fea901478b1fd6f8fcb845bbff2f013743d65655"
+      sha = "4c63ee794a768911ea470950dafd20368c862155"
     )
   )
 
