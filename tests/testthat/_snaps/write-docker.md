@@ -9,11 +9,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -36,11 +37,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -62,11 +64,12 @@
       FROM rocker/r-ver:<r_version>
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -89,11 +92,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -116,11 +120,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
@@ -161,11 +166,12 @@
       FROM rocker/r-ver:<r_version>
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
-        libx11-dev \
+        libuv1-dev \
         make \
         zlib1g-dev \
         && apt-get clean
