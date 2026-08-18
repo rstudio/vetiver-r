@@ -18,6 +18,7 @@ supported by vetiver, a [tidymodels](https://www.tidymodels.org/)
 workflow that encompasses both feature engineering and model estimation.
 
 ``` r
+
 library(parsnip)
 library(recipes)
 #> Loading required package: dplyr
@@ -76,6 +77,7 @@ collects the information needed to store, version, and deploy a trained
 model.
 
 ``` r
+
 library(vetiver)
 v <- vetiver_model(svm_fit, "biv_svm")
 #> Registered S3 method overwritten by 'butcher':
@@ -105,6 +107,7 @@ and the model’s input data prototype for checking new data at prediction
 time.
 
 ``` r
+
 library(pins)
 model_board <- board_temp(versioned = TRUE)
 model_board |> vetiver_pin_write(v)
@@ -114,6 +117,7 @@ Let’s train our model again with a new version of the dataset and write
 it once more to our board.
 
 ``` r
+
 svm_fit <- 
   workflow(biv_rec, svm_spec) |>
   fit(sample_frac(bivariate_train, 0.7))
@@ -126,12 +130,13 @@ model_board |> vetiver_pin_write(v)
 Both versions are stored, and we have access to both.
 
 ``` r
+
 model_board |> pin_versions("biv_svm")
 #> # A tibble: 2 × 3
 #>   version                created             hash 
 #>   <chr>                  <dttm>              <chr>
-#> 1 20251213T204137Z-6369f 2025-12-13 20:41:37 6369f
-#> 2 20251213T204137Z-a043a 2025-12-13 20:41:37 a043a
+#> 1 20260818T170349Z-888ef 2026-08-18 17:03:49 888ef
+#> 2 20260818T170349Z-e7c34 2026-08-18 17:03:49 e7c34
 ```
 
 The primary purpose of pins is to make it easy to share data artifacts,
@@ -146,6 +151,7 @@ You can deploy your model by creating a
 for making predictions.
 
 ``` r
+
 library(plumber)
 pr() |>
   vetiver_api(v)
@@ -175,6 +181,7 @@ to create a ready-to-go `plumber.R` file that is especially suited for
 [Posit Connect](https://posit.co/products/enterprise/connect/).
 
 ``` r
+
 vetiver_write_plumber(model_board, "biv_svm")
 ```
 
@@ -192,8 +199,8 @@ vetiver_write_plumber(model_board, "biv_svm")
         library(recipes)
         library(workflows)
     }
-    b <- board_folder(path = "/tmp/RtmpLsms4C/pins-1efc3822ecee")
-    v <- vetiver_pin_read(b, "biv_svm", version = "20251213T204137Z-6369f")
+    b <- board_folder(path = "/tmp/RtmpEPoDDe/pins-210e217d29a8")
+    v <- vetiver_pin_read(b, "biv_svm", version = "20260818T170349Z-888ef")
 
     #* @plumber
     function(pr) {
@@ -214,6 +221,7 @@ A model deployed via vetiver can be treated as a special
 object.
 
 ``` r
+
 library(vetiver)
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 endpoint
@@ -229,6 +237,7 @@ you can make predictions with that deployed model and new data in
 another, separate R process.
 
 ``` r
+
 data(bivariate, package = "modeldata")
 predict(endpoint, bivariate_test)
 #> # A tibble: 710 × 1

@@ -161,6 +161,7 @@ These are four generics that use the class of `model` for dispatch.
 ## Examples
 
 ``` r
+
 cars_lm <- lm(mpg ~ ., data = mtcars)
 vetiver_create_description(cars_lm)
 #> [1] "An OLS linear regression model"

@@ -35,12 +35,14 @@ You can install the released version of vetiver from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("vetiver")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("rstudio/vetiver-r")
 ```
@@ -53,6 +55,7 @@ object collects the information needed to store, version, and deploy a
 trained model.
 
 ``` r
+
 library(parsnip)
 library(workflows)
 data(Sacramento, package = "modeldata")
@@ -81,6 +84,7 @@ by choosing a [pins](https://pins.rstudio.com) “board” for it, including
 a local folder, Posit Connect, Amazon S3, and more.
 
 ``` r
+
 library(pins)
 model_board <- board_temp()
 model_board |> vetiver_pin_write(v)
@@ -92,6 +96,7 @@ via a [Plumber API](https://www.rplumber.io/), which can be [hosted in a
 variety of ways](https://www.rplumber.io/articles/hosting.html).
 
 ``` r
+
 library(plumber)
 pr() |>
   vetiver_api(v) |>
@@ -105,6 +110,7 @@ you can make predictions with that deployed model and new data in
 another, separate R process. First, create a model endpoint:
 
 ``` r
+
 library(vetiver)
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 endpoint
@@ -117,6 +123,7 @@ Such a model API endpoint deployed with vetiver will return predictions
 for appropriate new data.
 
 ``` r
+
 library(tidyverse)
 new_sac <- Sacramento |> 
     slice_sample(n = 20) |> 

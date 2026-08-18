@@ -113,6 +113,7 @@ prediction time.
 ## Examples
 
 ``` r
+
 cars_lm <- lm(mpg ~ cyl + disp, data = mtcars)
 
 vetiver_create_ptype(cars_lm, TRUE)

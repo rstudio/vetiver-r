@@ -27,7 +27,7 @@ pin_example_kc_housing_model(board = pins::board_local(), name = "seattle_rf")
 - ...:
 
   Arguments passed to
-  [`flexdashboard::flex_dashboard()`](https://pkgs.rstudio.com/flexdashboard/reference/flex_dashboard.html)
+  [`flexdashboard::flex_dashboard()`](https://rstudio.github.io/flexdashboard/reference/flex_dashboard.html)
 
 - board:
 

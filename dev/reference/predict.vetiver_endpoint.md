@@ -36,6 +36,7 @@ A tibble of model predictions with as many rows as in `new_data`.
 ## Examples
 
 ``` r
+
 if (FALSE) {
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 predict(endpoint, mtcars[4:7, -1])
