@@ -282,7 +282,7 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #'
 #' @return A `ggplot2` object.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")
