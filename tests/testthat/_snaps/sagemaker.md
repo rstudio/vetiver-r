@@ -42,6 +42,7 @@
         libsodium-dev \
         libssl-dev \
         libuv1-dev \
+        libx11-dev \
         make \
         zlib1g-dev \
         && apt-get clean
