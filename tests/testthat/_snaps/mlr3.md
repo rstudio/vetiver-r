@@ -4,8 +4,8 @@
       v
     Output
       
-      -- rpart_pima - <LearnerClassifRpart> model for deployment 
-      A mlr3 classif.rpart learner using 8 features
+      -- rpart_penguins - <LearnerClassifRpart> model for deployment 
+      A mlr3 classif.rpart learner using 7 features
 
 # create plumber.R for mlr3
 
@@ -25,7 +25,7 @@
           library(rpart)
       }
       b <- board_folder(path = "<redacted>")
-      v <- vetiver_pin_read(b, "rpart_pima")
+      v <- vetiver_pin_read(b, "rpart_penguins")
       
       #* @plumber
       function(pr) {

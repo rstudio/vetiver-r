@@ -9,10 +9,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \
@@ -36,10 +38,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \
@@ -62,10 +66,12 @@
       FROM rocker/r-ver:<r_version>
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \
@@ -89,10 +95,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \
@@ -116,10 +124,12 @@
       ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \
@@ -161,10 +171,12 @@
       FROM rocker/r-ver:<r_version>
       
       RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+        cmake \
         libcurl4-openssl-dev \
         libicu-dev \
         libsodium-dev \
         libssl-dev \
+        libuv1-dev \
         libx11-dev \
         make \
         zlib1g-dev \

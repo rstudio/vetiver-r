@@ -1,5 +1,7 @@
 # vetiver (development version)
 
+* Updated to new datasets in mlr3 examples (#315).
+
 # vetiver 0.2.7
 
 * Updated to support all versions of xgboost (#306).
