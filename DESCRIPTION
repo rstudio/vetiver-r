@@ -92,4 +92,4 @@ Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-12-11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.1.0

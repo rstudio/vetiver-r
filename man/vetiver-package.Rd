@@ -23,6 +23,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Julia Silge \email{julia.silge@posit.co} (\href{https://orcid.org/0000-0002-3671-836X}{ORCID})
 
+Authors:
+\itemize{
+  \item Julia Silge \email{julia.silge@posit.co} (\href{https://orcid.org/0000-0002-3671-836X}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Posit Software, PBC (\href{https://ror.org/03wc8by49}{ROR}) [copyright holder, funder]

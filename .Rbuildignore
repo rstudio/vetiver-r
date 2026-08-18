@@ -24,3 +24,4 @@
 ^revdep$
 ^[.]?air[.]toml$
 ^\.vscode$
+^\.claude$

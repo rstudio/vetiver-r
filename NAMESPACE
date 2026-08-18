@@ -170,23 +170,33 @@ export(vetiver_type_convert)
 export(vetiver_write_docker)
 export(vetiver_write_plumber)
 import(rlang)
-importFrom(generics,augment)
-importFrom(generics,required_pkgs)
-importFrom(glue,glue)
-importFrom(glue,glue_collapse)
+importFrom(generics,
+  augment,
+  required_pkgs
+)
+importFrom(glue,
+  glue,
+  glue_collapse
+)
 importFrom(lifecycle,deprecated)
-importFrom(purrr,compact)
-importFrom(purrr,list_modify)
-importFrom(purrr,map)
-importFrom(purrr,map_chr)
-importFrom(purrr,map_lgl)
-importFrom(purrr,pluck)
-importFrom(purrr,pmap)
-importFrom(purrr,safely)
-importFrom(purrr,transpose)
+importFrom(purrr,
+  compact,
+  list_modify,
+  map,
+  map_chr,
+  map_lgl,
+  pluck,
+  pmap,
+  safely,
+  transpose
+)
 importFrom(stats,predict)
-importFrom(utils,flush.console)
-importFrom(utils,head)
-importFrom(utils,modifyList)
-importFrom(vctrs,vec_slice)
-importFrom(vctrs,vec_sort)
+importFrom(utils,
+  flush.console,
+  head,
+  modifyList
+)
+importFrom(vctrs,
+  vec_slice,
+  vec_sort
+)
