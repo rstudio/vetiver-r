@@ -2,12 +2,12 @@ library(mlr3)
 library(vetiver)
 library(plumber)
 
-task = tsk("pima")
-learner = lrn("classif.rpart")
+task <- tsk("penguins")
+learner <- lrn("classif.rpart")
 
 learner$train(task)
 
-v <- vetiver_model(learner, "pima_rpart")
+v <- vetiver_model(learner, "penguins_rpart")
 v
 
 pr() |>
@@ -19,8 +19,8 @@ library(plumber)
 library(vetiver)
 library(tibble)
 
-task = tsk("pima")
-newdata = as_tibble(task$data())[, task$feature_names]
+task <- tsk("penguins")
+newdata <- as_tibble(task$data())[, task$feature_names]
 
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 predict(endpoint, newdata)
