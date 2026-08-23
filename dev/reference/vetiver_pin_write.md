@@ -77,11 +77,11 @@ model_board <- board_temp()
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(model_board, v)
-#> Creating new version '20260818T170338Z-eeb97'
+#> Creating new version '20260823T164317Z-eeb97'
 #> Writing to pin 'cars_linear'
 model_board
 #> Pin board <pins_board_folder>
-#> Path: '/tmp/RtmpCfapmt/pins-1bbf618102c'
+#> Path: '/tmp/Rtmpk7qK3P/pins-1a211b0e0b24'
 #> Cache size: 0
 
 vetiver_pin_read(model_board, "cars_linear")
@@ -94,11 +94,10 @@ pin_versions(model_board, "cars_linear")
 #> # A tibble: 1 × 3
 #>   version                created             hash 
 #>   <chr>                  <dttm>              <chr>
-#> 1 20260818T170338Z-eeb97 2026-08-18 17:03:38 eeb97
+#> 1 20260823T164317Z-eeb97 2026-08-23 16:43:17 eeb97
 # can store an renv lockfile as part of the pin:
 vetiver_pin_write(model_board, v, check_renv = TRUE)
-#> Error in pin_store(board, name, paths, meta, versioned = versioned, x = x,     ...): The new version "20260818T170338Z-eeb97" is the same as the
-#> most recent version.
-#> ℹ Did you try to create a new version with the same timestamp as the
-#>   last version?
+#> Replacing version '20260823T164317Z-eeb97' with
+#> '20260823T164318Z-eeb97'
+#> Writing to pin 'cars_linear'
 ```

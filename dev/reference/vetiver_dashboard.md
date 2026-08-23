@@ -45,7 +45,7 @@ pin_example_kc_housing_model(board = pins::board_local(), name = "seattle_rf")
 
 The `vetiver_dashboard()` function is a specialized type of
 flexdashboard. See the flexdashboard website for additional
-documentation: <https://pkgs.rstudio.com/flexdashboard/>
+documentation: <https://rstudio.github.io/flexdashboard/>
 
 Before knitting the example `vetiver_dashboard()` template, execute the
 helper function `pin_example_kc_housing_model()` to set up demonstration

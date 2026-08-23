@@ -134,7 +134,7 @@ A dataframe of metrics.
 
 For arguments used more than once in your monitoring dashboard, such as
 `date_var`, consider using [R Markdown
-parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)
+parameters](https://pkg.yihui.org/rmarkdown-book/parameterized-reports)
 to reduce repetition and/or errors.
 
 ## See also

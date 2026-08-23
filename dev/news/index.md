@@ -2,6 +2,10 @@
 
 ## vetiver (development version)
 
+## vetiver 0.2.8
+
+CRAN release: 2026-08-23
+
 - Updated to new datasets in mlr3 examples
   ([\#315](https://github.com/rstudio/vetiver-r/issues/315)).
 

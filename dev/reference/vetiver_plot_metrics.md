@@ -81,7 +81,7 @@ original_metrics <-
     augment(lm_fit, new_data = testing_data) |>
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 pin_write(b, original_metrics, "lm_fit_metrics", type = "arrow")
-#> Creating new version '20260818T170339Z-4eb11'
+#> Creating new version '20260823T164318Z-4eb11'
 #> Writing to pin 'lm_fit_metrics'
 
 ## to continue monitoring with new data, compute metrics and update pin:
@@ -89,8 +89,8 @@ new_metrics <-
     augment(lm_fit, new_data = monitoring) |>
     vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
 vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
-#> Replacing version '20260818T170339Z-4eb11' with
-#> '20260818T170339Z-bd441'
+#> Replacing version '20260823T164318Z-4eb11' with
+#> '20260823T164318Z-bd441'
 #> Writing to pin 'lm_fit_metrics'
 #> # A tibble: 162 × 5
 #>    .index        .n .metric .estimator .estimate

@@ -55,7 +55,7 @@ vetiver_write_plumber(
 - rsconnect:
 
   Create a Plumber file with features needed for [Posit
-  Connect](https://posit.co/products/enterprise/connect/)? Defaults to
+  Connect](https://posit.co/products/enterprise/connect)? Defaults to
   `TRUE`.
 
 - additional_pkgs:
@@ -84,7 +84,7 @@ b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
-#> Creating new version '20260818T170345Z-eeb97'
+#> Creating new version '20260823T164324Z-eeb97'
 #> Writing to pin 'cars_linear'
 
 vetiver_write_plumber(b, "cars_linear", file = tmp)

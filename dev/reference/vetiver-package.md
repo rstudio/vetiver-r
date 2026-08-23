@@ -23,6 +23,11 @@ Useful links:
 **Maintainer**: Julia Silge <julia.silge@posit.co>
 ([ORCID](https://orcid.org/0000-0002-3671-836X))
 
+Authors:
+
+- Julia Silge <julia.silge@posit.co>
+  ([ORCID](https://orcid.org/0000-0002-3671-836X))
+
 Other contributors:
 
 - Posit Software, PBC ([ROR](https://ror.org/03wc8by49)) \[copyright
