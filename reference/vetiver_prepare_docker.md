@@ -83,7 +83,7 @@ b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
-#> Creating new version '20260823T163052Z-eeb97'
+#> Creating new version '20260823T164107Z-eeb97'
 #> Writing to pin 'cars_linear'
 
 vetiver_prepare_docker(b, "cars_linear", path = tempdir())

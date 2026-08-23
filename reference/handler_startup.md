@@ -168,6 +168,6 @@ handler_predict(v)
 #>     ret <- predict(vetiver_model$model, newdata = newdata, ...)
 #>     list(.pred = ret)
 #> }
-#> <bytecode: 0x55f2d5224b30>
-#> <environment: 0x55f2d52278c0>
+#> <bytecode: 0x56079ce15e58>
+#> <environment: 0x56079ce18be8>
 ```

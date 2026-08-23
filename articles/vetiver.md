@@ -135,8 +135,8 @@ model_board |> pin_versions("biv_svm")
 #> # A tibble: 2 × 3
 #>   version                created             hash 
 #>   <chr>                  <dttm>              <chr>
-#> 1 20260823T163101Z-7c6d7 2026-08-23 16:31:01 7c6d7
-#> 2 20260823T163101Z-ccdb2 2026-08-23 16:31:01 ccdb2
+#> 1 20260823T164115Z-ab1e4 2026-08-23 16:41:15 ab1e4
+#> 2 20260823T164115Z-db708 2026-08-23 16:41:15 db708
 ```
 
 The primary purpose of pins is to make it easy to share data artifacts,
@@ -199,8 +199,8 @@ vetiver_write_plumber(model_board, "biv_svm")
         library(recipes)
         library(workflows)
     }
-    b <- board_folder(path = "/tmp/RtmpjUWD80/pins-1fa516c24b2c")
-    v <- vetiver_pin_read(b, "biv_svm", version = "20260823T163101Z-7c6d7")
+    b <- board_folder(path = "/tmp/RtmpKRB3kb/pins-1fc01fd13839")
+    v <- vetiver_pin_read(b, "biv_svm", version = "20260823T164115Z-ab1e4")
 
     #* @plumber
     function(pr) {

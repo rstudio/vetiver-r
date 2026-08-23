@@ -95,7 +95,7 @@ b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
-#> Creating new version '20260823T163054Z-eeb97'
+#> Creating new version '20260823T164109Z-eeb97'
 #> Writing to pin 'cars_linear'
 vetiver_write_plumber(b, "cars_linear", file = tmp_plumber)
 

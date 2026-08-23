@@ -12,7 +12,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/rstudio/vetiver-r/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/rstudio/vetiver-r/blob/v0.2.8/DESCRIPTION)
 
 Silge J (2026). *vetiver: Version, Share, Deploy, and Monitor Models*. R
 package version 0.2.8, <https://vetiver.posit.co>.
