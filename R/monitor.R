@@ -21,7 +21,7 @@
 #' @details
 #' For arguments used more than once in your monitoring dashboard,
 #' such as `date_var`, consider using
-#' [R Markdown parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)
+#' [R Markdown parameters](https://pkg.yihui.org/rmarkdown-book/parameterized-reports)
 #' to reduce repetition and/or errors.
 #'
 #' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata"))
@@ -282,7 +282,7 @@ eval_select_one <- function(col, data, arg, ..., call = caller_env()) {
 #'
 #' @return A `ggplot2` object.
 #'
-#' @examplesIf rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' library(dplyr)
 #' library(parsnip)
 #' data(Chicago, package = "modeldata")

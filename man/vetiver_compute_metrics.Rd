@@ -104,7 +104,7 @@ over time
 \details{
 For arguments used more than once in your monitoring dashboard,
 such as \code{date_var}, consider using
-\href{https://bookdown.org/yihui/rmarkdown/parameterized-reports.html}{R Markdown parameters}
+\href{https://pkg.yihui.org/rmarkdown-book/parameterized-reports}{R Markdown parameters}
 to reduce repetition and/or errors.
 }
 \examples{

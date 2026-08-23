@@ -11,7 +11,7 @@
 #' @param file A path to write the Plumber file. Defaults to `plumber.R` in the
 #' working directory. See [plumber::plumb()] for naming precedence rules.
 #' @param rsconnect Create a Plumber file with features needed for [Posit
-#' Connect](https://posit.co/products/enterprise/connect/)? Defaults to `TRUE`.
+#' Connect](https://posit.co/products/enterprise/connect)? Defaults to `TRUE`.
 #' @param additional_pkgs Any additional R packages that need to be **attached**
 #' via [library()] to run your API, as a character vector.
 #'

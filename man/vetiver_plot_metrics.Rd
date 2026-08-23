@@ -44,7 +44,7 @@ over time
 }
 }
 \examples{
-\dontshow{if (rlang::is_installed(c("dplyr", "parsnip", "modeldata", "arrow", "ggplot2"))) withAutoprint(\{ # examplesIf}
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 library(dplyr)
 library(parsnip)
 data(Chicago, package = "modeldata")
