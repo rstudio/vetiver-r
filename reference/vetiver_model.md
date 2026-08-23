@@ -114,6 +114,7 @@ you turn off prototype checking via `save_prototype = FALSE`.
 ## Examples
 
 ``` r
+
 cars_lm <- lm(mpg ~ ., data = mtcars)
 vetiver_model(cars_lm, "cars-linear")
 #> 

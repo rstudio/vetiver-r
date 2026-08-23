@@ -114,6 +114,7 @@ These modular functions are available for more advanced use cases.
 ## Examples
 
 ``` r
+
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 

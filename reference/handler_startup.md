@@ -153,6 +153,7 @@ dispatch.
 ## Examples
 
 ``` r
+
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 handler_startup(v)
@@ -167,6 +168,6 @@ handler_predict(v)
 #>     ret <- predict(vetiver_model$model, newdata = newdata, ...)
 #>     list(.pred = ret)
 #> }
-#> <bytecode: 0x555cdc74f068>
-#> <environment: 0x555cdc74dee8>
+#> <bytecode: 0x55f2d5224b30>
+#> <environment: 0x55f2d52278c0>
 ```

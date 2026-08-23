@@ -96,7 +96,7 @@ b <- board_temp(versioned = TRUE)
 cars_lm <- lm(mpg ~ ., data = mtcars)
 v <- vetiver_model(cars_lm, "cars_linear")
 vetiver_pin_write(b, v)
-#> Creating new version '20251213T203859Z-53cb5'
+#> Creating new version '20260823T163048Z-eeb97'
 #> Writing to pin 'cars_linear'
 #> 
 #> Create a Model Card for your published model

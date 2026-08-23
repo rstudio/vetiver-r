@@ -27,6 +27,7 @@ A converted dataframe
 ## Examples
 
 ``` r
+
 library(tibble)
 training_df <- tibble(x = as.Date("2021-01-01") + 0:9,
                       y = LETTERS[1:10], z = letters[11:20])

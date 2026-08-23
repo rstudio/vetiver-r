@@ -14,13 +14,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/rstudio/vetiver-r/blob/main/DESCRIPTION)
 
-Silge J (2025). *vetiver: Version, Share, Deploy, and Monitor Models*. R
-package version 0.2.7, <https://vetiver.posit.co>.
+Silge J (2026). *vetiver: Version, Share, Deploy, and Monitor Models*. R
+package version 0.2.8, <https://vetiver.posit.co>.
 
     @Manual{,
       title = {vetiver: Version, Share, Deploy, and Monitor Models},
       author = {Julia Silge},
-      year = {2025},
-      note = {R package version 0.2.7},
+      year = {2026},
+      note = {R package version 0.2.8},
       url = {https://vetiver.posit.co},
     }

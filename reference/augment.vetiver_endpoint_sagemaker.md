@@ -37,6 +37,7 @@ The `new_data` with added prediction column(s).
 ## Examples
 
 ``` r
+
 if (FALSE) {
   endpoint <- vetiver_endpoint_sagemaker("sagemaker-demo-model")
   augment(endpoint, mtcars[4:7, -1])

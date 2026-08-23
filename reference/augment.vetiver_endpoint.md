@@ -37,6 +37,7 @@ The `new_data` with added prediction column(s).
 ## Examples
 
 ``` r
+
 if (FALSE) {
 endpoint <- vetiver_endpoint("http://127.0.0.1:8088/predict")
 augment(endpoint, mtcars[4:7, -1])
